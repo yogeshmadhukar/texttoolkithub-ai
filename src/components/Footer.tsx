@@ -31,7 +31,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               </span>
             </div>
             <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-              Your comprehensive desktop workstation built for speed and strict offline privacy. Formatted and processed in real-time entirely locally on your browser.
+              Free online text tools for writers, developers, students, and professionals. Fast, accurate, and privacy-focused.
             </p>
           </div>
 
