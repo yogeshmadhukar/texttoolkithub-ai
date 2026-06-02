@@ -1,0 +1,56 @@
+# -----------------------------------------------------------------------------
+# Robots.txt for TextToolkitHub - Production Edition
+# Optimized for Googlebot, Bingbot, and modern Search Engine Crawlers
+# Last Updated: 2026-06-02
+# -----------------------------------------------------------------------------
+
+User-agent: *
+# Allow comprehensive client-side indexing of public routes and assets
+Allow: /
+Allow: /index.html
+Allow: /assets/
+Allow: /favicon.ico
+Allow: /favicon-*.png
+Allow: /apple-touch-icon.png
+Allow: /site.webmanifest
+
+# Disallow crawling of code dependencies, scripts, build-folders, and raw settings
+Disallow: /dist/
+Disallow: /scripts/
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /metadata.json
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /tsconfig.json
+Disallow: /vite.config.ts
+
+# Disallow internal search query loops, diagnostic parameters, or state variations
+Disallow: /*?*
+Disallow: /*_fragment
+Disallow: /*_error
+
+# Block aggressive AI scrapers & bulk commercial scrapers to preserve system resources
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Anthropic-AI
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# Reference absolute dynamically generated sitemap layout
+Sitemap: https://texttoolkithub.com/sitemap.xml

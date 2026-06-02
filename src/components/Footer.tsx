@@ -1,0 +1,118 @@
+import React from 'react';
+import { TOOLS } from '../data.ts';
+import { Wrench, Github, Scale, HelpCircle, Shield, FileText } from 'lucide-react';
+
+interface FooterProps {
+  onNavigate: (page: string) => void;
+}
+
+export default function Footer({ onNavigate }: FooterProps) {
+  const currentYear = 2026; // Set exactly based on agent metadata context
+
+  return (
+    <footer className="w-full bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        
+        {/* Top Segment: 4 Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
+          
+          {/* Column 1: Brand Pitch */}
+          <div className="flex flex-col gap-4">
+            <div 
+              onClick={() => onNavigate('home')} 
+              className="flex items-center gap-2 cursor-pointer group"
+              id="footer-logo-link"
+            >
+              <div className="p-1.5 rounded-lg bg-indigo-500 text-white shadow-sm shadow-indigo-500/10">
+                <Wrench className="w-4 h-4" />
+              </div>
+              <span className="font-sans font-extrabold text-lg tracking-tight text-slate-950 dark:text-white">
+                Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+              Your comprehensive desktop workstation built for speed and strict offline privacy. Formatted and processed in real-time entirely locally on your browser.
+            </p>
+          </div>
+
+          {/* Column 2: Core Tools */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5" /> Popular Utilities
+            </h3>
+            <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
+              {TOOLS.slice(0, 6).map((tool) => (
+                <li key={tool.id}>
+                  <button 
+                    onClick={() => onNavigate(tool.id)}
+                    className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors"
+                    id={`footer-tool-${tool.id}`}
+                  >
+                    {tool.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Corporate Info */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+              <HelpCircle className="w-3.5 h-3.5" /> Corporate Info
+            </h3>
+            <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
+              <li>
+                <button onClick={() => onNavigate('about')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-about">
+                  About Our Platform
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('contact')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-contact">
+                  Talk to Support
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('home')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-faqs">
+                  Frequently Asked Questions
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Legal Framework */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+              <Shield className="w-3.5 h-3.5" /> Legal Framework
+            </h3>
+            <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
+              <li>
+                <button onClick={() => onNavigate('privacy')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-privacy">
+                  Privacy Policy
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('terms')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-terms">
+                  Terms & Conditions
+                </button>
+              </li>
+              <li className="text-xs mt-1 text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20 px-2 py-1 rounded inline-block w-fit">
+                ✓ Local Client Mode Active
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Bottom Bar: Copyright & Attribution */}
+        <div className="border-t border-slate-200 dark:border-slate-900 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 dark:text-slate-500">
+          <p>© {currentYear} TextToolkitHub. Authorized client software. No data packets are transferred to external cloud storages.</p>
+          <div className="flex items-center gap-4">
+            <span className="text-slate-300 dark:text-slate-800">|</span>
+            <span className="font-mono bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded text-[10px]">v1.0.0 Stable</span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  );
+}

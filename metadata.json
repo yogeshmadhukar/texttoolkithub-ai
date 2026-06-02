@@ -1,0 +1,6 @@
+{
+  "name": "TextToolkitHub",
+  "description": "Professional text manipulation and analysis tools portal. Clean, fast, and feature-rich word count, character counter, case converter, line break removal, and spacing remedies.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
