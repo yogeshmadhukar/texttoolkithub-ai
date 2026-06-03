@@ -25,7 +25,8 @@ import {
   Layers,
   TrendingUp,
   Bell,
-  Info
+  Info,
+  Linkedin
 } from 'lucide-react';
 import updatesData from '../updates.json';
 
@@ -224,109 +225,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             </span>
           </div>
 
-          {/* Search bar - Middle area */}
-          <div className="hidden md:flex flex-1 max-w-md relative" ref={searchDropdownRef}>
-            <div className="relative w-full">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 dark:text-slate-500" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onKeyDown={handleSearchKeyDown}
-                placeholder="Search word count, convert case, space remover..."
-                className="w-full pl-10 pr-4 py-2 border rounded-full text-sm outline-none bg-slate-50 border-slate-200 text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:focus:bg-slate-950 dark:focus:border-indigo-400 transition-all duration-200"
-                id="search-input-desktop"
-              />
-              {searchQuery && (
-                <button 
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              )}
-            </div>
 
-            {/* Dropdown with search results */}
-            {isSearchFocused && searchQuery.trim() !== '' && (
-              <div 
-                className="absolute top-full left-0 right-0 mt-3 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden max-h-[300px] flex flex-col z-50 animate-in fade-in slide-in-from-top-2 duration-150"
-                id="navbar-search-dropdown"
-              >
-                {/* Header */}
-                <div className="px-5 py-2.5 text-xs font-semibold text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/20 shrink-0 select-none">
-                  <div className="flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
-                    <span>Suggestions for "{searchQuery}"</span>
-                  </div>
-                  <span className="text-[10px] font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md text-slate-500 dark:text-slate-400">
-                    {filteredTools.length} found
-                  </span>
-                </div>
-
-                {/* Scrollable list of matches */}
-                <div className="flex-1 overflow-y-auto p-1.5 flex flex-col gap-1 min-h-0 [scrollbar-width:thin]">
-                  {filteredTools.length > 0 ? (
-                    filteredTools.slice(0, 5).map((tool, idx) => {
-                      const isActive = idx === activeSearchIndex;
-                      return (
-                        <div
-                          key={tool.id}
-                          onClick={() => handleToolSelect(tool.id)}
-                          className={`flex items-start gap-3.5 p-2.5 rounded-xl cursor-pointer group transition-all duration-150 text-left border ${
-                            isActive
-                              ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-950 dark:text-white dark:bg-indigo-500/15'
-                              : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-900/60'
-                          }`}
-                          id={`search-result-${tool.id}`}
-                        >
-                          <div className={`p-2 rounded-lg bg-slate-100 dark:bg-slate-800 transition-colors shrink-0 ${
-                            isActive ? 'bg-white/80 dark:bg-slate-950/80 text-indigo-600 dark:text-indigo-400' : ''
-                          }`}>
-                            {getToolIcon(tool.iconName)}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className={`text-xs font-bold font-sans transition-colors ${
-                              isActive 
-                                ? 'text-indigo-600 dark:text-indigo-400' 
-                                : 'text-slate-855 dark:text-slate-150 group-hover:text-indigo-600 dark:group-hover:text-indigo-400'
-                            }`}>
-                              <HighlightText text={tool.title} highlight={searchQuery} />
-                            </div>
-                            <div className="text-[11px] text-slate-500 dark:text-slate-450 mt-0.5 line-clamp-1 leading-normal font-sans">
-                              <HighlightText text={tool.description} highlight={searchQuery} />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div className="p-8 text-center text-xs text-slate-400 dark:text-slate-500">
-                      No tools match your query
-                    </div>
-                  )}
-                </div>
-
-                {/* Footer "View All Results" if more than 5 exist */}
-                {filteredTools.length > 5 && (
-                  <div 
-                    onClick={() => {
-                      handleLinkSelect('home');
-                      setIsSearchFocused(false);
-                    }}
-                    className={`px-4 py-2 text-xs font-semibold text-center border-t border-slate-100 dark:border-slate-800/60 cursor-pointer transition-all shrink-0 hover:bg-slate-50/80 dark:hover:bg-slate-900/50 ${
-                      activeSearchIndex === 5
-                        ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-450 font-bold'
-                        : 'text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300'
-                    }`}
-                  >
-                    View All {filteredTools.length} Results &rarr;
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
 
           {/* Desktop Navigation links */}
           <nav className="hidden md:flex items-center gap-1.5 relative">
@@ -453,8 +352,36 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               aria-label="Toggle layout theme"
               id="theme-toggle"
             >
-              {darkMode ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5 text-indigo-600" />}
+              {darkMode ? <Sun className="w-4.5 h-4.5 text-amber-405" /> : <Moon className="w-4.5 h-4.5 text-indigo-600" />}
             </button>
+
+            {/* X (Twitter) Social Icon Link for Desktop */}
+            <a
+              href="https://x.com/TextToolkitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition cursor-pointer items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+              title="Follow TextToolkitHub on X (Twitter)"
+              aria-label="Follow TextToolkitHub on X (Twitter)"
+              id="desktop-x-link"
+            >
+              <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+
+            {/* LinkedIn Social Icon Link for Desktop */}
+            <a
+              href="https://www.linkedin.com/in/texttoolkithub"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:flex p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-[#0077b5] dark:hover:text-[#0a66c2] hover:border-slate-300 dark:hover:border-slate-700 transition cursor-pointer items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+              title="Connect with TextToolkitHub on LinkedIn"
+              aria-label="Connect with TextToolkitHub on LinkedIn"
+              id="desktop-linkedin-link"
+            >
+              <Linkedin className="w-4.5 h-4.5" />
+            </a>
 
             {/* Mobile menu toggle */}
             <button
@@ -571,10 +498,44 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             </button>
           </div>
 
-          <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex flex-wrap gap-2 text-xs text-slate-400">
-            <button onClick={() => handleLinkSelect('privacy')} className="hover:underline">Privacy Policy</button>
-            <span>•</span>
-            <button onClick={() => handleLinkSelect('terms')} className="hover:underline">Terms of Service</button>
+          <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+            <div className="flex flex-wrap gap-2 text-xs text-slate-400">
+              <button onClick={() => handleLinkSelect('privacy')} className="hover:underline">Privacy Policy</button>
+              <span>•</span>
+              <button onClick={() => handleLinkSelect('terms')} className="hover:underline">Terms of Service</button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Mobile X (Twitter) Link */}
+              <a
+                href="https://x.com/TextToolkitHub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                title="Follow TextToolkitHub on X"
+                aria-label="Follow TextToolkitHub on X"
+                id="mobile-x-link"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                <span className="text-xs font-semibold">X</span>
+              </a>
+
+              {/* Mobile LinkedIn Link */}
+              <a
+                href="https://www.linkedin.com/in/texttoolkithub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-[#0077b5] dark:hover:text-[#0a66c2] hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                title="Connect with TextToolkitHub on LinkedIn"
+                aria-label="Connect with TextToolkitHub on LinkedIn"
+                id="mobile-linkedin-link"
+              >
+                <Linkedin className="w-3.5 h-3.5" />
+                <span className="text-xs font-semibold">LinkedIn</span>
+              </a>
+            </div>
           </div>
         </div>
       )}

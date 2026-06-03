@@ -1,6 +1,6 @@
 import React from 'react';
 import { TOOLS } from '../data.ts';
-import { Wrench, Github, Scale, HelpCircle, Shield, FileText } from 'lucide-react';
+import { Wrench, Github, Scale, HelpCircle, Shield, FileText, Linkedin } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -33,6 +33,34 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
               Free online text tools for writers, developers, students, and professionals. Fast, accurate, and privacy-focused.
             </p>
+            {/* Social Links Row */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://x.com/TextToolkitHub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-650 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-550/20 dark:hover:border-indigo-500/20 hover:shadow-sm transition-all duration-200 cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                title="Follow TextToolkitHub on X (Twitter)"
+                aria-label="Follow TextToolkitHub on X (Twitter)"
+                id="footer-x-link"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/texttoolkithub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-650 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 hover:text-[#0077b5] dark:hover:text-[#0a66c2] hover:border-indigo-550/20 dark:hover:border-indigo-500/20 hover:shadow-sm transition-all duration-200 cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                title="Connect with TextToolkitHub on LinkedIn"
+                aria-label="Connect with TextToolkitHub on LinkedIn"
+                id="footer-linkedin-link"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+            </div>
           </div>
 
           {/* Column 2: Core Tools */}
