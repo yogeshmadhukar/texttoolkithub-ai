@@ -73,7 +73,7 @@ export default function LegalView({ mode }: LegalViewProps) {
                   </div>
                 </div>
                 <p className="mt-2">
-                  To exercise any of these rights, or raise specific regulatory questions, contact us directly at <strong className="text-slate-800 dark:text-slate-200">privacy@texttoolkithub.com</strong>.
+                  To exercise any of these rights, or raise specific regulatory questions, contact us directly at <strong className="text-slate-800 dark:text-slate-200"><a href="mailto:texttoolkithub@gmail.com" className="hover:underline text-indigo-600 dark:text-indigo-400">texttoolkithub@gmail.com</a></strong>.
                 </p>
 
                 <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
@@ -238,7 +238,7 @@ export default function LegalView({ mode }: LegalViewProps) {
                   We reserve the right, at our sole discretion, to modify or replace these Terms at any time by updating this online address. Your continued interaction with the utility systems following such modifications constitutes binding agreement to the revised terms.
                 </p>
                 <p>
-                  If you have any questions or require legal clearance for academic or professional applications, please contact our legal desk at <strong className="text-slate-800 dark:text-slate-200">legal@texttoolkithub.com</strong>.
+                  If you have any questions or require legal clearance for academic or professional applications, please contact our support desk at <strong className="text-slate-800 dark:text-slate-200"><a href="mailto:texttoolkithub@gmail.com" className="hover:underline text-indigo-600 dark:text-indigo-400">texttoolkithub@gmail.com</a></strong>.
                 </p>
 
               </div>

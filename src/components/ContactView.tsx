@@ -220,11 +220,14 @@ export default function ContactView() {
             {/* Direct Channel block */}
             <div className="border border-slate-200/60 dark:border-slate-850 p-5 bg-white dark:bg-[#0c111d] rounded-2xl shadow-sm">
               <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">Direct Contact Handle</span>
-              <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-2.5 flex items-center gap-2">
-                <Mail className="w-4 h-4 text-indigo-500" /> Support email coming soon.
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mt-2.5 flex items-center gap-2">
+                <Mail className="w-4.5 h-4.5 text-indigo-500 shrink-0" />
+                <a href="mailto:texttoolkithub@gmail.com" className="hover:text-indigo-600 dark:hover:text-indigo-400 hover:underline">
+                  texttoolkithub@gmail.com
+                </a>
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-                Official support contact details will be available after launch.
+                Send us an email or submit a message using our secure service contact form.
               </p>
             </div>
 
