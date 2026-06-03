@@ -55,6 +55,7 @@ async function generateFavicons() {
   const sizes = {
     'favicon-16x16.png': 16,
     'favicon-32x32.png': 32,
+    'favicon-96x96.png': 96,
     'apple-touch-icon.png': 180,
     'android-chrome-192x192.png': 192,
     'android-chrome-512x512.png': 512,

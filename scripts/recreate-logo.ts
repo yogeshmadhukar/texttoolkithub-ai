@@ -1,4 +1,11 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const SVG_LOGO = `<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Rounded Squircle Background in Royal Blue #1066e2 -->
   <rect width="512" height="512" rx="116" fill="#1066e2" />
   
@@ -26,3 +33,12 @@
   <rect x="230" y="276" width="16" height="84" rx="8" fill="#1066e2" />
   <rect x="266" y="276" width="16" height="84" rx="8" fill="#1066e2" />
 </svg>
+`;
+
+function generateLogo() {
+  const outputPath = path.resolve(__dirname, '../public/logo.svg');
+  fs.writeFileSync(outputPath, SVG_LOGO, 'utf8');
+  console.log('✔ Successfully generated high-precision branding logo.svg in /public!');
+}
+
+generateLogo();
