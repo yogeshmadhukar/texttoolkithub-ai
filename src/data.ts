@@ -23,6 +23,28 @@ export const CATEGORIES: CategoryInfo[] = [
 
 export const TOOLS: Tool[] = [
   {
+    id: 'tools/readability-checker',
+    title: 'Readability Checker',
+    description: 'Analyze reading difficulty, readability score, and text clarity with our free Readability Checker.',
+    longDescription: 'Measure your writing readability instantly. Compute standard reading ease metrics, average word/sentence lengths, estimated reading times, and receive actionable text clarity suggestions 100% locally.',
+    iconName: 'BookOpen',
+    category: 'analyzer',
+    seoTitle: 'Readability Checker Online | TextToolkitHub',
+    seoDescription: 'Analyze reading difficulty, readability score, and text clarity with our free Readability Checker.',
+    keywords: ['readability checker', 'flesch reading ease', 'readability score', 'reading level tool', 'check text clarity', 'reading grade level'],
+  },
+  {
+    id: 'tools/grammar-checker',
+    title: 'Grammar Checker',
+    description: 'Check grammar, punctuation, spelling, and writing mistakes instantly with our free Grammar Checker tool.',
+    longDescription: 'Detect punctuation issues, capitalization errors, common spelling mistakes, and core grammatical anomalies. Get immediately highlighted suggestions and copy corrected drafts locally.',
+    iconName: 'SpellCheck',
+    category: 'analyzer',
+    seoTitle: 'Free Grammar Checker Online | TextToolkitHub',
+    seoDescription: 'Check grammar, punctuation, spelling, and writing mistakes instantly with our free Grammar Checker tool.',
+    keywords: ['grammar checker', 'free online grammar checker', 'punctuation checker', 'spelling checker', 'writing mistakes', 'grammar tool'],
+  },
+  {
     id: 'tools/word-counter',
     title: 'Word Counter',
     description: 'Count words, sentences, paragraphs, and estimate read time.',
@@ -32,6 +54,17 @@ export const TOOLS: Tool[] = [
     seoTitle: 'Free Online Word Counter - Live Character & Reading Time Metrics',
     seoDescription: 'Count words, sentences, and paragraphs in real-time. Calculate estimated reading time, keyword density, and overall text statistics with our fully client-side analyzer.',
     keywords: ['word counter', 'counting words', 'reading time', 'text density', 'sentence count', 'seo toolkit'],
+  },
+  {
+    id: 'tools/keyword-density-checker',
+    title: 'Keyword Density Checker',
+    description: 'Check keyword frequency and keyword density percentage for SEO optimization.',
+    longDescription: 'Analyze keyword distributions, term frequencies, and relative weight percentages of single words and multi-word phrases instantly. Perfect for copywriters, bloggers, and SEO researchers optimizing keyword density.',
+    iconName: 'TrendingUp',
+    category: 'analyzer',
+    seoTitle: 'Keyword Density Checker Online | TextToolkitHub',
+    seoDescription: 'Check keyword frequency and keyword density percentage for SEO optimization.',
+    keywords: ['keyword density checker', 'keyword frequency', 'SEO keyword helper', 'term frequency', 'optimal keyword density', 'text analysis tool'],
   },
   {
     id: 'tools/character-counter',
@@ -65,6 +98,17 @@ export const TOOLS: Tool[] = [
     seoTitle: 'Remove Extra Spaces & Tabs - Online Whitespace Sanitizer',
     seoDescription: 'Strip duplicate white spaces, remove trailing and leading tabs, and convert block spaces. Get clean text formatting for clean web layout drafts and coding scripts.',
     keywords: ['whitespace remover', 'strip duplicate spaces', 'trim whitespace', 'clean space spacing', 'tab remover'],
+  },
+  {
+    id: 'tools/remove-duplicate-lines',
+    title: 'Remove Duplicate Lines',
+    description: 'Remove duplicate lines instantly from text lists, emails, keywords, and datasets.',
+    longDescription: 'Purge duplicate entries, repeating text rows, and redundant listing lines dynamically. Preserve original content order, clean leading/trailing white space, strip empty lines, and copy or download pristine results fully locally.',
+    iconName: 'Layers',
+    category: 'cleaner',
+    seoTitle: 'Remove Duplicate Lines Online | TextToolkitHub',
+    seoDescription: 'Remove duplicate lines instantly from text lists, emails, keywords, and datasets.',
+    keywords: ['remove duplicate lines', 'dedup lines', 'remove duplicates text', 'delete duplicate lines', 'deduplicate list online', 'unique line finder'],
   },
   {
     id: 'tools/case-converter',
@@ -222,3 +266,102 @@ export const FAQS: FaqItem[] = [
     answer: 'The tools process text instantly in real-time. While we do not impose artificial limits, very large documents (e.g., millions of characters) will be constrained only by your device memory and browser capability.',
   },
 ];
+
+export function searchTools(query: string): Tool[] {
+  const normQuery = query.trim().toLowerCase();
+  if (!normQuery) return [];
+
+  // Split query into lowercased tokens (words) to support multi-word search regardless of order
+  const tokens = normQuery.split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return [];
+
+  const scored = TOOLS.map(t => {
+    let score = 0;
+    const titleLower = t.title.toLowerCase();
+    const descLower = t.description.toLowerCase();
+    const longDescLower = t.longDescription ? t.longDescription.toLowerCase() : '';
+    const idLower = t.id.toLowerCase();
+    const seoTitleLower = (t.seoTitle || '').toLowerCase();
+    const seoDescLower = (t.seoDescription || '').toLowerCase();
+    const keywordArray = t.keywords.map(kw => kw.toLowerCase());
+
+    // Exact full name match (Huge boost)
+    if (titleLower === normQuery) {
+      score += 1000;
+    }
+    // Starts with full text match
+    else if (titleLower.startsWith(normQuery)) {
+      score += 500;
+    }
+    // Title includes full text
+    else if (titleLower.includes(normQuery)) {
+      score += 300;
+    }
+
+    // Slug / ID match: e.g., "id" is "tools/character-counter" or "character-counter"
+    const slugOnly = t.id.replace('tools/', '');
+    if (slugOnly === normQuery) {
+      score += 800;
+    } else if (slugOnly.includes(normQuery)) {
+      score += 250;
+    } else if (idLower.includes(normQuery)) {
+      score += 200;
+    }
+
+    // Keyword matching
+    if (keywordArray.includes(normQuery)) {
+      score += 400;
+    } else {
+      const matchedKeyword = keywordArray.some(kw => kw.includes(normQuery));
+      if (matchedKeyword) {
+        score += 150;
+      }
+    }
+
+    // SEO title match
+    if (seoTitleLower.includes(normQuery)) {
+      score += 100;
+    }
+
+    // Token-based matching (handles partial queries and words in any order)
+    let tokensMatched = 0;
+    tokens.forEach(token => {
+      let matchedInTool = false;
+      if (titleLower.includes(token)) {
+        score += 50;
+        matchedInTool = true;
+      }
+      if (slugOnly.includes(token)) {
+        score += 40;
+        matchedInTool = true;
+      }
+      if (keywordArray.some(kw => kw.includes(token))) {
+        score += 30;
+        matchedInTool = true;
+      }
+      if (descLower.includes(token) || longDescLower.includes(token)) {
+        score += 20;
+        matchedInTool = true;
+      }
+      if (seoTitleLower.includes(token) || seoDescLower.includes(token)) {
+        score += 10;
+        matchedInTool = true;
+      }
+
+      if (matchedInTool) {
+        tokensMatched++;
+      }
+    });
+
+    if (tokens.length > 1 && tokensMatched === tokens.length) {
+      score += 200;
+    }
+
+    return { tool: t, score, tokensMatched };
+  });
+
+  return scored
+    .filter(item => item.score > 0 && item.tokensMatched > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(item => item.tool);
+}

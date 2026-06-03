@@ -24,6 +24,10 @@ const Base64EncoderView = React.lazy(() => import('./components/Base64EncoderVie
 const Base64DecoderView = React.lazy(() => import('./components/Base64DecoderView.tsx'));
 const TextSorterView = React.lazy(() => import('./components/TextSorterView.tsx'));
 const TextReverserView = React.lazy(() => import('./components/TextReverserView.tsx'));
+const GrammarCheckerView = React.lazy(() => import('./components/GrammarCheckerView.tsx'));
+const ReadabilityCheckerView = React.lazy(() => import('./components/ReadabilityCheckerView.tsx'));
+const RemoveDuplicateLinesView = React.lazy(() => import('./components/RemoveDuplicateLinesView.tsx'));
+const KeywordDensityCheckerView = React.lazy(() => import('./components/KeywordDensityCheckerView.tsx'));
 const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
 
 import { ActivePage } from './types.ts';
@@ -60,6 +64,29 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'base64-decoder': 'tools/base64-decoder',
     'text-sorter': 'tools/text-sorter',
     'text-reverser': 'tools/text-reverser',
+    'grammar-checker': 'tools/grammar-checker',
+    'grammar': 'tools/grammar-checker',
+    'tools/grammar': 'tools/grammar-checker',
+    'tools/grammarchecker': 'tools/grammar-checker',
+    'grammarchecker': 'tools/grammar-checker',
+
+    'readability-checker': 'tools/readability-checker',
+    'readability': 'tools/readability-checker',
+    'tools/readability': 'tools/readability-checker',
+    'tools/readability-checker': 'tools/readability-checker',
+
+    'remove-duplicate-lines': 'tools/remove-duplicate-lines',
+    'dedup-lines': 'tools/remove-duplicate-lines',
+    'remove-duplicates': 'tools/remove-duplicate-lines',
+    'tools/remove-duplicate-lines': 'tools/remove-duplicate-lines',
+    'tools/dedup': 'tools/remove-duplicate-lines',
+    'dedup': 'tools/remove-duplicate-lines',
+
+    'keyword-density-checker': 'tools/keyword-density-checker',
+    'keyword-density': 'tools/keyword-density-checker',
+    'tools/keyword-density': 'tools/keyword-density-checker',
+    'tools/keyword-density-checker': 'tools/keyword-density-checker',
+    'density-checker': 'tools/keyword-density-checker',
 
     // alternative/legacy spelling variants
     'tools/wordcounter': 'tools/word-counter',
@@ -462,6 +489,46 @@ export default function App() {
     if (activePage === 'tools/text-reverser' || activePage === 'text-reverser') {
       return (
         <TextReverserView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Grammar Checker page
+    if (activePage === 'tools/grammar-checker' || activePage === 'grammar-checker') {
+      return (
+        <GrammarCheckerView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Readability Checker page
+    if (activePage === 'tools/readability-checker' || activePage === 'readability-checker') {
+      return (
+        <ReadabilityCheckerView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Remove Duplicate Lines page
+    if (activePage === 'tools/remove-duplicate-lines' || activePage === 'remove-duplicate-lines') {
+      return (
+        <RemoveDuplicateLinesView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Keyword Density Checker page
+    if (activePage === 'tools/keyword-density-checker' || activePage === 'keyword-density-checker') {
+      return (
+        <KeywordDensityCheckerView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

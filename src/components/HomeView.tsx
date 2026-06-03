@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TOOLS, CATEGORIES, FAQS } from '../data.ts';
+import { TOOLS, CATEGORIES, FAQS, searchTools } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
 import { motion } from 'motion/react';
 import { 
@@ -30,18 +30,43 @@ import {
   ArrowUpRight,
   BookOpen,
   ArrowUpDown,
-  ArrowLeftRight
+  ArrowLeftRight,
+  SpellCheck
 } from 'lucide-react';
 
 interface HomeViewProps {
   onNavigateToTool: (toolId: string) => void;
 }
 
+function HighlightText({ text, highlight }: { text: string; highlight: string }) {
+  if (!highlight || !highlight.trim()) {
+    return <span>{text}</span>;
+  }
+  const regex = new RegExp(`(${highlight.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+  const parts = text.split(regex);
+  return (
+    <span>
+      {parts.map((part, i) => 
+        regex.test(part) ? (
+          <mark key={i} className="bg-amber-100 text-amber-950 dark:bg-amber-950/60 dark:text-amber-300 px-0.5 rounded-sm font-semibold">
+            {part}
+          </mark>
+        ) : (
+          part
+        )
+      )}
+    </span>
+  );
+}
+
 export default function HomeView({ onNavigateToTool }: HomeViewProps) {
   const [selectedCategory, setSelectedCategory] = useState<ToolCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [shouldAnimate, setShouldAnimate] = useState(true);
+  const homeSearchContainerRef = React.useRef<HTMLDivElement>(null);
 
   // Detect and respect accessibility reduced motion parameters
   React.useEffect(() => {
@@ -51,6 +76,60 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
     mediaQuery.addEventListener('change', listener);
     return () => mediaQuery.removeEventListener('change', listener);
   }, []);
+
+  // Reset active search index when query changes
+  React.useEffect(() => {
+    setActiveSearchIndex(-1);
+  }, [searchQuery]);
+
+  // Close autocomplete dropdown on click outside
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (homeSearchContainerRef.current && !homeSearchContainerRef.current.contains(event.target as Node)) {
+        setIsSearchFocused(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const autocompleteTools = useMemo(() => {
+    if (searchQuery.trim() === '') return [];
+    return searchTools(searchQuery);
+  }, [searchQuery]);
+
+  const handleHomeSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (searchQuery.trim() === '') return;
+
+    const visibleItemsCount = autocompleteTools.length > 5 ? 5 : autocompleteTools.length;
+    const totalSelectableCount = autocompleteTools.length > 5 ? visibleItemsCount + 1 : visibleItemsCount;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setIsSearchFocused(true);
+      setActiveSearchIndex((prev) => (prev < totalSelectableCount - 1 ? prev + 1 : 0));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setIsSearchFocused(true);
+      setActiveSearchIndex((prev) => (prev > 0 ? prev - 1 : totalSelectableCount - 1));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeSearchIndex >= 0 && activeSearchIndex < visibleItemsCount) {
+        onNavigateToTool(autocompleteTools[activeSearchIndex].id);
+        setIsSearchFocused(false);
+      } else if (activeSearchIndex === visibleItemsCount && autocompleteTools.length > 5) {
+        scrollToToolbox();
+        setIsSearchFocused(false);
+      } else if (autocompleteTools.length > 0) {
+        onNavigateToTool(autocompleteTools[0].id);
+        setIsSearchFocused(false);
+      }
+    } else if (e.key === 'Escape') {
+      setIsSearchFocused(false);
+      setActiveSearchIndex(-1);
+      (e.target as HTMLInputElement).blur();
+    }
+  };
 
   // Premium, ultra-smooth motion curves inspired by Vercel & Linear design systems
   const heroContainerVariants = {
@@ -124,9 +203,13 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
   const getToolIcon = (name: string, sizeClass = "w-5 h-5") => {
     switch (name) {
       case 'FileText': return <FileText className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
+      case 'SpellCheck': return <SpellCheck className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'BookOpen': return <BookOpen className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
+      case 'TrendingUp': return <TrendingUp className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'Hash': return <Hash className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'Unwrap': return <AlignLeft className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'Eraser': return <Eraser className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Layers': return <Layers className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'Type': return <Type className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'GitCompare': return <GitCompare className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'Link2': return <Link2 className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
@@ -185,15 +268,14 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
 
   // 3. Complete filter search algorithm
   const filteredTools = useMemo(() => {
-    return TOOLS.filter(t => {
-      const matchesCategory = selectedCategory === 'all' || t.category === selectedCategory;
-      const matchesSearch = searchQuery.trim() === '' || 
-        t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        t.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        t.keywords.some(keyword => keyword.toLowerCase().includes(searchQuery.toLowerCase()));
-      
-      return matchesCategory && matchesSearch;
-    });
+    if (searchQuery.trim() === '') {
+      return TOOLS.filter(t => selectedCategory === 'all' || t.category === selectedCategory);
+    }
+    const searched = searchTools(searchQuery);
+    if (selectedCategory === 'all') {
+      return searched;
+    }
+    return searched.filter(t => t.category === selectedCategory);
   }, [selectedCategory, searchQuery]);
 
   const toggleFaq = (id: number) => {
@@ -266,7 +348,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
       </div>
 
       {/* 1. HERO SECTION */}
-      <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 text-center overflow-hidden z-10">
+      <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 text-center z-20">
         <motion.div 
           variants={heroContainerVariants}
           initial="hidden"
@@ -309,6 +391,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
           <motion.div 
             variants={searchBoxVariants}
             className="w-full max-w-2xl px-2 relative"
+            ref={homeSearchContainerRef}
           >
             {/* Search Frame */}
             <div className="relative border border-slate-200 dark:border-slate-800 rounded-3xl bg-white dark:bg-slate-950 p-2 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] dark:shadow-[0_10px_45px_-15px_rgba(0,0,0,0.7)] focus-within:ring-4 focus-within:ring-indigo-500/10 focus-within:border-indigo-500 focus-within:shadow-[0_8px_30px_-5px_rgba(99,102,241,0.14)] transition-all duration-300">
@@ -316,17 +399,15 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
               <input
                 type="text"
                 value={searchQuery}
+                onFocus={() => setIsSearchFocused(true)}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
+                  setIsSearchFocused(true);
                   if (e.target.value.trim() !== '') {
                     setSelectedCategory('all');
                   }
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    scrollToToolbox();
-                  }
-                }}
+                onKeyDown={handleHomeSearchKeyDown}
                 placeholder="Search tools (e.g. word counter, text-sorter, case converter, reverser)..."
                 className="w-full pl-12 pr-20 py-3 text-sm sm:text-base border-0 outline-none bg-transparent text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-sans"
                 id="main-search-input"
@@ -343,6 +424,87 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
                 </button>
               )}
             </div>
+
+            {/* Real-time SaaS Autocomplete Dropdown below the input */}
+            {isSearchFocused && searchQuery.trim() !== '' && (
+              <div 
+                className="absolute top-full left-0 right-0 mt-3 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden max-h-[300px] flex flex-col z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                id="home-search-dropdown"
+              >
+                {/* Header */}
+                <div className="px-5 py-2.5 text-xs font-semibold text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/20 shrink-0 select-none">
+                  <div className="flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
+                    <span>Suggestions for "{searchQuery}"</span>
+                  </div>
+                  <span className="text-[10px] font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md text-slate-500 dark:text-slate-400">
+                    {autocompleteTools.length} found
+                  </span>
+                </div>
+
+                {/* Scrollable list of matches */}
+                <div className="flex-1 overflow-y-auto p-1.5 flex flex-col gap-1 min-h-0 [scrollbar-width:thin]">
+                  {autocompleteTools.length > 0 ? (
+                    autocompleteTools.slice(0, 5).map((tool, idx) => {
+                      const isActive = idx === activeSearchIndex;
+                      return (
+                        <div
+                          key={tool.id}
+                          onClick={() => {
+                            onNavigateToTool(tool.id);
+                            setIsSearchFocused(false);
+                          }}
+                          className={`flex items-start gap-3.5 p-2.5 rounded-xl cursor-pointer group transition-all duration-150 text-left border ${
+                            isActive
+                              ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-950 dark:text-white dark:bg-indigo-500/15'
+                              : 'bg-transparent border-transparent hover:bg-slate-50 dark:hover:bg-slate-900/60'
+                          }`}
+                        >
+                          <div className={`p-2 rounded-lg bg-slate-100 dark:bg-slate-800 transition-colors shrink-0 ${
+                            isActive ? 'bg-white/80 dark:bg-slate-950/80 text-indigo-600 dark:text-indigo-400' : ''
+                          }`}>
+                            {getToolIcon(tool.iconName, "w-4 h-4")}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className={`text-xs font-bold font-sans transition-colors ${
+                              isActive 
+                                ? 'text-indigo-600 dark:text-indigo-400' 
+                                : 'text-slate-855 dark:text-slate-150 group-hover:text-indigo-600 dark:group-hover:text-indigo-400'
+                            }`}>
+                              <HighlightText text={tool.title} highlight={searchQuery} />
+                            </div>
+                            <div className="text-[11px] text-slate-500 dark:text-slate-450 mt-0.5 line-clamp-1 leading-normal font-sans">
+                              <HighlightText text={tool.description} highlight={searchQuery} />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="p-8 text-center text-xs text-slate-400 dark:text-slate-500">
+                      No tools match your query
+                    </div>
+                  )}
+                </div>
+
+                {/* Footer "View All Results" if more than 5 exist */}
+                {autocompleteTools.length > 5 && (
+                  <div 
+                    onClick={() => {
+                      scrollToToolbox();
+                      setIsSearchFocused(false);
+                    }}
+                    className={`px-4 py-2 text-xs font-semibold text-center border-t border-slate-100 dark:border-slate-800/60 cursor-pointer transition-all shrink-0 hover:bg-slate-50/80 dark:hover:bg-slate-900/50 ${
+                      activeSearchIndex === 5
+                        ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-450 font-bold'
+                        : 'text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300'
+                    }`}
+                  >
+                    View All {autocompleteTools.length} Results &rarr;
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Quick Helper Autocomplete Search Chips */}
             <div className="flex flex-wrap items-center justify-center gap-2.5 mt-4 text-xs">

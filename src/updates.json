@@ -1,0 +1,30 @@
+[
+  {
+    "id": "update-grammar-checker",
+    "title": "Added Grammar Checker",
+    "description": "Audit punctuation, common spelling issues, and enhance general readability using a 100% secure offline parser.",
+    "category": "New Tool",
+    "date": "2026-05-15"
+  },
+  {
+    "id": "update-keyword-density",
+    "title": "Added Keyword Density Checker",
+    "description": "Measure keyword distribution and density percentages for SEO web copywriting in real-time.",
+    "category": "New Tool",
+    "date": "2026-05-28"
+  },
+  {
+    "id": "update-seo-improvements",
+    "title": "Optimized Core SEO Setup",
+    "description": "Deeply optimized metadata tag rendering, JSON-LD schemas, and index paths across all 20 text utility pages.",
+    "category": "Improvement",
+    "date": "2026-06-01"
+  },
+  {
+    "id": "update-mobile-optimization",
+    "title": "Enhanced Mobile Experience",
+    "description": "Rebuilt fluid grids, oversized touch selections, and typography hierarchies for a native feels on all handheld devices.",
+    "category": "Feature Update",
+    "date": "2026-06-03"
+  }
+]
