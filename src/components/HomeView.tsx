@@ -945,6 +945,57 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
         </div>
       </section>
 
+      {/* BRAND COMPARATIVE & SEO ENRICHMENT CONTENT BLOCK */}
+      <section className="py-16 md:py-24 bg-slate-50/50 dark:bg-slate-900/30 border-b border-slate-200 dark:border-slate-850 z-10 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <div className="lg:col-span-5 space-y-6">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-indigo-50 dark:bg-slate-800 text-indigo-700 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest rounded-full border border-indigo-100 dark:border-indigo-950">
+                Competitive Comparison
+              </span>
+              <h2 className="text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                The Premium Standard for Modern Text Utilities
+              </h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                Many online portals like <strong>TextToolHub</strong>, <strong>TextUtilsHub</strong>, or <strong>Pixocraft Tools</strong> parse your character inputs on external web servers. This raises massive security concerns for copywriters handling NDA-restricted drafts, managers editing meeting notes, and developers handling proprietary code formats.
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                At <strong>TextToolkitHub Text Tools</strong>, we have completely re-engineered online text utilities. By constructing full sandboxed, offline-capable, client-side scripts, every case change, slug generation, whitespace purge, and word count calculation happens in millisecond-intervals directly in your local browser sandbox.
+              </p>
+            </div>
+
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white dark:bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-850 shadow-sm">
+              <div className="space-y-2">
+                <h3 className="font-bold text-slate-900 dark:text-white text-base font-sans">TextToolkitHub Word Counter</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Analyze syllable structures, reading times, speaking tempos, and dynamic keyword density metrics. Our word count algorithms are optimized for search relevance and professional content writers.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-bold text-slate-900 dark:text-white text-base font-sans">TextToolkitHub Case Converter</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Convert complex text blocks to UPPERCASE, lowercase, Title Case, camelCase, snake_case, PascalCase, or kebab-case URL slugs with simple one-click copy integrations.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-bold text-slate-900 dark:text-white text-base font-sans">100% Privacy & Zero Ads</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  No tracking cookies, no server-side records, and absolutely no intrusive commercial pop-ups to interrupt your daily creative writing or software development flow.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-bold text-slate-900 dark:text-white text-base font-sans">Modern SaaS Design</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Equipped with professional visual indicators, a highly precise dark-theme interface, quick copy buffers, and responsive export triggers for maximum ergonomic comfort.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 8. FAQ ACCORDION */}
       <section className="py-16 md:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 bg-transparent">
         <div className="text-center mb-12">

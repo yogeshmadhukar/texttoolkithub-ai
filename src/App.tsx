@@ -329,12 +329,12 @@ export default function App() {
       .join(' - ');
 
     // Determine SEO Title and Description
-    let pageTitle = "TextToolkitHub - Free Privacy-First Text & String Utilities";
+    let pageTitle = "TextToolkitHub – Free Online Text Tools, Word Counter & Case Converter";
     let pageDesc = "An exceptionally fast, beautiful, and 100% private client-side text toolkit. Count words, compare text diffs, format line breaks, generate URL slugs, and convert spacing cleanly.";
 
     if (activePage === 'home') {
-      pageTitle = "TextToolkitHub - Free Privacy-First Text & String Utilities";
-      pageDesc = "An exceptionally fast, beautiful, and 100% private client-side text toolkit. Count words, compare text diffs, format line breaks, generate URL slugs, and convert spacing cleanly.";
+      pageTitle = "TextToolkitHub – Free Online Text Tools, Word Counter & Case Converter";
+      pageDesc = "TextToolkitHub is an exceptionally fast, beautiful, and 100% private browser-based text toolkit. Count words, compare texts, convert cases, remove breaks, and format strings securely.";
     } else if (activePage === 'about') {
       pageTitle = "About Us | TextToolkitHub - Fast, Beautiful & Private Online Text Utilities";
       pageDesc = "Learn more about TextToolkitHub's mission to provide beautifully designed, blindingly fast, and 100% private text and string tools for creators and developers.";

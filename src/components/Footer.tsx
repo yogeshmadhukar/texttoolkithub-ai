@@ -10,7 +10,7 @@ export default function Footer({ onNavigate }: FooterProps) {
   const currentYear = 2026; // Set exactly based on agent metadata context
 
   return (
-    <footer className="w-full bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 transition-colors duration-200">
+    <footer className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-900 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         
         {/* Top Segment: 4 Column Grid */}

@@ -8,29 +8,39 @@
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* Redefine slate colors to match premium Vercel/Linear dark mode palette specs */
-  --color-slate-950: #0B0F19;
-  --color-slate-900: #111827;
-  --color-slate-850: #172033;
-  --color-slate-800: #1F2937;
-  --color-slate-750: #2C3540;
-  --color-slate-700: #374151;
-  --color-slate-600: #4B5563;
-  --color-slate-500: #6B7280;
-  --color-slate-400: #9CA3AF;
-  --color-slate-300: #D1D5DB;
-  --color-slate-200: #E5E7EB;
-  --color-slate-100: #F9FAFB;
+  /* Redefine slate colors to match premium SaaS dark mode palette specs */
+  --color-slate-950: #0B0F19; /* Main background */
+  --color-slate-900: #111827; /* Secondary background */
+  --color-slate-855: #1C273C; /* High-contrast card elements */
+  --color-slate-850: #161F2F; /* Card backgrounds */
+  --color-slate-800: #253046; /* Borders and dividers */
+  --color-slate-750: #2C3F5E;
+  --color-slate-700: #3D506F;
+  --color-slate-600: #4B5E7F;
+  --color-slate-550: #6B7D9E;
+  --color-slate-500: #94A3B8; /* Muted texts upper */
+  --color-slate-450: #94A3B8; /* Muted texts standard */
+  --color-slate-404: #94A3B8;
+  --color-slate-400: #94A3B8; /* Muted texts lower */
+  --color-slate-350: #CBD5E1; /* Secondary texts upper */
+  --color-slate-300: #CBD5E1; /* Secondary texts standard */
+  --color-slate-205: #E2E8F0; /* Soft borders light mode uppercase */
+  --color-slate-200: #E5E7EB; /* Standard borders light mode */
+  --color-slate-150: #EEF2F6;
+  --color-slate-100: #F9FAFB; /* Primary texts */
   --color-slate-50: #FAFAFC;
 
-  /* Map Indigo to pure, bright, high-contrast Clean Minimalism digital blue and accent */
+  /* Map Indigo & Blue to the requested digital blue brand accent values */
   --color-indigo-50: #EFF6FF;
   --color-indigo-100: #DBEAFE;
   --color-indigo-200: #BFDBFE;
   --color-indigo-300: #93C5FD;
   --color-indigo-400: #60A5FA;
-  --color-indigo-500: #3B82F6;
-  --color-indigo-600: #2563EB;
+  --color-indigo-405: #3B82F6; /* Accent hover */
+  --color-indigo-500: #3B82F6; /* Accent hover alternative */
+  --color-indigo-550: #2563EB; /* Accent Blue primary */
+  --color-indigo-600: #2563EB; /* Direct match for Accent Blue */
+  --color-indigo-605: #2563EB;
   --color-indigo-700: #1D4ED8;
   --color-indigo-800: #1E40AF;
   --color-indigo-900: #1E3A8A;
@@ -64,7 +74,7 @@ html.dark, body.dark {
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #374151;
+  background: #253046;
   border-radius: 9999px;
   border: 2px solid #0B0F19;
 }
@@ -92,4 +102,139 @@ html.dark, body.dark {
 
 .dark .glow-accent {
   background-image: radial-gradient(rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.01) 60%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* PREMIUM SAAS DARK THEME IMPLEMENTATION OVERRIDES (WCAG AA + ACCESSIBLITY) */
+
+/* Card theme depth mapping: Translate generic slate card class declarations to active theme #161F2F */
+.dark .bg-slate-950:not(.min-h-screen):not([id*="-page"]):not(main),
+.dark .dark\:bg-slate-950:not(.min-h-screen):not([id*="-page"]):not(main),
+.dark [class*="bg-white"]:not(html):not(body):not(header):not(nav):not(input):not(textarea):not(select):not(.bg-indigo-600):not(.min-h-screen):not([id*="-page"]):not(main) {
+  background-color: #161F2F !important;
+}
+
+/* Sub-panels, custom headers, and secondary areas layout mappings */
+.dark .bg-slate-50,
+.dark .dark\:bg-slate-900,
+.dark .bg-slate-50\/50,
+.dark .bg-slate-50\/40,
+.dark .bg-slate-50\/30,
+.dark .bg-slate-50\/20,
+.dark .bg-slate-50\/10 {
+  background-color: #111827 !important;
+}
+
+/* Reset page background templates to deepest rich dark slate #0B0F19 */
+.dark #word-counter-page,
+.dark #character-counter-page,
+.dark #remove-line-breaks-page,
+.dark #remove-extra-spaces-page,
+.dark #case-converter-page,
+.dark #text-compare-page,
+.dark #slug-generator-page,
+.dark #url-encoder-page,
+.dark #url-decoder-page,
+.dark #fancy-text-generator-page,
+.dark #html-encoder-page,
+.dark #html-decoder-page,
+.dark #base64-encoder-page,
+.dark #base64-decoder-page,
+.dark #text-sorter-page,
+.dark #text-reverser-page,
+.dark #grammar-checker-page,
+.dark #readability-checker-page,
+.dark #remove-duplicate-lines-page,
+.dark #keyword-density-checker-page,
+.dark .min-h-screen,
+.dark .relative.min-h-screen.bg-slate-50\/50.dark\:bg-slate-950 {
+  background-color: #0B0F19 !important;
+}
+
+/* Perfecting inputs and textareas premium focus/contrast schemas */
+.dark input[type="text"],
+.dark input[type="search"],
+.dark textarea,
+.dark select {
+  background-color: #111827 !important;
+  border-color: #253046 !important;
+  color: #F9FAFB !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  transition: border-color 200ms ease, box-shadow 200ms ease !important;
+}
+
+.dark input[type="text"]:focus,
+.dark input[type="search"]:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #3B82F6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+  outline: none !important;
+}
+
+/* Enhance form labels and descriptive text elements */
+.dark label,
+.dark .text-slate-500,
+.dark .text-slate-600 {
+  color: #94A3B8 !important; /* Premium muted text */
+}
+
+/* Enhance hover states for group components and catalog utility grids */
+.dark .group {
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease, box-shadow 200ms ease !important;
+}
+
+.dark .group:hover {
+  transform: translateY(-4px);
+  border-color: #3B82F6 !important;
+  box-shadow: 0 12px 30px -10px rgba(37, 99, 235, 0.16) !important;
+}
+
+/* Premium glassmorphic navigation header */
+.dark header {
+  border-bottom: 1px solid rgba(37, 48, 70, 0.8) !important;
+  background-color: rgba(11, 15, 25, 0.8) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+/* Accessibility Indicators for keyboard focus */
+.dark a:focus-visible,
+.dark button:focus-visible,
+.dark input:focus-visible,
+.dark textarea:focus-visible {
+  outline: 2px solid #3B82F6 !important;
+  outline-offset: 2px !important;
+}
+
+/* Elegant custom dropdowns style rules */
+.dark [id*="dropdown"],
+.dark [id*="menu"] {
+  background-color: #161F2F !important;
+  border-color: #253046 !important;
+  box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Backdrop blur overlay for modular popups */
+.dark-backdrop-blur {
+  backdrop-filter: blur(8px);
+  background-color: rgba(11, 15, 25, 0.8) !important;
+}
+
+/* Soft transition support for elegant dark toggling */
+html, body, div, header, nav, section, footer {
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms ease !important;
+}
+
+/* Active and Hover states of regular secondary dashboard buttons */
+.dark .border-slate-200.bg-slate-50 {
+  background-color: #111827 !important;
+  border-color: #253046 !important;
+}
+
+.dark .border-slate-200.bg-slate-50:hover {
+  border-color: #3B82F6 !important;
+  background-color: #161F2F !important;
+}
+
+.dark button:active:not(:disabled) {
+  transform: scale(0.97);
 }
