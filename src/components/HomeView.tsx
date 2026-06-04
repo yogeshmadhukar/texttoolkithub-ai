@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { TOOLS, CATEGORIES, FAQS, searchTools } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
 import { motion } from 'motion/react';
+import { analytics } from '../lib/analytics.ts';
 import { 
   FileText, 
   Hash, 
@@ -97,6 +98,18 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
     if (searchQuery.trim() === '') return [];
     return searchTools(searchQuery);
   }, [searchQuery]);
+
+  // Analytics: Track home search query with 1.5s debounce to optimize event count
+  React.useEffect(() => {
+    if (!searchQuery || searchQuery.trim() === '') return;
+
+    const delayDebounceId = setTimeout(() => {
+      const resultsCount = autocompleteTools.length;
+      analytics.trackSearchPerformed(searchQuery.trim(), resultsCount);
+    }, 1500);
+
+    return () => clearTimeout(delayDebounceId);
+  }, [searchQuery, autocompleteTools.length]);
 
   const handleHomeSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (searchQuery.trim() === '') return;

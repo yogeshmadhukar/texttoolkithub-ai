@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { analytics } from '../lib/analytics.ts';
 import { 
   HelpCircle, 
   ChevronDown, 
@@ -395,6 +396,17 @@ export default function FaqView() {
   const totalResultsCount = useMemo(() => {
     return filteredCategories.reduce((acc, cat) => acc + cat.items.length, 0);
   }, [filteredCategories]);
+
+  // Analytics: Track FAQ filtering search with 1.5s debounce to optimize event count
+  useEffect(() => {
+    if (!searchQuery || searchQuery.trim() === '') return;
+
+    const delayDebounceId = setTimeout(() => {
+      analytics.trackSearchPerformed(searchQuery.trim(), totalResultsCount);
+    }, 1500);
+
+    return () => clearTimeout(delayDebounceId);
+  }, [searchQuery, totalResultsCount]);
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-200">

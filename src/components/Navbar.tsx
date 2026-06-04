@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TOOLS, searchTools } from '../data.ts';
 import { ActivePage, Tool } from '../types.ts';
 import { motion } from 'motion/react';
+import { analytics } from '../lib/analytics.ts';
 import { 
   Wrench, 
   Search, 
@@ -116,6 +117,18 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
   useEffect(() => {
     setActiveSearchIndex(-1);
   }, [searchQuery]);
+
+  // Analytics: Track Navbar quick search query with 1.5s debounce to optimize event count
+  useEffect(() => {
+    if (!searchQuery || searchQuery.trim() === '') return;
+
+    const delayDebounceId = setTimeout(() => {
+      const resultsCount = filteredTools.length;
+      analytics.trackSearchPerformed(searchQuery.trim(), resultsCount);
+    }, 1500);
+
+    return () => clearTimeout(delayDebounceId);
+  }, [searchQuery, filteredTools.length]);
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (filteredTools.length === 0) return;

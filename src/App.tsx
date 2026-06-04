@@ -287,6 +287,11 @@ export default function App() {
       .join(' - ');
     trackPageView(activePage, `TextToolkitHub - ${capitalizedName || 'Home'}`);
 
+    if (activePage.startsWith('tools/')) {
+      const toolId = activePage.split('/')[1];
+      analytics.trackToolOpened(toolId || activePage);
+    }
+
     // Dynamic Canonical URL Injection for SEO optimization
     let canonicalLink = document.querySelector('link[rel="canonical"]');
     const previousCanonical = canonicalLink?.getAttribute('href') || "";
@@ -309,6 +314,89 @@ export default function App() {
           canonicalLink.remove();
         }
       }
+    };
+  }, [activePage]);
+
+  // Global Analytics Listeners for custom events ("Tool Cleared", "Tool Used", "Tool Copied Result" fallback)
+  useEffect(() => {
+    let debounceTimer: NodeJS.Timeout;
+
+    // A. Intercept keystrokes/data input inside active workspace textareas
+    const handleGlobalInput = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (!target) return;
+
+      const isTextarea = target.tagName.toLowerCase() === 'textarea';
+      const hasToolId = activePage.startsWith('tools/') || activePage !== 'home';
+
+      if (isTextarea && hasToolId) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          const toolId = activePage.startsWith('tools/') ? activePage.split('/')[1] : activePage;
+          analytics.trackToolUsed(toolId, (target as HTMLTextAreaElement).value.length, (target as HTMLTextAreaElement).value.length);
+        }, 2000);
+      }
+    };
+
+    // B. Intercept custom interaction mouse clicks (to capture Tool Cleared, Tool Used, Tool Copied buttons)
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target) return;
+
+      const closestElement = target.closest('[id]');
+      if (!closestElement) return;
+
+      const id = closestElement.id;
+      const toolId = activePage.startsWith('tools/') ? activePage.split('/')[1] : activePage;
+
+      if (toolId === 'home' || toolId === 'about' || toolId === 'faq' || toolId === 'contact' || toolId === 'privacy' || toolId === 'terms') {
+        return;
+      }
+
+      // 1. Tool Cleared handlers
+      const isClearBtn = 
+        id === 'btn-clear' || 
+        id === 'dedup-btn-clear' || 
+        id === 'kd-btn-clear' || 
+        id === 'btn-clear-drafts' || 
+        id === 'readability-btn-clear';
+
+      if (isClearBtn) {
+        analytics.trackToolCleared(toolId);
+        return;
+      }
+
+      // 2. Tool Copied button fallback loggers
+      const isCopyBtn = 
+        id === 'btn-copy' || 
+        id === 'dedup-btn-copy-result' || 
+        id === 'kd-btn-copy-result' || 
+        id === 'btn-copy-left' || 
+        id === 'btn-copy-right' || 
+        id === 'btn-copy-report' || 
+        id === 'readability-btn-copy';
+
+      if (isCopyBtn) {
+        analytics.trackToolCopiedResult(toolId, 0);
+        return;
+      }
+
+      // 3. User interaction with standard workspace buttons indicates Tool Used
+      const isHeaderOrFooter = id.startsWith('nav-') || id.startsWith('footer-') || id.startsWith('desktop-nav-') || id.startsWith('mobile-nav-');
+      const isButton = target.closest('button') !== null || closestElement.tagName.toLowerCase() === 'button';
+
+      if (!isHeaderOrFooter && isButton) {
+        analytics.trackToolUsed(toolId);
+      }
+    };
+
+    document.addEventListener('input', handleGlobalInput);
+    document.addEventListener('click', handleGlobalClick);
+
+    return () => {
+      document.removeEventListener('input', handleGlobalInput);
+      document.removeEventListener('click', handleGlobalClick);
+      clearTimeout(debounceTimer);
     };
   }, [activePage]);
 

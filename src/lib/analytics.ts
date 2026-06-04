@@ -11,8 +11,8 @@ declare global {
   }
 }
 
-// Read GA Measurement ID safely from Vite public environment variables
-export const GA_MEASUREMENT_ID = (((import.meta as any).env)?.VITE_GA_MEASUREMENT_ID || '').trim();
+// Read GA Measurement ID safely from Vite public environment variables, falling back to production default
+export const GA_MEASUREMENT_ID = (((import.meta as any).env)?.VITE_GA_MEASUREMENT_ID || 'G-CMM0H0B48G').trim();
 
 
 // LocalStorage Consent key
@@ -58,17 +58,20 @@ export function setAnalyticsConsent(consent: boolean) {
 }
 
 /**
- * Dynamically loads Google Analytics gtag script and initializes the tracking queue
- * only if a Measurement ID is provided in the environment variables.
+ * Dynamically loads Google Analytics gtag script and initializes the tracking queue.
+ * Fully compatible with direct script loads inside index.html head.
  */
 export function initializeAnalytics() {
   if (!GA_MEASUREMENT_ID) {
-    console.log("[Analytics] VITE_GA_MEASUREMENT_ID not configured. Skipping GA4 initialization (running in local offline sandbox).");
+    console.log("[Analytics] VITE_GA_MEASUREMENT_ID not configured. Skipping GA4 initialization.");
     return;
   }
 
-  // Prevent multiple script insertions
-  if (window.gtag) return;
+  // Prevent double script insertion but allow configuration of global gtag if loaded from head
+  if (window.gtag) {
+    console.log("[Analytics] Google Analytics 4 is already globally loaded and configured.");
+    return;
+  }
 
   // Initialize dataLayer and gtag function
   window.dataLayer = window.dataLayer || [];
@@ -106,7 +109,7 @@ export function initializeAnalytics() {
     send_page_view: false,                 // Turn off automatic tracking to track SPA hash updates perfectly
   });
 
-  console.log(`[Analytics] Initialized GA4 on-demand tag successfully with ID ${GA_MEASUREMENT_ID}. Consent level: ${initialConsent}`);
+  console.log(`[Analytics] Initialized GA4 fallback tag successfully with ID ${GA_MEASUREMENT_ID}. Consent level: ${initialConsent}`);
 }
 
 /**
@@ -175,6 +178,8 @@ export const analytics = {
       options_count: optionsUsed.length,
       options_list: optionsUsed.join(','),
     });
+    // Trigger explicit "Tool Used" event as well
+    analytics.trackToolUsed(toolId, inputLength, outputLength);
   },
 
   // Trace when user copies computed content back to their clipboard
@@ -183,11 +188,15 @@ export const analytics = {
       tool_id: toolId,
       copied_length: characterCount,
     });
+    // Trigger explicit "Tool Copied Result" event as well
+    analytics.trackToolCopiedResult(toolId, characterCount);
   },
 
   // Trace when user clears active workspaces
   trackClearWorkspace: (toolId: string) => {
     trackEvent('clear_workspace', 'Interactions', toolId);
+    // Trigger explicit "Tool Cleared" event as well
+    analytics.trackToolCleared(toolId);
   },
 
   // Trace contact ticket submissions
@@ -207,5 +216,76 @@ export const analytics = {
   // Trace toggles of visual dark mode
   trackThemeToggle: (isDarkMode: boolean) => {
     trackEvent('toggle_theme', 'Settings', isDarkMode ? 'dark' : 'light');
+  },
+
+  /* =========================================================================
+     EXPLICITLY REQUESTED GA4 CUSTOM EVENTS
+     ========================================================================= */
+
+  // 1. Tool Opened: Log when a user navigates or opens a specific tool viewport
+  trackToolOpened: (toolId: string) => {
+    trackEvent('Tool Opened', 'Utilities', toolId, undefined, {
+      tool_id: toolId,
+    });
+  },
+
+  // 2. Tool Used: Log when the tool successfully analyzes or processes text
+  trackToolUsed: (toolId: string, inputLength?: number, outputLength?: number) => {
+    trackEvent('Tool Used', 'Utilities', toolId, inputLength, {
+      tool_id: toolId,
+      input_character_count: inputLength || 0,
+      output_character_count: outputLength || 0,
+    });
+  },
+
+  // 3. Tool Cleared: Log when the editor workspace is completely cleared
+  trackToolCleared: (toolId: string) => {
+    trackEvent('Tool Cleared', 'Interactions', toolId, undefined, {
+      tool_id: toolId,
+    });
+  },
+
+  // 4. Tool Copied Result: Log when computational answers are copied back to clipboard
+  trackToolCopiedResult: (toolId: string, characterCount: number) => {
+    trackEvent('Tool Copied Result', 'Interactions', toolId, characterCount, {
+      tool_id: toolId,
+      copied_length: characterCount,
+    });
+  },
+
+  // 5. Search Performed: Log when queries are entered inside global or page search fields
+  trackSearchPerformed: (query: string, resultCount?: number) => {
+    trackEvent('Search Performed', 'Interactions', query, undefined, {
+      search_query: query,
+      result_count: resultCount || 0,
+    });
   }
 };
+
+// Auto-intercept clipboard copies globally for "Tool Copied Result" analytics tracking
+try {
+  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+    const originalWriteText = navigator.clipboard.writeText;
+    navigator.clipboard.writeText = function (text: string) {
+      try {
+        const hash = window.location.hash;
+        let toolId = '';
+        if (hash.includes('#/tools/')) {
+          toolId = hash.substring(hash.indexOf('#/tools/') + 8).split('?')[0];
+        } else if (hash.includes('#/')) {
+          toolId = hash.substring(hash.indexOf('#/') + 2).split('?')[0];
+        }
+        
+        // Ensure we only track actual toolkit routes
+        if (toolId && toolId !== 'home' && toolId !== 'about' && toolId !== 'faq' && toolId !== 'contact' && toolId !== 'privacy' && toolId !== 'terms') {
+          analytics.trackToolCopiedResult(toolId, text.length);
+        }
+      } catch (innerErr) {
+        console.warn('[Analytics] Intercept writeText error:', innerErr);
+      }
+      return originalWriteText.apply(this, [text]);
+    };
+  }
+} catch (outerErr) {
+  console.warn('[Analytics] Clipboard intercept injection failed:', outerErr);
+}
