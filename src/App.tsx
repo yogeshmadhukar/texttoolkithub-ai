@@ -6,6 +6,7 @@ import ToolWrapper from './components/ToolWrapper.tsx';
 
 // Dynamic lazy imports for Phase 5 bundle optimization
 const AboutView = React.lazy(() => import('./components/AboutView.tsx'));
+const FaqView = React.lazy(() => import('./components/FaqView.tsx'));
 const ContactView = React.lazy(() => import('./components/ContactView.tsx'));
 const LegalView = React.lazy(() => import('./components/LegalView.tsx'));
 const WordCounterView = React.lazy(() => import('./components/WordCounterView.tsx'));
@@ -154,6 +155,9 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'flip': 'tools/text-reverser',
     'privacy-policy': 'privacy',
     'terms-of-service': 'terms',
+    'faqs': 'faq',
+    'frequently-asked-questions': 'faq',
+    'frequently-asked-queries': 'faq',
   };
 
   // Direct rule lookup (lowercase check)
@@ -162,7 +166,7 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   }
 
   // Verify matched static pages
-  const defaultPages = ['about', 'contact', 'privacy', 'terms'];
+  const defaultPages = ['about', 'faq', 'contact', 'privacy', 'terms'];
   if (defaultPages.includes(path)) {
     return { normalized: path, redirected: rawPath !== path };
   }
@@ -551,6 +555,8 @@ export default function App() {
         return <HomeView onNavigateToTool={(id) => handlePageNavigation(id)} />;
       case 'about':
         return <AboutView />;
+      case 'faq':
+        return <FaqView />;
       case 'contact':
         return <ContactView />;
       case 'privacy':

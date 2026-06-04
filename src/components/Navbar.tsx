@@ -229,9 +229,9 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
           {/* Desktop Navigation links */}
           <nav className="hidden md:flex items-center gap-1.5 relative">
-            {(['home', 'about', 'contact'] as const).map((page) => {
+            {(['home', 'about', 'faq', 'contact'] as const).map((page) => {
               const isActive = activePage === page;
-              const labels = { home: 'Home', about: 'About', contact: 'Contact' };
+              const labels = { home: 'Home', about: 'About', faq: 'FAQ', contact: 'Contact' };
               return (
                 <button
                   key={page}
@@ -488,6 +488,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               id="mobile-nav-about"
             >
               About
+            </button>
+            <button
+              onClick={() => handleLinkSelect('faq')}
+              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'faq' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+              id="mobile-nav-faq"
+            >
+              FAQ
             </button>
             <button
               onClick={() => handleLinkSelect('contact')}

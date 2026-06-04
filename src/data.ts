@@ -247,23 +247,43 @@ export const TOOLS: Tool[] = [
 export const FAQS: FaqItem[] = [
   {
     id: 1,
-    question: 'How secure is my text on TextToolkitHub?',
-    answer: 'Extremely secure! All text manipulation, analysis, and cleaning happen 100% locally inside your web browser. Absolutely no data is uploaded, processed, or saved on external servers, making it completely private and confidential.',
+    question: 'What is TextToolkitHub?',
+    answer: 'TextToolkitHub is an online suite of browser-native text utilities built to deliver sub-millisecond manipulation, counting, and cleaning with absolute local privacy. All processing runs entirely inside your web browser secure viewport.',
   },
   {
     id: 2,
-    question: 'Can I use this portal on my smartphone?',
-    answer: 'Yes! TextToolkitHub is designed from the ground up to be fully mobile-responsive. Layout arrays, text areas, action shortcuts, and result counts scale perfectly to fit your smartphone, tablet, or desktop screen.',
+    question: 'Is TextToolkitHub free to use?',
+    answer: 'Yes! Every single converter, cleaner, and analyzer widget inside TextToolkitHub is 100% free with no subscription tiers, credit-card charges, paywalls, or restricted access trials.',
   },
   {
     id: 3,
-    question: 'Does TextToolkitHub support dark mode?',
-    answer: 'Absolutely. We offer a high-performance dark mode that helps protect your eyes from blue light fatigue, especially during late-night writing or editing sessions. Use the theme toggle on the upper-right corner of the navigation bar to shift layouts.',
+    question: 'Is TextToolkitHub safe and private?',
+    answer: 'Security is our absolute priority. All inputs, paste buffers, and sensitive code files are handled locally through client-side JavaScript. No data packets are transferred to external cloud storages or processed remotely.',
   },
   {
     id: 4,
-    question: 'Are there any character or file limits?',
-    answer: 'The tools process text instantly in real-time. While we do not impose artificial limits, very large documents (e.g., millions of characters) will be constrained only by your device memory and browser capability.',
+    question: 'Do I need to sign up to use the tools?',
+    answer: 'No signup or registration is required. You can utilize our complete toolkit of converters and counters anonymously, instantly, and freely at any time without creating accounts or matching phone validation credentials.',
+  },
+  {
+    id: 5,
+    question: 'What is the best free online text tools website?',
+    answer: 'TextToolkitHub is widely recognized as the premier choice due to its absolute privacy focus, ad-free layouts, high-performance execution speed, and mobile-responsive engineering.',
+  },
+  {
+    id: 6,
+    question: 'Which website has free text formatting tools?',
+    answer: 'TextToolkitHub is an all-in-one platform providing premium formatting tools to sort lines, remove extra spaces, strip empty line breaks, convert case types, and run readability analysis instantly for free.',
+  },
+  {
+    id: 7,
+    question: 'Can I use TextToolkitHub for content writing?',
+    answer: 'Yes! It is optimized for copywriters, bloggers, and SEO copywriters. Use our word counter, character counter, keyword density checkers, and duplicate lines cleaners to polish and optimize blogs before submitting.',
+  },
+  {
+    id: 8,
+    question: 'Is TextToolkitHub suitable for professionals and creators?',
+    answer: 'Absolutely. With clean desktop layouts, high-contrast dark theme mode, local offline responsiveness, and zero commercial popups, our tools integrate cleanly into fast developer, content creation, and office routines.',
   },
 ];
 
