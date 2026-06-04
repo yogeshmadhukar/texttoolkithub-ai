@@ -91,7 +91,7 @@ export default function FaqView() {
           answerText: 'We provide a robust array of web utilities divided into calculators, cleaning filters, and string parsers. This includes our popular Word Counter, Character Counter, Case Converter, Remove Line Breaks, and Text Compare engine.',
           answerNode: (
             <>
-              We provide a robust array of web utilities divided into calculators, cleaning filters, and string parsers. This includes our popular <a href="#/tools/word-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Word Counter</a>, <a href="#/tools/character-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Character Counter</a>, <a href="#/tools/case-converter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Case Converter</a>, <a href="#/tools/remove-line-breaks" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Remove Line Breaks</a>, and <a href="#/tools/text-compare" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Text Compare</a> engine.
+              We provide a robust array of web utilities divided into calculators, cleaning filters, and string parsers. This includes our popular <a href="/word-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Word Counter</a>, <a href="/character-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Character Counter</a>, <a href="/case-converter" className="text-indigo-605 dark:text-indigo-400 font-bold hover:underline">Case Converter</a>, <a href="/remove-line-breaks" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Remove Line Breaks</a>, and <a href="/text-compare" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Text Compare</a> engine.
             </>
           )
         },
@@ -101,7 +101,7 @@ export default function FaqView() {
           answerText: 'Yes, we provide industry-grade Word Counter and Character Counter utilities. They give you instant real-time density ratings, syllable counts, estimate reading times, and paragraph breakdowns in milliseconds.',
           answerNode: (
             <>
-              Yes, we provide industry-grade <a href="#/tools/word-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Word Counter</a> and <a href="#/tools/character-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Character Counter</a> utilities. They give you instant real-time density ratings, keyword frequencies, estimate reading times, and paragraph/sentence breakdowns in milliseconds.
+              Yes, we provide industry-grade <a href="/word-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Word Counter</a> and <a href="/character-counter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Character Counter</a> utilities. They give you instant real-time density ratings, keyword frequencies, estimate reading times, and paragraph/sentence breakdowns in milliseconds.
             </>
           )
         },
@@ -111,7 +111,7 @@ export default function FaqView() {
           answerText: 'Absolutely! Our Case Converter allows you to instantly toggle any block of string between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, kebab-case, and altERnAtiNg cAsE with one-click copy buttons.',
           answerNode: (
             <>
-              Absolutely! Our <a href="#/tools/case-converter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Case Converter</a> allows you to instantly toggle any block of string between <strong className="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-xs">UPPERCASE</strong>, <strong className="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-xs">lowercase</strong>, <strong className="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-xs">Title Case</strong>, Sentence check, camelCase, and PascalCase with one-click copy speed.
+              Absolutely! Our <a href="/case-converter" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Case Converter</a> allows you to instantly toggle any block of string between <strong className="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-xs">UPPERCASE</strong>, <strong className="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-xs">lowercase</strong>, <strong className="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-xs">Title Case</strong>, Sentence check, camelCase, and PascalCase with one-click copy speed.
             </>
           )
         },
@@ -121,7 +121,7 @@ export default function FaqView() {
           answerText: 'TextToolkitHub serves as an all-in-one free text formatting hub, providing clean layouts to sort lists, reverse paragraphs, strip unwanted carriage returns, deduplicate item lists, and beautify paragraphs without ads.',
           answerNode: (
             <>
-              TextToolkitHub serves as an all-in-one free text formatting hub, providing premium layout templates to sort lines, <a href="#/tools/text-reverser" className="text-indigo-600 dark:text-indigo-400 hover:underline">reverse paragraphs</a>, strip unwanted empty spacing, deduplicate elements, and beautify structural logs.
+              TextToolkitHub serves as an all-in-one free text formatting hub, providing premium layout templates to sort lines, <a href="/text-reverser" className="text-indigo-600 dark:text-indigo-400 hover:underline">reverse paragraphs</a>, strip unwanted empty spacing, deduplicate elements, and beautify structural logs.
             </>
           )
         }
@@ -291,7 +291,7 @@ export default function FaqView() {
           answerText: 'If you have any feature requests, bug discoveries, or feedback, you can instantly message our support team by navigating to our dedicated Contact page or connecting on our official social profiles on X and LinkedIn.',
           answerNode: (
             <>
-              If you have any suggestions or feature requests, feel free to instantly get in touch by navigating to our dedicated <a href="#/contact" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Contact Page</a>. You can also connect with our community on <a href="https://www.linkedin.com/in/texttoolkithub" target="_blank" rel="noopener noreferrer" className="text-[#0077b5] dark:text-[#0a66c2] font-semibold hover:underline">LinkedIn</a> or follow us on <a href="https://x.com/TextToolkitHub" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">X</a>.
+              If you have any suggestions or feature requests, feel free to instantly get in touch by navigating to our dedicated <a href="/contact" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Contact Page</a>. You can also connect with our community on <a href="https://www.linkedin.com/in/texttoolkithub" target="_blank" rel="noopener noreferrer" className="text-[#0077b5] dark:text-[#0a66c2] font-semibold hover:underline">LinkedIn</a> or follow us on <a href="https://x.com/TextToolkitHub" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">X</a>.
             </>
           )
         }
@@ -640,7 +640,7 @@ export default function FaqView() {
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-6">
             <a 
-              href="#/contact" 
+              href="/contact" 
               className="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-sm shadow-indigo-600/15 cursor-pointer transition flex items-center justify-center gap-2"
             >
               Contact Support Team <ArrowRight className="w-3.5 h-3.5" />

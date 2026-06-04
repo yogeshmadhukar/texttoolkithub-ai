@@ -404,7 +404,7 @@ export default function ContactView() {
                     <div className="p-3.5 rounded-xl border border-dashed border-slate-100 dark:border-slate-900 bg-slate-50/[0.4] dark:bg-slate-900/20 flex items-start gap-2.5">
                       <ShieldCheck className="w-4 h-4 shrink-0 text-emerald-500 mt-0.5" />
                       <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                        <strong>Privacy Consent:</strong> We collect only the sender details above to correspond regarding your request. In strict accordance with our <a href="/#/privacy" className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500">Privacy Policy</a>, we employ no third-party telemetry, sell no database entries, and delete inactive tickets securely.
+                        <strong>Privacy Consent:</strong> We collect only the sender details above to correspond regarding your request. In strict accordance with our <a href="/privacy-policy" className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500">Privacy Policy</a>, we employ no third-party telemetry, sell no database entries, and delete inactive tickets securely.
                       </p>
                     </div>
 

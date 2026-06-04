@@ -72,7 +72,7 @@ export default function AnalyticsConsentBanner({ onConsentChange }: AnalyticsCon
               <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-2">
                 Refer to our{' '}
                 <a 
-                  href="#/privacy" 
+                  href="/privacy-policy" 
                   className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500"
                 >
                   Privacy Policy

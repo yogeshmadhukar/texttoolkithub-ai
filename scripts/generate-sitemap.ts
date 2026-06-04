@@ -12,17 +12,21 @@ function generateSitemap() {
 
   const staticPages = [
     { loc: '/', changefreq: 'daily', priority: '1.0' },
-    { loc: '/#/about', changefreq: 'monthly', priority: '0.5' },
-    { loc: '/#/contact', changefreq: 'monthly', priority: '0.5' },
-    { loc: '/#/privacy', changefreq: 'monthly', priority: '0.3' },
-    { loc: '/#/terms', changefreq: 'monthly', priority: '0.3' },
+    { loc: '/about', changefreq: 'monthly', priority: '0.5' },
+    { loc: '/contact', changefreq: 'monthly', priority: '0.5' },
+    { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.3' },
+    { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
   ];
 
-  const toolPages = TOOLS.map((tool) => ({
-    loc: `/#/${tool.id}`,
-    changefreq: 'weekly',
-    priority: '0.8',
-  }));
+  const toolPages = TOOLS.map((tool) => {
+    // Strip "tools/" prefix from the tool ID to form the clean URL path
+    const cleanPath = tool.id.replace(/^tools\//, '');
+    return {
+      loc: `/${cleanPath}`,
+      changefreq: 'weekly',
+      priority: '0.8',
+    };
+  });
 
   const allPages = [...staticPages, ...toolPages];
 

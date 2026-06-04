@@ -32,7 +32,7 @@ const KeywordDensityCheckerView = React.lazy(() => import('./components/KeywordD
 const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
 
 import { ActivePage } from './types.ts';
-import { TOOLS } from './data.ts';
+import { TOOLS, FAQS } from './data.ts';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import { initializeAnalytics, trackPageView, analytics } from './lib/analytics.ts';
 import AnalyticsConsentBanner from './components/AnalyticsConsentBanner.tsx';
@@ -225,23 +225,65 @@ export default function App() {
     }
   }, [darkMode]);
 
-  // Browser hash change listener for perfect client-side SPA routing with robust redirect handling
+  // Browser pathname and popstate listener for clean client-side routing
   useEffect(() => {
-    const parseNavigationHash = () => {
-      const rawHash = window.location.hash.trim().replace(/^#\/?/, '');
-      
-      // Resolve path through our comprehensive normalization database
-      const { normalized, redirected } = resolveNormalizedPath(rawHash);
+    const parseNavigationState = () => {
+      const hash = window.location.hash.trim();
+      const pathname = window.location.pathname.trim();
+      const search = window.location.search; // preserve query strings
 
-      if (redirected) {
-        // Safe redirect to prevent history back-button loop and browser clutter
-        const nextHash = normalized === 'home' ? '#/' : `#/${normalized}`;
-        window.location.replace(nextHash);
+      // Scenario A: Backward-compatible support for legacy Hash-based URLs (e.g. /#/word-counter)
+      if (hash.startsWith('#')) {
+        const rawHashPath = hash.replace(/^#\/?/, '').split('?')[0];
+        let { normalized } = resolveNormalizedPath(rawHashPath);
+        
+        if (normalized === 'privacy-policy') normalized = 'privacy';
+        let targetPathname = '/';
+        if (normalized !== 'home') {
+          if (normalized.startsWith('tools/')) {
+            targetPathname = `/${normalized.substring(6)}`;
+          } else if (normalized === 'privacy') {
+            targetPathname = '/privacy-policy';
+          } else {
+            targetPathname = `/${normalized}`;
+          }
+        }
+
+        // Redirect old hash URL to clean path in address bar
+        window.history.replaceState({}, '', targetPathname + search);
+        setActivePage(normalized);
+        
+        // Ensure visual viewport resets to the top
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        return;
+      }
+
+      // Scenario B: Load or navigate standard SEO-friendly pathname URL
+      const rawPathname = pathname.replace(/^\/+/, '').replace(/\/+$/, '');
+      let { normalized } = resolveNormalizedPath(rawPathname);
+
+      if (normalized === 'privacy-policy') normalized = 'privacy';
+
+      let correctPathname = '/';
+      if (normalized !== 'home') {
+        if (normalized.startsWith('tools/')) {
+          correctPathname = `/${normalized.substring(6)}`;
+        } else if (normalized === 'privacy') {
+          correctPathname = '/privacy-policy';
+        } else {
+          correctPathname = `/${normalized}`;
+        }
+      }
+
+      // If they land on a nested path (like /tools/word-counter) or alternative spelling, rewrite it silently
+      if (pathname !== correctPathname) {
+        window.history.replaceState({}, '', correctPathname + search);
       }
 
       setActivePage(normalized);
 
-      // Guarantee immediate view scroll-up on route mutations (initial pass)
+      // Scroll to the top immediately upon state resolution
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       if (document.body) {
@@ -249,11 +291,11 @@ export default function App() {
       }
     };
 
-    // Initial page load hash parsing
-    parseNavigationHash();
+    // Trigger state resolution on mount
+    parseNavigationState();
 
-    window.addEventListener('hashchange', parseNavigationHash);
-    return () => window.removeEventListener('hashchange', parseNavigationHash);
+    window.addEventListener('popstate', parseNavigationState);
+    return () => window.removeEventListener('popstate', parseNavigationState);
   }, []);
 
   // Guarantee strict scroll-to-top whenever activePage state changes.
@@ -285,12 +327,83 @@ export default function App() {
     const capitalizedName = activePage.split('/')
       .map(part => part.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '))
       .join(' - ');
-    trackPageView(activePage, `TextToolkitHub - ${capitalizedName || 'Home'}`);
+
+    // Determine SEO Title and Description
+    let pageTitle = "TextToolkitHub - Free Privacy-First Text & String Utilities";
+    let pageDesc = "An exceptionally fast, beautiful, and 100% private client-side text toolkit. Count words, compare text diffs, format line breaks, generate URL slugs, and convert spacing cleanly.";
+
+    if (activePage === 'home') {
+      pageTitle = "TextToolkitHub - Free Privacy-First Text & String Utilities";
+      pageDesc = "An exceptionally fast, beautiful, and 100% private client-side text toolkit. Count words, compare text diffs, format line breaks, generate URL slugs, and convert spacing cleanly.";
+    } else if (activePage === 'about') {
+      pageTitle = "About Us | TextToolkitHub - Fast, Beautiful & Private Online Text Utilities";
+      pageDesc = "Learn more about TextToolkitHub's mission to provide beautifully designed, blindingly fast, and 100% private text and string tools for creators and developers.";
+    } else if (activePage === 'faq') {
+      pageTitle = "Frequently Asked Questions (FAQ) | TextToolkitHub - Help & Support";
+      pageDesc = "Find clear answers to common questions about TextToolkitHub's offline-first local security, analytics tracking, tool features, and compatibility.";
+    } else if (activePage === 'contact') {
+      pageTitle = "Contact Us | TextToolkitHub - Support & Tool Suggestions";
+      pageDesc = "Get in touch with the TextToolkitHub development team. Send bug reports, submit feature recommendations, or request technical support.";
+    } else if (activePage === 'privacy') {
+      pageTitle = "Privacy Policy | TextToolkitHub - 100% Local Browser Processing";
+      pageDesc = "Review the TextToolkitHub Privacy Policy. All text conversions and analytics are securely handled locally inside your web browser secure viewport.";
+    } else if (activePage === 'terms') {
+      pageTitle = "Terms of Service | TextToolkitHub - Suite Guidelines";
+      pageDesc = "Read our Terms of Service. Understand your rights, user guidelines, and terms for utilizing our free, local-first string utilities.";
+    } else if (activePage.startsWith('tools/')) {
+      const tool = TOOLS.find(t => t.id === activePage);
+      if (tool) {
+        pageTitle = tool.seoTitle || `${tool.title} Tool Online | TextToolkitHub`;
+        pageDesc = tool.seoDescription || tool.description;
+      } else {
+        pageTitle = `${capitalizedName} | TextToolkitHub - Online Utilities`;
+        pageDesc = `Free high-quality client-side ${capitalizedName} utility of TextToolkitHub. Convert, analyze, format, and filter text securely and instantly.`;
+      }
+    } else {
+      pageTitle = "404 Page Not Found | TextToolkitHub";
+      pageDesc = "We couldn't find the page or tool you are trying to reach. Go home or use search to find the correct string utility.";
+    }
+
+    // Set browser page title
+    document.title = pageTitle;
+
+    // Track page view in GA4
+    trackPageView(activePage, pageTitle);
 
     if (activePage.startsWith('tools/')) {
       const toolId = activePage.split('/')[1];
       analytics.trackToolOpened(toolId || activePage);
     }
+
+    // Dynamic Meta Tags (Description, Open Graph, Twitter) Injection for stateful SEO optimization
+    let descMeta = document.querySelector('meta[name="description"]');
+    if (descMeta) descMeta.setAttribute('content', pageDesc);
+
+    // Social Metadata Tags Sync
+    const getCleanUrl = (page: string) => {
+      if (page === 'home') return 'https://texttoolkithub.com/';
+      if (page === 'privacy') return 'https://texttoolkithub.com/privacy-policy';
+      if (page.startsWith('tools/')) {
+        return `https://texttoolkithub.com/${page.substring(6)}`;
+      }
+      return `https://texttoolkithub.com/${page}`;
+    };
+
+    const metaMap: Record<string, string> = {
+      'og:title': pageTitle,
+      'og:description': pageDesc,
+      'og:url': getCleanUrl(activePage),
+      'twitter:title': pageTitle,
+      'twitter:description': pageDesc,
+      'twitter:url': getCleanUrl(activePage)
+    };
+
+    Object.entries(metaMap).forEach(([property, value]) => {
+      let metaEl = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+      if (metaEl) {
+        metaEl.setAttribute('content', value);
+      }
+    });
 
     // Dynamic Canonical URL Injection for SEO optimization
     let canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -300,9 +413,112 @@ export default function App() {
       canonicalLink.setAttribute('rel', 'canonical');
       document.head.appendChild(canonicalLink);
     }
-    const baseUrl = 'https://texttoolkithub.com';
-    const canonicalHref = activePage === 'home' ? `${baseUrl}/` : `${baseUrl}/#/${activePage}`;
-    canonicalLink.setAttribute('href', canonicalHref);
+    canonicalLink.setAttribute('href', getCleanUrl(activePage));
+
+    // JSON-LD Dynamic Schema Injection
+    let schemaScript = document.getElementById('seo-json-ld');
+    if (!schemaScript) {
+      schemaScript = document.createElement('script');
+      schemaScript.setAttribute('type', 'application/ld+json');
+      schemaScript.setAttribute('id', 'seo-json-ld');
+      document.head.appendChild(schemaScript);
+    }
+
+    const schemas: any[] = [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://texttoolkithub.com/#organization",
+        "name": "TextToolkitHub",
+        "url": "https://texttoolkithub.com/",
+        "logo": "https://texttoolkithub.com/logo.svg",
+        "sameAs": [
+          "https://x.com/TextToolkitHub",
+          "https://www.linkedin.com/in/texttoolkithub"
+        ]
+      }
+    ];
+
+    if (activePage === 'home') {
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://texttoolkithub.com/#website",
+        "name": "TextToolkitHub",
+        "url": "https://texttoolkithub.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://texttoolkithub.com/?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      });
+
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": FAQS.slice(0, 5).map(faq => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
+      });
+    } else if (activePage.startsWith('tools/')) {
+      const tool = TOOLS.find(t => t.id === activePage);
+      if (tool) {
+        schemas.push({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": `${tool.title} | TextToolkitHub`,
+          "url": getCleanUrl(tool.id),
+          "description": tool.seoDescription || tool.description,
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "USD"
+          }
+        });
+
+        schemas.push({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://texttoolkithub.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": tool.title,
+              "item": getCleanUrl(tool.id)
+            }
+          ]
+        });
+      }
+    } else if (activePage === 'faq') {
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": FAQS.map(faq => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
+      });
+    }
+
+    schemaScript.innerHTML = JSON.stringify(schemas, null, 2);
 
     return () => {
       cancelAnimationFrame(rafId);
@@ -313,6 +529,9 @@ export default function App() {
         } else {
           canonicalLink.remove();
         }
+      }
+      if (schemaScript) {
+        schemaScript.innerHTML = '';
       }
     };
   }, [activePage]);
@@ -343,9 +562,31 @@ export default function App() {
       const target = e.target as HTMLElement;
       if (!target) return;
 
-      // 1. Intercept External Link Clicks (X, LinkedIn, GitHub)
+      // 1. Intercept External Link Clicks or Internal SPA path clicks
       const anchor = target.closest('a');
       if (anchor && anchor.href) {
+        const rawHref = anchor.getAttribute('href') || '';
+        try {
+          const url = new URL(anchor.href, window.location.origin);
+          if (url.origin === window.location.origin) {
+            // Anchor target on the same page (e.g. #contact-title) - let browser handle local anchor jump naturally
+            const isLocalAnchor = rawHref.startsWith('#') && !rawHref.startsWith('#/');
+            if (!isLocalAnchor) {
+              e.preventDefault();
+              let targetRoute = rawHref;
+              if (rawHref.startsWith('#/')) {
+                targetRoute = rawHref.replace(/^#\/?/, '');
+              } else if (rawHref.startsWith('/')) {
+                targetRoute = rawHref.substring(1);
+              }
+              handlePageNavigation(targetRoute);
+              return;
+            }
+          }
+        } catch (err) {
+          console.error("URL parsing error:", err);
+        }
+
         const href = anchor.href.toLowerCase();
         if (href.includes('github.com')) {
           analytics.trackExternalLinkClick('GitHub', anchor.href);
@@ -434,22 +675,38 @@ export default function App() {
     };
   }, [activePage]);
 
-  // Set hash manually to jump page states cleanly with normalization safeguards
+  // Navigate page states cleanly by utilizing HTML5 pathname history API instead of old window hashes
   const handlePageNavigation = (targetView: string) => {
-    const { normalized } = resolveNormalizedPath(targetView);
-    const nextPath = normalized === 'home' ? '/' : `/${normalized}`;
-    const currentHash = window.location.hash.replace(/^#\/?/, '');
-    const targetHashNoLead = nextPath.replace(/^\//, '');
+    let { normalized } = resolveNormalizedPath(targetView);
+    
+    if (normalized === 'privacy-policy') {
+      normalized = 'privacy';
+    }
 
-    // Immediate user feedback: Scroll to top on click
+    // Convert internal normalized state to correct clean URL
+    let nextPath = '/';
+    if (normalized !== 'home') {
+      if (normalized.startsWith('tools/')) {
+        nextPath = `/${normalized.substring(6)}`;
+      } else if (normalized === 'privacy') {
+        nextPath = '/privacy-policy';
+      } else {
+        nextPath = `/${normalized}`;
+      }
+    }
+
+    const currentPath = window.location.pathname;
+
+    // Immediate user feedback: Scroll to top of the page on route mutation
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
 
-    if (currentHash === targetHashNoLead || (currentHash === '' && targetHashNoLead === '')) {
-      // Navigating to the same page - manually re-trigger scroll
+    if (currentPath === nextPath) {
+      // If navigating to the same page - smoothly scroll up
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      window.location.hash = nextPath;
+      window.history.pushState({}, "", nextPath);
+      setActivePage(normalized);
     }
   };
 

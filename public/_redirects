@@ -1,0 +1,3 @@
+# Cloudflare Pages SPA client-side routing fallback configuration
+# Rewrites all requests that don't match static files to /index.html with a 200 status code
+/* /index.html 200

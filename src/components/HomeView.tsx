@@ -579,6 +579,55 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
         </div>
       </section>
 
+      {/* 3.5 CENTRAL KEYWORD-RICH SEO INTRODUCTION SECTION */}
+      <section className="py-16 bg-slate-50/10 dark:bg-slate-950/20 border-b border-slate-200 dark:border-slate-850 z-10 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-8 sm:p-12 rounded-3xl shadow-sm">
+            
+            <div className="lg:col-span-12 space-y-4">
+              <span className="text-[10px] uppercase tracking-widest font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-950">
+                Authorized Growth Framework
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white leading-tight">
+                All-in-One Suite of Free Online Text Tools & String Utilities
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-405 leading-relaxed max-w-5xl">
+                Welcome to <strong>TextToolkitHub</strong>, your premiere destination for fast, local-first, privacy-respecting browser utilities. Standard text preparation and coding workflows require absolute reliability, which is why our entire tool catalog executes 100% inside your sandboxed web browser memory. No text or coding logs ever touch the cloud, making our platform safe for confidential corporate data and creative drafts.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-100 dark:border-slate-800 mt-6 text-xs text-slate-600 dark:text-slate-400">
+                <div className="space-y-2">
+                  <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> High-Performance Analyzers
+                  </h3>
+                  <p className="leading-relaxed text-[11px] text-slate-500 dark:text-slate-400">
+                    Extract deep insights using our premium <strong>word counter</strong>, precise <strong>character counter</strong>, comprehensive <strong>readability checker</strong>, and SEO-focused <strong>keyword density checker</strong> inside a single tab.
+                  </p>
+                </div>
+                
+                <div className="space-y-2">
+                  <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
+                    <span className="w-2 h-2 rounded-full bg-indigo-500 inline-block" /> Sanitizers & Formatters
+                  </h3>
+                  <p className="leading-relaxed text-[11px] text-slate-500 dark:text-slate-400">
+                    Purge layout noises immediately. <strong>Remove extra spaces</strong>, clean duplicate spaces, <strong>remove duplicate lines</strong>, organize tables, and <strong>remove line breaks</strong> securely.
+                  </p>
+                </div>
+                
+                <div className="space-y-2">
+                  <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
+                    <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" /> Dynamic Code Encoders
+                  </h3>
+                  <p className="leading-relaxed text-[11px] text-slate-500 dark:text-slate-400">
+                    Bypass raw communication issues with clean format shifts. Shift text schemas using our compliant <strong>slug generator</strong>, <strong>url encoder</strong>, <strong>url decoder</strong>, <strong>base64 encoder</strong>, <strong>base64 decoder</strong>, and robust casing adjusters.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 4. MAIN CATEGORIES & DYNAMIC TOOLBOX */}
       <section className="py-16 bg-slate-50/30 dark:bg-slate-950/20 border-b border-slate-205 dark:border-slate-855 z-10 relative" id="toolbox-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
