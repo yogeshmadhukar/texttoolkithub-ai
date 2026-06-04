@@ -259,6 +259,14 @@ export const analytics = {
       search_query: query,
       result_count: resultCount || 0,
     });
+  },
+
+  // 6. External Link Click: Track click events routing to GitHub, LinkedIn, or X (Twitter)
+  trackExternalLinkClick: (platform: string, url: string) => {
+    trackEvent('External Link Click', 'Engagement', platform, undefined, {
+      platform: platform,
+      target_url: url,
+    });
   }
 };
 

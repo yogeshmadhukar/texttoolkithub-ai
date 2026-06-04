@@ -338,55 +338,89 @@ export default function App() {
       }
     };
 
-    // B. Intercept custom interaction mouse clicks (to capture Tool Cleared, Tool Used, Tool Copied buttons)
+    // B. Intercept custom interaction mouse clicks (to capture external links, Tool Cleared, Tool Used, Tool Copied buttons)
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target) return;
 
-      const closestElement = target.closest('[id]');
-      if (!closestElement) return;
+      // 1. Intercept External Link Clicks (X, LinkedIn, GitHub)
+      const anchor = target.closest('a');
+      if (anchor && anchor.href) {
+        const href = anchor.href.toLowerCase();
+        if (href.includes('github.com')) {
+          analytics.trackExternalLinkClick('GitHub', anchor.href);
+        } else if (href.includes('linkedin.com')) {
+          analytics.trackExternalLinkClick('LinkedIn', anchor.href);
+        } else if (href.includes('x.com') || href.includes('twitter.com')) {
+          analytics.trackExternalLinkClick('X (Twitter)', anchor.href);
+        }
+      }
 
-      const id = closestElement.id;
+      // 2. Resolve active workspace context
       const toolId = activePage.startsWith('tools/') ? activePage.split('/')[1] : activePage;
+      const isUtilityPage = toolId && toolId !== 'home' && toolId !== 'about' && toolId !== 'faq' && toolId !== 'contact' && toolId !== 'privacy' && toolId !== 'terms';
 
-      if (toolId === 'home' || toolId === 'about' || toolId === 'faq' || toolId === 'contact' || toolId === 'privacy' || toolId === 'terms') {
+      // If we are not on an active utility page, we don't track workspace metrics/clearing/copies
+      if (!isUtilityPage) {
         return;
       }
 
-      // 1. Tool Cleared handlers
+      // Try searching for an ID to be precise
+      const closestElement = target.closest('[id]');
+      const id = closestElement ? closestElement.id : '';
+
+      // 3. Tool Cleared handlers
       const isClearBtn = 
         id === 'btn-clear' || 
+        id.includes('btn-clear') || 
         id === 'dedup-btn-clear' || 
         id === 'kd-btn-clear' || 
         id === 'btn-clear-drafts' || 
-        id === 'readability-btn-clear';
+        id === 'readability-btn-clear' ||
+        target.innerText?.toLowerCase().includes('clear') ||
+        target.closest('button')?.innerText?.toLowerCase().includes('clear');
 
       if (isClearBtn) {
         analytics.trackToolCleared(toolId);
         return;
       }
 
-      // 2. Tool Copied button fallback loggers
+      // 4. Tool Copied button fallback loggers
       const isCopyBtn = 
         id === 'btn-copy' || 
+        id.includes('btn-copy') || 
         id === 'dedup-btn-copy-result' || 
         id === 'kd-btn-copy-result' || 
         id === 'btn-copy-left' || 
         id === 'btn-copy-right' || 
         id === 'btn-copy-report' || 
-        id === 'readability-btn-copy';
+        id === 'readability-btn-copy' ||
+        target.innerText?.toLowerCase().includes('copy') ||
+        target.closest('button')?.innerText?.toLowerCase().includes('copy');
 
       if (isCopyBtn) {
-        analytics.trackToolCopiedResult(toolId, 0);
+        // Find text length if possible (fallback to 0)
+        let len = 0;
+        const textarea = document.querySelector('textarea');
+        if (textarea) {
+          len = textarea.value.length;
+        }
+        analytics.trackToolCopiedResult(toolId, len);
         return;
       }
 
-      // 3. User interaction with standard workspace buttons indicates Tool Used
+      // 5. User interaction with standard workspace buttons indicates Tool Used
       const isHeaderOrFooter = id.startsWith('nav-') || id.startsWith('footer-') || id.startsWith('desktop-nav-') || id.startsWith('mobile-nav-');
-      const isButton = target.closest('button') !== null || closestElement.tagName.toLowerCase() === 'button';
+      const isButton = target.closest('button') !== null || (closestElement && closestElement.tagName.toLowerCase() === 'button');
 
       if (!isHeaderOrFooter && isButton) {
-        analytics.trackToolUsed(toolId);
+        // Retrieve current text length for tool usage details
+        let len = 0;
+        const textarea = document.querySelector('textarea');
+        if (textarea) {
+          len = textarea.value.length;
+        }
+        analytics.trackToolUsed(toolId, len, len);
       }
     };
 
