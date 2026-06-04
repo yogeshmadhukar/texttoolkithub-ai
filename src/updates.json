@@ -1,5 +1,40 @@
 [
   {
+    "id": "update-random-text-generator",
+    "title": "Added Random Text Generator",
+    "description": "Generate dynamic words, sentences, and paragraphs styled for corporate, marketing, conversational or placeholder needs.",
+    "category": "New Tool",
+    "date": "2026-06-04"
+  },
+  {
+    "id": "update-lorem-ipsum-generator",
+    "title": "Added Lorem Ipsum Generator",
+    "description": "Generate highly customizable placeholder Latin dummy text segments instantly for layout, prototyping, and copywriting.",
+    "category": "New Tool",
+    "date": "2026-06-04"
+  },
+  {
+    "id": "update-remove-empty-lines",
+    "title": "Added Remove Empty Lines",
+    "description": "Prune blank lines, whitespace spacers, and redundant carriage spaces instantly in our offline formatter.",
+    "category": "New Tool",
+    "date": "2026-06-04"
+  },
+  {
+    "id": "update-text-repeater",
+    "title": "Added Text Repeater",
+    "description": "Repeat lines, words, phrases, or custom templates instantly inside direct client-side memory fields.",
+    "category": "New Tool",
+    "date": "2026-06-04"
+  },
+  {
+    "id": "update-sentence-counter",
+    "title": "Added Sentence Counter",
+    "description": "Calculate sentence totals, words, characters, and estimate reading pacing instantly inside a 100% private sandbox.",
+    "category": "New Tool",
+    "date": "2026-06-04"
+  },
+  {
     "id": "update-grammar-checker",
     "title": "Added Grammar Checker",
     "description": "Audit punctuation, common spelling issues, and enhance general readability using a 100% secure offline parser.",

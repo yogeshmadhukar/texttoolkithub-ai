@@ -21,13 +21,17 @@ import {
   Link2,
   ArrowUpDown,
   ArrowLeftRight,
+  Repeat,
   SpellCheck,
   BookOpen,
   Layers,
   TrendingUp,
   Bell,
   Info,
-  Linkedin
+  Linkedin,
+  Scissors,
+  FileCode,
+  Sparkle
 } from 'lucide-react';
 import updatesData from '../updates.json';
 
@@ -196,6 +200,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       case 'TrendingUp': return <TrendingUp className="w-4 h-4 text-emerald-500" />;
       case 'Hash': return <Hash className="w-4 h-4 text-emerald-500" />;
       case 'Unwrap': return <AlignLeft className="w-4 h-4 text-indigo-500" />;
+      case 'AlignLeft': return <AlignLeft className="w-4 h-4 text-emerald-500" />;
       case 'Eraser': return <Eraser className="w-4 h-4 text-indigo-500" />;
       case 'Layers': return <Layers className="w-4 h-4 text-indigo-500" />;
       case 'Type': return <Type className="w-4 h-4 text-amber-500" />;
@@ -203,6 +208,10 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       case 'Link2': return <Link2 className="w-4 h-4 text-indigo-500" />;
       case 'ArrowUpDown': return <ArrowUpDown className="w-4 h-4 text-emerald-500" />;
       case 'ArrowLeftRight': return <ArrowLeftRight className="w-4 h-4 text-indigo-500" />;
+      case 'Repeat': return <Repeat className="w-4 h-4 text-amber-500" />;
+      case 'Scissors': return <Scissors className="w-4 h-4 text-indigo-500" />;
+      case 'FileCode': return <FileCode className="w-4 h-4 text-indigo-500" />;
+      case 'Sparkle': return <Sparkle className="w-4 h-4 text-indigo-500" />;
       default: return <Wrench className="w-4 h-4 text-blue-500" />;
     }
   };

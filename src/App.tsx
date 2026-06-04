@@ -10,6 +10,7 @@ const FaqView = React.lazy(() => import('./components/FaqView.tsx'));
 const ContactView = React.lazy(() => import('./components/ContactView.tsx'));
 const LegalView = React.lazy(() => import('./components/LegalView.tsx'));
 const WordCounterView = React.lazy(() => import('./components/WordCounterView.tsx'));
+const SentenceCounterView = React.lazy(() => import('./components/SentenceCounterView.tsx'));
 const CharacterCounterView = React.lazy(() => import('./components/CharacterCounterView.tsx'));
 const RemoveLineBreaksView = React.lazy(() => import('./components/RemoveLineBreaksView.tsx'));
 const RemoveExtraSpacesView = React.lazy(() => import('./components/RemoveExtraSpacesView.tsx'));
@@ -25,9 +26,13 @@ const Base64EncoderView = React.lazy(() => import('./components/Base64EncoderVie
 const Base64DecoderView = React.lazy(() => import('./components/Base64DecoderView.tsx'));
 const TextSorterView = React.lazy(() => import('./components/TextSorterView.tsx'));
 const TextReverserView = React.lazy(() => import('./components/TextReverserView.tsx'));
+const TextRepeaterView = React.lazy(() => import('./components/TextRepeaterView.tsx'));
 const GrammarCheckerView = React.lazy(() => import('./components/GrammarCheckerView.tsx'));
 const ReadabilityCheckerView = React.lazy(() => import('./components/ReadabilityCheckerView.tsx'));
 const RemoveDuplicateLinesView = React.lazy(() => import('./components/RemoveDuplicateLinesView.tsx'));
+const RemoveEmptyLinesView = React.lazy(() => import('./components/RemoveEmptyLinesView.tsx'));
+const LoremIpsumGeneratorView = React.lazy(() => import('./components/LoremIpsumGeneratorView.tsx'));
+const RandomTextGeneratorView = React.lazy(() => import('./components/RandomTextGeneratorView.tsx'));
 const KeywordDensityCheckerView = React.lazy(() => import('./components/KeywordDensityCheckerView.tsx'));
 const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
 
@@ -50,6 +55,10 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   const redirectRules: Record<string, string> = {
     // legacy singular directly mapped parameters
     'word-counter': 'tools/word-counter',
+    'sentence-counter': 'tools/sentence-counter',
+    'sentencecounter': 'tools/sentence-counter',
+    'tools/sentencecounter': 'tools/sentence-counter',
+    'sentences': 'tools/sentence-counter',
     'character-counter': 'tools/character-counter',
     'remove-line-breaks': 'tools/remove-line-breaks',
     'remove-extra-spaces': 'tools/remove-extra-spaces',
@@ -65,6 +74,10 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'base64-decoder': 'tools/base64-decoder',
     'text-sorter': 'tools/text-sorter',
     'text-reverser': 'tools/text-reverser',
+    'text-repeater': 'tools/text-repeater',
+    'textrepeater': 'tools/text-repeater',
+    'tools/textrepeater': 'tools/text-repeater',
+    'repeater': 'tools/text-repeater',
     'grammar-checker': 'tools/grammar-checker',
     'grammar': 'tools/grammar-checker',
     'tools/grammar': 'tools/grammar-checker',
@@ -82,6 +95,23 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'tools/remove-duplicate-lines': 'tools/remove-duplicate-lines',
     'tools/dedup': 'tools/remove-duplicate-lines',
     'dedup': 'tools/remove-duplicate-lines',
+
+    'remove-empty-lines': 'tools/remove-empty-lines',
+    'remove-blank-lines': 'tools/remove-empty-lines',
+    'empty-lines': 'tools/remove-empty-lines',
+    'blank-lines': 'tools/remove-empty-lines',
+    'tools/remove-empty-lines': 'tools/remove-empty-lines',
+
+    'lorem-ipsum-generator': 'tools/lorem-ipsum-generator',
+    'lorem-ipsum': 'tools/lorem-ipsum-generator',
+    'lorem-generator': 'tools/lorem-ipsum-generator',
+    'tools/lorem-ipsum-generator': 'tools/lorem-ipsum-generator',
+    'placeholder-text': 'tools/lorem-ipsum-generator',
+
+    'random-text-generator': 'tools/random-text-generator',
+    'random-text': 'tools/random-text-generator',
+    'tools/random-text-generator': 'tools/random-text-generator',
+    'content-generator': 'tools/random-text-generator',
 
     'keyword-density-checker': 'tools/keyword-density-checker',
     'keyword-density': 'tools/keyword-density-checker',
@@ -728,6 +758,16 @@ export default function App() {
       );
     }
 
+    // Render the beautiful dedicated Sentence Counter page
+    if (activePage === 'tools/sentence-counter' || activePage === 'sentence-counter') {
+      return (
+        <SentenceCounterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
     // Render the beautiful dedicated Character Counter page
     if (activePage === 'tools/character-counter' || activePage === 'character-counter') {
       return (
@@ -878,6 +918,16 @@ export default function App() {
       );
     }
 
+    // Render the beautiful dedicated professional Text Repeater page
+    if (activePage === 'tools/text-repeater' || activePage === 'text-repeater') {
+      return (
+        <TextRepeaterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
     // Render the beautiful dedicated professional Grammar Checker page
     if (activePage === 'tools/grammar-checker' || activePage === 'grammar-checker') {
       return (
@@ -902,6 +952,36 @@ export default function App() {
     if (activePage === 'tools/remove-duplicate-lines' || activePage === 'remove-duplicate-lines') {
       return (
         <RemoveDuplicateLinesView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Remove Empty Lines page
+    if (activePage === 'tools/remove-empty-lines' || activePage === 'remove-empty-lines') {
+      return (
+        <RemoveEmptyLinesView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Lorem Ipsum Generator page
+    if (activePage === 'tools/lorem-ipsum-generator' || activePage === 'lorem-ipsum-generator') {
+      return (
+        <LoremIpsumGeneratorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Random Text Generator page
+    if (activePage === 'tools/random-text-generator' || activePage === 'random-text-generator') {
+      return (
+        <RandomTextGeneratorView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

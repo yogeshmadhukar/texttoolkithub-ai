@@ -32,7 +32,11 @@ import {
   BookOpen,
   ArrowUpDown,
   ArrowLeftRight,
-  SpellCheck
+  Repeat,
+  SpellCheck,
+  Scissors,
+  FileCode,
+  Sparkle
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -221,6 +225,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
       case 'TrendingUp': return <TrendingUp className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'Hash': return <Hash className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'Unwrap': return <AlignLeft className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'AlignLeft': return <AlignLeft className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'Eraser': return <Eraser className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'Layers': return <Layers className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'Type': return <Type className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
@@ -231,6 +236,10 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
       case 'Sparkles': return <Sparkles className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'ArrowUpDown': return <ArrowUpDown className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'ArrowLeftRight': return <ArrowLeftRight className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
+      case 'Repeat': return <Repeat className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
+      case 'Scissors': return <Scissors className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'FileCode': return <FileCode className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Sparkle': return <Sparkle className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       default: return <FileText className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
     }
   };
