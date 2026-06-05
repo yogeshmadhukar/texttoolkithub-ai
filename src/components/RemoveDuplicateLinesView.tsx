@@ -247,7 +247,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
           <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-700" />
           <button
             onClick={onNavigateHome}
-            className="text-slate-505 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
+            className="text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
             id="dedup-breadcrumbs-tools"
           >
             Tools
@@ -261,11 +261,11 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
           <div>
             <h1 className="text-3xl sm:text-4xl font-light font-display tracking-tight text-slate-950 dark:text-white flex items-center gap-3">
               <span className="p-2.5 bg-indigo-50 dark:bg-slate-800 rounded-2xl w-fit inline-block">
-                <Layers className="w-7 h-7 text-indigo-505 text-indigo-500" />
+                <Layers className="w-7 h-7 text-indigo-500" />
               </span>
               Remove Duplicate Lines
             </h1>
-            <p className="text-sm text-slate-505 dark:text-slate-400 mt-2 max-w-2xl leading-relaxed">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-2xl leading-relaxed">
               Clean up raw lists, spreadsheet records, emails, or technical logs in one click. Instantly eliminate duplicate lines while keeping original order intact.
             </p>
           </div>
@@ -380,7 +380,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
                 </div>
 
                 <div className="p-3 bg-indigo-50/30 dark:bg-indigo-950/20 rounded-2xl border border-indigo-100/40 dark:border-indigo-900/40 text-center">
-                  <span className="text-[10px] text-indigo-505 text-indigo-600 dark:text-indigo-400 block mb-0.5 leading-none">Removed</span>
+                  <span className="text-[10px] text-indigo-600 dark:text-indigo-400 block mb-0.5 leading-none">Removed</span>
                   <span className="text-lg md:text-xl font-bold text-indigo-600 dark:text-indigo-400" id="dedup-stat-removed">
                     {inputText ? analysisResult.removedCount : 0}
                   </span>
@@ -398,7 +398,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
             {/* Customizer Settings Toggles Card */}
             <div className="p-6 border border-slate-250 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/30 rounded-3xl">
               <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mb-4 font-sans">
-                <Settings className="w-4 h-4 text-indigo-505 text-indigo-500 animate-spin-slow" />
+                <Settings className="w-4 h-4 text-indigo-500 animate-spin-slow" />
                 Comparison Parameters
               </span>
 
@@ -537,7 +537,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
             <h3 className="text-sm font-bold text-slate-900 dark:text-white mt-8 mb-3 font-sans">
               Perfect Use Cases for Deduplication
             </h3>
-            <ul className="text-xs space-y-2 text-slate-505 dark:text-slate-400 pl-4 list-disc font-sans leading-relaxed">
+            <ul className="text-xs space-y-2 text-slate-500 dark:text-slate-400 pl-4 list-disc font-sans leading-relaxed">
               <li><strong>SEO Keyword Arrays:</strong> Extract duplicate search keywords before executing cluster tools or budget bids.</li>
               <li><strong>Newsletter Subscriptions:</strong> Remove duplicates from user emails before initiating standard campaigns to lower subscriber bounce rates.</li>
               <li><strong>Database Query Logs:</strong> Clean repeating lines or debug metrics from complex system commands.</li>
@@ -551,7 +551,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
               Fine-tuning Comparison Rules
             </h2>
 
-            <p className="text-sm text-slate-505 dark:text-slate-300 leading-relaxed mb-6 font-sans">
+            <p className="text-sm text-slate-500 dark:text-slate-300 leading-relaxed mb-6 font-sans">
               Different projects require different definitions of "sameness". This tool provides robust configuration parameters to support granular parsing rules:
             </p>
 
@@ -586,11 +586,11 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
           <div className="max-w-4xl mx-auto">
             
             <div className="text-center mb-12">
-              <HelpCircle className="w-10 h-10 text-indigo-505 text-indigo-500 mx-auto mb-3" />
+              <HelpCircle className="w-10 h-10 text-indigo-500 mx-auto mb-3" />
               <h2 className="text-3xl font-light font-display tracking-tight text-slate-900 dark:text-white font-sans">
                 Frequently Asked Questions
               </h2>
-              <p className="text-sm text-slate-505 dark:text-slate-400 mt-2">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                 Learn more about how the deduplication engine scans and purges redundant values.
               </p>
             </div>
@@ -644,7 +644,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
                 <div>
                   <h4 className="font-bold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 text-sm transition-colors duration-200 flex items-center justify-between font-sans">
                     {tool.title}
-                    <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-505 group-hover:text-indigo-500 transition-colors" />
+                    <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-500 transition-colors" />
                   </h4>
                   <p className="text-xs text-slate-404 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
                     {tool.description}

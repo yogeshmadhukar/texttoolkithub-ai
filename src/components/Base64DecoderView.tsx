@@ -590,7 +590,7 @@ export default function Base64DecoderView({ onNavigateToTool, onNavigateHome }: 
             <h3 className="text-lg font-medium text-slate-900 dark:text-white mt-8 mb-3 font-sans">
               Privacy-First Security Mandate
             </h3>
-            <div className="p-4 bg-emerald-500/10 dark:bg-emerald-950/20 border border-emerald-505/20 rounded-2xl flex items-start gap-3 text-xs tracking-wide">
+            <div className="p-4 bg-emerald-500/10 dark:bg-emerald-950/20 border border-emerald-500/20 rounded-2xl flex items-start gap-3 text-xs tracking-wide">
               <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <div>
                 <strong className="text-emerald-800 dark:text-emerald-350 block">100% Offline Parsing Guard:</strong>

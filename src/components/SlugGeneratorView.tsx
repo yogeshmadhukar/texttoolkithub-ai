@@ -568,7 +568,7 @@ export default function SlugGeneratorView({ onNavigateToTool, onNavigateHome }: 
               <h2 className="text-3xl font-light font-display tracking-tight text-slate-900 dark:text-white font-sans">
                 Frequently Asked Questions
               </h2>
-              <p className="text-sm text-slate-505 dark:text-slate-400 mt-2">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                 Have questions about URL parameters, trailing symbols, and index compatibility? Read our answers below.
               </p>
             </div>

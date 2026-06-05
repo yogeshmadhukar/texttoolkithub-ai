@@ -12,7 +12,7 @@ export interface Tool {
   keywords: string[];
 }
 
-export type ToolCategory = 'analyzer' | 'cleaner' | 'converter';
+export type ToolCategory = 'analyzer' | 'cleaner' | 'converter' | 'encoding' | 'generator';
 
 export interface CategoryInfo {
   id: ToolCategory;

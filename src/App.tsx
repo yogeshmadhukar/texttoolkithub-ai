@@ -35,6 +35,7 @@ const LoremIpsumGeneratorView = React.lazy(() => import('./components/LoremIpsum
 const RandomTextGeneratorView = React.lazy(() => import('./components/RandomTextGeneratorView.tsx'));
 const KeywordDensityCheckerView = React.lazy(() => import('./components/KeywordDensityCheckerView.tsx'));
 const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
+const ToolsDirectoryView = React.lazy(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = React.lazy(() => import('./components/HowToUseAccordion.tsx'));
 
 import { ActivePage } from './types.ts';
@@ -233,7 +234,7 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   }
 
   // Verify matched static pages
-  const defaultPages = ['about', 'faq', 'contact', 'privacy', 'terms'];
+  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms'];
   if (defaultPages.includes(path)) {
     return { normalized: path, redirected: rawPath !== path };
   }
@@ -402,6 +403,9 @@ export default function App() {
     if (activePage === 'home') {
       pageTitle = "TextToolkitHub | Free Online Text & String Tools";
       pageDesc = "TextToolkitHub is a fast, free, and 100% private client-side text toolkit. Count words, change casing, compare text diffs, and format strings securely.";
+    } else if (activePage === 'tools') {
+      pageTitle = "Text Tools Directory | TextToolkitHub";
+      pageDesc = "Discover our comprehensive directory of free online text tools and utilities. Count words, compare diffs, convert casing formats, encode/decode strings, and generate placeholders securely and 100% locally.";
     } else if (activePage === 'about') {
       pageTitle = "About TextToolkitHub | Fast, Private & Free Text Utilities";
       pageDesc = "Discover the mission and technology stack of TextToolkitHub. Standard browser-first code ensures zero text data ever leaves your computer.";
@@ -1049,6 +1053,8 @@ export default function App() {
     switch (activePage) {
       case 'home':
         return <HomeView onNavigateToTool={(id) => handlePageNavigation(id)} onPrefetchTool={prefetchTool} />;
+      case 'tools':
+        return <ToolsDirectoryView onNavigateToTool={(id) => handlePageNavigation(id)} onPrefetchTool={prefetchTool} />;
       case 'about':
         return <AboutView />;
       case 'faq':

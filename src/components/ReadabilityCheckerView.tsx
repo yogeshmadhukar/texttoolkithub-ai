@@ -355,7 +355,7 @@ export default function ReadabilityCheckerView({ onNavigateToTool, onNavigateHom
           <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-700" />
           <button
             onClick={onNavigateHome}
-            className="text-slate-505 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
+            className="text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
             id="readability-breadcrumbs-tools"
           >
             Tools
@@ -373,7 +373,7 @@ export default function ReadabilityCheckerView({ onNavigateToTool, onNavigateHom
               </span>
               Readability Checker
             </h1>
-            <p className="text-sm text-slate-505 dark:text-slate-400 mt-2 max-w-2xl leading-relaxed">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-2xl leading-relaxed">
               Analyze paragraph clarity, syllable density, and reading levels instantly. Get dynamic metrics and suggestions to improve reading ease.
             </p>
           </div>
@@ -462,7 +462,7 @@ export default function ReadabilityCheckerView({ onNavigateToTool, onNavigateHom
                 <button
                   onClick={handleCopyInput}
                   disabled={!inputText}
-                  className="p-3 border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-900 text-slate-505 rounded-2xl transition disabled:opacity-35 cursor-pointer"
+                  className="p-3 border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-900 text-slate-500 rounded-2xl transition disabled:opacity-35 cursor-pointer"
                   title="Copy entered copy text"
                   id="readability-btn-copy"
                 >
@@ -505,7 +505,7 @@ export default function ReadabilityCheckerView({ onNavigateToTool, onNavigateHom
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-505 dark:text-slate-450 mt-3 leading-relaxed max-w-sm">
+                <p className="text-xs text-slate-500 dark:text-slate-450 mt-3 leading-relaxed max-w-sm">
                   {inputText.trim() 
                     ? (metrics.fleschScore >= 70 ? 'Very clear and comprehensible. Appropriate for conversational media and children articles.' :
                        metrics.fleschScore >= 50 ? 'Fairly easy to standard text level. Standard business and blog communications.' :
@@ -609,7 +609,7 @@ export default function ReadabilityCheckerView({ onNavigateToTool, onNavigateHom
                               {sug.context}
                             </p>
                           )}
-                          <p className="text-[11px] text-slate-505 dark:text-slate-400 mt-1 leading-relaxed">
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                             {sug.explanation}
                           </p>
                         </div>
@@ -660,7 +660,7 @@ export default function ReadabilityCheckerView({ onNavigateToTool, onNavigateHom
                     <th className="p-2 border border-slate-100 dark:border-slate-800">Equivalent School Level</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-505 dark:text-slate-400">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-500 dark:text-slate-400">
                   <tr>
                     <td className="p-2 font-mono">90 - 100</td>
                     <td className="p-2 font-bold text-emerald-500">Very Easy</td>
@@ -737,7 +737,7 @@ export default function ReadabilityCheckerView({ onNavigateToTool, onNavigateHom
               <h2 className="text-3xl font-light font-display tracking-tight text-slate-900 dark:text-white font-sans">
                 Frequently Asked Questions
               </h2>
-              <p className="text-sm text-slate-505 dark:text-slate-400 mt-2">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                 Discover how the Readability Checker scores sentences, syllables, and text readability.
               </p>
             </div>

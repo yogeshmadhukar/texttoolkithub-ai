@@ -255,23 +255,23 @@ when you paste your writeups under the Interactive Editor, you will see immediat
     switch (type) {
       case 'spelling':
         return {
-          borderClass: 'border-red-500/80 dark:border-red-400/80 hover:bg-red-550/10 dark:hover:bg-red-950/20',
+          borderClass: 'border-red-500/80 dark:border-red-400/80 hover:bg-red-500/10 dark:hover:bg-red-955/20',
           textClass: 'decoration-red-500 dark:decoration-red-400',
-          bgClass: 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-400 border-red-150',
+          bgClass: 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-400 border-red-100',
           badgeText: 'Spelling'
         };
       case 'capitalization':
         return {
-          borderClass: 'border-sky-505/80 dark:border-sky-400/80 hover:bg-sky-550/10 dark:hover:bg-sky-950/20',
+          borderClass: 'border-sky-500/80 dark:border-sky-400/80 hover:bg-sky-500/10 dark:hover:bg-sky-950/20',
           textClass: 'decoration-sky-500 dark:decoration-sky-400',
-          bgClass: 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-305 border-sky-150',
+          bgClass: 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-100',
           badgeText: 'Capitalization'
         };
       case 'punctuation':
         return {
-          borderClass: 'border-amber-500/80 dark:border-amber-400/80 hover:bg-amber-550/10 dark:hover:bg-amber-950/20',
+          borderClass: 'border-amber-500/80 dark:border-amber-400/80 hover:bg-amber-500/10 dark:hover:bg-amber-950/20',
           textClass: 'decoration-amber-500 dark:decoration-amber-400',
-          bgClass: 'bg-amber-50 dark:bg-amber-955/40 text-amber-700 dark:text-amber-305 border-amber-150',
+          bgClass: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-100',
           badgeText: 'Punctuation'
         };
       case 'grammar':
@@ -302,7 +302,7 @@ when you paste your writeups under the Interactive Editor, you will see immediat
         <div className="flex items-center gap-2 mb-6 text-xs font-bold font-sans">
           <button
             onClick={onNavigateHome}
-            className="flex items-center gap-1 text-slate-505 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer"
+            className="flex items-center gap-1 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer"
             id="breadcrumbs-home"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Portal Home
@@ -310,7 +310,7 @@ when you paste your writeups under the Interactive Editor, you will see immediat
           <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-700" />
           <button
             onClick={onNavigateHome}
-            className="text-slate-505 hover:text-indigo-605 dark:hover:text-indigo-400 transition cursor-pointer"
+            className="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer"
             id="breadcrumbs-tools"
           >
             Tools
@@ -363,7 +363,7 @@ when you paste your writeups under the Interactive Editor, you will see immediat
               <h3 className="text-lg md:text-xl font-medium text-indigo-620 dark:text-indigo-400 hover:underline leading-snug cursor-pointer font-sans">
                 {seoTitle}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-505 dark:text-slate-400 mt-1">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                 {seoDescription}
               </p>
             </div>
@@ -612,7 +612,7 @@ when you paste your writeups under the Interactive Editor, you will see immediat
                 <div className="flex items-center gap-4 text-xs font-semibold text-slate-400 flex-wrap">
                   <span className="flex items-center gap-1">Total Issues: <strong className="text-slate-700 dark:text-slate-200 font-mono">{stats.total}</strong></span>
                   {stats.spelling > 0 && <span>Spelling: <strong className="text-red-500 font-mono">{stats.spelling}</strong></span>}
-                  {stats.capitalization > 0 && <span>Capital: <strong className="text-sky-505 font-mono">{stats.capitalization}</strong></span>}
+                  {stats.capitalization > 0 && <span>Capital: <strong className="text-sky-500 font-mono">{stats.capitalization}</strong></span>}
                   {stats.grammar > 0 && <span>Grammar: <strong className="text-indigo-500 font-mono">{stats.grammar}</strong></span>}
                   {stats.punctuation > 0 && <span>Punctuation: <strong className="text-amber-500 font-mono">{stats.punctuation}</strong></span>}
                 </div>
@@ -754,19 +754,19 @@ when you paste your writeups under the Interactive Editor, you will see immediat
 
               {/* Breakdown Distribution blocks */}
               <div className="flex flex-col gap-3">
-                <div className="flex justify-between items-center text-xs text-slate-505 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
+                <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
                   <span className="font-semibold flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full bg-red-500" /> Spelling Inaccuracies</span>
                   <strong className="text-slate-700 dark:text-slate-200 font-mono text-sm">{stats.spelling}</strong>
                 </div>
-                <div className="flex justify-between items-center text-xs text-slate-505 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
+                <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
                   <span className="font-semibold flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full bg-sky-400" /> Capitalization Rules</span>
                   <strong className="text-slate-700 dark:text-slate-200 font-mono text-sm">{stats.capitalization}</strong>
                 </div>
-                <div className="flex justify-between items-center text-xs text-slate-505 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
+                <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
                   <span className="font-semibold flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full bg-indigo-500" /> Grammar Anomalies</span>
                   <strong className="text-slate-700 dark:text-slate-200 font-mono text-sm">{stats.grammar}</strong>
                 </div>
-                <div className="flex justify-between items-center text-xs text-slate-505 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
+                <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-404 bg-white dark:bg-slate-900/60 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850">
                   <span className="font-semibold flex items-center gap-2"><span className="w-2.5 h-2.5 rounded-full bg-amber-400" /> Punctuation Alerts</span>
                   <strong className="text-slate-700 dark:text-slate-200 font-mono text-sm">{stats.punctuation}</strong>
                 </div>
@@ -823,7 +823,7 @@ when you paste your writeups under the Interactive Editor, you will see immediat
 
           {/* Col 2: In-browser Heuristics breakdown */}
           <div>
-            <span className="text-xs uppercase font-extrabold tracking-widest text-indigo-505">Checker Core Benefits</span>
+            <span className="text-xs uppercase font-extrabold tracking-widest text-indigo-600">Checker Core Benefits</span>
             <h2 className="text-2xl font-light font-display tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
               Local Verification Benchmarks
             </h2>
@@ -831,19 +831,19 @@ when you paste your writeups under the Interactive Editor, you will see immediat
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
               <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
                 <h4 className="font-bold text-slate-850 dark:text-slate-200">100% Secure & Local</h4>
-                <p className="text-xs text-slate-505 dark:text-slate-400 mt-1">We bypass server uploads completely. Zero training scrapers inspect your papers or letters.</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">We bypass server uploads completely. Zero training scrapers inspect your papers or letters.</p>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
                 <h4 className="font-bold text-slate-850 dark:text-slate-200">Sentence Start Alerts</h4>
-                <p className="text-xs text-slate-505 dark:text-slate-400 mt-1">Guarantees that lowercase sentence-initial words are flagged automatically for quick capitalizing.</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Guarantees that lowercase sentence-initial words are flagged automatically for quick capitalizing.</p>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
                 <h4 className="font-bold text-slate-850 dark:text-slate-200">Pronoun Agreements</h4>
-                <p className="text-xs text-slate-505 dark:text-slate-400 mt-1">Identifies auxiliary verb anomalies like single third-person concord slipups.</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Identifies auxiliary verb anomalies like single third-person concord slipups.</p>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
                 <h4 className="font-bold text-slate-850 dark:text-slate-200">Side-by-Side Diffs</h4>
-                <p className="text-xs text-slate-505 dark:text-slate-400 mt-1">Proofread original vs recommended corrections easily under formatted cards.</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Proofread original vs recommended corrections easily under formatted cards.</p>
               </div>
             </div>
 
@@ -889,7 +889,7 @@ when you paste your writeups under the Interactive Editor, you will see immediat
                     </div>
 
                     {isExpanded && (
-                      <div className="mt-3.5 text-sm text-slate-505 dark:text-slate-404 leading-relaxed border-t border-slate-100 dark:border-slate-900 pt-3.5 flex animate-in fade-in slide-in-from-top-1 duration-155">
+                      <div className="mt-3.5 text-sm text-slate-500 dark:text-slate-404 leading-relaxed border-t border-slate-100 dark:border-slate-900 pt-3.5 flex animate-in fade-in slide-in-from-top-1 duration-155">
                         {faq.answer}
                       </div>
                     )}

@@ -300,7 +300,7 @@ Trimmed leading  and trailing margins will clear  outer spaces.   `);
         <div className="border border-slate-200 dark:border-slate-800 rounded-2xl bg-slate-50/50 dark:bg-slate-950/40 p-5 mb-8 shadow-sm">
           <div className="flex flex-col gap-1 mb-4">
             <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Formatting Configurations</span>
-            <p className="text-xs text-slate-505 dark:text-slate-400">Enable or disable spacing triggers below to customize parsing behavior.</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Enable or disable spacing triggers below to customize parsing behavior.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -524,7 +524,7 @@ Trimmed leading  and trailing margins will clear  outer spaces.   `);
                 <span className="w-5 h-5 bg-indigo-50 dark:bg-slate-805 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5">1</span>
                 <div>
                   <h4 className="font-bold text-slate-850 dark:text-slate-200 text-xs">Aquire and Paste Your Draft</h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">Copy messy scripts or data columns from your email client, PDF, or text files directly into the input textarea.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Copy messy scripts or data columns from your email client, PDF, or text files directly into the input textarea.</p>
                 </div>
               </div>
 
@@ -532,7 +532,7 @@ Trimmed leading  and trailing margins will clear  outer spaces.   `);
                 <span className="w-5 h-5 bg-indigo-50 dark:bg-slate-805 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5">2</span>
                 <div>
                   <h4 className="font-bold text-slate-850 dark:text-slate-200 text-xs">Verify Configurations</h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">Select whether to trim leading margins, merge all multi-spaces, or strip blank lines completely using the toggles.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Select whether to trim leading margins, merge all multi-spaces, or strip blank lines completely using the toggles.</p>
                 </div>
               </div>
 
@@ -540,7 +540,7 @@ Trimmed leading  and trailing margins will clear  outer spaces.   `);
                 <span className="w-5 h-5 bg-indigo-50 dark:bg-slate-805 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5">3</span>
                 <div>
                   <h4 className="font-bold text-slate-850 dark:text-slate-200 text-xs">Copy Pristine Copy output</h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">Click "Copy Result" to save the cleaned text directly to your clipboard for instant pasting.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Click "Copy Result" to save the cleaned text directly to your clipboard for instant pasting.</p>
                 </div>
               </div>
             </div>

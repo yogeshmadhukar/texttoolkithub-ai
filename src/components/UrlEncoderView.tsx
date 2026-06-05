@@ -714,7 +714,7 @@ export default function UrlEncoderView({ onNavigateToTool, onNavigateHome }: Url
                     {tool.title}
                     <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-600 transition-colors" />
                   </h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-450 mt-2 leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-450 mt-2 leading-relaxed">
                     {tool.description}
                   </p>
                 </div>

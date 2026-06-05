@@ -271,7 +271,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
             className="flex items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-800 transition shadow-inner"
             id="seo-inspector-btn"
           >
-            <Globe className="w-4 h-4 text-indigo-505 text-indigo-500" />
+            <Globe className="w-4 h-4 text-indigo-500" />
             {showSeoMeta ? 'Collapse SEO Meta' : 'Inspect SEO Meta Tags'}
           </button>
         </div>
@@ -306,7 +306,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
         <div className="border border-slate-200 dark:border-slate-800 rounded-3xl bg-slate-50/50 dark:bg-slate-950/40 p-6 mb-8 shadow-sm">
           <div className="flex flex-col gap-1 mb-4">
             <span className="text-xs font-extrabold uppercase tracking-widest text-slate-400 flex items-center gap-1.5 font-sans">
-              <Sliders className="w-4 h-4 text-indigo-505 text-indigo-500" /> Encoder Configuration Options
+              <Sliders className="w-4 h-4 text-indigo-500" /> Encoder Configuration Options
             </span>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-sans font-medium">Fine-tune characters layout rules and padding strings for your production environment standards.</p>
           </div>
@@ -321,7 +321,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
                   type="checkbox"
                   checked={urlSafe}
                   onChange={(e) => setUrlSafe(e.target.checked)}
-                  className="w-4 h-4 text-indigo-600 border-slate-300 dark:border-slate-700 rounded focus:ring-indigo-505 bg-transparent"
+                  className="w-4 h-4 text-indigo-600 border-slate-300 dark:border-slate-700 rounded focus:ring-indigo-500 bg-transparent"
                 />
                 Use URL Safe characters (- and _)
               </label>
@@ -343,7 +343,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
 
             {/* Status indicators */}
             <div className="p-3.5 bg-indigo-50/45 dark:bg-slate-900/40 border border-indigo-100/40 dark:border-slate-800 rounded-2xl flex items-start gap-2.5 text-xs text-slate-500 dark:text-slate-400 leading-normal font-sans">
-              <Settings className="w-4 h-4 text-indigo-505 text-indigo-500 shrink-0 mt-0.5" />
+              <Settings className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold text-slate-750 dark:text-slate-350 block">Output Standard:</span>
                 {urlSafe ? 'Generates web-safe string formats replacing "+" and "/" characters.' : 'Appends standard base alphabet representations with RFC byte groups.'}
@@ -372,7 +372,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
               </button>
             </div>
 
-            <div className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl overflow-hidden shadow-sm flex flex-col focus-within:border-indigo-505 focus-within:ring-4 focus-within:ring-indigo-505/5 transition-all duration-300">
+            <div className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl overflow-hidden shadow-sm flex flex-col focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/5 transition-all duration-300">
               <textarea
                 value={inputText}
                 onChange={(e) => {
@@ -424,7 +424,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
               </span>
             </div>
 
-            <div className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl overflow-hidden shadow-sm flex flex-col focus-within:border-emerald-505 focus-within:ring-4 focus-within:ring-emerald-505/5 transition-all duration-300">
+            <div className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl overflow-hidden shadow-sm flex flex-col focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/5 transition-all duration-300">
               <div className="p-5 min-h-[250px] flex flex-col justify-between">
                 {validationInfo && (
                   <div className="flex items-start gap-2.5 p-3.5 mb-3 bg-red-50 dark:bg-rose-950/20 border border-red-100 dark:border-rose-900 rounded-2xl text-xs text-red-700 dark:text-rose-400 select-none">
@@ -558,7 +558,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
             <h3 className="text-lg font-medium text-slate-900 dark:text-white mt-8 mb-3 font-sans">
               Aesthetic Privacy Guarantee
             </h3>
-            <div className="p-4 bg-emerald-500/10 dark:bg-emerald-950/20 border border-emerald-505/20 rounded-2xl flex items-start gap-3 text-xs tracking-wide">
+            <div className="p-4 bg-emerald-500/10 dark:bg-emerald-950/20 border border-emerald-500/20 rounded-2xl flex items-start gap-3 text-xs tracking-wide">
               <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <div>
                 <strong className="text-emerald-800 dark:text-emerald-350 block">Compliant with Local Dev Security Laws:</strong>
@@ -635,7 +635,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
                     {tool.description}
                   </p>
                 </div>
-                <span className="text-[10px] font-bold text-indigo-505 uppercase tracking-wider mt-4 block">
+                <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mt-4 block">
                   Open Utility &rarr;
                 </span>
               </div>

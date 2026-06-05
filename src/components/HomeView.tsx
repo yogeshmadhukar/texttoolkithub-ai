@@ -268,6 +268,20 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           hoverColor: 'group-hover:border-amber-300 dark:group-hover:border-amber-850',
           pill: 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-350'
         };
+      case 'encoding': 
+        return {
+          icon: <Globe className="w-5 h-5 text-violet-600 dark:text-violet-400" />,
+          bgColor: 'bg-violet-50/50 dark:bg-violet-950/20 border-violet-100 dark:border-violet-900/40 text-violet-700 dark:text-violet-350',
+          hoverColor: 'group-hover:border-violet-300 dark:group-hover:border-violet-850',
+          pill: 'bg-violet-100 text-violet-800 dark:bg-violet-950/60 dark:text-violet-350'
+        };
+      case 'generator': 
+        return {
+          icon: <Sparkle className="w-5 h-5 text-rose-600 dark:text-rose-450" />,
+          bgColor: 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-100 dark:border-rose-900/40 text-rose-700 dark:text-rose-350',
+          hoverColor: 'group-hover:border-rose-300 dark:group-hover:border-rose-850',
+          pill: 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-350'
+        };
     }
   };
 
@@ -583,7 +597,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 </div>
                 
                 <div className="flex items-center gap-1.5 mt-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-505 bg-emerald-500 inline-block animate-ping" /> Popular Choice
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-ping" /> Popular Choice
                 </div>
               </div>
             ))}
@@ -660,7 +674,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-12" 
             id="categories-cards-grid"
           >
             {CATEGORIES.map((cat) => {
@@ -878,7 +892,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 <p className="text-xs text-slate-500 dark:text-slate-450 leading-relaxed mb-2">
                   Sort lines alphabetically, reverse list configurations, randomize templates, and strip out double duplicated statements with standard clients.
                 </p>
-                <span className="text-[11px] font-bold text-indigo-505 group-hover:underline font-sans">Launch Sorter &rarr;</span>
+                <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 group-hover:underline font-sans">Launch Sorter &rarr;</span>
               </div>
             </div>
 
@@ -888,7 +902,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
               className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500 p-6 rounded-2xl cursor-pointer hover:shadow-md transition-all duration-300 relative flex items-start gap-4"
               id="recent-tool-reverser"
             >
-              <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-502 text-indigo-500 rounded-xl shrink-0 group-hover:scale-105 transition-transform duration-200">
+              <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-xl shrink-0 group-hover:scale-105 transition-transform duration-200">
                 <ArrowLeftRight className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
@@ -901,7 +915,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 <p className="text-xs text-slate-500 dark:text-slate-450 leading-relaxed mb-2">
                   Flip lines, backward chars, word alignments, or reverse entire essay sections with dynamic parameters and download export options.
                 </p>
-                <span className="text-[11px] font-bold text-indigo-505 group-hover:underline font-sans">Launch Reverser &rarr;</span>
+                <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 group-hover:underline font-sans">Launch Reverser &rarr;</span>
               </div>
             </div>
 

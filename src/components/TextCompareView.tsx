@@ -429,7 +429,7 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
               <h3 className="text-lg md:text-xl font-medium text-indigo-600 dark:text-indigo-400 hover:underline leading-snug cursor-pointer font-sans">
                 {seoTitle}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-505 dark:text-slate-400 mt-1">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                 {seoDescription}
               </p>
             </div>
@@ -574,7 +574,7 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
                   <button
                     onClick={handleCopyLeft}
                     disabled={!leftText}
-                    className="p-1 px-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-505 hover:text-slate-755 rounded-lg transition disabled:opacity-35 font-bold flex items-center gap-1"
+                    className="p-1 px-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-lg transition disabled:opacity-35 font-bold flex items-center gap-1"
                     id="btn-copy-left"
                   >
                     {copiedLeft ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
@@ -616,7 +616,7 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
                 <button
                   onClick={handleCopyRight}
                   disabled={!rightText}
-                  className="p-1 px-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-505 hover:text-slate-755 rounded-lg transition disabled:opacity-35 font-bold flex items-center gap-1"
+                  className="p-1 px-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-lg transition disabled:opacity-35 font-bold flex items-center gap-1"
                   id="btn-copy-right"
                 >
                   {copiedRight ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
@@ -838,34 +838,34 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
               <p>Comparing your writings or source parameters can be completed in four effortless actions:</p>
               
               <div className="flex gap-3 leading-relaxed">
-                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-805 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">1</span>
+                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">1</span>
                 <div>
                   <h4 className="font-bold text-slate-850 dark:text-slate-200 text-xs">Aquire and Paste Your Inputs</h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">Paste your baseline, original draft document in the left textarea, and paste your active, modified draft on the right side.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Paste your baseline, original draft document in the left textarea, and paste your active, modified draft on the right side.</p>
                 </div>
               </div>
 
               <div className="flex gap-3 leading-relaxed">
-                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-805 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">2</span>
+                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">2</span>
                 <div>
                   <h4 className="font-bold text-slate-850 dark:text-slate-200 text-xs">Verify the Real-time Trigger</h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">Keep "Real-time Comparison" checked to monitor adjustments with every keystroke, or turn it off to manually compare heavy files on demand.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Keep "Real-time Comparison" checked to monitor adjustments with every keystroke, or turn it off to manually compare heavy files on demand.</p>
                 </div>
               </div>
 
               <div className="flex gap-3 leading-relaxed">
-                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-805 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">3</span>
+                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">3</span>
                 <div>
                   <h4 className="font-bold text-slate-850 dark:text-slate-200 text-xs">Tweak Layout Style</h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">Select "Side-by-Side" to highlight adjacent comparative texts, or choose "Unified Flow" to merge the comparison into a single column.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Select "Side-by-Side" to highlight adjacent comparative texts, or choose "Unified Flow" to merge the comparison into a single column.</p>
                 </div>
               </div>
 
               <div className="flex gap-3 leading-relaxed">
-                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-805 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">4</span>
+                <span className="w-5.5 h-5.5 bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 font-mono text-xs font-bold flex items-center justify-center rounded-full mt-0.5 shrink-0">4</span>
                 <div>
                   <h4 className="font-bold text-slate-850 dark:text-slate-200 text-xs">Export the Difference Report</h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-400 mt-0.5">Copy either side individually or serialize a comprehensive diff report directly into your device clipboard securely.</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Copy either side individually or serialize a comprehensive diff report directly into your device clipboard securely.</p>
                 </div>
               </div>
             </div>
@@ -881,7 +881,7 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
               <h2 className="text-3xl font-light font-display tracking-tight text-slate-900 dark:text-white font-sans">
                 Frequently Asked Questions
               </h2>
-              <p className="text-sm text-slate-505 dark:text-slate-400 mt-2">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                 Have questions about algorithms, document capacity and privacy features? Read our answers below.
               </p>
             </div>
@@ -927,7 +927,7 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
               <div 
                 key={tool.id} 
                 onClick={() => onNavigateToTool(tool.id)}
-                className="group border border-slate-201 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-505 p-5 bg-white dark:bg-slate-950 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                className="group border border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 p-5 bg-white dark:bg-slate-950 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
                 id={`related-card-${tool.id}`}
               >
                 <div>
@@ -935,7 +935,7 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
                     {tool.title}
                     <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-500 transition-colors" />
                   </h4>
-                  <p className="text-xs text-slate-505 dark:text-slate-450 mt-2 leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-450 mt-2 leading-relaxed">
                     {tool.description}
                   </p>
                 </div>

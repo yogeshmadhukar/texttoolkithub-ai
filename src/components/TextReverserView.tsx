@@ -307,7 +307,7 @@ A man, a plan, a canal: Panama!`);
             className="flex items-center gap-1.5 px-3.5 py-2 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-50 hover:bg-slate-100 dark:bg-slate-950 dark:hover:bg-slate-800 transition shadow-inner"
             id="seo-inspector-btn"
           >
-            <Globe className="w-4 h-4 text-indigo-505 text-indigo-500" />
+            <Globe className="w-4 h-4 text-indigo-500" />
             {showSeoMeta ? 'Collapse SEO tags' : 'Inspect SEO Meta Tags'}
           </button>
         </div>

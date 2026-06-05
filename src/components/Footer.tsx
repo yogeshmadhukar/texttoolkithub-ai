@@ -90,7 +90,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
-                <button onClick={() => onNavigate('about')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-about">
+                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors font-semibold text-indigo-600 dark:text-indigo-400" id="footer-link-tools">
+                  Tools Directory
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('about')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors" id="footer-link-about">
                   About Our Platform
                 </button>
               </li>

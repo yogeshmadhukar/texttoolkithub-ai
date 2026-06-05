@@ -675,7 +675,7 @@ export default function FancyTextGeneratorView({ onNavigateToTool, onNavigateHom
                   <div className="flex items-center gap-3">
                     <Instagram className="w-3.5 h-3.5 text-slate-300 group-hover:text-pink-500 transition-colors" />
                     <Facebook className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-500 transition-colors" />
-                    <Twitter className="w-3.5 h-3.5 text-slate-300 group-hover:text-sky-505 transition-colors" />
+                    <Twitter className="w-3.5 h-3.5 text-slate-300 group-hover:text-sky-500 transition-colors" />
                   </div>
 
                   <button
@@ -786,7 +786,7 @@ export default function FancyTextGeneratorView({ onNavigateToTool, onNavigateHom
               <h2 className="text-3xl font-light font-display tracking-tight text-slate-900 dark:text-white font-sans">
                 Frequently Asked Questions
               </h2>
-              <p className="text-sm text-slate-505 dark:text-slate-400 mt-2 font-sans font-medium">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 font-sans font-medium">
                 FAQ Answers regarding compatibility, symbol representations, and system rendering.
               </p>
             </div>
