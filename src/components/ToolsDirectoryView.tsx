@@ -599,7 +599,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                   Editor's Pick
                 </span>
                 
-                <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-4 tracking-tight">
+                <h3 className="text-lg font-bold sm:text-xl tracking-tight text-slate-900 dark:text-white mt-3.5">
                   Grammar & Style Guard
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-lg leading-relaxed">
