@@ -41,6 +41,7 @@ import {
 
 interface HomeViewProps {
   onNavigateToTool: (toolId: string) => void;
+  onPrefetchTool?: (toolId: string) => void;
 }
 
 function HighlightText({ text, highlight }: { text: string; highlight: string }) {
@@ -64,7 +65,7 @@ function HighlightText({ text, highlight }: { text: string; highlight: string })
   );
 }
 
-export default function HomeView({ onNavigateToTool }: HomeViewProps) {
+export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewProps) {
   const [selectedCategory, setSelectedCategory] = useState<ToolCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -476,6 +477,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
                             onNavigateToTool(tool.id);
                             setIsSearchFocused(false);
                           }}
+                          onMouseEnter={() => onPrefetchTool?.(tool.id)}
                           className={`flex items-start gap-3.5 p-2.5 rounded-xl cursor-pointer group transition-all duration-150 text-left border ${
                             isActive
                               ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-950 dark:text-white dark:bg-indigo-500/15'
@@ -537,6 +539,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
                   onClick={() => {
                     onNavigateToTool(tag.toolId);
                   }}
+                  onMouseEnter={() => onPrefetchTool?.(tag.toolId)}
                   className="px-3 py-1 bg-white border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 rounded-xl text-slate-605 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-850 hover:text-indigo-650 dark:hover:text-indigo-400 font-semibold transition text-[11px] cursor-pointer shadow-sm"
                 >
                   {tag.label}
@@ -565,6 +568,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
               <div 
                 key={tool.id}
                 onClick={() => onNavigateToTool(tool.id)}
+                onMouseEnter={() => onPrefetchTool?.(tool.id)}
                 className="group border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-5 rounded-2xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-450 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
                 id={`popular-${tool.id}`}
               >
@@ -746,6 +750,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
                     transition={{ duration: 0.3, delay: Math.min(0.2, idx * 0.03) }}
                     key={tool.id}
                     onClick={() => onNavigateToTool(tool.id)}
+                    onMouseEnter={() => onPrefetchTool?.(tool.id)}
                     className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-500 p-6 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
                     id={`catalog-tool-${tool.id}`}
                   >
@@ -806,6 +811,7 @@ export default function HomeView({ onNavigateToTool }: HomeViewProps) {
                 <div 
                   key={tool.id}
                   onClick={() => onNavigateToTool(tool.id)}
+                  onMouseEnter={() => onPrefetchTool?.(tool.id)}
                   className="group bg-slate-50/40 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 hover:border-indigo-400 dark:hover:border-indigo-500/80 p-6 rounded-3xl cursor-pointer hover:shadow-xl transition-all duration-350 relative overflow-hidden flex flex-col justify-between"
                   id={`featured-${tool.id}`}
                 >

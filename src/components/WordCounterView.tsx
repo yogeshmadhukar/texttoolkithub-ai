@@ -122,8 +122,8 @@ export default function WordCounterView({ onNavigateToTool, onNavigateHome }: Wo
     };
   }, []);
 
-  // Live Metrics Calculations
-  const calculateMetrics = () => {
+  // Live Metrics Calculations optimized via memoization to avoid wasting clock cycles on non-text state mutations (like menu toggling)
+  const metrics = React.useMemo(() => {
     const trimmed = text.trim();
     
     // Words list (filtering out null spaces)
@@ -185,9 +185,7 @@ export default function WordCounterView({ onNavigateToTool, onNavigateHome }: Wo
       avgWordLength,
       keywordDensity
     };
-  };
-
-  const metrics = calculateMetrics();
+  }, [text]);
 
   // Toolbar Actions
   const handleLoadSample = () => {

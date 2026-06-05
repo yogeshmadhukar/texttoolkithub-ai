@@ -35,12 +35,49 @@ const LoremIpsumGeneratorView = React.lazy(() => import('./components/LoremIpsum
 const RandomTextGeneratorView = React.lazy(() => import('./components/RandomTextGeneratorView.tsx'));
 const KeywordDensityCheckerView = React.lazy(() => import('./components/KeywordDensityCheckerView.tsx'));
 const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
+const HowToUseAccordion = React.lazy(() => import('./components/HowToUseAccordion.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import { initializeAnalytics, trackPageView, analytics } from './lib/analytics.ts';
 import AnalyticsConsentBanner from './components/AnalyticsConsentBanner.tsx';
+
+// Mapping table for dynamic prefetching on card hover
+const PREFETCH_MAP: Record<string, () => Promise<any>> = {
+  'tools/word-counter': () => import('./components/WordCounterView.tsx'),
+  'tools/sentence-counter': () => import('./components/SentenceCounterView.tsx'),
+  'tools/character-counter': () => import('./components/CharacterCounterView.tsx'),
+  'tools/remove-line-breaks': () => import('./components/RemoveLineBreaksView.tsx'),
+  'tools/remove-extra-spaces': () => import('./components/RemoveExtraSpacesView.tsx'),
+  'tools/case-converter': () => import('./components/CaseConverterView.tsx'),
+  'tools/text-compare': () => import('./components/TextCompareView.tsx'),
+  'tools/slug-generator': () => import('./components/SlugGeneratorView.tsx'),
+  'tools/url-encoder': () => import('./components/UrlEncoderView.tsx'),
+  'tools/url-decoder': () => import('./components/UrlDecoderView.tsx'),
+  'tools/fancy-text-generator': () => import('./components/FancyTextGeneratorView.tsx'),
+  'tools/html-encoder': () => import('./components/HtmlEncoderView.tsx'),
+  'tools/html-decoder': () => import('./components/HtmlDecoderView.tsx'),
+  'tools/base64-encoder': () => import('./components/Base64EncoderView.tsx'),
+  'tools/base64-decoder': () => import('./components/Base64DecoderView.tsx'),
+  'tools/text-sorter': () => import('./components/TextSorterView.tsx'),
+  'tools/text-reverser': () => import('./components/TextReverserView.tsx'),
+  'tools/text-repeater': () => import('./components/TextRepeaterView.tsx'),
+  'tools/grammar-checker': () => import('./components/GrammarCheckerView.tsx'),
+  'tools/readability-checker': () => import('./components/ReadabilityCheckerView.tsx'),
+  'tools/remove-duplicate-lines': () => import('./components/RemoveDuplicateLinesView.tsx'),
+  'tools/remove-empty-lines': () => import('./components/RemoveEmptyLinesView.tsx'),
+  'tools/lorem-ipsum-generator': () => import('./components/LoremIpsumGeneratorView.tsx'),
+  'tools/random-text-generator': () => import('./components/RandomTextGeneratorView.tsx'),
+  'tools/keyword-density-checker': () => import('./components/KeywordDensityCheckerView.tsx'),
+};
+
+const prefetchTool = (id: string) => {
+  const loader = PREFETCH_MAP[id];
+  if (loader) {
+    loader().catch(() => {});
+  }
+};
 
 
 // Define explicit path normalization and redirect rules for fallback/legacy endpoints
@@ -359,15 +396,15 @@ export default function App() {
       .join(' - ');
 
     // Determine SEO Title and Description
-    let pageTitle = "TextToolkitHub – Free Online Text Tools, Word Counter & Case Converter";
-    let pageDesc = "An exceptionally fast, beautiful, and 100% private client-side text toolkit. Count words, compare text diffs, format line breaks, generate URL slugs, and convert spacing cleanly.";
+    let pageTitle = "TextToolkitHub | Free Online Text & String Tools";
+    let pageDesc = "TextToolkitHub is a fast, free, and 100% private client-side text toolkit. Count words, change casing, compare text diffs, and format strings securely.";
 
     if (activePage === 'home') {
-      pageTitle = "TextToolkitHub – Free Online Text Tools, Word Counter & Case Converter";
-      pageDesc = "TextToolkitHub is an exceptionally fast, beautiful, and 100% private browser-based text toolkit. Count words, compare texts, convert cases, remove breaks, and format strings securely.";
+      pageTitle = "TextToolkitHub | Free Online Text & String Tools";
+      pageDesc = "TextToolkitHub is a fast, free, and 100% private client-side text toolkit. Count words, change casing, compare text diffs, and format strings securely.";
     } else if (activePage === 'about') {
-      pageTitle = "About Us | TextToolkitHub - Fast, Beautiful & Private Online Text Utilities";
-      pageDesc = "Learn more about TextToolkitHub's mission to provide beautifully designed, blindingly fast, and 100% private text and string tools for creators and developers.";
+      pageTitle = "About TextToolkitHub | Fast, Private & Free Text Utilities";
+      pageDesc = "Discover the mission and technology stack of TextToolkitHub. Standard browser-first code ensures zero text data ever leaves your computer.";
     } else if (activePage === 'faq') {
       pageTitle = "Frequently Asked Questions (FAQ) | TextToolkitHub - Help & Support";
       pageDesc = "Find clear answers to common questions about TextToolkitHub's offline-first local security, analytics tracking, tool features, and compatibility.";
@@ -1011,7 +1048,7 @@ export default function App() {
 
     switch (activePage) {
       case 'home':
-        return <HomeView onNavigateToTool={(id) => handlePageNavigation(id)} />;
+        return <HomeView onNavigateToTool={(id) => handlePageNavigation(id)} onPrefetchTool={prefetchTool} />;
       case 'about':
         return <AboutView />;
       case 'faq':
@@ -1050,6 +1087,17 @@ export default function App() {
           <Suspense fallback={<ViewLoadingSkeleton />}>
             <div className="animate-in fade-in duration-200">
               {renderViewBody()}
+              {(() => {
+                const currentTool = TOOLS.find(t => t.id === activePage || t.id.replace('tools/', '') === activePage);
+                if (currentTool) {
+                  return (
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                      <HowToUseAccordion toolId={currentTool.id} />
+                    </div>
+                  );
+                }
+                return null;
+              })()}
             </div>
           </Suspense>
         </ErrorBoundary>

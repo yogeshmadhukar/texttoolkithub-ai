@@ -111,8 +111,8 @@ export default function SentenceCounterView({ onNavigateToTool, onNavigateHome }
     };
   }, []);
 
-  // Live Metrics Calculations
-  const calculateMetrics = () => {
+  // Live Metrics Calculations optimized via memoization to avoid redundant computations on non-text state updates
+  const metrics = React.useMemo(() => {
     const trimmed = text.trim();
     
     // Total Characters
@@ -163,9 +163,7 @@ export default function SentenceCounterView({ onNavigateToTool, onNavigateHome }
       chars: charCount,
       readingTime: formatTime(readingTimeSec)
     };
-  };
-
-  const metrics = calculateMetrics();
+  }, [text]);
 
   // Actions
   const handleLoadSample = () => {

@@ -119,8 +119,8 @@ export default function CharacterCounterView({ onNavigateToTool, onNavigateHome 
     };
   }, []);
 
-  // Live Metric Calculations
-  const calculateMetrics = () => {
+  // Live Metric Calculations optimized via memoization to avoid redundant loops under non-text state updates
+  const metrics = React.useMemo(() => {
     const trimmed = text.trim();
     const charCount = text.length;
     const charNoSpaces = text.replace(/\s/g, '').length;
@@ -162,9 +162,7 @@ export default function CharacterCounterView({ onNavigateToTool, onNavigateHome 
       tabs: tabsCount,
       byteSize
     };
-  };
-
-  const metrics = calculateMetrics();
+  }, [text]);
 
   // Social Limits Definitions
   const socialLimits = [
