@@ -1,8 +1,15 @@
 # -----------------------------------------------------------------------------
 # Robots.txt for TextToolkitHub - Production Edition
 # Optimized for Googlebot, Bingbot, and modern Search Engine Crawlers
-# Last Updated: 2026-06-02
+# Last Updated: 2026-06-06
 # -----------------------------------------------------------------------------
+
+# Explicitly ensure social spiders can render high-resolution deck previews
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
 
 User-agent: *
 # Allow comprehensive client-side indexing of public routes and assets
