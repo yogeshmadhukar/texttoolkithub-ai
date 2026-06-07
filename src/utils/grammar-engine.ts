@@ -248,32 +248,36 @@ export function analyzeGrammar(text: string): GrammarIssue[] {
 
   // C. Pronoun subject-verb combinations (e.g., "he have", "I has", "she do not")
   const subjectVerbRules = [
-    { regex: /\b(he|she|it)\s+(have)\b/gi, errWordIdx: 2, correct: 'has', explanation: 'Singular third-person pronoun takes "has", not "have".' },
-    { regex: /\b(I|we|they|you)\s+(has)\b/gi, errWordIdx: 2, correct: 'have', explanation: 'Plural pronouns or first/second person takes "have", not "has".' },
-    { regex: /\b(he|she|it)\s+(do\s+not|dont)\b/gi, errWordIdx: 2, correct: 'does not', explanation: 'Singular third-person takes "does not", not "do not".' },
-    { regex: /\b(I|we|they|you)\s+(does\s+not|doesn't)\b/gi, errWordIdx: 2, correct: 'do not', explanation: 'Plural pronouns or first/second person takes "do not", not "does not".' },
-    { regex: /\b(your)\s+welcome\b/gi, errWordIdx: 1, correct: "you're", explanation: 'Conflating "your" (possessive) and contraction "you\'re" (you are welcome).' },
-    { regex: /\b(your)\s+(beautiful|correct|right|going)\b/gi, errWordIdx: 1, correct: "you're", explanation: 'Use contraction "you\'re" (you are) instead of possessive "your" before an adjective or participle.' },
-    { regex: /\b(you're)\s+(car|house|book|dog|laptop|phone)\b/gi, errWordIdx: 1, correct: 'your', explanation: 'Use possessive "your" instead of contraction "you\'re" before a noun.' },
-    { regex: /\bits\s+(a\s+beautiful|important|necessary|crucial|going)\b/gi, errWordIdx: 0, correct: "it's", explanation: 'Use contraction "it\'s" (it is) instead of possessive "its".' },
-    { regex: /\bit's\s+(color|tail|size|pacing|shape|speed)\b/gi, errWordIdx: 0, correct: 'its', explanation: 'Use possessive pronoun "its" instead of contraction "it\'s" (it is) before properties/nouns.' },
-    { regex: /\b(there)\s+(book|books|car|house|mind|opinion)\b/gi, errWordIdx: 1, correct: 'their', explanation: 'Use possessive "their" instead of location-adverb "there" to indicate ownership.' },
-    { regex: /\b(their)\s+(is|are|was|were)\b/gi, errWordIdx: 1, correct: 'there', explanation: 'Use "there" (existential pronoun) instead of possessive "their".' },
-    { regex: /\bmore\s+(then)\b/gi, errWordIdx: 1, correct: 'than', explanation: 'Use "than" for comparisons, not "then" (which refers to time).' }
+    { regex: /\b(he|she|it)\s+(have)\b/gi, errGroupIdx: 2, correct: 'has', explanation: 'Singular third-person pronoun takes "has", not "have".' },
+    { regex: /\b(I|we|they|you)\s+(has)\b/gi, errGroupIdx: 2, correct: 'have', explanation: 'Plural pronouns or first/second person takes "have", not "has".' },
+    { regex: /\b(he|she|it)\s+(do\s+not|dont)\b/gi, errGroupIdx: 2, correct: 'does not', explanation: 'Singular third-person takes "does not", not "do not".' },
+    { regex: /\b(I|we|they|you)\s+(does\s+not|doesn't)\b/gi, errGroupIdx: 2, correct: 'do not', explanation: 'Plural pronouns or first/second person takes "do not", not "does not".' },
+    { regex: /\b(your)\s+welcome\b/gi, errGroupIdx: 1, correct: "you're", explanation: 'Conflating "your" (possessive) and contraction "you\'re" (you are welcome).' },
+    { regex: /\b(your)\s+(beautiful|correct|right|going)\b/gi, errGroupIdx: 1, correct: "you're", explanation: 'Use contraction "you\'re" (you are) instead of possessive "your" before an adjective or participle.' },
+    { regex: /\b(you're)\s+(car|house|book|dog|laptop|phone)\b/gi, errGroupIdx: 1, correct: 'your', explanation: 'Use possessive "your" instead of contraction "you\'re" before a noun.' },
+    { regex: /\b(its)\s+(a\s+beautiful|important|necessary|crucial|going)\b/gi, errGroupIdx: 1, correct: "it's", explanation: 'Use contraction "it\'s" (it is) instead of possessive "its".' },
+    { regex: /\b(it's)\s+(color|tail|size|pacing|shape|speed)\b/gi, errGroupIdx: 1, correct: 'its', explanation: 'Use possessive pronoun "its" instead of contraction "it\'s" (it is) before properties/nouns.' },
+    { regex: /\b(there)\s+(book|books|car|house|mind|opinion)\b/gi, errGroupIdx: 1, correct: 'their', explanation: 'Use possessive "their" instead of location-adverb "there" to indicate ownership.' },
+    { regex: /\b(their)\s+(is|are|was|were)\b/gi, errGroupIdx: 1, correct: 'there', explanation: 'Use "there" (existential pronoun) instead of possessive "their".' },
+    { regex: /\bmore\s+(then)\b/gi, errGroupIdx: 1, correct: 'than', explanation: 'Use "than" for comparisons, not "then" (which refers to time).' }
   ];
 
-  subjectVerbRules.forEach(({ regex, errWordIdx, correct, explanation }) => {
+  subjectVerbRules.forEach(({ regex, errGroupIdx, correct, explanation }) => {
     while ((match = regex.exec(text)) !== null) {
-      // Find the mistake word offsets
       const fullMatch = match[0];
-      const matchedParts = fullMatch.split(/\s+/);
-      const preWordCount = matchedParts.slice(0, errWordIdx).join(' ').length;
-      const leadingGapLength = preWordCount > 0 ? preWordCount + 1 : 0;
-      
-      const errWord = match[errWordIdx + 1]; // because index 0 is full match, index 1/2 are matches
-      const targetOffset = match.index + leadingGapLength;
-      
-      // Safety: check if spelling dictionary doesn't override
+      const errWord = match[errGroupIdx];
+      if (!errWord) {
+        continue;
+      }
+
+      // Safe, relative calculation of the offset of the erroneous word inside fullMatch
+      const insideMatchOffset = fullMatch.indexOf(errWord);
+      if (insideMatchOffset === -1) {
+        continue;
+      }
+
+      const targetOffset = match.index + insideMatchOffset;
+
       addIssue(
         'grammar',
         targetOffset,
