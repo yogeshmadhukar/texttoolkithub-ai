@@ -3,6 +3,7 @@ import { TOOLS, CATEGORIES, FAQS, searchTools } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
+import AdPlacement from './AdPlacement.tsx';
 import { 
   FileText, 
   Hash, 
@@ -605,6 +606,11 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
 
         </div>
       </section>
+
+      {/* Inline Section Leaderboard Ad Placement to reduce CLS and fulfill programmatic criteria */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <AdPlacement slot="leaderboard" id="homepage-mid-lead" />
+      </div>
 
       {/* 3.5 CENTRAL KEYWORD-RICH SEO INTRODUCTION SECTION */}
       <section className="py-16 bg-slate-50/10 dark:bg-slate-950/20 border-b border-slate-200 dark:border-slate-850 z-10 relative">
