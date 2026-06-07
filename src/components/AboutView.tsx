@@ -38,7 +38,7 @@ export default function AboutView() {
             transition={{ delay: 0.2 }}
             className="text-lg text-slate-500 dark:text-slate-400 mt-4 max-w-2xl mx-auto leading-relaxed"
           >
-            TextToolkitHub was built out of a simple, modern necessity: having a highly professional text tool utility portal that does not inspect, transmit, or monetize your private documents. Let’s clean the internet together.
+            TextToolkitHub was built out of a simple, modern necessity: having a highly professional <a href="/" className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">text utility toolkit and dynamic string tools</a> that does not inspect, transmit, or monetize your private documents. Let’s clean the internet together.
           </motion.p>
         </div>
 
@@ -81,7 +81,7 @@ export default function AboutView() {
             </div>
             <h3 className="font-sans font-bold text-lg text-slate-800 dark:text-slate-100">Open & Dedicated Standards</h3>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-              Compatible across all mobile layouts, iPads, and standard desktop screens. TextToolkitHub will always keep its first 5 core tools completely free, forever.
+              Compatible across all mobile layouts, iPads, and standard desktop screens. Our <a href="/" className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Free Text & String Utilities</a> suite will always keep its core text tools free, forever.
             </p>
           </div>
 
@@ -102,6 +102,54 @@ export default function AboutView() {
             <span className="text-xs font-bold text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 px-3 py-1.5 rounded-xl">TypeScript Type Safety</span>
             <span className="text-xs font-bold text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 px-3 py-1.5 rounded-xl">Tailwind CSS v4 Utility</span>
             <span className="text-xs font-bold text-slate-500 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 px-3 py-1.5 rounded-xl">Motion Animation API</span>
+          </div>
+        </div>
+
+        {/* SEO Internal Linking / Directory Segment */}
+        <div className="mt-12 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 bg-slate-50 dark:bg-slate-950/20 text-center md:text-left">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white font-sans mb-4">
+            Explore Free Online Text Utilities & Tools
+          </h3>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
+            Looking for specific text formatting, analysis, or converter solutions? Jump straight into our highly popular tools directly from this portal to execute private character operations instantly.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="/" className="flex flex-col p-4 border border-slate-250 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-900/50 rounded-2xl bg-white dark:bg-slate-950 transition group text-left shadow-sm">
+              <span className="text-xs font-sans uppercase font-extrabold text-indigo-600 dark:text-indigo-400 tracking-wider">Homepage</span>
+              <span className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1 hover:underline group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                Text Utility Portal Home
+              </span>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-normal">
+                Our main directory of 100% private digital utilities with offline processing.
+              </p>
+            </a>
+
+            <a href="/word-counter" className="flex flex-col p-4 border border-slate-250 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-900/50 rounded-2xl bg-white dark:bg-slate-950 transition group text-left shadow-sm">
+              <span className="text-xs font-sans uppercase font-extrabold text-indigo-600 dark:text-indigo-400 tracking-wider">Analysis</span>
+              <span className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1 hover:underline group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                Word & Character Counter
+              </span>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-normal">
+                Analyze words, sentences, syllables, reading speeds, and density stats locally.
+              </p>
+            </a>
+
+            <a href="/text-compare" className="flex flex-col p-4 border border-slate-250 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-900/50 rounded-2xl bg-white dark:bg-slate-950 transition group text-left shadow-sm">
+              <span className="text-xs font-sans uppercase font-extrabold text-indigo-600 dark:text-indigo-400 tracking-wider">Comparison</span>
+              <span className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1 hover:underline group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                Text Difference Checker
+              </span>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-normal">
+                Compare side-by-side files or paste text blocks and highlight code differences.
+              </p>
+            </a>
+          </div>
+          
+          <div className="mt-6 text-center">
+            <a href="/tools" className="inline-flex items-center gap-1.5 text-xs font-extrabold text-indigo-600 dark:text-indigo-400 hover:underline">
+              Browse full portfolio in the Text Tools Directory &rarr;
+            </a>
           </div>
         </div>
 

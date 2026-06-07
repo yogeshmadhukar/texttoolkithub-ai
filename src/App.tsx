@@ -397,12 +397,12 @@ export default function App() {
       .join(' - ');
 
     // Determine SEO Title and Description
-    let pageTitle = "TextToolkitHub | Free Online Text & String Tools";
-    let pageDesc = "TextToolkitHub is a fast, free, and 100% private client-side text toolkit. Count words, change casing, compare text diffs, and format strings securely.";
+    let pageTitle = "TextToolkitHub - Private, Free Online Text Tools & String Utilities";
+    let pageDesc = "Free online text tools and string utilities. Count words, compare diffs, convert casing formats, generate slugs, and format line breaks instantly and 100% privately.";
 
     if (activePage === 'home') {
-      pageTitle = "TextToolkitHub | Free Online Text & String Tools";
-      pageDesc = "TextToolkitHub is a fast, free, and 100% private client-side text toolkit. Count words, change casing, compare text diffs, and format strings securely.";
+      pageTitle = "TextToolkitHub - Private, Free Online Text Tools & String Utilities";
+      pageDesc = "Free online text tools and string utilities. Count words, compare diffs, convert casing formats, generate slugs, and format line breaks instantly and 100% privately.";
     } else if (activePage === 'tools') {
       pageTitle = "Text Tools Directory | TextToolkitHub";
       pageDesc = "Discover our comprehensive directory of free online text tools and utilities. Count words, compare diffs, convert casing formats, encode/decode strings, and generate placeholders securely and 100% locally.";
