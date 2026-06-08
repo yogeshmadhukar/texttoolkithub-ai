@@ -40,7 +40,9 @@ import {
   Sparkles as SparklesIcon,
   X,
   History,
-  ArrowUpRight
+  ArrowUpRight,
+  Pilcrow,
+  Smile
 } from 'lucide-react';
 
 interface ToolsDirectoryViewProps {
@@ -72,6 +74,9 @@ const getToolIcon = (name: string, className: string = 'w-5 h-5') => {
     case 'ArrowUpDown': return <ArrowUpDown className={`${className} text-emerald-500`} />;
     case 'ArrowLeftRight': return <ArrowLeftRight className={`${className} text-pink-500`} />;
     case 'Repeat': return <Repeat className={`${className} text-pink-500`} />;
+    case 'Pilcrow': return <Pilcrow className={`${className} text-indigo-500`} />;
+    case 'Smile': return <Smile className={`${className} text-indigo-505`} />;
+    case 'List': return <List className={`${className} text-indigo-500`} />;
     default: return <FileText className={`${className} text-slate-500`} />;
   }
 };

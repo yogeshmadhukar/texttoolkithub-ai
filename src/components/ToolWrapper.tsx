@@ -31,7 +31,10 @@ import {
   Unlock,
   Link2,
   ArrowUpDown,
-  ArrowLeftRight
+  ArrowLeftRight,
+  Pilcrow,
+  Smile,
+  List
 } from 'lucide-react';
 
 interface ToolWrapperProps {
@@ -315,6 +318,9 @@ Writing blog drafts or corporate press articles can be stressful when characters
       case 'Link2': return <Link2 className={`${sizeClass} text-indigo-500`} />;
       case 'ArrowUpDown': return <ArrowUpDown className={`${sizeClass} text-emerald-500`} />;
       case 'ArrowLeftRight': return <ArrowLeftRight className={`${sizeClass} text-indigo-500`} />;
+      case 'Pilcrow': return <Pilcrow className={`${sizeClass} text-indigo-500`} />;
+      case 'Smile': return <Smile className={`${sizeClass} text-indigo-500`} />;
+      case 'List': return <List className={`${sizeClass} text-indigo-500`} />;
       default: return <FileText className={`${sizeClass} text-indigo-500`} />;
     }
   };

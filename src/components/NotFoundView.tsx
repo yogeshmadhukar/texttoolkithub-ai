@@ -13,7 +13,11 @@ import {
   Type,
   GitCompare,
   Globe,
-  ArrowUpRight
+  ArrowUpRight,
+  Pilcrow,
+  Eraser,
+  Smile,
+  List
 } from 'lucide-react';
 
 interface NotFoundViewProps {
@@ -78,6 +82,10 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
       case 'GitCompare': return <GitCompare className={`${sizeClass} text-emerald-500`} />;
       case 'Globe': return <Globe className={`${sizeClass} text-amber-500`} />;
       case 'Sparkles': return <Sparkles className={`${sizeClass} text-indigo-500`} />;
+      case 'Pilcrow': return <Pilcrow className={`${sizeClass} text-indigo-500`} />;
+      case 'Eraser': return <Eraser className={`${sizeClass} text-indigo-505`} />;
+      case 'Smile': return <Smile className={`${sizeClass} text-indigo-500`} />;
+      case 'List': return <List className={`${sizeClass} text-indigo-500`} />;
       default: return <FileText className={`${sizeClass} text-indigo-550`} />;
     }
   };

@@ -35,6 +35,11 @@ const RemoveEmptyLinesView = React.lazy(() => import('./components/RemoveEmptyLi
 const LoremIpsumGeneratorView = React.lazy(() => import('./components/LoremIpsumGeneratorView.tsx'));
 const RandomTextGeneratorView = React.lazy(() => import('./components/RandomTextGeneratorView.tsx'));
 const KeywordDensityCheckerView = React.lazy(() => import('./components/KeywordDensityCheckerView.tsx'));
+const ParagraphFormatterView = React.lazy(() => import('./components/ParagraphFormatterView.tsx'));
+const RemoveSpecialCharactersView = React.lazy(() => import('./components/RemoveSpecialCharactersView.tsx'));
+const RemoveEmojisView = React.lazy(() => import('./components/RemoveEmojisView.tsx'));
+const BulletPointGeneratorView = React.lazy(() => import('./components/BulletPointGeneratorView.tsx'));
+const CaseConverterProView = React.lazy(() => import('./components/CaseConverterProView.tsx'));
 const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
 const ToolsDirectoryView = React.lazy(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = React.lazy(() => import('./components/HowToUseAccordion.tsx'));
@@ -72,6 +77,11 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/lorem-ipsum-generator': () => import('./components/LoremIpsumGeneratorView.tsx'),
   'tools/random-text-generator': () => import('./components/RandomTextGeneratorView.tsx'),
   'tools/keyword-density-checker': () => import('./components/KeywordDensityCheckerView.tsx'),
+  'tools/paragraph-formatter': () => import('./components/ParagraphFormatterView.tsx'),
+  'tools/remove-special-characters': () => import('./components/RemoveSpecialCharactersView.tsx'),
+  'tools/remove-emojis': () => import('./components/RemoveEmojisView.tsx'),
+  'tools/bullet-point-generator': () => import('./components/BulletPointGeneratorView.tsx'),
+  'tools/case-converter-pro': () => import('./components/CaseConverterProView.tsx'),
 };
 
 const prefetchTool = (id: string) => {
@@ -222,6 +232,27 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'textreverser': 'tools/text-reverser',
     'reverse': 'tools/text-reverser',
     'flip': 'tools/text-reverser',
+    'paragraph-formatter': 'tools/paragraph-formatter',
+    'paragraphformatter': 'tools/paragraph-formatter',
+    'tools/paragraphformatter': 'tools/paragraph-formatter',
+    'format-paragraphs': 'tools/paragraph-formatter',
+    'remove-special-characters': 'tools/remove-special-characters',
+    'removespecialcharacters': 'tools/remove-special-characters',
+    'tools/removespecialcharacters': 'tools/remove-special-characters',
+    'clean-text': 'tools/remove-special-characters',
+    'remove-emojis': 'tools/remove-emojis',
+    'removeemojis': 'tools/remove-emojis',
+    'tools/removeemojis': 'tools/remove-emojis',
+    'strip-emojis': 'tools/remove-emojis',
+    'bullet-point-generator': 'tools/bullet-point-generator',
+    'bulletpointgenerator': 'tools/bullet-point-generator',
+    'tools/bulletpointgenerator': 'tools/bullet-point-generator',
+    'convert-text-to-bullets': 'tools/bullet-point-generator',
+    'case-converter-pro': 'tools/case-converter-pro',
+    'caseconverterpro': 'tools/case-converter-pro',
+    'tools/caseconverterpro': 'tools/case-converter-pro',
+    'tools/case-converter-pro': 'tools/case-converter-pro',
+    'convert-case-pro': 'tools/case-converter-pro',
     'privacy-policy': 'privacy',
     'terms-of-service': 'terms',
     'faqs': 'faq',
@@ -1034,6 +1065,56 @@ export default function App() {
     if (activePage === 'tools/keyword-density-checker' || activePage === 'keyword-density-checker') {
       return (
         <KeywordDensityCheckerView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Paragraph Formatter page
+    if (activePage === 'tools/paragraph-formatter' || activePage === 'paragraph-formatter') {
+      return (
+        <ParagraphFormatterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Remove Special Characters page
+    if (activePage === 'tools/remove-special-characters' || activePage === 'remove-special-characters') {
+      return (
+        <RemoveSpecialCharactersView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Remove Emojis page
+    if (activePage === 'tools/remove-emojis' || activePage === 'remove-emojis') {
+      return (
+        <RemoveEmojisView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Bullet Point Generator page
+    if (activePage === 'tools/bullet-point-generator' || activePage === 'bullet-point-generator') {
+      return (
+        <BulletPointGeneratorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Case Converter Pro page
+    if (activePage === 'tools/case-converter-pro' || activePage === 'case-converter-pro') {
+      return (
+        <CaseConverterProView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

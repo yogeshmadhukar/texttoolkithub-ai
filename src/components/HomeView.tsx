@@ -37,7 +37,10 @@ import {
   SpellCheck,
   Scissors,
   FileCode,
-  Sparkle
+  Sparkle,
+  Pilcrow,
+  Smile,
+  List
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -242,6 +245,9 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       case 'Scissors': return <Scissors className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'FileCode': return <FileCode className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'Sparkle': return <Sparkle className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Pilcrow': return <Pilcrow className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Smile': return <Smile className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'List': return <List className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       default: return <FileText className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
     }
   };

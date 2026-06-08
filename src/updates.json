@@ -1,5 +1,40 @@
 [
   {
+    "id": "update-case-converter-pro",
+    "title": "Case Converter Pro Launched",
+    "description": "Convert text between 13 different casings including camelCase, snake_case, PascalCase, dot.case, path/case and CONSTANT_CASE with live preview cards.",
+    "category": "New Tool",
+    "date": "2026-06-08"
+  },
+  {
+    "id": "update-bullet-point-generator",
+    "title": "Added Bullet Point Generator",
+    "description": "Convert blocks of paragraphs, notes, or essays into organized lists. Supports circular, square, standard bullet symbols, or arrows.",
+    "category": "New Tool",
+    "date": "2026-06-08"
+  },
+  {
+    "id": "update-remove-emojis",
+    "title": "Added Remove Emojis Tool",
+    "description": "Instantly purge Unicode emojis and flags from social media posts, messages, and document copy while preserving text spaces.",
+    "category": "New Tool",
+    "date": "2026-06-08"
+  },
+  {
+    "id": "update-remove-special-characters",
+    "title": "Added Remove Special Characters",
+    "description": "Strip heavy symbols, equations, and punctuation from strings while keeping digits and raw letters securely locally.",
+    "category": "New Tool",
+    "date": "2026-06-08"
+  },
+  {
+    "id": "update-paragraph-formatter",
+    "title": "Added Paragraph Formatter",
+    "description": "Convert messy AI walls of text or ChatGPT clipboard content into neat, readable paragraphs with standard indents.",
+    "category": "New Tool",
+    "date": "2026-06-08"
+  },
+  {
     "id": "update-random-text-generator",
     "title": "Added Random Text Generator",
     "description": "Generate dynamic words, sentences, and paragraphs styled for corporate, marketing, conversational or placeholder needs.",

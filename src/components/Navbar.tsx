@@ -31,7 +31,10 @@ import {
   Linkedin,
   Scissors,
   FileCode,
-  Sparkle
+  Sparkle,
+  Pilcrow,
+  Smile,
+  List
 } from 'lucide-react';
 import updatesData from '../updates.json';
 
@@ -81,7 +84,42 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
   const [updates] = useState<AppUpdate[]>(updatesData as AppUpdate[]);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [readNotifIds, setReadNotifIds] = useState<string[]>([]);
+  const [notifTab, setNotifTab] = useState<'all' | 'new-tools' | 'improvements' | 'upcoming' | 'news'>('all');
   const notifDropdownRef = useRef<HTMLDivElement>(null);
+
+  const upcomingTools = [
+    {
+      id: "upcoming-1",
+      title: "Markdown to PDF Exporter",
+      description: "Convert rich markdown files directly into styled, downloadable PDF assets with standardized layouts.",
+      eta: "Q3 2026",
+      category: "Upcoming Tool"
+    },
+    {
+      id: "upcoming-2",
+      title: "Regex Helper Playground",
+      description: "A complete browser-native test harness to write, debug, and test regular expressions with visual capture groups.",
+      eta: "Q4 2026",
+      category: "Upcoming Tool"
+    }
+  ];
+
+  const websiteNews = [
+    {
+      id: "news-1",
+      title: "30 Core Tools Released",
+      description: "TextToolkitHub has officially deployed 30 fully custom, completely browser-native text string cleaning, converting, and analysis tools.",
+      date: "2026-06-08",
+      category: "Website News"
+    },
+    {
+      id: "news-2",
+      title: "Cookieless Privacy Update",
+      description: "All client-side interactions are completely anonymous and aggregate, protecting and preserving 100% of your personal assets.",
+      date: "2026-06-05",
+      category: "Website News"
+    }
+  ];
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -121,6 +159,25 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
   useEffect(() => {
     setActiveSearchIndex(-1);
   }, [searchQuery]);
+
+  // Global key bindings Ctrl+K, Cmd+K, or "/"
+  useEffect(() => {
+    const handleGlobalKeys = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        const input = document.getElementById('nav-search-desktop') as HTMLInputElement | null;
+        input?.focus();
+        setIsSearchFocused(true);
+      } else if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        const input = document.getElementById('nav-search-desktop') as HTMLInputElement | null;
+        input?.focus();
+        setIsSearchFocused(true);
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeys);
+    return () => window.removeEventListener('keydown', handleGlobalKeys);
+  }, []);
 
   // Analytics: Track Navbar quick search query with 1.5s debounce to optimize event count
   useEffect(() => {
@@ -212,6 +269,9 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       case 'Scissors': return <Scissors className="w-4 h-4 text-indigo-500" />;
       case 'FileCode': return <FileCode className="w-4 h-4 text-indigo-500" />;
       case 'Sparkle': return <Sparkle className="w-4 h-4 text-indigo-500" />;
+      case 'Pilcrow': return <Pilcrow className="w-4 h-4 text-indigo-500" />;
+      case 'Smile': return <Smile className="w-4 h-4 text-indigo-500" />;
+      case 'List': return <List className="w-4 h-4 text-indigo-500" />;
       default: return <Wrench className="w-4 h-4 text-blue-500" />;
     }
   };
@@ -227,6 +287,23 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
     onNavigate(page);
     setMobileMenuOpen(false);
   };
+
+  const getFilteredUpdates = () => {
+    switch (notifTab) {
+      case 'new-tools':
+        return updates.filter(u => u.category === 'New Tool');
+      case 'improvements':
+        return updates.filter(u => u.category === 'Improvement' || u.category === 'Feature Update');
+      case 'upcoming':
+        return [];
+      case 'news':
+        return [];
+      default:
+        return updates;
+    }
+  };
+
+  const filteredUpdatesList = getFilteredUpdates();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 transition-colors duration-200">
@@ -278,88 +355,322 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             })}
           </nav>
 
+          {/* Premium Desktop Search Input */}
+          <div className="relative hidden lg:block w-60 xl:w-72" ref={searchDropdownRef}>
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
+              <input
+                id="nav-search-desktop"
+                type="text"
+                value={searchQuery}
+                onFocus={() => setIsSearchFocused(true)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setIsSearchFocused(true);
+                }}
+                onKeyDown={handleSearchKeyDown}
+                placeholder="Search tools... (⌘K)"
+                className="w-full pl-9 pr-10 py-1.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 rounded-full text-xs text-slate-850 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none transition focus:border-indigo-500 dark:focus:border-indigo-400 focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-indigo-505/5"
+              />
+              {searchQuery ? (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setActiveSearchIndex(-1);
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-605 dark:hover:text-slate-200 cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              ) : (
+                <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-slate-400 dark:text-slate-500 bg-slate-200/50 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200/20 dark:border-slate-700/60 pointer-events-none select-none">
+                  ⌘K
+                </div>
+              )}
+            </div>
+
+            {/* Premium Floating Search suggestions list */}
+            {isSearchFocused && searchQuery.trim() !== '' && (
+              <div 
+                className="absolute top-full right-0 mt-2 w-[440px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1 duration-150"
+                id="desktop-search-suggestions"
+              >
+                <div className="p-3 bg-slate-50/50 dark:bg-slate-900/30 flex justify-between items-center text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
+                  <span>Suggestions Match</span>
+                  <span className="font-mono text-[9px] normal-case text-slate-400">
+                    Use ↑↓ and Enter
+                  </span>
+                </div>
+                <div className="p-2 max-h-[300px] overflow-y-auto space-y-1">
+                  {filteredTools.length > 0 ? (
+                    filteredTools.slice(0, 5).map((tool, index) => {
+                      const isActive = index === activeSearchIndex;
+                      return (
+                        <div
+                          key={tool.id}
+                          onMouseEnter={() => setActiveSearchIndex(index)}
+                          onClick={() => handleToolSelect(tool.id)}
+                          className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-colors duration-155 ${
+                            isActive 
+                              ? 'bg-indigo-50/80 dark:bg-slate-800/85 text-indigo-650 dark:text-indigo-300' 
+                              : 'hover:bg-slate-50 dark:hover:bg-slate-800/30 text-slate-700 dark:text-slate-350'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0">
+                              {getToolIcon(tool.iconName)}
+                            </div>
+                            <div className="text-left min-w-0">
+                              <span className={`text-xs font-bold block ${isActive ? 'text-indigo-600 dark:text-indigo-300' : 'text-slate-800 dark:text-slate-100'}`}>
+                                <HighlightText text={tool.title} highlight={searchQuery} />
+                              </span>
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500 block line-clamp-1 mt-0.5">
+                                <HighlightText text={tool.description} highlight={searchQuery} />
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="p-6 text-center text-xs text-slate-400 dark:text-slate-505">
+                      No matching tools found.
+                    </div>
+                  )}
+                </div>
+                {filteredTools.length > 5 && (
+                  <div 
+                    onClick={() => {
+                      handleLinkSelect('home');
+                      setIsSearchFocused(false);
+                    }}
+                    className="px-4 py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-slate-900/60 dark:hover:bg-slate-900 border-t border-slate-105 cursor-pointer text-center text-xs font-semibold text-indigo-600 dark:text-indigo-400 transition"
+                  >
+                    View all {filteredTools.length} results &rarr;
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
           {/* Right Action buttons */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Notification Bell */}
+            {/* Redesigned Notification Bell with Categorizations */}
             <div className="relative" ref={notifDropdownRef}>
               <button
                 id="notification-bell-btn"
                 onClick={handleToggleNotifications}
-                className="relative p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                title="Recent Updates"
+                className="relative p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-650 dark:border-slate-800 dark:bg-slate-800/80 dark:text-slate-305 hover:text-slate-900 group dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-705 transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-505/40"
+                title="Recent Updates & News"
                 aria-label="Open notifications center"
                 aria-expanded={isNotifOpen}
               >
-                <Bell className="w-4.5 h-4.5 text-slate-600 dark:text-slate-350" />
+                <Bell className="w-4.5 h-4.5 text-slate-600 dark:text-slate-350 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                 {hasUnread && (
-                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-900 animate-pulse" />
+                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-910 animate-pulse" />
                 )}
               </button>
 
-              {/* Notification Dropdown Menu */}
+              {/* Redesigned Glassmorphic Notification Dropdown Menu */}
               {isNotifOpen && (
                 <div 
-                  className="fixed top-16 left-4 right-4 md:absolute md:top-full md:right-0 md:left-auto mt-2 w-auto md:w-96 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                  className="fixed top-16 left-4 right-4 md:absolute md:top-full md:right-0 md:left-auto mt-2 w-auto md:w-96 min-w-[340px] md:min-w-[420px] bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150 flex flex-col"
                   id="notifications-dropdown-menu"
                 >
                   {/* Header */}
-                  <div className="px-5 py-3.5 border-b border-slate-100 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-900/40 flex items-center justify-between">
+                  <div className="px-5 py-4 border-b border-slate-101 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-900/40 flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
                       <span className="font-sans font-extrabold text-sm text-slate-900 dark:text-white">
-                        Updates & Features
+                        Notifications Center
                       </span>
                       {hasUnread && (
-                        <span className="bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                        <span className="bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-450 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                           {unreadCount} new
                         </span>
                       )}
                     </div>
                     <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">
-                      v1.4.0
+                      v1.5.0
                     </span>
                   </div>
 
+                  {/* Redesigned Category Selector Tabs */}
+                  <div className="flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-850 bg-slate-50/20 dark:bg-slate-950/20 px-3 py-2 overflow-x-auto scrollbar-none select-none shrink-0">
+                    {(['all', 'new-tools', 'improvements', 'upcoming', 'news'] as const).map((tab) => {
+                      const isActive = notifTab === tab;
+                      const tabLabels = {
+                        all: 'All',
+                        'new-tools': 'New Tools',
+                        improvements: 'Improvements',
+                        upcoming: 'Roadmap',
+                        news: 'News'
+                      };
+                      return (
+                        <button
+                          key={tab}
+                          onClick={() => setNotifTab(tab)}
+                          className={`px-3 py-1 rounded-full text-[10px] font-bold whitespace-nowrap transition-all duration-155 cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-400/20 ${
+                            isActive
+                              ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-955 shadow-sm'
+                              : 'text-slate-505 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100/50 dark:hover:bg-slate-800/40'
+                          }`}
+                        >
+                          {tabLabels[tab]}
+                        </button>
+                      );
+                    })}
+                  </div>
+
                   {/* Body List */}
-                  <div className="max-h-80 overflow-y-auto p-2 flex flex-col gap-1">
-                    {updates.length > 0 ? (
-                      [...updates]
-                        .sort((a, b) => b.date.localeCompare(a.date))
-                        .map((update) => {
-                          return (
+                  <div className="max-h-80 overflow-y-auto p-2.5 flex flex-col gap-1.5 min-h-[160px] max-w-full">
+                    {/* All Updates Tab */}
+                    {notifTab === 'all' && (
+                      filteredUpdatesList.length > 0 ? (
+                        [...filteredUpdatesList]
+                          .sort((a, b) => b.date.localeCompare(a.date))
+                          .map((update) => (
                             <div 
                               key={update.id}
-                              className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition duration-150 flex flex-col border border-transparent hover:border-slate-100 dark:hover:border-slate-850"
+                              className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition-all duration-150 flex flex-col border border-transparent hover:border-slate-100 dark:hover:border-slate-850 text-left"
                             >
                               <div className="flex items-center justify-between gap-2.5">
-                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-extrabold select-none ${
+                                <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-[8.5px] font-extrabold select-none ${
                                   update.category === 'New Tool' 
-                                    ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-100/30 dark:border-emerald-900/20'
+                                    ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400 border border-emerald-100/30'
                                     : update.category === 'Feature Update'
-                                    ? 'bg-indigo-50 text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-400 border border-indigo-100/30 dark:border-indigo-900/20'
+                                    ? 'bg-indigo-50 text-indigo-805 dark:bg-indigo-950/40 dark:text-indigo-400 border border-indigo-100/30'
                                     : update.category === 'Improvement'
                                     ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
-                                    : 'bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-100/30 dark:border-amber-900/20'
+                                    : 'bg-amber-50 text-amber-801 dark:bg-amber-950/40 dark:text-amber-400 border border-amber-100/30'
                                 }`}>
                                   {update.category}
                                 </span>
-                                <span className="text-[10px] text-slate-400 dark:text-slate-550 font-mono">
+                                <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">
                                   {update.date}
                                 </span>
                               </div>
-                              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-2 font-sans text-left">
+                              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1.5 font-sans">
                                 {update.title}
                               </h4>
-                              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed font-sans text-left">
+                              <p className="text-[11px] text-slate-505 dark:text-slate-400 mt-1 leading-relaxed font-sans">
                                 {update.description}
                               </p>
                             </div>
-                          );
-                        })
-                    ) : (
-                      <div className="p-8 text-center text-xs text-slate-400 dark:text-slate-600">
-                        <Info className="w-8 h-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
-                        <p className="font-sans">No recent updates</p>
-                      </div>
+                          ))
+                      ) : (
+                        <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-404">
+                          <Info className="w-8 h-8 text-slate-300 mb-2" />
+                          <p className="font-sans">You're using the latest version of TextToolkitHub.</p>
+                        </div>
+                      )
+                    )}
+
+                    {/* New Tools Tab */}
+                    {notifTab === 'new-tools' && (
+                      filteredUpdatesList.length > 0 ? (
+                        [...filteredUpdatesList]
+                          .sort((a, b) => b.date.localeCompare(a.date))
+                          .map((update) => (
+                            <div 
+                              key={update.id}
+                              className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition-all duration-150 flex flex-col border border-transparent hover:border-slate-100 dark:hover:border-slate-850 text-left"
+                            >
+                              <div className="flex items-center justify-between gap-2.5">
+                                <span className="px-2 py-0.5 bg-emerald-50 text-emerald-805 dark:bg-emerald-950/40 dark:text-emerald-400 text-[8.5px] font-extrabold rounded-full border border-emerald-100/30">
+                                  {update.category}
+                                </span>
+                                <span className="text-[10px] text-slate-400 dark:text-slate-550 font-mono">{update.date}</span>
+                              </div>
+                              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1.5 font-sans">{update.title}</h4>
+                              <p className="text-[11px] text-slate-500 dark:text-slate-404 mt-1 leading-relaxed font-sans">{update.description}</p>
+                            </div>
+                          ))
+                      ) : (
+                        <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-405">
+                          <Info className="w-8 h-8 text-slate-300 mb-2" />
+                          <p className="font-sans">You're using the latest version of TextToolkitHub.</p>
+                        </div>
+                      )
+                    )}
+
+                    {/* Improvements Tab */}
+                    {notifTab === 'improvements' && (
+                      filteredUpdatesList.length > 0 ? (
+                        [...filteredUpdatesList]
+                          .sort((a, b) => b.date.localeCompare(a.date))
+                          .map((update) => (
+                            <div 
+                              key={update.id}
+                              className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition flex flex-col border border-transparent hover:border-slate-101 dark:hover:border-slate-850 text-left"
+                            >
+                              <div className="flex items-center justify-between gap-2.5">
+                                <span className="px-2 py-0.5 bg-indigo-50 text-indigo-800 dark:bg-indigo-950/40 dark:text-indigo-400 text-[8.5px] font-extrabold rounded-full border border-indigo-100/30">
+                                  {update.category}
+                                </span>
+                                <span className="text-[10px] text-slate-400 dark:text-slate-550 font-mono">{update.date}</span>
+                              </div>
+                              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1.5 font-sans">{update.title}</h4>
+                              <p className="text-[11px] text-slate-505 dark:text-slate-400 mt-1 leading-relaxed font-sans">{update.description}</p>
+                            </div>
+                          ))
+                      ) : (
+                        <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-400">
+                          <Info className="w-8 h-8 text-slate-305 mb-2" />
+                          <p className="font-sans">You're using the latest version of TextToolkitHub.</p>
+                        </div>
+                      )
+                    )}
+
+                    {/* Upcoming Tools Tab */}
+                    {notifTab === 'upcoming' && (
+                      upcomingTools.length > 0 ? (
+                        upcomingTools.map((tool) => (
+                          <div 
+                            key={tool.id}
+                            className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition flex flex-col border border-transparent hover:border-slate-100 dark:hover:border-slate-850 text-left"
+                          >
+                            <div className="flex items-center justify-between gap-2.5">
+                              <span className="px-2 py-0.5 bg-violet-50 text-violet-800 dark:bg-violet-955/40 dark:text-violet-400 text-[8.5px] font-extrabold rounded-full border border-violet-100/30">
+                                {tool.category}
+                              </span>
+                              <span className="text-[10px] text-indigo-500 dark:text-indigo-400 font-bold font-mono">ETA: {tool.eta}</span>
+                            </div>
+                            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1.5 font-sans">{tool.title}</h4>
+                            <p className="text-[11px] text-slate-505 dark:text-slate-400 mt-1 leading-relaxed font-sans">{tool.description}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-400">
+                          <Info className="w-8 h-8 text-slate-300 mb-2" />
+                          <p className="font-sans">You're using the latest version of TextToolkitHub.</p>
+                        </div>
+                      )
+                    )}
+
+                    {/* News Tab */}
+                    {notifTab === 'news' && (
+                      websiteNews.length > 0 ? (
+                        websiteNews.map((news) => (
+                          <div 
+                            key={news.id}
+                            className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition flex flex-col border border-transparent hover:border-slate-100 dark:hover:border-slate-850 text-left"
+                          >
+                            <div className="flex items-center justify-between gap-2.5">
+                              <span className="px-2 py-0.5 bg-amber-50 text-amber-800 dark:bg-amber-955/40 dark:text-amber-400 text-[8.5px] font-extrabold rounded-full border border-amber-100/30">
+                                {news.category}
+                              </span>
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono">{news.date}</span>
+                            </div>
+                            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-101 mt-1.5 font-sans">{news.title}</h4>
+                            <p className="text-[11px] text-slate-550 dark:text-slate-404 mt-1 leading-relaxed font-sans">{news.description}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-400">
+                          <Info className="w-8 h-8 text-slate-300 mb-2" />
+                          <p className="font-sans">You're using the latest version of TextToolkitHub.</p>
+                        </div>
+                      )
                     )}
                   </div>
                 </div>
