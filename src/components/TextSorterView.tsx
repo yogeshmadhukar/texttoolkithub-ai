@@ -298,8 +298,10 @@ Watermelon`);
       link.download = 'sorted_text_output.txt';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
     } catch (err) {
       console.error('File generation error:', err);
     }
@@ -629,7 +631,7 @@ Watermelon`);
             <button
               onClick={applySortDescending}
               disabled={!inputText}
-              className="px-4 py-3 bg-indigo-650 hover:bg-indigo-700 text-white text-xs font-bold rounded-2xl flex flex-col items-center justify-center gap-1 transition disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+              className="px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-2xl flex flex-col items-center justify-center gap-1 transition disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
               id="action-sort-za"
             >
               <ArrowUpDown className="w-5 h-5 scale-y-[-1] opacity-90" />

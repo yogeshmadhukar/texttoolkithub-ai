@@ -318,8 +318,10 @@ export default function RemoveEmojisView({ onNavigateToTool, onNavigateHome }: R
       link.download = `Emoji_Free_Text.txt`;
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (e) {
@@ -487,17 +489,7 @@ export default function RemoveEmojisView({ onNavigateToTool, onNavigateHome }: R
                         <span>{copied ? 'Copied' : 'Copy'}</span>
                       </button>
 
-                      <button
-                        onClick={handleDownload}
-                        className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border font-bold text-xs transition duration-150 ${
-                          downloaded 
-                            ? 'bg-indigo-50 text-indigo-600 border-indigo-250 dark:bg-indigo-950/20 dark:text-indigo-405 dark:border-indigo-900' 
-                            : 'bg-slate-50 text-slate-705 hover:text-slate-900 border-slate-200 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-850 dark:hover:bg-slate-800'
-                        }`}
-                      >
-                        <Download className="w-3.5 h-3.5" />
-                        <span>{downloaded ? 'Downloaded' : 'Download TXT'}</span>
-                      </button>
+
                     </div>
                   )}
                 </div>

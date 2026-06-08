@@ -403,8 +403,10 @@ export default function CaseConverterProView({ onNavigateToTool, onNavigateHome 
       link.download = `case_converter_pro_${activeMode}.txt`;
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (e) {
@@ -661,14 +663,7 @@ export default function CaseConverterProView({ onNavigateToTool, onNavigateHome 
               </span>
 
               <div className="flex items-center gap-2">
-                {outputText && (
-                  <button
-                    onClick={handleDownload}
-                    className="p-1.5 px-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 text-xs font-bold text-slate-700 dark:text-slate-300 transition flex items-center gap-1"
-                  >
-                    <Download className="w-3.5 h-3.5" /> .TXT
-                  </button>
-                )}
+
 
                 <button
                   onClick={handleCopy}

@@ -412,7 +412,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                           onClick={() => handleToolSelect(tool.id)}
                           className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-colors duration-155 ${
                             isActive 
-                              ? 'bg-indigo-50/80 dark:bg-slate-800/85 text-indigo-650 dark:text-indigo-300' 
+                              ? 'bg-indigo-50/80 dark:bg-slate-800/85 text-indigo-600 dark:text-indigo-300' 
                               : 'hover:bg-slate-50 dark:hover:bg-slate-800/30 text-slate-700 dark:text-slate-350'
                           }`}
                         >
@@ -767,7 +767,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                           onClick={() => handleToolSelect(tool.id)}
                           className={`flex items-start gap-3 p-2.5 rounded-xl cursor-pointer group transition-all duration-150 ${
                             isActive 
-                              ? 'bg-slate-100 dark:bg-slate-850 text-indigo-650 dark:text-indigo-400 font-semibold' 
+                              ? 'bg-slate-100 dark:bg-slate-850 text-indigo-600 dark:text-indigo-400 font-semibold' 
                               : 'hover:bg-white dark:hover:bg-slate-800/80'
                           }`}
                         >

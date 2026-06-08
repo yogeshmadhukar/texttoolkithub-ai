@@ -364,6 +364,17 @@ export const TOOLS: Tool[] = [
     seoDescription: 'Convert paragraphs into clean bullet points instantly. Create organized lists for notes, blogs, presentations, and reports.',
     keywords: ['bullet point generator', 'convert text to bullets', 'paragraph to list converter', 'make bulleted list online', 'notes list builder', 'sentence to bullet points'],
   },
+  {
+    id: 'tools/document-builder',
+    title: 'Document Builder',
+    description: 'Transform plain text into beautifully formatted, print-ready PDF documents.',
+    longDescription: 'Our premium flagship Document Builder turns unstructured text, drafts, and raw copy into beautifully typeset, custom documents. Choose from layouts like Book, Essay, Report, Novel, Meeting Notes, and Blog with a professional high-fidelity rendering pipeline. Customize typography, spacing, styling presets, headers, and footers, and export perfect high-quality PDF files completely locally in your browser.',
+    iconName: 'FileText',
+    category: 'generator',
+    seoTitle: 'Document Builder - Format Text and Create Professional PDFs Online',
+    seoDescription: 'Convert plain text into beautifully formatted PDF documents. Create books, essays, reports, articles, and print-ready files instantly with our free Document Builder.',
+    keywords: ['document builder', 'text to pdf converter', 'format text online', 'create pdf from text', 'book formatter', 'essay formatting tool', 'business report creator', 'format drafts', 'typesetting online'],
+  }
 ];
 
 export const FAQS: FaqItem[] = [

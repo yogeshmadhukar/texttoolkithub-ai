@@ -227,8 +227,10 @@ export default function RemoveEmptyLinesView({ onNavigateToTool, onNavigateHome 
       element.download = 'cleaned_text_no_empty_lines.txt';
       document.body.appendChild(element);
       element.click();
-      document.body.removeChild(element);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(element);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (err) {
@@ -552,16 +554,7 @@ export default function RemoveEmptyLinesView({ onNavigateToTool, onNavigateHome 
                 </span>
 
                 <div className="flex items-center gap-2">
-                  {/* Download output file */}
-                  <button
-                    onClick={handleDownload}
-                    disabled={!outputText}
-                    className="p-2 px-3 border border-slate-200 dark:border-slate-800 bg-white hover:bg-slate-50 dark:bg-slate-900 text-slate-650 hover:text-slate-850 dark:text-slate-300 dark:hover:text-white rounded-xl transition disabled:opacity-35 flex items-center gap-1 text-xs font-bold"
-                    id="btn-download"
-                  >
-                    <Download className="w-3.5 h-3.5 text-indigo-500" />
-                    {downloaded ? 'Downloaded!' : 'Download TXT'}
-                  </button>
+
 
                   {/* Copy button */}
                   <button

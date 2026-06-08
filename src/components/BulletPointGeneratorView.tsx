@@ -306,8 +306,10 @@ export default function BulletPointGeneratorView({ onNavigateToTool, onNavigateH
       link.download = `Formatted_Bullet_List.txt`;
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (e) {
@@ -468,17 +470,7 @@ export default function BulletPointGeneratorView({ onNavigateToTool, onNavigateH
                         <span>{copied ? 'Copied' : 'Copy Output'}</span>
                       </button>
 
-                      <button
-                        onClick={handleDownload}
-                        className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border font-bold text-xs transition duration-150 ${
-                          downloaded 
-                            ? 'bg-indigo-50 text-indigo-600 border-indigo-250 dark:bg-indigo-950/20 dark:text-indigo-400 dark:border-indigo-900' 
-                            : 'bg-slate-50 text-slate-705 hover:text-slate-900 border-slate-200 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-800 dark:hover:bg-slate-800'
-                        }`}
-                      >
-                        <Download className="w-3.5 h-3.5" />
-                        <span>{downloaded ? 'Downloaded' : 'Download TXT'}</span>
-                      </button>
+
                     </div>
                   )}
                 </div>
@@ -735,7 +727,7 @@ export default function BulletPointGeneratorView({ onNavigateToTool, onNavigateH
                       id="f-period"
                       checked={endWithPeriod}
                       onChange={(e) => setEndWithPeriod(e.target.checked)}
-                      className="w-4 h-4 rounded border-slate-300 text-indigo-650 focus:ring-indigo-500 dark:bg-slate-900 dark:border-slate-800"
+                      className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:bg-slate-900 dark:border-slate-800"
                     />
                   </div>
                 </div>
@@ -813,7 +805,7 @@ export default function BulletPointGeneratorView({ onNavigateToTool, onNavigateH
             <div className="grid grid-cols-3 gap-4">
               <div className="p-4 bg-slate-50 dark:bg-slate-900/60 border border-slate-150 dark:border-slate-850 rounded-2xl transition">
                 <span className="text-[9.5px] uppercase font-bold text-slate-450 dark:text-slate-500 tracking-wider leading-none">Bullet Points Count</span>
-                <span className="text-xl font-black text-indigo-650 dark:text-indigo-400 block font-sans mt-1">{stats.bulletCount}</span>
+                <span className="text-xl font-black text-indigo-600 dark:text-indigo-400 block font-sans mt-1">{stats.bulletCount}</span>
               </div>
 
               <div className="p-4 bg-slate-50 dark:bg-slate-900/60 border border-slate-150 dark:border-slate-850 rounded-2xl transition">
@@ -844,7 +836,7 @@ export default function BulletPointGeneratorView({ onNavigateToTool, onNavigateH
           {/* FREQUENTLY ASKED QUESTIONS SECTION */}
           <section className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm">
             <h3 className="text-xl sm:text-2xl font-bold text-slate-950 dark:text-white font-sans tracking-tight flex items-center gap-2 mb-2">
-              <HelpCircle className="w-5.5 h-5.5 text-indigo-650" />
+              <HelpCircle className="w-5.5 h-5.5 text-indigo-600" />
               Frequently Asked Questions
             </h3>
             <p className="text-xs sm:text-sm text-slate-505 dark:text-slate-400 leading-relaxed max-w-3xl mb-6 font-sans">

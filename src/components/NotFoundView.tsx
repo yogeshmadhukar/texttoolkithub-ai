@@ -130,7 +130,7 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
             <div className="absolute scale-[0.6] inset-0 bg-white dark:bg-slate-950 rounded-full border border-slate-300 dark:border-slate-800 shadow-md" />
             
             {/* Visual Text Output */}
-            <span className="relative font-bold text-5xl font-sans tracking-tighter text-indigo-650 dark:text-indigo-400">
+            <span className="relative font-bold text-5xl font-sans tracking-tighter text-indigo-600 dark:text-indigo-400">
               404
             </span>
           </motion.div>

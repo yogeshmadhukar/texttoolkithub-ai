@@ -152,9 +152,11 @@ Writing blog drafts or corporate press articles can be stressful when characters
     element.href = url;
     element.download = `${tool.id}_export.txt`;
     document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-    URL.revokeObjectURL(url);
+      element.click();
+      setTimeout(() => {
+        document.body.removeChild(element);
+        URL.revokeObjectURL(url);
+      }, 150);
   };
 
   // Live transformations & calculators

@@ -317,21 +317,21 @@ export default function SlugGeneratorView({ onNavigateToTool, onNavigateHome }: 
               <div className="flex border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900 p-1">
                 <button
                   onClick={() => setSeparator('-')}
-                  className={`flex-1 py-1 px-3 rounded-lg text-xs font-bold transition-all border border-transparent cursor-pointer ${separator === '-' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-650 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
+                  className={`flex-1 py-1 px-3 rounded-lg text-xs font-bold transition-all border border-transparent cursor-pointer ${separator === '-' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
                   id="opt-sep-hyphen"
                 >
                   Hyphen (-)
                 </button>
                 <button
                   onClick={() => setSeparator('_')}
-                  className={`flex-1 py-1 px-3 rounded-lg text-xs font-bold transition-all border border-transparent cursor-pointer ${separator === '_' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-650 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
+                  className={`flex-1 py-1 px-3 rounded-lg text-xs font-bold transition-all border border-transparent cursor-pointer ${separator === '_' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
                   id="opt-sep-underscore"
                 >
                   Underscore (_)
                 </button>
                 <button
                   onClick={() => setSeparator('/')}
-                  className={`flex-1 py-1 px-3 rounded-lg text-xs font-bold transition-all border border-transparent cursor-pointer ${separator === '/' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-650 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
+                  className={`flex-1 py-1 px-3 rounded-lg text-xs font-bold transition-all border border-transparent cursor-pointer ${separator === '/' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
                   id="opt-sep-slash"
                 >
                   Slash (/)
@@ -342,7 +342,7 @@ export default function SlugGeneratorView({ onNavigateToTool, onNavigateHome }: 
             {/* Switch: Remove Stop Words */}
             <div className="flex flex-col gap-2.5">
               <span className="text-[10px] uppercase font-extrabold tracking-wider text-slate-400">SEO Cleanup</span>
-              <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-55 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
+              <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-50 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
                 <input
                   type="checkbox"
                   checked={stripStopwords}
@@ -356,7 +356,7 @@ export default function SlugGeneratorView({ onNavigateToTool, onNavigateHome }: 
             {/* Switch: Strip Numbers */}
             <div className="flex flex-col gap-2.5">
               <span className="text-[10px] uppercase font-extrabold tracking-wider text-slate-400">Clean Numbers</span>
-              <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-55 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
+              <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-50 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
                 <input
                   type="checkbox"
                   checked={removeNumbers}
@@ -370,7 +370,7 @@ export default function SlugGeneratorView({ onNavigateToTool, onNavigateHome }: 
             {/* Switch: Convert to lowercase */}
             <div className="flex flex-col gap-2.5">
               <span className="text-[10px] uppercase font-extrabold tracking-wider text-slate-400">Lowercase Normalization</span>
-              <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-55 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
+              <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-50 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
                 <input
                   type="checkbox"
                   checked={toLowerCase}

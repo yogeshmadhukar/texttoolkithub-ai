@@ -265,8 +265,10 @@ export default function CaseConverterView({ onNavigateToTool, onNavigateHome }: 
       element.download = `case_converter_${activeMode}.txt`;
       document.body.appendChild(element);
       element.click();
-      document.body.removeChild(element);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(element);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (err) {

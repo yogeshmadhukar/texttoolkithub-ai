@@ -310,7 +310,7 @@ export default function UrlEncoderView({ onNavigateToTool, onNavigateHome }: Url
               setInputText(outputText);
               setOutputText(currentInput);
             }}
-            className={`px-6 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${mode === 'encode' ? 'bg-indigo-650 text-white shadow-sm' : 'text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-white'}`}
+            className={`px-6 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${mode === 'encode' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-white'}`}
             id="mode-encode-tab"
           >
             <Lock className="w-3.5 h-3.5" /> Encode Mode
@@ -323,7 +323,7 @@ export default function UrlEncoderView({ onNavigateToTool, onNavigateHome }: Url
               setInputText(outputText);
               setOutputText(currentInput);
             }}
-            className={`px-6 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${mode === 'decode' ? 'bg-indigo-650 text-white shadow-sm' : 'text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-white'}`}
+            className={`px-6 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${mode === 'decode' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-850 dark:text-slate-400 dark:hover:text-white'}`}
             id="mode-decode-tab"
           >
             <Unlock className="w-3.5 h-3.5" /> Decode Mode
@@ -368,7 +368,7 @@ export default function UrlEncoderView({ onNavigateToTool, onNavigateHome }: Url
                 {/* Space Handling switches */}
                 <div className="flex flex-col gap-2.5">
                   <span className="text-[10px] uppercase font-extrabold tracking-wider text-slate-400">Space Encoding Notation</span>
-                  <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-55 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
+                  <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-50 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
                     <input
                       type="checkbox"
                       checked={spaceAsPlus}
@@ -395,7 +395,7 @@ export default function UrlEncoderView({ onNavigateToTool, onNavigateHome }: Url
                 {/* Decode plus option */}
                 <div className="flex flex-col gap-2.5 col-span-2">
                   <span className="text-[10px] uppercase font-extrabold tracking-wider text-slate-400">URL Decoding Decoders</span>
-                  <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-55 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
+                  <label className="flex items-center gap-2 px-3.5 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-50 hover:dark:bg-slate-800 select-none text-xs font-bold text-slate-700 dark:text-slate-200 transition">
                     <input
                       type="checkbox"
                       checked={decodePlusAsSpace}

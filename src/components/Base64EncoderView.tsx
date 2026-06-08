@@ -209,8 +209,10 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
       link.download = 'base64_encoded_output.txt';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
     } catch (err) {
       console.error('File generation error: ', err);
     }
@@ -456,15 +458,7 @@ export default function Base64EncoderView({ onNavigateToTool, onNavigateHome }: 
                 </span>
 
                 <div className="flex gap-2 shrink-0">
-                  <button
-                    onClick={handleDownloadTxt}
-                    disabled={!outputText}
-                    className="px-3 py-2 border border-slate-200 dark:border-slate-800 hover:border-slate-350 bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1 cursor-pointer transition"
-                    title="Download output content as simple TXT file"
-                    id="btn-download-txt"
-                  >
-                    <Download className="w-3.5 h-3.5 text-indigo-500" /> Save as TXT
-                  </button>
+
 
                   <button
                     onClick={handleCopy}

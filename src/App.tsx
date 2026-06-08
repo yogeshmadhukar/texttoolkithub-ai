@@ -40,6 +40,7 @@ const RemoveSpecialCharactersView = React.lazy(() => import('./components/Remove
 const RemoveEmojisView = React.lazy(() => import('./components/RemoveEmojisView.tsx'));
 const BulletPointGeneratorView = React.lazy(() => import('./components/BulletPointGeneratorView.tsx'));
 const CaseConverterProView = React.lazy(() => import('./components/CaseConverterProView.tsx'));
+const DocumentBuilderView = React.lazy(() => import('./components/DocumentBuilderView.tsx'));
 const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
 const ToolsDirectoryView = React.lazy(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = React.lazy(() => import('./components/HowToUseAccordion.tsx'));
@@ -82,6 +83,7 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/remove-emojis': () => import('./components/RemoveEmojisView.tsx'),
   'tools/bullet-point-generator': () => import('./components/BulletPointGeneratorView.tsx'),
   'tools/case-converter-pro': () => import('./components/CaseConverterProView.tsx'),
+  'tools/document-builder': () => import('./components/DocumentBuilderView.tsx'),
 };
 
 const prefetchTool = (id: string) => {
@@ -253,6 +255,11 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'tools/caseconverterpro': 'tools/case-converter-pro',
     'tools/case-converter-pro': 'tools/case-converter-pro',
     'convert-case-pro': 'tools/case-converter-pro',
+    'document-builder': 'tools/document-builder',
+    'documentbuilder': 'tools/document-builder',
+    'tools/documentbuilder': 'tools/document-builder',
+    'tools/document-builder': 'tools/document-builder',
+    'pdf-builder': 'tools/document-builder',
     'privacy-policy': 'privacy',
     'terms-of-service': 'terms',
     'faqs': 'faq',
@@ -1115,6 +1122,16 @@ export default function App() {
     if (activePage === 'tools/case-converter-pro' || activePage === 'case-converter-pro') {
       return (
         <CaseConverterProView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Document Builder page
+    if (activePage === 'tools/document-builder' || activePage === 'document-builder') {
+      return (
+        <DocumentBuilderView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

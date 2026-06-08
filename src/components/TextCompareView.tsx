@@ -534,7 +534,7 @@ export default function TextCompareView({ onNavigateToTool, onNavigateHome }: Te
 
               <button 
                 onClick={handleLoadSample}
-                className="text-xs font-bold text-indigo-650 dark:text-indigo-400 hover:underline flex items-center gap-1 cursor-pointer"
+                className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 cursor-pointer"
                 id="btn-sample-load"
               >
                 <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-spin duration-[4000ms]" /> Load Compare Sample

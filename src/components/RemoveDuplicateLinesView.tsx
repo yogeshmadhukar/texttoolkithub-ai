@@ -202,8 +202,10 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
       link.download = 'deduplicated-lines.txt';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
     } catch (err) {
       console.error('Failed to download TXT file:', err);
     }
@@ -500,15 +502,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
                   )}
                 </button>
 
-                <button
-                  onClick={handleDownloadTxt}
-                  disabled={!inputText}
-                  className="py-3 px-4 bg-white dark:bg-slate-905 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 rounded-2xl text-xs font-bold transition flex items-center justify-center gap-1.5 disabled:opacity-35 cursor-pointer"
-                  id="dedup-btn-download"
-                  title="Download output list as file"
-                >
-                  <Download className="w-4 h-4" /> Download TXT
-                </button>
+
               </div>
 
             </div>

@@ -217,8 +217,10 @@ export default function RemoveLineBreaksView({ onNavigateToTool, onNavigateHome 
       element.download = 'cleaned_text_toolkit_hub.txt';
       document.body.appendChild(element);
       element.click();
-      document.body.removeChild(element);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(element);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (err) {

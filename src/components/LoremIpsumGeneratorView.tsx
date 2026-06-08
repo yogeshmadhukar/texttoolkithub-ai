@@ -283,8 +283,10 @@ export default function LoremIpsumGeneratorView({ onNavigateToTool, onNavigateHo
       element.download = `lorem-ipsum-placeholder-${count}-${generateType}.txt`;
       document.body.appendChild(element);
       element.click();
-      document.body.removeChild(element);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(element);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (err) {
@@ -627,16 +629,7 @@ export default function LoremIpsumGeneratorView({ onNavigateToTool, onNavigateHo
                 </button>
 
                 <div className="flex items-center gap-2">
-                  {/* Download repeated text file */}
-                  <button
-                    onClick={handleDownload}
-                    disabled={!generatedText}
-                    className="px-4 py-2 border border-slate-205 dark:border-slate-800 bg-white hover:bg-slate-100 dark:bg-slate-950 text-slate-650 dark:text-slate-200 rounded-xl flex items-center gap-1.5 transition text-xs font-bold disabled:opacity-35 disabled:cursor-not-allowed cursor-pointer relative z-10"
-                    id="btn-download"
-                  >
-                    <Download className="w-3.5 h-3.5 text-indigo-500" />
-                    {downloaded ? 'Downloaded!' : 'Download TXT File'}
-                  </button>
+
 
                   {/* Copy repeatable parameters output */}
                   <button

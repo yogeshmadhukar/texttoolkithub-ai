@@ -241,8 +241,10 @@ export default function RemoveSpecialCharactersView({ onNavigateToTool, onNaviga
       link.download = `Cleaned_Text_Output.txt`;
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
     } catch (e) {

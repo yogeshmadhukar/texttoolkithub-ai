@@ -600,28 +600,28 @@ export default function FancyTextGeneratorView({ onNavigateToTool, onNavigateHom
             <div className="flex flex-wrap gap-2 p-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 w-fit">
               <button
                 onClick={() => setActiveCategoryFilter('all')}
-                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'all' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-55'}`}
+                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'all' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50'}`}
                 id="tab-filter-all"
               >
                 All Styles ({styles.length})
               </button>
               <button
                 onClick={() => setActiveCategoryFilter('unicode')}
-                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'unicode' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-55'}`}
+                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'unicode' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50'}`}
                 id="tab-filter-unicode"
               >
                 Unicode Fonts
               </button>
               <button
                 onClick={() => setActiveCategoryFilter('decoration')}
-                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'decoration' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-55'}`}
+                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'decoration' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50'}`}
                 id="tab-filter-decoration"
               >
                 Decorated Frames
               </button>
               <button
                 onClick={() => setActiveCategoryFilter('social')}
-                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'social' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-55'}`}
+                className={`px-4 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${activeCategoryFilter === 'social' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50'}`}
                 id="tab-filter-social"
               >
                 Social Networks

@@ -210,9 +210,11 @@ export default function TextRepeaterView({ onNavigateToTool, onNavigateHome }: T
     link.href = url;
     link.download = `repeated-text-${repeatCount}-times.txt`;
     document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+      link.click();
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }, 150);
   };
 
   const handlePresetCount = (count: number) => {
@@ -523,16 +525,7 @@ export default function TextRepeaterView({ onNavigateToTool, onNavigateHome }: T
               {/* Bottom toolbar for copying and downloading files */}
               <div className="px-5 py-4 bg-slate-50 dark:bg-slate-900 border-t border-slate-150 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
                 
-                {/* Download repeated text file */}
-                <button
-                  onClick={handleDownload}
-                  disabled={!repeatedOutput}
-                  className="px-4 py-2 border border-slate-205 dark:border-slate-800 bg-white hover:bg-slate-100 dark:bg-slate-950 text-slate-650 dark:text-slate-200 rounded-xl flex items-center gap-1.5 transition text-xs font-bold disabled:opacity-35 disabled:cursor-not-allowed"
-                  id="repeater-btn-download"
-                >
-                  <Download className="w-3.5 h-3.5 text-indigo-500" />
-                  Download TXT File
-                </button>
+
 
                 {/* Copy repeatable parameters output */}
                 <button
