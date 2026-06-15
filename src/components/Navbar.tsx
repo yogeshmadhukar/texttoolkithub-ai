@@ -27,6 +27,7 @@ import {
   Layers,
   TrendingUp,
   Bell,
+  BellRing,
   Info,
   Linkedin,
   Scissors,
@@ -105,6 +106,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
   ];
 
   const websiteNews = [
+    {
+      id: "news-milestone-36",
+      title: "36 Core Tools Hub Live",
+      description: "TextToolkitHub has officially deployed 36 fully custom, completely browser-native tools, including our brand-new suite: QR Code Generator, JSON Formatter, JSON Minifier, Markdown to HTML, and HTML to Markdown.",
+      date: "2026-06-15",
+      category: "Website News"
+    },
     {
       id: "news-1",
       title: "30 Core Tools Released",
@@ -465,7 +473,11 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                 aria-label="Open notifications center"
                 aria-expanded={isNotifOpen}
               >
-                <Bell className="w-4.5 h-4.5 text-slate-600 dark:text-slate-350 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                {hasUnread ? (
+                  <BellRing className="w-4.5 h-4.5 text-indigo-550 dark:text-indigo-400 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 animate-pulse" />
+                ) : (
+                  <Bell className="w-4.5 h-4.5 text-slate-600 dark:text-slate-350 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                )}
                 {hasUnread && (
                   <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-910 animate-pulse" />
                 )}

@@ -5,45 +5,87 @@ import HomeView from './components/HomeView.tsx';
 import ToolWrapper from './components/ToolWrapper.tsx';
 import AdPlacement from './components/AdPlacement.tsx';
 
-// Dynamic lazy imports for Phase 5 bundle optimization
-const AboutView = React.lazy(() => import('./components/AboutView.tsx'));
-const FaqView = React.lazy(() => import('./components/FaqView.tsx'));
-const ContactView = React.lazy(() => import('./components/ContactView.tsx'));
-const LegalView = React.lazy(() => import('./components/LegalView.tsx'));
-const WordCounterView = React.lazy(() => import('./components/WordCounterView.tsx'));
-const SentenceCounterView = React.lazy(() => import('./components/SentenceCounterView.tsx'));
-const CharacterCounterView = React.lazy(() => import('./components/CharacterCounterView.tsx'));
-const RemoveLineBreaksView = React.lazy(() => import('./components/RemoveLineBreaksView.tsx'));
-const RemoveExtraSpacesView = React.lazy(() => import('./components/RemoveExtraSpacesView.tsx'));
-const CaseConverterView = React.lazy(() => import('./components/CaseConverterView.tsx'));
-const TextCompareView = React.lazy(() => import('./components/TextCompareView.tsx'));
-const SlugGeneratorView = React.lazy(() => import('./components/SlugGeneratorView.tsx'));
-const UrlEncoderView = React.lazy(() => import('./components/UrlEncoderView.tsx'));
-const UrlDecoderView = React.lazy(() => import('./components/UrlDecoderView.tsx'));
-const FancyTextGeneratorView = React.lazy(() => import('./components/FancyTextGeneratorView.tsx'));
-const HtmlEncoderView = React.lazy(() => import('./components/HtmlEncoderView.tsx'));
-const HtmlDecoderView = React.lazy(() => import('./components/HtmlDecoderView.tsx'));
-const Base64EncoderView = React.lazy(() => import('./components/Base64EncoderView.tsx'));
-const Base64DecoderView = React.lazy(() => import('./components/Base64DecoderView.tsx'));
-const TextSorterView = React.lazy(() => import('./components/TextSorterView.tsx'));
-const TextReverserView = React.lazy(() => import('./components/TextReverserView.tsx'));
-const TextRepeaterView = React.lazy(() => import('./components/TextRepeaterView.tsx'));
-const GrammarCheckerView = React.lazy(() => import('./components/GrammarCheckerView.tsx'));
-const ReadabilityCheckerView = React.lazy(() => import('./components/ReadabilityCheckerView.tsx'));
-const RemoveDuplicateLinesView = React.lazy(() => import('./components/RemoveDuplicateLinesView.tsx'));
-const RemoveEmptyLinesView = React.lazy(() => import('./components/RemoveEmptyLinesView.tsx'));
-const LoremIpsumGeneratorView = React.lazy(() => import('./components/LoremIpsumGeneratorView.tsx'));
-const RandomTextGeneratorView = React.lazy(() => import('./components/RandomTextGeneratorView.tsx'));
-const KeywordDensityCheckerView = React.lazy(() => import('./components/KeywordDensityCheckerView.tsx'));
-const ParagraphFormatterView = React.lazy(() => import('./components/ParagraphFormatterView.tsx'));
-const RemoveSpecialCharactersView = React.lazy(() => import('./components/RemoveSpecialCharactersView.tsx'));
-const RemoveEmojisView = React.lazy(() => import('./components/RemoveEmojisView.tsx'));
-const BulletPointGeneratorView = React.lazy(() => import('./components/BulletPointGeneratorView.tsx'));
-const CaseConverterProView = React.lazy(() => import('./components/CaseConverterProView.tsx'));
-const DocumentBuilderView = React.lazy(() => import('./components/DocumentBuilderView.tsx'));
-const NotFoundView = React.lazy(() => import('./components/NotFoundView.tsx'));
-const ToolsDirectoryView = React.lazy(() => import('./components/ToolsDirectoryView.tsx'));
-const HowToUseAccordion = React.lazy(() => import('./components/HowToUseAccordion.tsx'));
+// Resilient dynamic lazy loader to handle stale chunck loads / module script errors in deployment
+const lazyWithRetry = <T extends React.ComponentType<any>>(
+  factory: () => Promise<{ default: T }>
+) => {
+  return React.lazy(async () => {
+    try {
+      const module = await factory();
+      // On successful import, clear recent reload flag so it has a fresh buffer next time
+      sessionStorage.removeItem('texttoolkithub_lazy_reload_occurred');
+      return module;
+    } catch (error: any) {
+      console.error("Failed to dynamically import module script:", error);
+      
+      const hasReloadedKey = 'texttoolkithub_lazy_reload_occurred';
+      const lastReload = sessionStorage.getItem(hasReloadedKey);
+      
+      const errorMsg = String(error?.message || error || '');
+      const isChunkLoadFailed = 
+        errorMsg.includes('Failed to fetch') ||
+        errorMsg.includes('module script') ||
+        errorMsg.includes('dynamically imported') ||
+        errorMsg.includes('importing a module script') ||
+        errorMsg.includes('dynamic import') ||
+        errorMsg.includes('ChunkLoadError') ||
+        errorMsg.includes('loading script');
+
+      if (!lastReload && isChunkLoadFailed) {
+        sessionStorage.setItem(hasReloadedKey, 'true');
+        window.location.reload();
+        return new Promise(() => {}); // Retain pending state to prevent rendering a crashed layout block
+      }
+      
+      throw error;
+    }
+  });
+};
+
+// Dynamic lazy imports wrapped with lazyWithRetry for extreme robustness
+const AboutView = lazyWithRetry(() => import('./components/AboutView.tsx'));
+const FaqView = lazyWithRetry(() => import('./components/FaqView.tsx'));
+const ContactView = lazyWithRetry(() => import('./components/ContactView.tsx'));
+const LegalView = lazyWithRetry(() => import('./components/LegalView.tsx'));
+const WordCounterView = lazyWithRetry(() => import('./components/WordCounterView.tsx'));
+const SentenceCounterView = lazyWithRetry(() => import('./components/SentenceCounterView.tsx'));
+const CharacterCounterView = lazyWithRetry(() => import('./components/CharacterCounterView.tsx'));
+const RemoveLineBreaksView = lazyWithRetry(() => import('./components/RemoveLineBreaksView.tsx'));
+const RemoveExtraSpacesView = lazyWithRetry(() => import('./components/RemoveExtraSpacesView.tsx'));
+const CaseConverterView = lazyWithRetry(() => import('./components/CaseConverterView.tsx'));
+const TextCompareView = lazyWithRetry(() => import('./components/TextCompareView.tsx'));
+const SlugGeneratorView = lazyWithRetry(() => import('./components/SlugGeneratorView.tsx'));
+const UrlEncoderView = lazyWithRetry(() => import('./components/UrlEncoderView.tsx'));
+const UrlDecoderView = lazyWithRetry(() => import('./components/UrlDecoderView.tsx'));
+const FancyTextGeneratorView = lazyWithRetry(() => import('./components/FancyTextGeneratorView.tsx'));
+const HtmlEncoderView = lazyWithRetry(() => import('./components/HtmlEncoderView.tsx'));
+const HtmlDecoderView = lazyWithRetry(() => import('./components/HtmlDecoderView.tsx'));
+const Base64EncoderView = lazyWithRetry(() => import('./components/Base64EncoderView.tsx'));
+const Base64DecoderView = lazyWithRetry(() => import('./components/Base64DecoderView.tsx'));
+const TextSorterView = lazyWithRetry(() => import('./components/TextSorterView.tsx'));
+const TextReverserView = lazyWithRetry(() => import('./components/TextReverserView.tsx'));
+const TextRepeaterView = lazyWithRetry(() => import('./components/TextRepeaterView.tsx'));
+const GrammarCheckerView = lazyWithRetry(() => import('./components/GrammarCheckerView.tsx'));
+const ReadabilityCheckerView = lazyWithRetry(() => import('./components/ReadabilityCheckerView.tsx'));
+const RemoveDuplicateLinesView = lazyWithRetry(() => import('./components/RemoveDuplicateLinesView.tsx'));
+const RemoveEmptyLinesView = lazyWithRetry(() => import('./components/RemoveEmptyLinesView.tsx'));
+const LoremIpsumGeneratorView = lazyWithRetry(() => import('./components/LoremIpsumGeneratorView.tsx'));
+const RandomTextGeneratorView = lazyWithRetry(() => import('./components/RandomTextGeneratorView.tsx'));
+const KeywordDensityCheckerView = lazyWithRetry(() => import('./components/KeywordDensityCheckerView.tsx'));
+const ParagraphFormatterView = lazyWithRetry(() => import('./components/ParagraphFormatterView.tsx'));
+const RemoveSpecialCharactersView = lazyWithRetry(() => import('./components/RemoveSpecialCharactersView.tsx'));
+const RemoveEmojisView = lazyWithRetry(() => import('./components/RemoveEmojisView.tsx'));
+const BulletPointGeneratorView = lazyWithRetry(() => import('./components/BulletPointGeneratorView.tsx'));
+const CaseConverterProView = lazyWithRetry(() => import('./components/CaseConverterProView.tsx'));
+const DocumentBuilderView = lazyWithRetry(() => import('./components/DocumentBuilderView.tsx'));
+const JsonFormatterView = lazyWithRetry(() => import('./components/JsonFormatterView.tsx'));
+const JsonMinifierView = lazyWithRetry(() => import('./components/JsonMinifierView.tsx'));
+const MarkdownToHtmlView = lazyWithRetry(() => import('./components/MarkdownToHtmlView.tsx'));
+const HtmlToMarkdownView = lazyWithRetry(() => import('./components/HtmlToMarkdownView.tsx'));
+const QrCodeGeneratorView = lazyWithRetry(() => import('./components/QrCodeGeneratorView.tsx'));
+const NotFoundView = lazyWithRetry(() => import('./components/NotFoundView.tsx'));
+const ToolsDirectoryView = lazyWithRetry(() => import('./components/ToolsDirectoryView.tsx'));
+const HowToUseAccordion = lazyWithRetry(() => import('./components/HowToUseAccordion.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -84,6 +126,11 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/bullet-point-generator': () => import('./components/BulletPointGeneratorView.tsx'),
   'tools/case-converter-pro': () => import('./components/CaseConverterProView.tsx'),
   'tools/document-builder': () => import('./components/DocumentBuilderView.tsx'),
+  'tools/json-formatter': () => import('./components/JsonFormatterView.tsx'),
+  'tools/json-minifier': () => import('./components/JsonMinifierView.tsx'),
+  'tools/markdown-to-html': () => import('./components/MarkdownToHtmlView.tsx'),
+  'tools/html-to-markdown': () => import('./components/HtmlToMarkdownView.tsx'),
+  'tools/qr-generator': () => import('./components/QrCodeGeneratorView.tsx'),
 };
 
 const prefetchTool = (id: string) => {
@@ -260,6 +307,30 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'tools/documentbuilder': 'tools/document-builder',
     'tools/document-builder': 'tools/document-builder',
     'pdf-builder': 'tools/document-builder',
+    'json-formatter': 'tools/json-formatter',
+    'jsonformatter': 'tools/json-formatter',
+    'tools/jsonformatter': 'tools/json-formatter',
+    'beautify-json': 'tools/json-formatter',
+    'json-validator': 'tools/json-formatter',
+    'json-minifier': 'tools/json-minifier',
+    'jsonminifier': 'tools/json-minifier',
+    'tools/jsonminifier': 'tools/json-minifier',
+    'compress-json': 'tools/json-minifier',
+    'markdown-to-html': 'tools/markdown-to-html',
+    'markdown2html': 'tools/markdown-to-html',
+    'tools/markdown-to-html': 'tools/markdown-to-html',
+    'convert-markdown': 'tools/markdown-to-html',
+    'md-to-html': 'tools/markdown-to-html',
+    'html-to-markdown': 'tools/html-to-markdown',
+    'html2markdown': 'tools/html-to-markdown',
+    'tools/html-to-markdown': 'tools/html-to-markdown',
+    'convert-html': 'tools/html-to-markdown',
+    'html-to-md': 'tools/html-to-markdown',
+    'qr-generator': 'tools/qr-generator',
+    'qr-code': 'tools/qr-generator',
+    'qr-creator': 'tools/qr-generator',
+    'qrcode': 'tools/qr-generator',
+    'tools/qr-generator': 'tools/qr-generator',
     'privacy-policy': 'privacy',
     'terms-of-service': 'terms',
     'faqs': 'faq',
@@ -675,6 +746,16 @@ export default function App() {
       // 1. Intercept External Link Clicks or Internal SPA path clicks
       const anchor = target.closest('a');
       if (anchor && anchor.href) {
+        // Skip link interception for downloads, blobs, or data URIs
+        if (
+          anchor.hasAttribute('download') ||
+          anchor.getAttribute('download') !== null ||
+          anchor.href.startsWith('blob:') ||
+          anchor.href.startsWith('data:')
+        ) {
+          return;
+        }
+
         const rawHref = anchor.getAttribute('href') || '';
         try {
           const url = new URL(anchor.href, window.location.origin);
@@ -1132,6 +1213,56 @@ export default function App() {
     if (activePage === 'tools/document-builder' || activePage === 'document-builder') {
       return (
         <DocumentBuilderView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional JSON Formatter page
+    if (activePage === 'tools/json-formatter' || activePage === 'json-formatter') {
+      return (
+        <JsonFormatterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional JSON Minifier page
+    if (activePage === 'tools/json-minifier' || activePage === 'json-minifier') {
+      return (
+        <JsonMinifierView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Markdown to HTML Converter page
+    if (activePage === 'tools/markdown-to-html' || activePage === 'markdown-to-html') {
+      return (
+        <MarkdownToHtmlView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional HTML to Markdown Converter page
+    if (activePage === 'tools/html-to-markdown' || activePage === 'html-to-markdown') {
+      return (
+        <HtmlToMarkdownView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional QR Code Generator page
+    if (activePage === 'tools/qr-generator' || activePage === 'qr-generator') {
+      return (
+        <QrCodeGeneratorView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

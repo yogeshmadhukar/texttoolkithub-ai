@@ -1,5 +1,47 @@
 [
   {
+    "id": "update-qr-generator",
+    "title": "QR Code Generator Launched",
+    "description": "Produce SaaS-grade customized QR codes instantly for text, URLs, emails, phone numbers, and WiFi networks with styling, color settings, and PNG/vector SVG client-side local downloads.",
+    "category": "New Tool",
+    "date": "2026-06-15"
+  },
+  {
+    "id": "update-json-formatter",
+    "title": "Interactive JSON Formatter",
+    "description": "Format, beautify, validate, and inspect your JSON data with our collapsable tree inspector and live syntax validation alerts.",
+    "category": "New Tool",
+    "date": "2026-06-15"
+  },
+  {
+    "id": "update-json-minifier",
+    "title": "High-Compression JSON Minifier",
+    "description": "Compress and minify complex JSON blobs into lightweight, single-line payloads while maintaining structural compliance.",
+    "category": "New Tool",
+    "date": "2026-06-15"
+  },
+  {
+    "id": "update-markdown-to-html",
+    "title": "Markdown to HTML Converter",
+    "description": "Render GFM Markdown text structures instantly into clean semantic HTML tags. Includes side-by-side live rendering canvas and clean CSS copy modes.",
+    "category": "New Tool",
+    "date": "2026-06-15"
+  },
+  {
+    "id": "update-html-to-markdown",
+    "title": "HTML to Markdown Converter",
+    "description": "Deconstruct or reverse-translate raw nested HTML tag containers back into standardized and clean Markdown styling structures locally in your browser.",
+    "category": "New Tool",
+    "date": "2026-06-15"
+  },
+  {
+    "id": "update-animated-bell-alerts",
+    "title": "Interactive Notification Upgrades",
+    "description": "Overhauled the notification center with dynamic micro-interactions, an active ring indicator, brand-new responsive icon animation layers, and seamless list transitions.",
+    "category": "Feature Update",
+    "date": "2026-06-15"
+  },
+  {
     "id": "update-case-converter-pro",
     "title": "Case Converter Pro Launched",
     "description": "Convert text between 13 different casings including camelCase, snake_case, PascalCase, dot.case, path/case and CONSTANT_CASE with live preview cards.",
