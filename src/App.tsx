@@ -375,13 +375,13 @@ function ViewLoadingSkeleton() {
 }
 
 export default function App() {
-  // Theme state: default checks localStorage, then falls back to media matches
+  // Theme state: default checks localStorage, then falls back to Light Mode (false)
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     const cached = localStorage.getItem('theme-preference');
     if (cached) {
       return cached === 'dark';
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return false;
   });
 
   // Initialize Google Analytics ONCE on initial module mount (with GDPR-safe defaults)
