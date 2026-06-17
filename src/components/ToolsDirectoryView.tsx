@@ -42,7 +42,12 @@ import {
   History,
   ArrowUpRight,
   Pilcrow,
-  Smile
+  Smile,
+  FileSpreadsheet,
+  QrCode,
+  FileJson,
+  ArrowDownWideNarrow,
+  ShieldCheck
 } from 'lucide-react';
 
 interface ToolsDirectoryViewProps {
@@ -77,6 +82,13 @@ const getToolIcon = (name: string, className: string = 'w-5 h-5') => {
     case 'Pilcrow': return <Pilcrow className={`${className} text-indigo-500`} />;
     case 'Smile': return <Smile className={`${className} text-indigo-505`} />;
     case 'List': return <List className={`${className} text-indigo-500`} />;
+    case 'FileSpreadsheet': return <FileSpreadsheet className={`${className} text-emerald-500`} />;
+    case 'Code': return <Code className={`${className} text-blue-500`} />;
+    case 'Clock': return <Clock className={`${className} text-amber-500`} />;
+    case 'QrCode': return <QrCode className={`${className} text-rose-500`} />;
+    case 'FileJson': return <FileJson className={`${className} text-violet-500`} />;
+    case 'ArrowDownWideNarrow': return <ArrowDownWideNarrow className={`${className} text-indigo-500`} />;
+    case 'ShieldCheck': return <ShieldCheck className={`${className} text-emerald-500`} />;
     default: return <FileText className={`${className} text-slate-500`} />;
   }
 };

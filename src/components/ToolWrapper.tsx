@@ -34,7 +34,12 @@ import {
   ArrowLeftRight,
   Pilcrow,
   Smile,
-  List
+  List,
+  FileSpreadsheet,
+  Code,
+  QrCode,
+  FileJson,
+  ArrowDownWideNarrow
 } from 'lucide-react';
 
 interface ToolWrapperProps {
@@ -323,6 +328,13 @@ Writing blog drafts or corporate press articles can be stressful when characters
       case 'Pilcrow': return <Pilcrow className={`${sizeClass} text-indigo-500`} />;
       case 'Smile': return <Smile className={`${sizeClass} text-indigo-500`} />;
       case 'List': return <List className={`${sizeClass} text-indigo-500`} />;
+      case 'FileSpreadsheet': return <FileSpreadsheet className={`${sizeClass} text-emerald-500`} />;
+      case 'Code': return <Code className={`${sizeClass} text-indigo-500`} />;
+      case 'Clock': return <Clock className={`${sizeClass} text-amber-500`} />;
+      case 'QrCode': return <QrCode className={`${sizeClass} text-rose-500`} />;
+      case 'FileJson': return <FileJson className={`${sizeClass} text-indigo-500`} />;
+      case 'ArrowDownWideNarrow': return <ArrowDownWideNarrow className={`${sizeClass} text-indigo-500`} />;
+      case 'ShieldCheck': return <ShieldCheck className={`${sizeClass} text-emerald-500`} />;
       default: return <FileText className={`${sizeClass} text-indigo-500`} />;
     }
   };

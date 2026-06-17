@@ -1,5 +1,47 @@
 [
   {
+    "id": "update-milestone-41-tools",
+    "title": "Major Milestone: 41+ Developer Tools!",
+    "description": "Huge library expansion! We have officially crossed the milestones of hosting 41+ specialized browser-native utilities. Added 5 advanced developer tools including a local JWT decoder, CSV parser, and Regex visualizer.",
+    "category": "Feature Update",
+    "date": "2026-06-17"
+  },
+  {
+    "id": "update-jwt-decoder",
+    "title": "Local JWT Decoder & Debugger",
+    "description": "Decode, inspect, and validate JSON Web Tokens (JWT) safely in real-time. Analyze cryptographic headers and payload claims with complete local privacy.",
+    "category": "New Tool",
+    "date": "2026-06-17"
+  },
+  {
+    "id": "update-csv-formatter",
+    "title": "CSV Formatter & Column Extractor",
+    "description": "Clean, format, and filter CSV data seamlessly in your browser. Extract individual columns, sort records, remove duplicate rows, and convert tabular data to JSON, Markdown tables, or SQL inserts.",
+    "category": "New Tool",
+    "date": "2026-06-17"
+  },
+  {
+    "id": "update-regex-tester",
+    "title": "Interactive Regex Tester & Visual Matcher",
+    "description": "Compose and validate regular expressions online with dynamic, color-coded visual match highlighting, capturing groups, subset views, and pre-built common validation presets.",
+    "category": "New Tool",
+    "date": "2026-06-17"
+  },
+  {
+    "id": "update-cron-builder",
+    "title": "Visual Cron Expression Builder",
+    "description": "Build standardized crontab cron expressions using our visual sliders and configuration options. Read schedules translated into clear, simple English and preview upcoming runtime ranges.",
+    "category": "New Tool",
+    "date": "2026-06-17"
+  },
+  {
+    "id": "update-meta-generator",
+    "title": "SEO Meta Tag Generator & Previewer",
+    "description": "Generate optimized SEO meta tags, Facebook Open Graph, and Twitter Card metadata. Inspect actual Google or Facebook visual card preview mockups instantly.",
+    "category": "New Tool",
+    "date": "2026-06-17"
+  },
+  {
     "id": "update-qr-generator",
     "title": "QR Code Generator Launched",
     "description": "Produce SaaS-grade customized QR codes instantly for text, URLs, emails, phone numbers, and WiFi networks with styling, color settings, and PNG/vector SVG client-side local downloads.",

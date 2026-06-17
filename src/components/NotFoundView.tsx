@@ -17,7 +17,14 @@ import {
   Pilcrow,
   Eraser,
   Smile,
-  List
+  List,
+  FileSpreadsheet,
+  Code,
+  Clock,
+  QrCode,
+  FileJson,
+  ArrowDownWideNarrow,
+  ShieldCheck
 } from 'lucide-react';
 
 interface NotFoundViewProps {
@@ -86,6 +93,13 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
       case 'Eraser': return <Eraser className={`${sizeClass} text-indigo-505`} />;
       case 'Smile': return <Smile className={`${sizeClass} text-indigo-500`} />;
       case 'List': return <List className={`${sizeClass} text-indigo-500`} />;
+      case 'FileSpreadsheet': return <FileSpreadsheet className={`${sizeClass} text-emerald-500`} />;
+      case 'Code': return <Code className={`${sizeClass} text-indigo-500`} />;
+      case 'Clock': return <Clock className={`${sizeClass} text-amber-500`} />;
+      case 'QrCode': return <QrCode className={`${sizeClass} text-rose-500`} />;
+      case 'FileJson': return <FileJson className={`${sizeClass} text-indigo-500`} />;
+      case 'ArrowDownWideNarrow': return <ArrowDownWideNarrow className={`${sizeClass} text-indigo-500`} />;
+      case 'ShieldCheck': return <ShieldCheck className={`${sizeClass} text-emerald-500`} />;
       default: return <FileText className={`${sizeClass} text-indigo-550`} />;
     }
   };

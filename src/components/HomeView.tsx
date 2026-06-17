@@ -40,7 +40,13 @@ import {
   Sparkle,
   Pilcrow,
   Smile,
-  List
+  List,
+  FileSpreadsheet,
+  Code,
+  Clock,
+  QrCode,
+  FileJson,
+  ArrowDownWideNarrow
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -248,6 +254,13 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       case 'Pilcrow': return <Pilcrow className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'Smile': return <Smile className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'List': return <List className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'FileSpreadsheet': return <FileSpreadsheet className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
+      case 'Code': return <Code className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Clock': return <Clock className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
+      case 'QrCode': return <QrCode className={`${sizeClass} text-rose-500 dark:text-rose-400`} />;
+      case 'FileJson': return <FileJson className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'ArrowDownWideNarrow': return <ArrowDownWideNarrow className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'ShieldCheck': return <ShieldCheck className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       default: return <FileText className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
     }
   };

@@ -83,6 +83,11 @@ const JsonMinifierView = lazyWithRetry(() => import('./components/JsonMinifierVi
 const MarkdownToHtmlView = lazyWithRetry(() => import('./components/MarkdownToHtmlView.tsx'));
 const HtmlToMarkdownView = lazyWithRetry(() => import('./components/HtmlToMarkdownView.tsx'));
 const QrCodeGeneratorView = lazyWithRetry(() => import('./components/QrCodeGeneratorView.tsx'));
+const JwtDecoderView = lazyWithRetry(() => import('./components/JwtDecoderView.tsx'));
+const CsvFormatterView = lazyWithRetry(() => import('./components/CsvFormatterView.tsx'));
+const RegexTesterView = lazyWithRetry(() => import('./components/RegexTesterView.tsx'));
+const CronExpressionBuilderView = lazyWithRetry(() => import('./components/CronExpressionBuilderView.tsx'));
+const MetaTagGeneratorView = lazyWithRetry(() => import('./components/MetaTagGeneratorView.tsx'));
 const NotFoundView = lazyWithRetry(() => import('./components/NotFoundView.tsx'));
 const ToolsDirectoryView = lazyWithRetry(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = lazyWithRetry(() => import('./components/HowToUseAccordion.tsx'));
@@ -128,9 +133,14 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/document-builder': () => import('./components/DocumentBuilderView.tsx'),
   'tools/json-formatter': () => import('./components/JsonFormatterView.tsx'),
   'tools/json-minifier': () => import('./components/JsonMinifierView.tsx'),
+  'tools/jwt-decoder': () => import('./components/JwtDecoderView.tsx'),
+  'tools/csv-formatter': () => import('./components/CsvFormatterView.tsx'),
+  'tools/regex-tester': () => import('./components/RegexTesterView.tsx'),
+  'tools/cron-builder': () => import('./components/CronExpressionBuilderView.tsx'),
   'tools/markdown-to-html': () => import('./components/MarkdownToHtmlView.tsx'),
   'tools/html-to-markdown': () => import('./components/HtmlToMarkdownView.tsx'),
   'tools/qr-generator': () => import('./components/QrCodeGeneratorView.tsx'),
+  'tools/meta-generator': () => import('./components/MetaTagGeneratorView.tsx'),
 };
 
 const prefetchTool = (id: string) => {
@@ -331,6 +341,10 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'qr-creator': 'tools/qr-generator',
     'qrcode': 'tools/qr-generator',
     'tools/qr-generator': 'tools/qr-generator',
+    'meta-generator': 'tools/meta-generator',
+    'meta-tag-generator': 'tools/meta-generator',
+    'seo-meta-generator': 'tools/meta-generator',
+    'tools/meta-generator': 'tools/meta-generator',
     'privacy-policy': 'privacy',
     'terms-of-service': 'terms',
     'faqs': 'faq',
@@ -1263,6 +1277,56 @@ export default function App() {
     if (activePage === 'tools/qr-generator' || activePage === 'qr-generator') {
       return (
         <QrCodeGeneratorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional JWT Decoder & Debugger page
+    if (activePage === 'tools/jwt-decoder' || activePage === 'jwt-decoder') {
+      return (
+        <JwtDecoderView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional CSV Formatter & Column Extractor page
+    if (activePage === 'tools/csv-formatter' || activePage === 'csv-formatter') {
+      return (
+        <CsvFormatterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Regex Tester & Visual Matcher page
+    if (activePage === 'tools/regex-tester' || activePage === 'regex-tester') {
+      return (
+        <RegexTesterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional Cron Expression Builder & Translator page
+    if (activePage === 'tools/cron-builder' || activePage === 'cron-builder') {
+      return (
+        <CronExpressionBuilderView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the beautiful dedicated professional SEO Meta Tag Generator page
+    if (activePage === 'tools/meta-generator' || activePage === 'meta-generator') {
+      return (
+        <MetaTagGeneratorView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

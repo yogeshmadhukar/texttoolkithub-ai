@@ -35,7 +35,14 @@ import {
   Sparkle,
   Pilcrow,
   Smile,
-  List
+  List,
+  FileSpreadsheet,
+  Code,
+  Clock,
+  QrCode,
+  FileJson,
+  ArrowDownWideNarrow,
+  ShieldCheck
 } from 'lucide-react';
 import updatesData from '../updates.json';
 
@@ -280,6 +287,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       case 'Pilcrow': return <Pilcrow className="w-4 h-4 text-indigo-500" />;
       case 'Smile': return <Smile className="w-4 h-4 text-indigo-500" />;
       case 'List': return <List className="w-4 h-4 text-indigo-500" />;
+      case 'FileSpreadsheet': return <FileSpreadsheet className="w-4 h-4 text-emerald-500" />;
+      case 'Code': return <Code className="w-4 h-4 text-indigo-500" />;
+      case 'Clock': return <Clock className="w-4 h-4 text-amber-500" />;
+      case 'QrCode': return <QrCode className="w-4 h-4 text-rose-500" />;
+      case 'FileJson': return <FileJson className="w-4 h-4 text-indigo-500" />;
+      case 'ArrowDownWideNarrow': return <ArrowDownWideNarrow className="w-4 h-4 text-indigo-500" />;
+      case 'ShieldCheck': return <ShieldCheck className="w-4 h-4 text-emerald-500" />;
       default: return <Wrench className="w-4 h-4 text-blue-500" />;
     }
   };
