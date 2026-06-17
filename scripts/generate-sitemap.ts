@@ -12,7 +12,8 @@ function generateSitemap() {
 
   const staticPages = [
     { loc: '/', changefreq: 'daily', priority: '1.0' },
-    { loc: '/about', changefreq: 'monthly', priority: '0.5' },
+    { loc: '/about', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/faq', changefreq: 'monthly', priority: '0.7' },
     { loc: '/contact', changefreq: 'monthly', priority: '0.5' },
     { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.3' },
     { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
