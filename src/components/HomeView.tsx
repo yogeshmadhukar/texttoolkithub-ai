@@ -4,6 +4,7 @@ import { Tool, ToolCategory } from '../types.ts';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
 import AdPlacement from './AdPlacement.tsx';
+import HostingerNewsletter from './HostingerNewsletter.tsx';
 import { 
   FileText, 
   Hash, 
@@ -1119,6 +1120,9 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           </div>
         </div>
       </section>
+
+      {/* 10. TEXTTOOLKITHUB INSIDER NEWSLETTER */}
+      <HostingerNewsletter />
 
     </div>
   );
