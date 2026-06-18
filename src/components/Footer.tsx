@@ -1,6 +1,7 @@
 import React from 'react';
 import { TOOLS } from '../data.ts';
 import { Wrench, Github, Scale, HelpCircle, Shield, FileText, Linkedin } from 'lucide-react';
+import HubLogo from './HubLogo.tsx';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -23,8 +24,8 @@ export default function Footer({ onNavigate }: FooterProps) {
               className="flex items-center gap-2 cursor-pointer group"
               id="footer-logo-link"
             >
-              <div className="p-1.5 rounded-lg bg-indigo-500 text-white shadow-sm shadow-indigo-500/10">
-                <Wrench className="w-4 h-4" />
+              <div className="group-hover:scale-105 transition-transform duration-200 shrink-0">
+                <HubLogo size="md" />
               </div>
               <span className="font-sans font-extrabold text-lg tracking-tight text-slate-950 dark:text-white">
                 Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub

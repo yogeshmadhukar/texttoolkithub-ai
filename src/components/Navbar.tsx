@@ -3,6 +3,7 @@ import { TOOLS, searchTools } from '../data.ts';
 import { ActivePage, Tool } from '../types.ts';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
+import HubLogo from './HubLogo.tsx';
 import { 
   Wrench, 
   Search, 
@@ -338,8 +339,8 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             className="flex items-center gap-2 cursor-pointer group flex-shrink-0"
             id="nav-logo-link"
           >
-            <div className="p-2 rounded-xl bg-indigo-500 text-white group-hover:scale-105 transition-transform duration-200 shadow-md shadow-indigo-500/20">
-              <Wrench className="w-5 h-5" />
+            <div className="group-hover:scale-105 transition-transform duration-200 shrink-0">
+              <HubLogo size="lg" />
             </div>
             <span className="font-sans font-extrabold text-xl tracking-tight text-slate-950 dark:text-white">
               Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
