@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { TOOLS } from '../data.ts';
 import { motion } from 'motion/react';
 import { marked } from 'marked';
+import { sanitizeHtml } from '../utils/security.ts';
 import { 
   FileCode,
   Copy, 
@@ -219,7 +220,8 @@ export default function MarkdownToHtmlView({ onNavigateToTool, onNavigateHome }:
     try {
       // Synchronous client compile using marked
       const compiledHTML = marked.parse(markdownInput, { async: false });
-      setOutputText(compiledHTML as string);
+      const safeHTML = sanitizeHtml(compiledHTML as string);
+      setOutputText(safeHTML);
     } catch (err) {
       console.warn("Markdown parsing encounter error: ", err);
     }
