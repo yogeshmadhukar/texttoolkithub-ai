@@ -88,6 +88,16 @@ const CsvFormatterView = lazyWithRetry(() => import('./components/CsvFormatterVi
 const RegexTesterView = lazyWithRetry(() => import('./components/RegexTesterView.tsx'));
 const CronExpressionBuilderView = lazyWithRetry(() => import('./components/CronExpressionBuilderView.tsx'));
 const MetaTagGeneratorView = lazyWithRetry(() => import('./components/MetaTagGeneratorView.tsx'));
+const UnixTimestampConverterView = lazyWithRetry(() => import('./components/UnixTimestampConverterView.tsx'));
+const NumberBaseConverterView = lazyWithRetry(() => import('./components/NumberBaseConverterView.tsx'));
+const TypeDefConverterView = lazyWithRetry(() => import('./components/TypeDefConverterView.tsx'));
+const StringEscaperView = lazyWithRetry(() => import('./components/StringEscaperView.tsx'));
+const HashGeneratorView = lazyWithRetry(() => import('./components/HashGeneratorView.tsx'));
+const YamlJsonConverterView = lazyWithRetry(() => import('./components/YamlJsonConverterView.tsx'));
+const ContrastCheckerPaletteView = lazyWithRetry(() => import('./components/ContrastCheckerPaletteView.tsx'));
+const UuidGuidGeneratorView = lazyWithRetry(() => import('./components/UuidGuidGeneratorView.tsx'));
+const CssBeautifierMinifierView = lazyWithRetry(() => import('./components/CssBeautifierMinifierView.tsx'));
+const UserAgentParserView = lazyWithRetry(() => import('./components/UserAgentParserView.tsx'));
 const NotFoundView = lazyWithRetry(() => import('./components/NotFoundView.tsx'));
 const ToolsDirectoryView = lazyWithRetry(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = lazyWithRetry(() => import('./components/HowToUseAccordion.tsx'));
@@ -141,6 +151,16 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/html-to-markdown': () => import('./components/HtmlToMarkdownView.tsx'),
   'tools/qr-generator': () => import('./components/QrCodeGeneratorView.tsx'),
   'tools/meta-generator': () => import('./components/MetaTagGeneratorView.tsx'),
+  'tools/unix-timestamp-converter': () => import('./components/UnixTimestampConverterView.tsx'),
+  'tools/number-base-converter': () => import('./components/NumberBaseConverterView.tsx'),
+  'tools/typedef-converter': () => import('./components/TypeDefConverterView.tsx'),
+  'tools/string-escaper': () => import('./components/StringEscaperView.tsx'),
+  'tools/hash-generator': () => import('./components/HashGeneratorView.tsx'),
+  'tools/yaml-json-converter': () => import('./components/YamlJsonConverterView.tsx'),
+  'tools/contrast-checker': () => import('./components/ContrastCheckerPaletteView.tsx'),
+  'tools/uuid-generator': () => import('./components/UuidGuidGeneratorView.tsx'),
+  'tools/css-formatter': () => import('./components/CssBeautifierMinifierView.tsx'),
+  'tools/ua-parser': () => import('./components/UserAgentParserView.tsx'),
 };
 
 const prefetchTool = (id: string) => {
@@ -666,17 +686,49 @@ export default function App() {
         schemas.push({
           "@context": "https://schema.org",
           "@type": "WebApplication",
-          "name": `${tool.title} | TextToolkitHub`,
+          "name": `${tool.title} - Free, Private Online Tool`,
           "url": getCleanUrl(tool.id),
           "description": tool.seoDescription || tool.description,
-          "applicationCategory": "BusinessApplication",
+          "applicationCategory": "DeveloperApplication",
+          "applicationSubCategory": "Client-Side String & Text Utilities",
           "operatingSystem": "All",
-          "browserRequirements": "Requires JavaScript",
+          "browserRequirements": "Requires any standard web browser with HTML5 and CSS3 support",
           "offers": {
             "@type": "Offer",
             "price": "0.00",
             "priceCurrency": "USD"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "TextToolkitHub"
           }
+        });
+
+        schemas.push({
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          "name": `How to use ${tool.title} Online`,
+          "description": `Step-by-step guidelines for formatting and analyzing strings securely with our free ${tool.title} online tool.`,
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Paste your input text",
+              "text": "Insert, type, or drag-and-drop your string values, code, or metrics inside the clean, responsive workspace text area.",
+              "url": getCleanUrl(tool.id) + "#input"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Adjust tool configurations",
+              "text": "Customize available parsing options, switches, or dividers dynamically. Results compute live browser-side.",
+              "url": getCleanUrl(tool.id) + "#options"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Copy or download output",
+              "text": "Click copy to clipboard or download the pristine, secure formatted output files offline instantly to save user effort.",
+              "url": getCleanUrl(tool.id) + "#output"
+            }
+          ]
         });
 
         schemas.push({
@@ -1327,6 +1379,97 @@ export default function App() {
     if (activePage === 'tools/meta-generator' || activePage === 'meta-generator') {
       return (
         <MetaTagGeneratorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    // Render the newly introduced expert-grade developer utilities
+    if (activePage === 'tools/unix-timestamp-converter' || activePage === 'unix-timestamp-converter') {
+      return (
+        <UnixTimestampConverterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/number-base-converter' || activePage === 'number-base-converter') {
+      return (
+        <NumberBaseConverterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/typedef-converter' || activePage === 'typedef-converter') {
+      return (
+        <TypeDefConverterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/string-escaper' || activePage === 'string-escaper') {
+      return (
+        <StringEscaperView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/hash-generator' || activePage === 'hash-generator') {
+      return (
+        <HashGeneratorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/yaml-json-converter' || activePage === 'yaml-json-converter') {
+      return (
+        <YamlJsonConverterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/contrast-checker' || activePage === 'contrast-checker') {
+      return (
+        <ContrastCheckerPaletteView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/uuid-generator' || activePage === 'uuid-generator') {
+      return (
+        <UuidGuidGeneratorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/css-formatter' || activePage === 'css-formatter') {
+      return (
+        <CssBeautifierMinifierView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/ua-parser' || activePage === 'ua-parser') {
+      return (
+        <UserAgentParserView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

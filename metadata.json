@@ -1,6 +1,6 @@
 {
   "name": "TextToolkitHub",
-  "description": "Professional text manipulation and analysis tools portal. Clean, fast, and feature-rich word count, character counter, case converter, line break removal, and spacing remedies.",
+  "description": "Professional text manipulation, formatting, and developer tool suite. Includes word counters, encoders, Unix timeline epoch converters, hash checksum checkers, type definitions mapping, and code tag escapers.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -115,6 +115,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
   const websiteNews = [
     {
+      id: "news-milestone-51",
+      title: "51 Core Tools Hub Live!",
+      description: "TextToolkitHub has officially reached 51 fully custom, browser-native tools! Enjoy our new tools: YAML/JSON, Color Contrast, UUID Generator, CSS Beautifier, User Agent Parser, Unix Timestamp, and more.",
+      date: "2026-06-22",
+      category: "Website News"
+    },
+    {
       id: "news-milestone-36",
       title: "36 Core Tools Hub Live",
       description: "TextToolkitHub has officially deployed 36 fully custom, completely browser-native tools, including our brand-new suite: QR Code Generator, JSON Formatter, JSON Minifier, Markdown to HTML, and HTML to Markdown.",
@@ -340,7 +347,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             id="nav-logo-link"
           >
             <div className="group-hover:scale-105 transition-transform duration-200 shrink-0">
-              <HubLogo size="lg" />
+              <HubLogo size="lg" editable={true} />
             </div>
             <span className="font-sans font-extrabold text-xl tracking-tight text-slate-950 dark:text-white">
               Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
