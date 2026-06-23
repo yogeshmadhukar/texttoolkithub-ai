@@ -29,7 +29,10 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
         errorMsg.includes('importing a module script') ||
         errorMsg.includes('dynamic import') ||
         errorMsg.includes('ChunkLoadError') ||
-        errorMsg.includes('loading script');
+        errorMsg.includes('loading script') ||
+        errorMsg.includes('text/html') ||
+        errorMsg.includes('MIME type') ||
+        errorMsg.includes('is not a valid JavaScript');
 
       if (!lastReload && isChunkLoadFailed) {
         sessionStorage.setItem(hasReloadedKey, 'true');

@@ -64,6 +64,15 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
 
   // Action: Simple component retry (react re-renders the children block from current hash)
   private handleRetry = () => {
+    const errorMsg = String(this.state.error?.message || '').toLowerCase();
+    const isChunkOrAssetError = 
+      errorMsg.includes('fetch') ||
+      errorMsg.includes('module') ||
+      errorMsg.includes('script') ||
+      errorMsg.includes('chunk') ||
+      errorMsg.includes('text/html') ||
+      errorMsg.includes('mime');
+
     this.setState({
       hasError: false,
       error: null,
@@ -71,6 +80,10 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
       copied: false,
       showTrace: false
     });
+
+    if (isChunkOrAssetError) {
+      window.location.reload();
+    }
   };
 
   // Action: Return to corporate dashboard safely and reset states
