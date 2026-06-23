@@ -512,7 +512,7 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
                 onNavigate('security-faq');
               }
             }}
-            className="px-4 py-2 bg-indigo-650 hover:bg-indigo-550 dark:bg-indigo-650 dark:hover:bg-indigo-500 text-white rounded-xl font-bold font-sans text-xs transition whitespace-nowrap shadow-xs cursor-pointer inline-flex items-center gap-1.5"
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white rounded-xl font-bold font-sans text-xs transition whitespace-nowrap shadow-xs cursor-pointer inline-flex items-center gap-1.5"
             id="faq-pbl-security-link"
           >
             Read Security FAQ <ArrowRight className="w-3.5 h-3.5" />
