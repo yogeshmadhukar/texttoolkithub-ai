@@ -48,6 +48,7 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
 // Dynamic lazy imports wrapped with lazyWithRetry for extreme robustness
 const AboutView = lazyWithRetry(() => import('./components/AboutView.tsx'));
 const FaqView = lazyWithRetry(() => import('./components/FaqView.tsx'));
+const SecurityFaqView = lazyWithRetry(() => import('./components/SecurityFaqView.tsx'));
 const ContactView = lazyWithRetry(() => import('./components/ContactView.tsx'));
 const LegalView = lazyWithRetry(() => import('./components/LegalView.tsx'));
 const WordCounterView = lazyWithRetry(() => import('./components/WordCounterView.tsx'));
@@ -373,6 +374,8 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'faqs': 'faq',
     'frequently-asked-questions': 'faq',
     'frequently-asked-queries': 'faq',
+    'security': 'security-faq',
+    'security-faq': 'security-faq',
   };
 
   // Direct rule lookup (lowercase check)
@@ -381,7 +384,7 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   }
 
   // Verify matched static pages
-  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms'];
+  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms', 'security-faq'];
   if (defaultPages.includes(path)) {
     return { normalized: path, redirected: rawPath !== path };
   }
@@ -559,6 +562,9 @@ export default function App() {
     } else if (activePage === 'faq') {
       pageTitle = "Frequently Asked Questions (FAQ) | TextToolkitHub - Help & Support";
       pageDesc = "Find clear answers to common questions about TextToolkitHub's offline-first local security, analytics tracking, tool features, and compatibility.";
+    } else if (activePage === 'security-faq' || activePage === 'security') {
+      pageTitle = "Security & Privacy FAQ | TextToolkitHub - Data Sovereignty";
+      pageDesc = "Find detailed specifications regarding local client-side processing, GDPR compliance, HIPAA security controls, offline execution, and data sovereignty parameters.";
     } else if (activePage === 'contact') {
       pageTitle = "Contact Us | TextToolkitHub - Support & Tool Suggestions";
       pageDesc = "Get in touch with the TextToolkitHub development team. Send bug reports, submit feature recommendations, or request technical support.";
@@ -1496,9 +1502,11 @@ export default function App() {
       case 'tools':
         return <ToolsDirectoryView onNavigateToTool={(id) => handlePageNavigation(id)} onPrefetchTool={prefetchTool} />;
       case 'about':
-        return <AboutView />;
+        return <AboutView onNavigate={(id) => handlePageNavigation(id)} />;
       case 'faq':
-        return <FaqView />;
+        return <FaqView onNavigate={(id) => handlePageNavigation(id)} />;
+      case 'security-faq':
+        return <SecurityFaqView onNavigateHome={() => handlePageNavigation('home')} onNavigateToTool={(id) => handlePageNavigation(id)} />;
       case 'contact':
         return <ContactView />;
       case 'privacy':

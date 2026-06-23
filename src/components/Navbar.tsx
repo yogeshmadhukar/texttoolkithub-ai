@@ -100,15 +100,50 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
     {
       id: "upcoming-1",
       title: "Markdown to PDF Exporter",
-      description: "Convert rich markdown files directly into styled, downloadable PDF assets with standardized layouts.",
+      description: "Convert rich markdown files directly into styled, downloadable PDF assets with standardized layouts. Scales our processing suite into secure corporate document formats.",
       eta: "Q3 2026",
       category: "Upcoming Tool"
     },
     {
       id: "upcoming-2",
       title: "Regex Helper Playground",
-      description: "A complete browser-native test harness to write, debug, and test regular expressions with visual capture groups.",
+      description: "A complete browser-native test harness to write, debug, and test regular expressions with visual capture groups. Accelerates regex editing with interactive validation presets.",
       eta: "Q4 2026",
+      category: "Upcoming Tool"
+    },
+    {
+      id: "upcoming-3",
+      title: "SQL Formatter & AST Validator",
+      description: "Standardize and beautify messy nested SQL queries. To increase our tools, we're building a modular tokenizer that enables rapid expansion into multiple specialized database query parsers.",
+      eta: "Q4 2026",
+      category: "Upcoming Tool"
+    },
+    {
+      id: "upcoming-4",
+      title: "Safe Password Entropy & Strength Meter",
+      description: "Safely parse password criteria fully locally in-browser to measure active bit entropy levels. Expands our footprint into browser security auditing and secure text analysis.",
+      eta: "Q1 2027",
+      category: "Upcoming Tool"
+    },
+    {
+      id: "upcoming-5",
+      title: "XML & SVG Scalable Optimizer",
+      description: "Beautify and parse complex hierarchical XML strings or minify visual inline SVG coordinates. We increase our tool count by isolating lightweight rendering rules into safe worker threads.",
+      eta: "Q1 2027",
+      category: "Upcoming Tool"
+    },
+    {
+      id: "upcoming-6",
+      title: "CSV-to-SQL INSERT Script Generator",
+      description: "Compute database schema layouts and map structured CSV datasets directly into safe SQL table creation and INSERT scripts. Enhances structural conversions for relational tables.",
+      eta: "Q2 2027",
+      category: "Upcoming Tool"
+    },
+    {
+      id: "upcoming-7",
+      title: "Unicode Character & HTML Glyph Matrix",
+      description: "Deconstruct and inspect text strings into direct Unicode hex numbers, ASCII indices, or HTML entities. Simplifies advanced debugging of hidden/zero-width whitespace symbols.",
+      eta: "Q2 2027",
       category: "Upcoming Tool"
     }
   ];
@@ -508,7 +543,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               {/* Redesigned Glassmorphic Notification Dropdown Menu */}
               {isNotifOpen && (
                 <div 
-                  className="fixed top-16 left-4 right-4 md:absolute md:top-full md:right-0 md:left-auto mt-2 w-auto md:w-96 min-w-[340px] md:min-w-[420px] bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150 flex flex-col"
+                  className="fixed top-16 left-4 right-4 md:absolute md:top-full md:right-0 md:left-auto mt-2 w-auto md:w-96 min-w-[280px] sm:min-w-[340px] md:min-w-[420px] bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150 flex flex-col"
                   id="notifications-dropdown-menu"
                 >
                   {/* Header */}
@@ -657,28 +692,55 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
                     {/* Upcoming Tools Tab */}
                     {notifTab === 'upcoming' && (
-                      upcomingTools.length > 0 ? (
-                        upcomingTools.map((tool) => (
-                          <div 
-                            key={tool.id}
-                            className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition flex flex-col border border-transparent hover:border-slate-100 dark:hover:border-slate-850 text-left"
-                          >
-                            <div className="flex items-center justify-between gap-2.5">
-                              <span className="px-2 py-0.5 bg-violet-50 text-violet-800 dark:bg-violet-955/40 dark:text-violet-400 text-[8.5px] font-extrabold rounded-full border border-violet-100/30">
-                                {tool.category}
-                              </span>
-                              <span className="text-[10px] text-indigo-500 dark:text-indigo-400 font-bold font-mono">ETA: {tool.eta}</span>
-                            </div>
-                            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1.5 font-sans">{tool.title}</h4>
-                            <p className="text-[11px] text-slate-505 dark:text-slate-400 mt-1 leading-relaxed font-sans">{tool.description}</p>
+                      <div className="flex flex-col gap-2">
+                        {/* Interactive strategy banner to answer how we increase our tools */}
+                        <div className="p-3.5 mb-2 bg-gradient-to-br from-indigo-50/50 to-violet-50/30 dark:from-indigo-950/20 dark:to-violet-955/15 rounded-xl border border-indigo-100/50 dark:border-indigo-900/30 text-left">
+                          <div className="flex items-center gap-1.5 mb-1.5 text-indigo-705 dark:text-indigo-300">
+                            <TrendingUp className="w-3.5 h-3.5" />
+                            <span className="font-sans font-extrabold text-[11px] uppercase tracking-wider">How We Scale to 100+ Tools</span>
                           </div>
-                        ))
-                      ) : (
-                        <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-400">
-                          <Info className="w-8 h-8 text-slate-300 mb-2" />
-                          <p className="font-sans">You're using the latest version of TextToolkitHub.</p>
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans mt-1">
+                            We are implementing a 3-part framework to rapidly deploy fully browser-native utilities:
+                          </p>
+                          <ul className="mt-2 space-y-1.5 text-[9.5px] text-slate-650 dark:text-slate-350 list-none font-sans">
+                            <li className="flex items-start gap-1">
+                              <span className="text-indigo-501 font-black shrink-0">1.</span>
+                              <span><strong>Modular Scaffolding:</strong> Reusable WebWorker architectures allow us to package and compile tools in under 48 hours.</span>
+                            </li>
+                            <li className="flex items-start gap-1">
+                              <span className="text-indigo-501 font-black shrink-0">2.</span>
+                              <span><strong>Direct Community Pipelines:</strong> Prioritizing user feature/tool ideas received directly via our Contact interface.</span>
+                            </li>
+                            <li className="flex items-start gap-1">
+                              <span className="text-indigo-501 font-black shrink-0">3.</span>
+                              <span><strong>Zero-network compilation:</strong> Client-side processing translates to lightweight, highly standalone templates requiring no server backends.</span>
+                            </li>
+                          </ul>
                         </div>
-                      )
+
+                        {upcomingTools.length > 0 ? (
+                          upcomingTools.map((tool) => (
+                            <div 
+                              key={tool.id}
+                              className="p-3 hover:bg-slate-50 dark:hover:bg-slate-900/40 rounded-xl transition flex flex-col border border-transparent hover:border-slate-101 dark:hover:border-slate-850 text-left"
+                            >
+                              <div className="flex items-center justify-between gap-2.5">
+                                <span className="px-2 py-0.5 bg-violet-50 text-violet-800 dark:bg-violet-955/40 dark:text-violet-400 text-[8.5px] font-extrabold rounded-full border border-violet-100/30">
+                                  {tool.category}
+                                </span>
+                                <span className="text-[10px] text-indigo-500 dark:text-indigo-400 font-bold font-mono">ETA: {tool.eta}</span>
+                              </div>
+                              <h4 className="text-xs font-bold text-slate-900 dark:text-slate-101 mt-1.5 font-sans">{tool.title}</h4>
+                              <p className="text-[11px] text-slate-505 dark:text-slate-400 mt-1 leading-relaxed font-sans">{tool.description}</p>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-400">
+                            <Info className="w-8 h-8 text-slate-300 mb-2" />
+                            <p className="font-sans">You're using the latest version of TextToolkitHub.</p>
+                          </div>
+                        )}
+                      </div>
                     )}
 
                     {/* News Tab */}

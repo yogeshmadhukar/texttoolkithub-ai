@@ -33,7 +33,11 @@ interface FaqCategory {
   items: FaqItem[];
 }
 
-export default function FaqView() {
+interface FaqViewProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function FaqView({ onNavigate }: FaqViewProps = {}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedFaqs, setExpandedFaqs] = useState<Record<number, boolean>>({});
 
@@ -63,7 +67,7 @@ export default function FaqView() {
           answerText: 'Anyone who works with text can benefit from our platform! This includes copywriters, content creators, SEO specialists, software developers, academic students, legal professionals, and editors looking to format, convert, analyze, or clean up text instantly.',
           answerNode: (
             <>
-              Anyone who works with text can benefit from our platform! This includes <span className="font-medium text-slate-800 dark:text-slate-200">copywriters, content creators, SEO specialists, software developers, academic students, legal professionals</span>, and editors looking to format, convert, analyze, or clean up text instantly with zero ads.
+              Anyone who works with text can benefit from our platform! This includes <span className="font-medium text-slate-800 dark:text-slate-200">copywriters, content creators, SEO specialists, software developers, academic students, legal professionals</span>, and editors looking to format, convert, analyze, or clean up text instantly and securely.
             </>
           )
         },
@@ -118,7 +122,7 @@ export default function FaqView() {
         {
           id: 17,
           question: 'Which website has free text formatting tools?',
-          answerText: 'TextToolkitHub serves as an all-in-one free text formatting hub, providing clean layouts to sort lists, reverse paragraphs, strip unwanted carriage returns, deduplicate item lists, and beautify paragraphs without ads.',
+          answerText: 'TextToolkitHub serves as an all-in-one free text formatting hub, providing clean layouts to sort lists, reverse paragraphs, strip unwanted carriage returns, deduplicate item lists, and beautify paragraphs seamlessly.',
           answerNode: (
             <>
               TextToolkitHub serves as an all-in-one free text formatting hub, providing premium layout templates to sort lines, <a href="/text-reverser" className="text-indigo-600 dark:text-indigo-400 hover:underline">reverse paragraphs</a>, strip unwanted empty spacing, deduplicate elements, and beautify structural logs.
@@ -195,7 +199,7 @@ export default function FaqView() {
           answerText: 'Yes! Every single tool inside TextToolkitHub is 100% free with no subscription tiers, payment walls, or restricted access trials. You get full access to professional utilities with absolutely zero cost.',
           answerNode: (
             <>
-              Yes, 100% free! Every tool inside TextToolkitHub is <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">completely free with no subscription tiers</strong>, advertising banners, paywalls, or restricted access trials. Use our tools limits-free around the clock.
+              Yes, 100% free! Every tool inside TextToolkitHub is <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">completely free with no subscription tiers</strong>, paywalls, or restricted access trials. Use our tools limits-free around the clock.
             </>
           )
         },
@@ -250,10 +254,10 @@ export default function FaqView() {
         {
           id: 20,
           question: 'Is TextToolkitHub suitable for professionals and creators?',
-          answerText: 'Absolutely. With immediate offline capability, clean spacing, high-contrast dark theme options, and zero advertisements, our tools integrate seamlessly into professional developer, journalism, and creator workflows.',
+          answerText: 'Absolutely. With immediate offline capability, clean spacing, high-contrast dark theme options, and highly optimized layouts, our tools integrate seamlessly into professional developer, journalism, and creator workflows.',
           answerNode: (
             <>
-              Absolutely. With robust browser-memory calculations, elegant dark-theme pairings, and <strong className="text-slate-900 dark:text-white font-semibold">completely ad-free structures</strong>, our tools integrate directly into demanding journalism, engineering, and digital editor workflows.
+              Absolutely. With robust browser-memory calculations, elegant dark-theme pairings, and <strong className="text-slate-900 dark:text-white font-semibold">completely streamlined layouts</strong>, our tools integrate directly into demanding journalism, engineering, and digital editor workflows.
             </>
           )
         }
@@ -482,6 +486,37 @@ export default function FaqView() {
             <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
             <span>{searchQuery ? `${totalResultsCount} matches found` : 'Fully Indexed (20 FAQs)'}</span>
           </div>
+        </motion.div>
+
+        {/* Promotional banner redirecting to Security FAQ for specialized corporate users */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28 }}
+          className="mb-8 p-4 bg-linear-to-r from-indigo-50 to-emerald-50 dark:from-indigo-950/20 dark:to-emerald-950/10 rounded-2xl border border-indigo-100/50 dark:border-indigo-900/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-indigo-50/10 rounded-xl text-indigo-600 dark:text-indigo-400 shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-sans font-bold text-slate-900 dark:text-white text-xs sm:text-sm">Looking for technical compliance or detailed sovereignty questions?</h4>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Read our professional offline compliance answers, HIPAA, and GDPR integration guidelines.</p>
+            </div>
+          </div>
+          <a
+            href="/security-faq"
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('security-faq');
+              }
+            }}
+            className="px-4 py-2 bg-indigo-650 hover:bg-indigo-550 dark:bg-indigo-650 dark:hover:bg-indigo-500 text-white rounded-xl font-bold font-sans text-xs transition whitespace-nowrap shadow-xs cursor-pointer inline-flex items-center gap-1.5"
+            id="faq-pbl-security-link"
+          >
+            Read Security FAQ <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </motion.div>
 
         {/* Categories Tab Selector */}

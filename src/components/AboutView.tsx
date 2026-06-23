@@ -52,12 +52,23 @@ interface CategoryCard {
   items: string[];
 }
 
-export default function AboutView() {
+interface AboutViewProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function AboutView({ onNavigate }: AboutViewProps = {}) {
   // Simple state to handle individual FAQ items
   const [expandedFaq, setExpandedFaq] = useState<string | null>('faq-1');
 
   // Interactive tab state for the Tool Categories showcase
   const [activeCategoryTab, setActiveCategoryTab] = useState<number>(0);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(target);
+    }
+  };
 
   const toggleFaq = (id: string) => {
     setExpandedFaq(expandedFaq === id ? null : id);
@@ -241,13 +252,15 @@ export default function AboutView() {
           >
             <a 
               href="/" 
+              onClick={(e) => handleLinkClick(e, 'home')}
               className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/20 transition flex items-center gap-2"
               id="hero-ctx-btn"
             >
               Explore 51+ Tools <ArrowRight className="w-4 h-4" />
             </a>
             <a 
-              href="#platform-faq" 
+              href="/security-faq" 
+              onClick={(e) => handleLinkClick(e, 'security-faq')}
               className="px-6 py-3 bg-white dark:bg-slate-950/80 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 rounded-xl font-bold text-sm transition"
               id="hero-faq-btn"
             >
@@ -784,6 +797,7 @@ export default function AboutView() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a 
                 href="/" 
+                onClick={(e) => handleLinkClick(e, 'home')}
                 className="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-slate-100 text-indigo-700 rounded-xl font-bold text-sm transition shadow-md flex items-center justify-center gap-2"
                 id="cta-directory-link"
               >
@@ -791,6 +805,7 @@ export default function AboutView() {
               </a>
               <a 
                 href="/word-counter" 
+                onClick={(e) => handleLinkClick(e, 'word-counter')}
                 className="w-full sm:w-auto px-8 py-3.5 bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-100 border border-indigo-400/30 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2"
                 id="cta-analyzer-link"
               >

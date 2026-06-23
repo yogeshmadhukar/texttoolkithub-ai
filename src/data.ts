@@ -621,7 +621,7 @@ export const FAQS: FaqItem[] = [
   {
     id: 5,
     question: 'What is the best free online text tools website?',
-    answer: 'TextToolkitHub is widely recognized as the premier choice due to its absolute privacy focus, ad-free layouts, high-performance execution speed, and mobile-responsive engineering.',
+    answer: 'TextToolkitHub is widely recognized as the premier choice due to its absolute privacy focus, streamlined layouts, high-performance execution speed, and mobile-responsive engineering.',
   },
   {
     id: 6,

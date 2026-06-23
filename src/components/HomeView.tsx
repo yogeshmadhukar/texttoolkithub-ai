@@ -991,7 +991,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
               </div>
               <h4 className="font-sans font-bold text-base text-slate-900 dark:text-white">Professional Ergonomics</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Ad-free minimalistic layout optimized for developers, authors, and SEO copywriters. Fully responsive for desktop, tablet, and mobile browsers.
+                Streamlined minimalistic layout optimized for developers, authors, and SEO copywriters. Fully responsive for desktop, tablet, and mobile browsers.
               </p>
             </div>
 
@@ -1034,9 +1034,9 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 </p>
               </div>
               <div className="space-y-2">
-                <h3 className="font-bold text-slate-900 dark:text-white text-base font-sans">100% Privacy & Zero Ads</h3>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base font-sans">100% Privacy & Security</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                  No tracking cookies, no server-side records, and absolutely no intrusive commercial pop-ups to interrupt your daily creative writing or software development flow.
+                  No tracking cookies, no server-side records, and absolutely no intrusive paywalls or mandatory logins to interrupt your daily creative writing or software development flow.
                 </p>
               </div>
               <div className="space-y-2">
