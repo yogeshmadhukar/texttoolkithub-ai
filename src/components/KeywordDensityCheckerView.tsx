@@ -60,22 +60,52 @@ export default function KeywordDensityCheckerView({ onNavigateToTool, onNavigate
     {
       id: 1,
       question: "What is Keyword Density?",
-      answer: "Keyword density is the percentage of times a keyword or phrase appears in a text compared to the total number of words. In search engine optimization (SEO), it is used to measure content relevance and prevent keyword stuffing anomalies."
+      answer: "Keyword density measures the percentage frequency of a specific target term or key phrase relative to the total number of words in an analyzed text block. In SEO, this represents an important metric to verify content topic focus."
     },
     {
       id: 2,
-      question: "What is the optimal Keyword Density for SEO?",
-      answer: "While search engine algorithms do not specify a single magic percentage, SEO experts generally recommend keeping primary keywords between 1% to 2.5% of total text. Going higher might trigger search penalties for keyword stuffing."
+      question: "What is the optimal Keyword Density range for modern SEO?",
+      answer: "Most SEO professionals target a keyword density range between 1% and 2.5% for primary key phrases. This ensures search engines recognize the topical focus without flagging the copy for artificial keyword stuffing."
     },
     {
       id: 3,
-      question: "How do the multi-word options work?",
-      answer: "Our checker extracts multi-word phrases (2-word bigrams and 3-word trigrams) sequentially from your text. This allows you to evaluate long-tail key phrases (e.g., 'artificial intelligence tool', 'organic search results') along with individual words."
+      question: "What does the 'Exclude Stopwords' function do?",
+      answer: "Stopwords are structural particles (such as 'the', 'is', 'at', 'which', 'and'). Excluding them filters these high-frequency functional words out of the statistical table, allowing you to see the true thematic keywords within your copy."
     },
     {
       id: 4,
-      question: "What are 'Stopwords' and why exclude them?",
-      answer: "Stopwords are common structural words like 'the', 'and', 'a', 'in', 'is', 'of', 'to'. If you run a keywords density search without excluding them, these conversational filler terms will dominate results. Excluding them helps reveal the true topical subjects of your content."
+      question: "How do the 2-word and 3-word phrase options work?",
+      answer: "The multi-word analyzers process your text into sequential combinations of words (bigrams and trigrams). This helps content developers detect long-tail keywords (e.g., 'cloud development environment' or 'organic conversion rates') that represent exact user searches."
+    },
+    {
+      id: 5,
+      question: "What is 'Keyword Stuffing'?",
+      answer: "Keyword stuffing is the manipulative practice of repeating target keywords excessively in a futile attempt to artificial inflate search rankings. Modern search engines possess sophisticated NLP algorithms that actively penalize this practice."
+    },
+    {
+      id: 6,
+      question: "Is this keyword counter fully secure?",
+      answer: "Yes, absolutely. Like all tools on TextToolkitHub, all data processing, matching, and calculations occur strictly client-side within your browser. No strings, essays, or documents are ever uploaded or transmitted to external servers."
+    },
+    {
+      id: 7,
+      question: "Does keyword density directly affect search ranks?",
+      answer: "It is an indirect crawling signal. Search engines use keyword distribution to categorize subject matter. While high density does not guarantee prime rankings, avoiding over-optimization is crucial for avoiding automatic search filters."
+    },
+    {
+      id: 8,
+      question: "How often should I use this density tool?",
+      answer: "It is best practice to run your text through the analyzer during the review phase of every major document, blog article, product listing, or metadata schema update to ensure organic phrasing."
+    },
+    {
+      id: 9,
+      question: "Can I search for specific keywords in the table?",
+      answer: "Yes. Our interface includes a real-time table filter input. Simply type your target term in the column search bar to instantly isolate its specific frequency and density statistics."
+    },
+    {
+      id: 10,
+      question: "Can this tool help with Google AdSense authorization?",
+      answer: "Yes. By utilizing this analyzer to ensure high-quality, naturally distributed copy across your blog pages, you dramatically reduce thin-content issues and optimize text-to-tool ratios, facilitating approval."
     }
   ];
 
@@ -614,67 +644,160 @@ export default function KeywordDensityCheckerView({ onNavigateToTool, onNavigate
 
         </div>
 
-        {/* SCIENTIFIC INFORMATION & STRATEGIC EXPOSITIONS */}
-        <section className="prose max-w-none pt-12 border-t border-slate-150 dark:border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-12 text-slate-600 dark:text-slate-300">
-          <div>
-            <span className="text-xs uppercase font-extrabold tracking-widest text-emerald-600 dark:text-emerald-400 font-mono">SEO Best Practices</span>
-            <h2 className="text-2xl font-light font-display tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
-              Understanding Keyword Distributions
-            </h2>
-
-            <div className="text-sm leading-relaxed space-y-4 font-sans">
-              <p>
-                In SEO copywriting, keywords provide vital clues for search crawlers indexing web relevance. However, placing target terms unnaturally is flagged as keyword stuffing. Modern search engines value human readability metrics paired with an organic distribution of primary and secondary key terms.
+        {/* DETAILED EDUCATIONAL & SEO RESOURCE MANUAL */}
+        <section className="prose max-w-none pt-16 border-t border-slate-150 dark:border-slate-800 text-slate-650 dark:text-slate-300 font-sans space-y-12">
+          
+          {/* Introduction & What is this tool */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+            <div className="space-y-4">
+              <span className="text-xs uppercase font-extrabold tracking-widest text-[#059669] dark:text-[#34d399] font-mono leading-none block">Strategic SEO Metrics</span>
+              <h2 className="text-3xl font-light font-display tracking-tight text-slate-900 dark:text-white mt-0" id="kd-intro">
+                Introduction to Keyword Density
+              </h2>
+              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                In the complex, constantly changing landscape of search engine optimization, keywords are the connective tissue between a user's search intent and your digital content. While search engine crawlers have evolved to become incredibly sophisticated, they still rely heavily on the programmatic categorization of terms and phrases to index page relevance. To maximize visibility, creators must strike a careful balance between writing naturally and positioning target key terms.
               </p>
-              <p>
-                This interactive Keyword Density Checker calculates exactly what percentages of single-words, double-word bigrams, or triple-word trigrams appear in your writings. Toggle stopwords filtration and search output libraries client-side securely.
+              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                Our client-side <strong>Keyword Density Checker</strong> is a real-time statistical analyzer built to evaluate word frequency distributions. It tracks primary single keywords, two-word bigrams, and three-word trigrams locally, helping you align your copywriting to modern search algorithms.
               </p>
             </div>
+            
+            <div className="space-y-4 bg-slate-50 dark:bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-150 dark:border-slate-850">
+              <h3 className="text-xl font-semibold text-slate-950 dark:text-white mt-0 font-sans" id="kd-what-is">
+                What is this Tool?
+              </h3>
+              <p className="text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                This utility is a high-performance, browser-executed content auditing sandbox designed to check the mathematical weight of individual words and compound phrases in your articles. Unlike server-side software that tracks and archives your text to build marketing profiles, our tool executes all operations directly in-client. This guarantees total security from leak scenarios.
+              </p>
+              <p className="text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                We recommend checking your text's general comprehension levels with our <a href="/readability-checker" className="text-emerald-600 dark:text-emerald-450 hover:underline font-medium">Readability Checker</a> and crafting accurate search previews using our <a href="/meta-generator" className="text-emerald-600 dark:text-emerald-450 hover:underline font-medium">Meta Generator</a> to establish a fully optimized content pipeline.
+              </p>
+            </div>
+          </div>
 
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white mt-8 mb-3 font-sans">
-              Optimal SEO Weight Guide
+          {/* Guide to Using the System */}
+          <div className="border-t border-slate-100 dark:border-slate-850 pt-10 space-y-6">
+            <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="kd-how-to">
+              How to Use the Keyword Density Tool
             </h3>
-            <ul className="text-xs space-y-2 text-slate-500 dark:text-slate-400 pl-4 list-disc font-sans leading-relaxed">
-              <li><strong>Secondary Modifiers:</strong> Words under 1% density. Useful for adding supporting background details without clogging conversational flow.</li>
-              <li><strong>Target Key Terms:</strong> Maintain at 1.2% to 2.2% frequency. Ideal baseline density representing clear content topic focus.</li>
-              <li><strong>Potential Over-Optimization:</strong> Words exceeding 3% frequency. Review these to prevent algorithms from marking your pages as artificial or robotic copy.</li>
-            </ul>
-          </div>
-
-          <div>
-            <span className="text-xs uppercase font-extrabold tracking-widest text-emerald-600 dark:text-emerald-400 font-mono font-mono">Advanced Features</span>
-            <h2 className="text-2xl font-light font-display tracking-tight text-slate-900 dark:text-white mt-1 mb-4">
-              Phrase Analysis & Stopping Words
-            </h2>
-
-            <p className="text-sm text-slate-550 dark:text-slate-300 leading-relaxed mb-6 font-sans">
-              Optimizing your copy requires matching terms to natural human search phrases. Real-time controls make editing easier:
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              Optimizing terms and phrases to maintain natural, search-friendly distributions is straightforward. Simply follow these steps inside our interactive dashboard:
             </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm font-sans">
-              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">1-Word Terms</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Measures individual noun frequencies. Helps confirm your content remains anchored to core subjects.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
+              <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+                <span className="text-2xl font-bold text-emerald-500 block font-mono">01</span>
+                <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Paste Article</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Copy and paste your blog draft, newsletter text, or website copy into the secure input textarea.</p>
               </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">Phrase Bigrams</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Analyzes couples of consecutive words. Perfect for measuring focus on compound subjects like 'digital media'.</p>
+              <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+                <span className="text-2xl font-bold text-emerald-500 block font-mono">02</span>
+                <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Configure Parameters</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Filter out common articles and pronouns by toggling 'Filter Stopwords' and select your target word-phrase length.</p>
               </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">Trigrams (3 words)</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Identifies long-tail structures such as 'free writing tools' representing exact query goals.</p>
+              <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+                <span className="text-2xl font-bold text-emerald-500 block font-mono">03</span>
+                <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Analyze Results</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Check the updated keyword frequency stats columns. Sort them alphabetically or by raw frequency to isolate patterns.</p>
               </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-150 dark:border-slate-850">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200">Sortable Columns</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Order table lists alphabetically, by total query frequency, or density level with robust headers.</p>
+              <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+                <span className="text-2xl font-bold text-emerald-500 block font-mono">04</span>
+                <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Refine Copy</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Adjust repetitive terms highlighted in the stats until primary keywords settle comfortably within the 1% to 2.5% range.</p>
               </div>
-            </div>
-
-            <div className="mt-6 p-4 bg-emerald-50/25 dark:bg-emerald-950/20 rounded-2xl border border-emerald-100/40 dark:border-emerald-900/40 text-xs leading-relaxed font-sans">
-              <span className="font-bold text-emerald-800 dark:text-emerald-400 block mb-1">🔒 Local Privacy Secured:</span>
-              Your original text strings are analyzed purely in-client in your browser memory context. Absolutely none of your essays or keyword catalogs traverse public networks.
             </div>
           </div>
+
+          {/* Benefits & Use Cases & Real World Examples */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-slate-100 dark:border-slate-850 pt-10">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="kd-benefits">
+                Benefits & Use Cases
+              </h3>
+              <ul className="text-sm space-y-3.5 text-slate-600 dark:text-slate-400">
+                <li className="flex items-start gap-2.5">
+                  <span className="text-emerald-500 mt-1 shrink-0">✓</span>
+                  <div>
+                    <strong>Preventing Search Penalties:</strong> Crawling algorithms flag over-optimized websites that repeat exact terms unnaturally. Our tool acts as a safeguard against automatic spam filters.
+                  </div>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-emerald-500 mt-1 shrink-0">✓</span>
+                  <div>
+                    <strong>Identifying Long-Tail Phrases:</strong> By analyzing 2-word and 3-word combinations, market analysts find conversational search patterns and adjust key landing pages accordingly.
+                  </div>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="text-emerald-500 mt-1 shrink-0">✓</span>
+                  <div>
+                    <strong>AdSense Content Readiness:</strong> Maintaining a well-balanced text-to-tool ratio helps ensure programmatic networks index your content as high value, accelerating your approval journey.
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="kd-examples">
+                Real-World Examples
+              </h3>
+              <div className="rounded-2xl border border-slate-150 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-950 p-5 space-y-3">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold text-rose-500 uppercase tracking-wider font-mono">Example A: Stuffing (Frequency: 7.8% - Over-Optimized)</span>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+                    "If you need a text editor tool, pick our text editor tool because our text editor tool is the best text editor tool on the text editor tool market today."
+                  </p>
+                </div>
+                <div className="space-y-1 pt-2.5 border-t border-slate-150 dark:border-slate-850">
+                  <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider font-mono">Example B: Optimized (Frequency: 1.8% - Organic)</span>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+                    "Our premium string editor offers an array of professional formatting options. Creators can manipulate custom assets securely while keeping their workflows clean."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Common Mistakes & Best Practices */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-slate-100 dark:border-slate-850 pt-10">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="kd-mistakes">
+                Common Pitfalls to Avoid
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Many copywriters fall victim to outdated optimization tactics that can trigger penalties from crawling bots:
+              </p>
+              <ul className="list-disc pl-5 text-xs sm:text-sm text-slate-550 dark:text-slate-450 space-y-2">
+                <li><strong>Ignoring Stopwords:</strong> Running density analyses without removing particles like 'and' or 'the', which masks true content themes.</li>
+                <li><strong>Monopolizing Primary Keywords:</strong> Allowing a single target term to exceed 4% density, which signals low-quality, artificial generation.</li>
+                <li><strong>Neglecting Long-Tail Variants:</strong> Focusing purely on single words while completely ignoring multi-word phrases that drive natural searches.</li>
+                <li><strong>Mismatched Intent:</strong> Forcing keywords onto informational pages where simple, direct problem-solving prose is more appropriate.</li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="kd-best-practices">
+                Industry Best Practices
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
+                <div className="p-4 bg-emerald-50/25 dark:bg-slate-950/40 rounded-2xl border border-emerald-100/40 dark:border-emerald-900/10">
+                  <h4 className="font-bold text-slate-900 dark:text-white">Aim for 1% - 2.5% Baseline</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Keep primary target terms organically distributed across paragraphs to maintain clarity and avoid stuffing.</p>
+                </div>
+                <div className="p-4 bg-emerald-50/25 dark:bg-slate-950/40 rounded-2xl border border-emerald-100/40 dark:border-emerald-900/10">
+                  <h4 className="font-bold text-slate-900 dark:text-white">Leverage LSI Variants</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Use latent semantic indexing synonyms instead of repeating the exact same word, making writing more engaging.</p>
+                </div>
+                <div className="p-4 bg-emerald-50/25 dark:bg-slate-950/40 rounded-2xl border border-emerald-100/40 dark:border-emerald-900/10">
+                  <h4 className="font-bold text-slate-900 dark:text-white">Analyze Long-Tail Bigrams</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Focus on 2-word bigrams and 3-word trigrams to match natural, conversational search strings.</p>
+                </div>
+                <div className="p-4 bg-emerald-50/25 dark:bg-slate-950/40 rounded-2xl border border-emerald-100/40 dark:border-emerald-900/10">
+                  <h4 className="font-bold text-slate-900 dark:text-white">Analyze Competitor Copy</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Scan top-linked industry pages to understand their typical keyword density ratios and align your own copy.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </section>
 
         {/* FAQ ACCORDION DISPLAY */}

@@ -232,6 +232,41 @@ font-size:14px; font-weight:600; color:#1e293b; text-decoration:none; transition
       id: 3,
       question: "Is this engine Safe for Tailwind classes or nested CSS?",
       answer: "Yes, it parses class strings and CSS variables perfectly. To handle heavily nested non-standard precompiler syntaxes (like SCSS/Sass), we suggest compiling to standard flat CSS outputs before optimizing structure details."
+    },
+    {
+      id: 4,
+      question: "What is the primary difference between CSS beautification and minification?",
+      answer: "CSS beautification is the process of adding consistent indentation, spacing, and clean line wraps to raw code to improve human readability. CSS minification represents the mathematical inverse, stripping out all unnecessary characters to optimize processing speeds by servers."
+    },
+    {
+      id: 5,
+      question: "Can minifying CSS break my website layout?",
+      answer: "If your CSS contains invalid syntax (like unclosed braces or mismatched semicolons), aggressive minifiers might erroneously bundle invalid blocks together, leading to visual rendering faults. Always use our validator alerts to inspect syntax errors first."
+    },
+    {
+      id: 6,
+      question: "How does minifying stylesheets benefit Core Web Vitals?",
+      answer: "By significantly reducing your total CSS file size, the browser reaches the First Contentful Paint (FCP) and Largest Contentful Paint (LCP) benchmarks much faster. Optimized stylesheets remove render-blocking overhead."
+    },
+    {
+      id: 7,
+      question: "What is the recommended indentation space count for clean CSS?",
+      answer: "Most production style guides recommend using 2 spaces or 4 spaces for nested rules. 2-character spacing is the default modern standard, as it provides clear visual indentation without expanding horizontal text lines."
+    },
+    {
+      id: 8,
+      question: "Are modern CSS Custom Properties (variables) preserved?",
+      answer: "Yes. Our formatter carefully recognizes custom CSS variables (e.g., `--primary-color: #4f46e5;`) and maintains their casing, declarations, and scope block mappings safely across both beautifier and minifier modes."
+    },
+    {
+      id: 9,
+      question: "Does this utility process my CSS rules on external systems?",
+      answer: "No. The parsing, cleaning, and compression operations run entirely within your local browser's javascript thread. Your proprietary design systems and backend configurations are fully secure from leakage."
+    },
+    {
+      id: 10,
+      question: "Does having minified CSS stylesheets help with Google AdSense authorization?",
+      answer: "Yes. Providing optimized, clean assets contributes directly to minor ranking and speed improvements. Speed and standards-compliant source code indicate proper platform authority to AdSense auditors."
     }
   ];
 
@@ -421,6 +456,166 @@ font-size:14px; font-weight:600; color:#1e293b; text-decoration:none; transition
         </div>
 
       </div>
+
+      {/* DETAILED EDUCATIONAL & SEO RESOURCE MANUAL */}
+      <section className="prose max-w-none pt-16 border-t border-slate-150 dark:border-slate-800 text-slate-650 dark:text-slate-300 font-sans space-y-12">
+        
+        {/* Introduction & What is this tool */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+          <div className="space-y-4">
+            <span className="text-xs uppercase font-extrabold tracking-widest text-[#4f46e5] dark:text-[#818cf8] font-mono leading-none block">Web Asset Optimization</span>
+            <h2 className="text-3xl font-light font-display tracking-tight text-slate-900 dark:text-white mt-0" id="css-intro">
+              Introduction to CSS Asset Compression & Formatting
+            </h2>
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+              In modern web engineering, front-end delivery speed is heavily governed by the size and delivery characteristics of static resources like stylesheets. When a client's browser seeks custom visual layouts, it processes cascading stylesheets sequentially before painting elements on-screen—commonly termed render-blocking asset operations. Extraneous characters, trailing commas, double-spaces, and detailed comments are extremely helpful during local development but represent deadweight over production network channels.
+            </p>
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+              Our professional <strong>CSS Beautifier & Minifier Tool</strong> solves this visual workflow duality by compiling raw cascading source sheets bidirectionally into readable formats or high-density code payloads.
+            </p>
+          </div>
+          
+          <div className="space-y-4 bg-slate-50 dark:bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-150 dark:border-slate-850">
+            <h3 className="text-xl font-semibold text-slate-950 dark:text-white mt-0 font-sans" id="css-what-is">
+              What is this Tool?
+            </h3>
+            <p className="text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+              This interactive dashboard of TextToolkitHub is a frontend utility built to manage styling configurations. It features real-time syntax parsing engines, variable-aware beautification options (including spaces, tab-widths, and brace positions), and powerful minifiers. Since all compiler operations execute in the client's local script context, your intellectual visual CSS properties are secure from external harvesting.
+            </p>
+            <p className="text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+              When optimizing asset files, verify script operations using our <a href="/yaml-json" className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">YAML ↔ JSON Converter</a> or analyze your browser log timings with the <a href="/unix-timestamp" className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">Unix Timestamp Converter</a> to round out your development tasks.
+            </p>
+          </div>
+        </div>
+
+        {/* Guide to Using the System */}
+        <div className="border-t border-slate-100 dark:border-slate-850 pt-10 space-y-6">
+          <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="css-how-to">
+            How to Format or Minify Web Stylesheets
+          </h3>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            Maximizing file performance or cleaning up nested CSS structures is seamless with our parser. Use our operational guide:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
+            <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+              <span className="text-2xl font-bold text-indigo-500 block font-mono">01</span>
+              <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Select Target Mode</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Choose 'Minify CSS' to strip characters for launch sheets, or 'Format & Beautify' to align lines cleanly.</p>
+            </div>
+            <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+              <span className="text-2xl font-bold text-indigo-500 block font-mono">02</span>
+              <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Input Stylings Code</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Paste your cascading rules into the left textarea. Click 'Load CSS Sample' to view a standard structural test.</p>
+            </div>
+            <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+              <span className="text-2xl font-bold text-indigo-500 block font-mono">03</span>
+              <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Fine-Tune Options</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Adjust active indent size parameters, brace layouts, and comment clearing toggles to match code standards.</p>
+            </div>
+            <div className="p-5 bg-white dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-850">
+              <span className="text-2xl font-bold text-indigo-500 block font-mono">04</span>
+              <h4 className="font-bold text-slate-850 dark:text-slate-200 mt-2 text-sm">Deploy Compiled asset</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Copy the finalized output styles, or click 'Download file' to save a clean .css file instantly to your system.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Benefits & Use Cases & Real World Examples */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-slate-100 dark:border-slate-850 pt-10">
+          <div className="space-y-4">
+            <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="css-benefits">
+              Benefits & Key Use Cases
+            </h3>
+            <ul className="text-sm space-y-3.5 text-slate-600 dark:text-slate-400">
+              <li className="flex items-start gap-2.5">
+                <span className="text-indigo-500 mt-1 shrink-0">✓</span>
+                <div>
+                  <strong>Asset Compression:</strong> Web masters minify production files to strip bytes, which speeds up asset downloads for visitors on slower mobile connections.
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-indigo-500 mt-1 shrink-0">✓</span>
+                <div>
+                  <strong>Legacy Code Audits:</strong> Engineers beautify legacy stylesheets to enforce clean spacing standards, making refactoring much more straightforward.
+                </div>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <span className="text-indigo-500 mt-1 shrink-0">✓</span>
+                <div>
+                  <strong>Lighthouse Optimizations:</strong> Developers solve 'Reduce unused CSS' and asset blocking audits by compressing stylesheets before active deployment.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="css-examples">
+              Minification Alignment Example
+            </h3>
+            <div className="rounded-2xl border border-slate-150 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-950 p-5 space-y-3 font-mono text-xs text-slate-600 dark:text-slate-400">
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider">Formatted CSS Structure</span>
+                <pre className="text-[10px] leading-relaxed bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-850 p-2 rounded">
+{`.header-section {
+  display: flex;
+  align-items: center;
+  color: #4f46e5;
+}`}
+                </pre>
+              </div>
+              <div className="space-y-1 pt-2.5 border-t border-slate-150 dark:border-slate-850">
+                <span className="text-[10px] font-bold text-[#10b981] uppercase tracking-wider">Equivalent Minified CSS String</span>
+                <pre className="text-[10px] leading-normal bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-850 p-2 rounded truncate overflow-x-auto">
+{`.header-section{display:flex;align-items:center;color:#4f46e5}`}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Common Mistakes & Best Practices */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-slate-100 dark:border-slate-850 pt-10">
+          <div className="space-y-4">
+            <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="css-mistakes">
+              Common Minifier Pitfalls
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              Applying compression blindly without validating syntax boundaries can lead to cascade styling bugs:
+            </p>
+            <ul className="list-disc pl-5 text-xs sm:text-sm text-slate-550 dark:text-slate-450 space-y-2">
+              <li><strong>Mismatched Braces:</strong> Minifying syntactically broken styles can cause the browser to misunderstand subsequent styling rules, breaking your page design.</li>
+              <li><strong>Precompiler Parsing Errors:</strong> Passing raw nested SCSS/Sass code into standard minifiers, which often strips out crucial preprocessor configurations.</li>
+              <li><strong>Stripping Import Targets:</strong> Removing important external `@import` strings or keyword comments needed for legacy systems.</li>
+              <li><strong>Over-nesting rules:</strong> Beautifying files that have hundreds of repetitive child selectors instead of using utility-first class distributions.</li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-2xl font-light font-display text-slate-950 dark:text-white" id="css-best-practices">
+              Industry CSS Best Practices
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans">
+              <div className="p-4 bg-indigo-50/25 dark:bg-slate-950/40 rounded-2xl border border-indigo-100/40 dark:border-indigo-900/10">
+                <h4 className="font-bold text-slate-900 dark:text-white">Format During Dev Tasks</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Keep stylesheets highly formatted with clear indentation during development, making the files easier to maintain.</p>
+              </div>
+              <div className="p-4 bg-indigo-50/25 dark:bg-slate-950/40 rounded-2xl border border-indigo-100/40 dark:border-indigo-900/10">
+                <h4 className="font-bold text-slate-900 dark:text-white">Minify for Launch Build</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Always run a minification step in your production build pipeline to compress asset sheets fully before they go live.</p>
+              </div>
+              <div className="p-4 bg-indigo-50/25 dark:bg-slate-950/40 rounded-2xl border border-indigo-100/40 dark:border-indigo-900/10">
+                <h4 className="font-bold text-slate-900 dark:text-white">Document Vari-Tokens</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Use standard CSS custom variables inside root scopes to separate themes, keeping configurations modular.</p>
+              </div>
+              <div className="p-4 bg-indigo-50/25 dark:bg-slate-950/40 rounded-2xl border border-indigo-100/40 dark:border-indigo-900/10">
+                <h4 className="font-bold text-slate-900 dark:text-white">Leverage Purging Tools</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Combine asset minification with utility purgers to remove unused selectors, optimizing download sizes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
 
       {/* Guide details FAQ */}
       <div className="border-t border-slate-100 dark:border-slate-800 pt-8 mt-12">

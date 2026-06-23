@@ -46,6 +46,9 @@ export default function LegalView({ mode }: LegalViewProps) {
                 <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
                   1. Zero Data Transmission (100% Client-Side Processing)
                 </h2>
+                <div className="p-4 rounded-xl border border-indigo-100 dark:border-indigo-950/60 bg-indigo-50/10 dark:bg-indigo-950/5 text-indigo-700 dark:text-indigo-400 font-medium">
+                  All processing occurs locally in the user's browser. TextToolkitHub does not store, upload, or transmit user-entered text, files, code, or data to external servers.
+                </div>
                 <p>
                   Any sentences, documents, developer scripts, HTML text, or base64 files pasted into the workspace of tools like <strong>Word Counter</strong>, <strong>Text Compare</strong>, <strong>Case Converter</strong>, <strong>HTML Encoder/Decoder</strong>, or <strong>Base64 Converter</strong> are processed exclusively inside your web browser using HTML5 variables and local memory contexts. 
                 </p>

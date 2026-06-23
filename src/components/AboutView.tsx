@@ -69,9 +69,9 @@ export default function AboutView() {
             <div className="p-3 bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 rounded-2xl w-fit mb-4">
               <Code2 className="w-6 h-6" />
             </div>
-            <h3 className="font-sans font-bold text-lg text-slate-800 dark:text-slate-100">Zero Commercial Advertisements</h3>
+            <h3 className="font-sans font-bold text-lg text-slate-800 dark:text-slate-100">Zero Corporate Data Trade</h3>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-              We stand firmly against low-grade web utility patterns loaded with intrusive display banners. TextToolkitHub runs completely clean, ensuring a workspace that keeps you focused.
+              We stand firmly against low-grade web utility patterns loaded with intrusive corporate data-harvesting trackers. TextToolkitHub runs completely clean, ensuring a workspace that keeps you focused.
             </p>
           </div>
 
@@ -85,6 +85,22 @@ export default function AboutView() {
             </p>
           </div>
 
+        </div>
+
+        {/* Lead Developer/Architect Profile Section */}
+        <div className="border border-slate-200 dark:border-slate-800 rounded-3xl p-8 bg-gradient-to-br from-indigo-50/50 to-white dark:from-slate-950 dark:to-slate-900 shadow-sm mb-16">
+          <div className="flex flex-col md:flex-row gap-8 items-center">
+            <div className="w-24 h-24 rounded-full bg-indigo-600 flex items-center justify-center text-white text-3xl font-bold font-display shadow-lg shadow-indigo-600/10 shrink-0">
+              YM
+            </div>
+            <div className="text-center md:text-left">
+              <span className="text-xs font-bold font-sans uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Project Architect</span>
+              <h2 className="text-2xl font-bold text-slate-950 dark:text-white font-sans mt-1">Yogesh Madhukar</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                Yogesh is an experienced full-stack engineer and privacy advocate with a deep specialty in modern browser development, clientside parsing engines, and secure sandboxing architectures. Driven by the mission to provide accessible, high-performance web utilities, he designed TextToolkitHub to operate strictly on-device, prioritizing data security above all else. Yogesh can be contacted directly at <a href="mailto:yogeshmadhukar.author@gmail.com" className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">yogeshmadhukar.author@gmail.com</a> for enterprise custom tool requests or standard contributions.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Tech Stack Segment */}
