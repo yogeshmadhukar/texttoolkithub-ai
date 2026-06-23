@@ -12,7 +12,7 @@ declare global {
 }
 
 // Read GA Measurement ID safely from Vite public environment variables, falling back to production default
-export const GA_MEASUREMENT_ID = (((import.meta as any).env)?.VITE_GA_MEASUREMENT_ID || 'G-CMM0H0B48G').trim();
+export const GA_MEASUREMENT_ID = (((import.meta as any).env)?.VITE_GA_MEASUREMENT_ID || 'G-3MFBEB3NYP').trim();
 
 
 // LocalStorage Consent key
