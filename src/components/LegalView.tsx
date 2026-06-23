@@ -1,8 +1,8 @@
 import React from 'react';
-import { ShieldCheck, Scale, FileText, Check } from 'lucide-react';
+import { ShieldCheck, Scale, FileText, Check, AlertCircle } from 'lucide-react';
 
 interface LegalViewProps {
-  mode: 'privacy' | 'terms';
+  mode: 'privacy' | 'terms' | 'disclaimer';
 }
 
 export default function LegalView({ mode }: LegalViewProps) {
@@ -131,7 +131,7 @@ export default function LegalView({ mode }: LegalViewProps) {
               </div>
 
             </article>
-          ) : (
+          ) : mode === 'terms' ? (
             /* TERMS OF SERVICE */
             <article className="prose prose-slate dark:prose-invert max-w-none">
               
@@ -242,6 +242,123 @@ export default function LegalView({ mode }: LegalViewProps) {
                 </p>
                 <p>
                   If you have any questions or require legal clearance for academic or professional applications, please contact our support desk at <strong className="text-slate-800 dark:text-slate-200"><a href="mailto:texttoolkithub@gmail.com" className="hover:underline text-indigo-600 dark:text-indigo-400">texttoolkithub@gmail.com</a></strong>.
+                </p>
+
+              </div>
+
+            </article>
+          ) : (
+            /* DISCLAIMER POLICY */
+            <article className="prose prose-slate dark:prose-invert max-w-none">
+              
+              {/* Header block */}
+              <div className="border-b border-slate-100 dark:border-slate-850 pb-8 mb-8 text-center sm:text-left">
+                <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-55/10 dark:bg-indigo-950/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold font-sans uppercase tracking-widest rounded-full mb-3 border border-indigo-100 dark:border-indigo-950">
+                  <AlertCircle className="w-3.5 h-3.5" /> Legal &amp; Accuracy Disclosure
+                </span>
+                <h1 className="text-3xl sm:text-4xl font-light font-display text-slate-950 dark:text-white" id="disclaimer-title">
+                  Disclaimer Statement
+                </h1>
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+                  Last Updated: June 23, {currentYear} • Authorized Version 1.0 (SEO &amp; AdSense Ready)
+                </p>
+              </div>
+
+              {/* Legal parameters content */}
+              <div className="space-y-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+                
+                <p className="text-base font-semibold text-slate-800 dark:text-slate-200">
+                  Please read this Disclaimer carefully before using the TextToolkitHub website (available at https://texttoolkithub.com). By accessing or using our free online text tools and developer utilities, you unconditionally accept and agree to the terms of this Disclaimer. If you do not agree, please do not use our Platform.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  1. General Disclaimer
+                </h2>
+                <p>
+                  All content, tools, and materials on TextToolkitHub are provided strictly on an <strong>"as is"</strong> and <strong>"as available"</strong> basis. TextToolkitHub makes no representations or warranties of any kind, express or implied, as to the operation of the website, the tools, or the information, content, or materials included on this website. 
+                </p>
+                <p>
+                  To the full extent permissible by applicable law, we disclaim all warranties, express or implied, including, but not limited to, implied warranties of merchantability and fitness for a particular purpose. We do not warrant that our services, servers, or email communications are free of viruses or other harmful components.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  2. Accuracy of Information
+                </h2>
+                <p>
+                  While the administrative team at TextToolkitHub makes every effort to ensure the accuracy, completeness, and timeliness of the descriptive guides, blog summaries, instructions, and informational text on this website, we do not warrant that any of the material is 100% accurate, complete, or up-to-date. 
+                </p>
+                <p>
+                  The content is provided for general informational purposes only. We assume no liability or responsibility for any errors, inaccuracies, or omissions in any information published on the site.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  3. Tool Results Disclaimer (Client-Side Computation)
+                </h2>
+                <div className="p-4 rounded-xl border border-indigo-100 dark:border-indigo-950/60 bg-indigo-50/10 dark:bg-indigo-950/5 text-indigo-700 dark:text-indigo-400 font-medium">
+                  Important: All tool computations (including conversions, formatting, regex tests, hashing, and contrast checks) are performed fully locally inside your browser context.
+                </div>
+                <p>
+                  TextToolkitHub offers a comprehensive suite of 51+ utilities—including <strong>Word Counter</strong>, <strong>Readability Checker</strong>, <strong>Keyword Density Checker</strong>, <strong>JSON Formatter</strong>, <strong>YAML/JSON Converter</strong>, <strong>Hash Generator</strong>, <strong>UUID Generator</strong>, <strong>Color Contrast Checker</strong>, and <strong>Unix Timestamp Converter</strong>. 
+                </p>
+                <p>
+                  While our algorithms are designed to comply with industry-standard benchmarks (e.g. Flesch-Kincaid guidelines for readability, standard hash algorithms, and WCAG 2.1 specifications for color contrast), we cannot guarantee that the results or metrics generated by these tools are completely error-free or suitable for critical, commercial, or legally binding contexts. Users are strongly encouraged to independently verify critical outputs before finalizing their implementation.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  4. No Professional Advice
+                </h2>
+                <p>
+                  The tools and information available on TextToolkitHub do not constitute legal, financial, medical, programming, cryptographic, cybersecurity, or other professional advice. 
+                </p>
+                <p>
+                  Any reliance you place on such tools or calculations is strictly at your own risk. You should consult with an appropriate qualified professional before making decisions based on calculations or conversions performed on this platform.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  5. Third-Party Links &amp; Advertising
+                </h2>
+                <p>
+                  TextToolkitHub may contain links to external third-party websites or services (including advertisements served by networks such as Google AdSense). These links are provided solely as a convenience to you. 
+                </p>
+                <p>
+                  We have no control over, and assume no responsibility for, the content, privacy policies, practices, or availability of any third-party websites. The inclusion of any link does not imply endorsement by TextToolkitHub of the site or any association with its operators.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  6. Limitation of Liability
+                </h2>
+                <p>
+                  To the maximum extent permitted by applicable law, in no event shall TextToolkitHub, its developers, operators, or affiliates be liable for any direct, indirect, punitive, incidental, special, consequential, or exemplary damages, including without limitation damages for loss of profits, goodwill, use, data, or other intangible losses, arising out of or relating to:
+                </p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Your access to or use of (or inability to access or use) the Platform or tools.</li>
+                  <li>Any errors, bugs, or inaccuracies in any tool output or content.</li>
+                  <li>Any interruption, downtime, or cessation of transmission to or from our website.</li>
+                  <li>Any unauthorized access to or use of local storage states or connection parameters.</li>
+                </ul>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  7. User Responsibility &amp; Indemnification
+                </h2>
+                <p>
+                  As a user of this website, you agree to safeguard and hold harmless TextToolkitHub, its operators, and its contributors from any claims, damages, liabilities, losses, or expenses (including legal fees) arising from your use of the Platform, your violation of our Terms of Service, or your infringement of any intellectual property rights.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  8. Changes to This Disclaimer
+                </h2>
+                <p>
+                  We reserve the right to review, update, or modify this Disclaimer at any time without prior notice. Any changes will be posted immediately on this page, and the "Last Updated" date at the top of the document will reflect the revision date. Your continued use of the Platform after any modifications indicates your binding acceptance of the updated Disclaimer.
+                </p>
+
+                <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
+                  9. Contact Information
+                </h2>
+                <p>
+                  If you have any questions, regulatory feedback, or legal inquiries regarding this Disclaimer or our operations, please feel free to reach out to us directly at our dedicated support address: 
+                </p>
+                <p className="font-semibold text-slate-800 dark:text-slate-200 pb-4">
+                  <a href="mailto:texttoolkithub@gmail.com" className="hover:underline text-indigo-600 dark:text-indigo-400">texttoolkithub@gmail.com</a>
                 </p>
 
               </div>

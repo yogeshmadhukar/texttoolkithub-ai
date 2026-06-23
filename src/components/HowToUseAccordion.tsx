@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TOOLS } from '../data.ts';
+import { getFaqsForTool } from '../data/toolFaqs.ts';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   HelpCircle, 
@@ -423,6 +424,45 @@ export default function HowToUseAccordion({ toolId }: HowToUseAccordionProps) {
 
   if (!tool) return null;
 
+  const faqs = getFaqsForTool(tool.id, tool.title, tool.description, tool.category, tool.keywords || []);
+
+  // Dynamically inject the SEO-friendly Google FAQPage structured JSON-LD into the head
+  useEffect(() => {
+    const schemaId = `faq-schema-${tool.id.replace(/\//g, '-')}`;
+    
+    // Remove existing script if present to avoid duplications when navigating
+    const oldScript = document.getElementById(schemaId);
+    if (oldScript) {
+      oldScript.remove();
+    }
+
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = schemaId;
+    script.innerHTML = JSON.stringify(faqSchema);
+    document.head.appendChild(script);
+
+    return () => {
+      const existingScript = document.getElementById(schemaId);
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
+  }, [tool.id, faqs]);
+
   const toggleAccordion = (index: number) => {
     setActiveTab(activeTab === index ? null : index);
   };
@@ -515,6 +555,31 @@ export default function HowToUseAccordion({ toolId }: HowToUseAccordionProps) {
             <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-slate-450 dark:text-slate-500">
               <Sparkles className="w-3.5 h-3.5" /> GDPR Compliant
             </span>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 4,
+      title: 'Frequently Asked Questions (FAQs)',
+      icon: <HelpCircle className="w-4 h-4 text-indigo-500" />,
+      content: (
+        <div className="space-y-4 font-sans text-sm">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+            Find immediate, accurate answers to common questions about our {tool.title} tool. This tool runs 100% locally to maintain absolute user privacy:
+          </p>
+          <div className="flex flex-col gap-4">
+            {faqs.map((faq) => (
+              <div key={faq.id} className="p-4.5 bg-slate-50/50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-850 rounded-2xl flex flex-col gap-2 shadow-sm">
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm sm:text-base flex items-start gap-2">
+                  <span className="text-indigo-600 dark:text-indigo-400 font-mono text-xs sm:text-sm bg-indigo-50 dark:bg-indigo-950/40 px-2 py-0.5 rounded-lg shrink-0">Q{faq.id}</span>
+                  <span className="leading-snug">{faq.question}</span>
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed pl-1 sm:pl-2">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       )

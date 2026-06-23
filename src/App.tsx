@@ -371,6 +371,8 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'tools/meta-generator': 'tools/meta-generator',
     'privacy-policy': 'privacy',
     'terms-of-service': 'terms',
+    'disclaimer-policy': 'disclaimer',
+    'disclaimer-statement': 'disclaimer',
     'faqs': 'faq',
     'frequently-asked-questions': 'faq',
     'frequently-asked-queries': 'faq',
@@ -384,7 +386,7 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   }
 
   // Verify matched static pages
-  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms', 'security-faq'];
+  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms', 'security-faq', 'disclaimer'];
   if (defaultPages.includes(path)) {
     return { normalized: path, redirected: rawPath !== path };
   }
@@ -1513,6 +1515,8 @@ export default function App() {
         return <LegalView mode="privacy" />;
       case 'terms':
         return <LegalView mode="terms" />;
+      case 'disclaimer':
+        return <LegalView mode="disclaimer" />;
       default:
         // Handle unexpected route states by safely rendering 404 NotFoundView
         return (

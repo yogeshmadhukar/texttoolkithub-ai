@@ -129,6 +129,11 @@ export default function Footer({ onNavigate }: FooterProps) {
                   Terms & Conditions
                 </button>
               </li>
+              <li>
+                <button onClick={() => onNavigate('disclaimer')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-disclaimer">
+                  Disclaimer
+                </button>
+              </li>
               <li className="text-xs mt-1 text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20 px-2 py-1 rounded inline-block w-fit">
                 ✓ Local Client Mode Active
               </li>
