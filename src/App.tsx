@@ -839,7 +839,8 @@ export default function App() {
           if (url.origin === window.location.origin) {
             // Anchor target on the same page (e.g. #contact-title) - let browser handle local anchor jump naturally
             const isLocalAnchor = rawHref.startsWith('#') && !rawHref.startsWith('#/');
-            if (!isLocalAnchor) {
+            const isStaticAsset = /\.(txt|xml|json|png|ico|webmanifest|svg)$/i.test(url.pathname);
+            if (!isLocalAnchor && !isStaticAsset) {
               e.preventDefault();
               let targetRoute = rawHref;
               if (rawHref.startsWith('#/')) {
