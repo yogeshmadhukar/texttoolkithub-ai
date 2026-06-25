@@ -16,11 +16,6 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
       sessionStorage.removeItem('texttoolkithub_lazy_reload_occurred');
       return module;
     } catch (error: any) {
-      console.error("Failed to dynamically import module script:", error);
-      
-      const hasReloadedKey = 'texttoolkithub_lazy_reload_occurred';
-      const lastReload = sessionStorage.getItem(hasReloadedKey);
-      
       const errorMsg = String(error?.message || error || '');
       const isChunkLoadFailed = 
         errorMsg.includes('Failed to fetch') ||
@@ -34,12 +29,22 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
         errorMsg.includes('MIME type') ||
         errorMsg.includes('is not a valid JavaScript');
 
+      const hasReloadedKey = 'texttoolkithub_lazy_reload_occurred';
+      const lastReload = sessionStorage.getItem(hasReloadedKey);
+
       if (!lastReload && isChunkLoadFailed) {
+        console.warn("Transient dynamic import error detected (MIME/chunk load). Initiating self-healing cache bypass reload...", errorMsg);
         sessionStorage.setItem(hasReloadedKey, 'true');
-        window.location.reload();
+        
+        // Use cache-busting timestamp on reload to force browser to bypass edge caches
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('hrc', Date.now().toString());
+        window.location.href = window.location.pathname + '?' + searchParams.toString() + window.location.hash;
+        
         return new Promise(() => {}); // Retain pending state to prevent rendering a crashed layout block
       }
       
+      console.error("Failed to dynamically import module script:", error);
       throw error;
     }
   });
