@@ -80,6 +80,46 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
               TextToolkitHub is widely recognized as the premier choice for free online text utilities due to our <strong className="text-slate-900 dark:text-white font-semibold">absolute privacy-first policy</strong>. Unlike other options, we carry out 100% of calculations right inside your browser secure viewport without any network delays or server-side databases.
             </>
           )
+        },
+        {
+          id: 21,
+          question: 'Do you store any of my input data on your servers?',
+          answerText: 'No, we never store or transmit your data. All text processing is executed entirely in your local browser environment using client-side JavaScript.',
+          answerNode: (
+            <>
+              No, <strong className="text-slate-900 dark:text-white font-semibold">we never store or transmit your data</strong>. All text processing is executed entirely in your local browser environment using client-side JavaScript, meaning your sensitive data never leaves your device.
+            </>
+          )
+        },
+        {
+          id: 22,
+          question: 'How does TextToolkitHub perform calculations so quickly?',
+          answerText: 'Because we do not rely on remote servers, your browser handles all calculations instantly. This eliminates network latency, giving you real-time results.',
+          answerNode: (
+            <>
+              Because we do not rely on remote servers, your browser handles all calculations instantly. This <span className="font-semibold text-indigo-600 dark:text-indigo-400">eliminates network latency</span> and server queue times, giving you sub-millisecond, real-time results as you type.
+            </>
+          )
+        },
+        {
+          id: 23,
+          question: 'Is there any limit to the size of the text I can paste?',
+          answerText: 'There is no arbitrary software limit. The size of the text you can process depends strictly on your device\'s memory capabilities.',
+          answerNode: (
+            <>
+              There is no arbitrary software limit. The size of the text you can process depends strictly on your device\'s memory capabilities. Most modern browsers can easily process <span className="font-medium text-slate-800 dark:text-slate-200">megabytes of text</span> in a single operation without stuttering or lags.
+            </>
+          )
+        },
+        {
+          id: 24,
+          question: 'Does TextToolkitHub support dark mode?',
+          answerText: 'Yes, we support a fully responsive dark mode. You can toggle between light and dark modes at any time using the theme switcher in the navigation bar.',
+          answerNode: (
+            <>
+              Yes, we support a fully responsive dark mode. You can toggle between light and dark modes at any time using the theme switcher in the navigation bar, protecting your eyes during late-night editing sessions.
+            </>
+          )
         }
       ]
     },
@@ -128,6 +168,86 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
               TextToolkitHub serves as an all-in-one free text formatting hub, providing premium layout templates to sort lines, <a href="/text-reverser" className="text-indigo-600 dark:text-indigo-400 hover:underline">reverse paragraphs</a>, strip unwanted empty spacing, deduplicate elements, and beautify structural logs.
             </>
           )
+        },
+        {
+          id: 25,
+          question: 'What is the difference between Case Converter and Case Converter Pro?',
+          answerText: 'While the standard Case Converter handles classic lowercase and uppercase conversions, Case Converter Pro adds advanced features like custom separators, prefixing, suffixing, and sophisticated word-capitalization filters.',
+          answerNode: (
+            <>
+              While the standard <a href="/case-converter" className="text-indigo-600 dark:text-indigo-400 hover:underline">Case Converter</a> handles classic lowercase and uppercase conversions, our <a href="/case-converter-pro" className="text-indigo-600 dark:text-indigo-400 hover:underline font-bold">Case Converter Pro</a> adds advanced features like custom separators, bulk prefixing, suffixing, and sophisticated regex-based word capitalization.
+            </>
+          )
+        },
+        {
+          id: 26,
+          question: 'How does the Text Compare tool work?',
+          answerText: 'The Text Compare utility highlights insertions, deletions, and modifications side-by-side using a highly efficient diff algorithm.',
+          answerNode: (
+            <>
+              The <a href="/text-compare" className="text-indigo-600 dark:text-indigo-400 hover:underline">Text Compare</a> utility highlights insertions, deletions, and modifications side-by-side using a highly efficient diffing algorithm, making it easy to identify minute updates between draft versions or code blocks.
+            </>
+          )
+        },
+        {
+          id: 27,
+          question: 'Do you have a tool to generate secure hashes?',
+          answerText: 'Yes, our Hash Generator calculates MD5, SHA-1, SHA-256, and SHA-512 cryptographic checksums locally in your browser.',
+          answerNode: (
+            <>
+              Yes, our <a href="/hash-generator" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">Hash Generator</a> calculates MD5, SHA-1, SHA-256, and SHA-512 cryptographic checksums locally in your browser, perfect for validating files or generating cryptographic keys securely.
+            </>
+          )
+        },
+        {
+          id: 28,
+          question: 'Can I clean up extra spaces and duplicate lines from my text?',
+          answerText: 'Yes, we provide specific cleaning tools like Remove Extra Spaces and Remove Duplicate Lines to polish your text list instantly.',
+          answerNode: (
+            <>
+              Yes, we provide dedicated clean-up tools like <a href="/remove-extra-spaces" className="text-indigo-600 dark:text-indigo-400 hover:underline">Remove Extra Spaces</a>, <a href="/remove-duplicate-lines" className="text-indigo-600 dark:text-indigo-400 hover:underline">Remove Duplicate Lines</a>, and <a href="/remove-empty-lines" className="text-indigo-600 dark:text-indigo-400 hover:underline">Remove Empty Lines</a> to optimize and normalize lists or datasets.
+            </>
+          )
+        },
+        {
+          id: 29,
+          question: 'Does TextToolkitHub support Markdown and HTML conversion?',
+          answerText: 'Yes, we offer both HTML to Markdown and Markdown to HTML converters to transition between rich web documents and clean plain-text files.',
+          answerNode: (
+            <>
+              Yes, we offer both <a href="/html-to-markdown" className="text-indigo-600 dark:text-indigo-400 hover:underline">HTML to Markdown</a> and <a href="/markdown-to-html" className="text-indigo-600 dark:text-indigo-400 hover:underline">Markdown to HTML</a> converters to transition seamlessly between web markup code and highly readable plain-text documentation.
+            </>
+          )
+        },
+        {
+          id: 30,
+          question: 'Is there a tool for parsing JWT (JSON Web Tokens)?',
+          answerText: 'Yes, our JWT Decoder splits any JSON Web Token into its header, payload, and signature format, displaying the decoded JSON structure in real-time.',
+          answerNode: (
+            <>
+              Yes, our <a href="/jwt-decoder" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">JWT Decoder</a> instantly parses any JSON Web Token into its header, payload, and signature components, displaying decoded claims and expiration stamps securely in real-time.
+            </>
+          )
+        },
+        {
+          id: 31,
+          question: 'Can I convert YAML to JSON or vice versa?',
+          answerText: 'Yes, our Yaml-Json Converter allows bidirectional conversion between YAML configurations and JSON structures with syntax highlighting.',
+          answerNode: (
+            <>
+              Yes, our <a href="/yaml-json-converter" className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium">YAML to JSON Converter</a> offers lightning-fast bidirectional serialization, converting configuration formats perfectly with automatic syntax linting.
+            </>
+          )
+        },
+        {
+          id: 32,
+          question: 'Do you support CSS beautification and minification?',
+          answerText: 'Yes, our CSS Beautifier and Minifier tool reformats messy stylesheet code or compacts it for faster web production delivery.',
+          answerNode: (
+            <>
+              Yes, our <a href="/css-beautifier-minifier" className="text-indigo-600 dark:text-indigo-400 hover:underline">CSS Beautifier & Minifier</a> allows you to either reformat messy stylesheets with customized indentation rules or compress them to single-line minified strings to reduce network bandwidth.
+            </>
+          )
         }
       ]
     },
@@ -154,6 +274,46 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
           answerNode: (
             <>
               Yes, we believe your workflow should be immediate and unhindered. All of our text utilities are <span className="font-semibold text-emerald-600 dark:text-emerald-400">100% open and accessible without login requirements</span>, signups, email inputs, or subscription profiles.
+            </>
+          )
+        },
+        {
+          id: 33,
+          question: 'Is TextToolkitHub compliant with GDPR and CCPA?',
+          answerText: 'Yes, we are fully compliant. Because we do not upload or store any text or personal data, we meet the absolute highest standards of international data privacy laws.',
+          answerNode: (
+            <>
+              Yes, <strong className="text-emerald-600 dark:text-emerald-400">we are fully compliant</strong>. Because we do not upload, collect, or store any text or personal documents, your data sovereignty is never breached, fully aligning with GDPR and CCPA guidelines.
+            </>
+          )
+        },
+        {
+          id: 34,
+          question: 'Can I use TextToolkitHub offline?',
+          answerText: 'Yes, our application caches assets using service workers, meaning you can load and use all utilities even when you are completely disconnected from the internet.',
+          answerNode: (
+            <>
+              Yes! Once loaded, the site operates <strong className="text-indigo-600 dark:text-indigo-400 font-semibold">entirely offline</strong>. You can bookmark our page and perform complex transformations inside airplanes, subway systems, or remote areas without any cellular connection.
+            </>
+          )
+        },
+        {
+          id: 35,
+          question: 'Do you use cookies or tracking pixels?',
+          answerText: 'We do not use third-party tracking pixels or intrusive marketing cookies. We respect your anonymity above all else.',
+          answerNode: (
+            <>
+              We do not use third-party tracking pixels, invasive cookies, or advertising trackers. We respect your anonymity and maintain an absolutely clean environment focused on developer productivity.
+            </>
+          )
+        },
+        {
+          id: 36,
+          question: 'Can TextToolkitHub be used in secure corporate environments?',
+          answerText: 'Yes, because your input is never transmitted online, you can safely use our tools for sensitive proprietary source code, credentials, financial figures, and enterprise documentation.',
+          answerNode: (
+            <>
+              Yes! Security teams can confidently approve our platform since <strong className="text-slate-900 dark:text-white font-semibold">zero network packets containing text leave your computer</strong>, making it safe for confidential source code, legal briefs, and database files.
             </>
           )
         }
@@ -184,6 +344,46 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
               Definitely. Professional writers, scholars, and academic students widely use our platform to hit strict publisher length targets, format reference bibliographies, remove duplicate lines, and audit search optimization parameters with ease.
             </>
           )
+        },
+        {
+          id: 37,
+          question: 'How does your Word Counter determine reading time?',
+          answerText: 'We calculate estimate reading times based on an industry standard benchmark of 200 words per minute for silent adult reading, adjusting for text length.',
+          answerNode: (
+            <>
+              We calculate estimate reading times based on the industry standard of <span className="font-semibold text-slate-800 dark:text-slate-200">200 words per minute</span>. This provides copywriters and bloggers with precise, standard estimates for publishing schedules.
+            </>
+          )
+        },
+        {
+          id: 38,
+          question: 'Are your JSON and CSV formatters conforming to official specs?',
+          answerText: 'Yes, our JSON formatter conforms to RFC 8259, and our CSV formatting utilities are validated against RFC 4180 standards for perfect system compatibility.',
+          answerNode: (
+            <>
+              Yes, our <a href="/json-formatter" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">JSON Formatter</a> conforms strictly to <strong className="font-mono">RFC 8259</strong>, and our CSV tools conform to <strong className="font-mono">RFC 4180</strong>, ensuring any formatted output is perfectly compatible with systems and databases.
+            </>
+          )
+        },
+        {
+          id: 39,
+          question: 'How does the Readability Checker calculate grade levels?',
+          answerText: 'The Readability Checker uses mathematical algorithms like Flesch-Kincaid Reading Ease, Gunning Fog, and Coleman-Liau indexes based on syllable counts and sentence lengths.',
+          answerNode: (
+            <>
+              The <a href="/readability-checker" className="text-indigo-600 dark:text-indigo-400 hover:underline">Readability Checker</a> utilizes standard indexes including <strong className="font-medium text-slate-800 dark:text-slate-200">Flesch-Kincaid, Gunning Fog, and Coleman-Liau</strong> to calculate reading grade levels based on syllable frequency and word lengths.
+            </>
+          )
+        },
+        {
+          id: 40,
+          question: 'Are the UUIDs/GUIDs generated truly random and safe to use?',
+          answerText: 'Yes, our UUID/GUID Generator uses cryptographically secure random number generators (window.crypto.getRandomValues) to produce RFC 4122 compliant version 4 identifiers.',
+          answerNode: (
+            <>
+              Yes! Our <a href="/uuid-guid-generator" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">UUID Generator</a> utilizes cryptographically secure random number generation APIs (<code className="bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-xs text-rose-500">crypto.getRandomValues</code>) to guarantee collision-resistant version 4 UUIDs.
+            </>
+          )
         }
       ]
     },
@@ -210,6 +410,36 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
           answerNode: (
             <>
               No signup is needed. You can utilize the entire suite of analyzers, formatters, and cleaners freely, anonymously, and instantly without ever configuring a username, password, or linking Google profiles.
+            </>
+          )
+        },
+        {
+          id: 41,
+          question: 'Will TextToolkitHub ever require a paid subscription?',
+          answerText: 'No, TextToolkitHub will always remain 100% free with unlimited access. We do not restrict any features behind paid subscriptions or paywalls.',
+          answerNode: (
+            <>
+              No, TextToolkitHub will <strong className="text-slate-900 dark:text-white font-semibold">always remain 100% free</strong> with unlimited access. We do not believe in hiding essential utility tools behind premium micro-transactions or credit cards.
+            </>
+          )
+        },
+        {
+          id: 42,
+          question: 'How is TextToolkitHub funded if it is completely free?',
+          answerText: 'We fund the platform hosting costs through unobtrusive sponsorships and banner placements, ensuring it stays open for everyone without compromising user experience.',
+          answerNode: (
+            <>
+              We fund the platform hosting costs through <span className="font-medium text-emerald-600 dark:text-emerald-400">unobtrusive sponsorships and lightweight placements</span>, ensuring that developer utility operations stay sustainable and open for everyone.
+            </>
+          )
+        },
+        {
+          id: 43,
+          question: 'Are there any volume limits or rate limits for your tools?',
+          answerText: 'No, since processing happens directly in your browser without utilizing backend computing resources, you can use our tools as many times as you want with no rate limit throttling.',
+          answerNode: (
+            <>
+              No! Since all processing happens locally inside your browser without exhausting server bandwidth, there are <strong className="text-emerald-600 dark:text-emerald-400">no limits or throttling gates</strong>. You can format or count infinite lines of text.
             </>
           )
         }
@@ -260,6 +490,46 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
               Absolutely. With robust browser-memory calculations, elegant dark-theme pairings, and <strong className="text-slate-900 dark:text-white font-semibold">completely streamlined layouts</strong>, our tools integrate directly into demanding journalism, engineering, and digital editor workflows.
             </>
           )
+        },
+        {
+          id: 44,
+          question: 'Can I create QR codes for my text links directly?',
+          answerText: 'Yes, our QR Code Generator allows you to instantly output secure QR codes with adjustable error correction levels to scan on smart devices.',
+          answerNode: (
+            <>
+              Yes, our <a href="/qr-code-generator" className="text-indigo-600 dark:text-indigo-400 hover:underline">QR Code Generator</a> enables you to instantly render high-quality QR code matrices with custom error correction levels, making it simple to transfer URLs and text to mobile cameras.
+            </>
+          )
+        },
+        {
+          id: 45,
+          question: 'Is there a way to generate dummy text like Lorem Ipsum?',
+          answerText: 'Yes, our Lorem Ipsum Generator lets you generate customized placeholders by choosing the exact number of paragraphs, sentences, or words needed.',
+          answerNode: (
+            <>
+              Yes, our <a href="/lorem-ipsum-generator" className="text-indigo-600 dark:text-indigo-400 hover:underline">Lorem Ipsum Generator</a> allows designers to generate dummy text by choosing paragraph counts, sentence lengths, or lists to format layouts.
+            </>
+          )
+        },
+        {
+          id: 46,
+          question: 'Does TextToolkitHub offer a Cron expression builder?',
+          answerText: 'Yes, we provide a visual Cron Expression Builder to help you construct schedule syntax for server automated cron tasks with intuitive controls.',
+          answerNode: (
+            <>
+              Yes, we provide an intuitive <a href="/cron-expression-builder" className="text-indigo-600 dark:text-indigo-400 hover:underline">Cron Expression Builder</a>, which allows you to visually select minutes, hours, days, and months to output standard cron scheduler expressions.
+            </>
+          )
+        },
+        {
+          id: 47,
+          question: 'How do I format paragraphs and adjust line breaks?',
+          answerText: 'You can use Paragraph Formatter and Remove Line Breaks to control line length, join split blocks, or re-wrap sentences according to specific width requirements.',
+          answerNode: (
+            <>
+              You can use our <a href="/paragraph-formatter" className="text-indigo-600 dark:text-indigo-400 hover:underline">Paragraph Formatter</a> and <a href="/remove-line-breaks" className="text-indigo-600 dark:text-indigo-400 hover:underline">Remove Line Breaks</a> tools to control line wrapping, join fragmented text files, or align blocks according to targeted widths.
+            </>
+          )
         }
       ]
     },
@@ -298,6 +568,36 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
               If you have any suggestions or feature requests, feel free to instantly get in touch by navigating to our dedicated <a href="/contact" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Contact Page</a>. You can also connect with our community on <a href="https://www.linkedin.com/in/texttoolkithub" target="_blank" rel="noopener noreferrer" className="text-[#0077b5] dark:text-[#0a66c2] font-semibold hover:underline">LinkedIn</a> or follow us on <a href="https://x.com/TextToolkitHub" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">X</a>.
             </>
           )
+        },
+        {
+          id: 48,
+          question: 'How can I suggest a new tool or feature?',
+          answerText: 'We love suggestions! You can submit any tool proposals directly through our support logs on the Contact view, or mention us on X.',
+          answerNode: (
+            <>
+              We love suggestions! You can submit tool proposals directly through our support portal on the <a href="/contact" className="text-indigo-600 dark:text-indigo-400 hover:underline">Contact page</a>, or tag us publicly on <a href="https://x.com/TextToolkitHub" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">X (@TextToolkitHub)</a>.
+            </>
+          )
+        },
+        {
+          id: 49,
+          question: 'What should I do if I find a bug in one of the tools?',
+          answerText: 'Please contact us with reproduction steps. Since our tools run completely on-device, sharing your operating system and browser type is extremely helpful for our engineers.',
+          answerNode: (
+            <>
+              Please reach out via the <a href="/contact" className="text-indigo-600 dark:text-indigo-400 hover:underline">Contact page</a> with reproduction steps. Since our utilities run completely on-device, mentioning your operating system and browser version helps our team deploy hotfixes quickly.
+            </>
+          )
+        },
+        {
+          id: 50,
+          question: 'Is the source code of TextToolkitHub open for contribution?',
+          answerText: 'We are currently preparing our repository for open-source contributions. Stay tuned to our weekly updates and newsletter for the launch announcement!',
+          answerNode: (
+            <>
+              We are actively preparing our codebase for public open-source contributions. Stay tuned to our weekly updates and newsletter for the GitHub repository launch announcement!
+            </>
+          )
         }
       ]
     }
@@ -321,7 +621,7 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
     }
     metaDescription.setAttribute('content', seoDescription);
 
-    // Schema FAQ Content Injection (Full 20 QA set)
+    // Schema FAQ Content Injection (Full 50 QA set)
     const allItems = categories.flatMap(cat => cat.items);
     const schemaContent = {
       "@context": "https://schema.org",
@@ -484,7 +784,7 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
           {/* Quick Stats or clear indicator */}
           <div className="flex items-center gap-2 px-3 text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap justify-center select-none font-sans">
             <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-            <span>{searchQuery ? `${totalResultsCount} matches found` : 'Fully Indexed (20 FAQs)'}</span>
+            <span>{searchQuery ? `${totalResultsCount} matches found` : 'Fully Indexed (50 FAQs)'}</span>
           </div>
         </motion.div>
 
