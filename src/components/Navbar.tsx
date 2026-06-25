@@ -382,7 +382,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             id="nav-logo-link"
           >
             <div className="group-hover:scale-105 transition-transform duration-200 shrink-0">
-              <HubLogo size="lg" editable={true} />
+              <HubLogo size="lg" />
             </div>
             <span className="font-sans font-extrabold text-xl tracking-tight text-slate-950 dark:text-white">
               Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
