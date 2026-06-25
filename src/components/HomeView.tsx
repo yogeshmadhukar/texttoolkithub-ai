@@ -856,7 +856,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           
           <div className="flex items-center gap-2 mb-8 animate-fade-in">
             <span className="p-1 px-2.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 text-[10px] uppercase font-extrabold tracking-wider border border-indigo-100 dark:border-indigo-900/50">Must-Have</span>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Featured Tool Powerhouses</h2>
+            <h2 className="text-xs font-extrabold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400 font-mono">Featured Tool Powerhouses</h2>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" id="featured-tools-grid">
