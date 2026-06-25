@@ -79,37 +79,37 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
     {
       title: "Browser-Based Processing",
       description: "Perform real-time computations entirely within your own local browser environment. Avoid the round-trip latency, bandwidth costs, and server failures inherent in standard cloud APIs.",
-      icon: <Cpu className="w-6 h-6 text-indigo-600" />,
+      icon: <Cpu className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />,
       badge: "On-Device"
     },
     {
       title: "Privacy First Architecture",
       description: "Our sandboxed framework ensures your raw inputs, credentials, or code snippets never leave your terminal. There are no background data leaks, no corporate mining, and no remote caching.",
-      icon: <Shield className="w-6 h-6 text-emerald-600" />,
+      icon: <Shield className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />,
       badge: "100% Sealed"
     },
     {
       title: "No Registration Required",
       description: "Unlock immediate premium utility access without signing up, entering credit cards, or tracking email subscriptions. Simply launch a tool and get work done in milliseconds.",
-      icon: <MousePointerClick className="w-6 h-6 text-amber-600" />,
+      icon: <MousePointerClick className="w-6 h-6 text-amber-600 dark:text-amber-400" />,
       badge: "Zero Commitment"
     },
     {
       title: "Enterprise Performance",
       description: "Utilize highly optimized parsing algorithms capable of processing multi-megabyte payloads in fractions of a second, with Instant FCP (First Contentful Paint) benchmarks.",
-      icon: <Zap className="w-6 h-6 text-rose-600" />,
+      icon: <Zap className="w-6 h-6 text-rose-600 dark:text-rose-400" />,
       badge: "Sub-Millisecond"
     },
     {
       title: "Mobile Friendly Layouts",
       description: "Every converter, calculator, parser, and builder is designed responsiveness-first. Access pristine tool interfaces seamlessly on multi-monitor workstations, tablets, or phones.",
-      icon: <Globe2 className="w-6 h-6 text-blue-600" />,
+      icon: <Globe2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
       badge: "Universal"
     },
     {
       title: "Completely Free Access",
       description: "We are committed to maintaining a comprehensive baseline toolkit completely free of charge. No hidden fees, paywalls, or feature limits on core productivity calculators.",
-      icon: <Heart className="w-6 h-6 text-pink-600" />,
+      icon: <Heart className="w-6 h-6 text-pink-600 dark:text-pink-400" />,
       badge: "Forever Free"
     }
   ];
@@ -798,10 +798,10 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
               <a 
                 href="/" 
                 onClick={(e) => handleLinkClick(e, 'home')}
-                className="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-slate-100 text-indigo-700 rounded-xl font-bold text-sm transition shadow-md flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-3.5 bg-white hover:bg-slate-100 text-indigo-700 dark:text-indigo-400 rounded-xl font-bold text-sm transition shadow-md flex items-center justify-center gap-2"
                 id="cta-directory-link"
               >
-                Go to Homepage Directory <ArrowRight className="w-4 h-4 text-indigo-600" />
+                Go to Homepage Directory <ArrowRight className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               </a>
               <a 
                 href="/word-counter" 

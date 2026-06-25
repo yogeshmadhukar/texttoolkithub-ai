@@ -781,7 +781,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               aria-label="Toggle layout theme"
               id="theme-toggle"
             >
-              {darkMode ? <Sun className="w-4.5 h-4.5 text-amber-405" /> : <Moon className="w-4.5 h-4.5 text-indigo-600" />}
+              {darkMode ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5 text-indigo-600" />}
             </button>
 
             {/* X (Twitter) Social Icon Link for Desktop */}

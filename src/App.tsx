@@ -396,7 +396,7 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   }
 
   // Check valid tool paths (case-insensitive checks)
-  const matchingTool = TOOLS.find(t => t.id.toLowerCase() === path);
+  const matchingTool = TOOLS.find(t => t.id.toLowerCase() === path || t.id.toLowerCase().endsWith('/' + path));
   if (matchingTool) {
     return { normalized: matchingTool.id, redirected: rawPath !== matchingTool.id };
   }
