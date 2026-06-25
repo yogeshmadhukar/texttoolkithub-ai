@@ -378,6 +378,10 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'frequently-asked-queries': 'faq',
     'security': 'security-faq',
     'security-faq': 'security-faq',
+    'yaml-json': 'tools/yaml-json-converter',
+    'unix-timestamp': 'tools/unix-timestamp-converter',
+    'css-beautifier-minifier': 'tools/css-formatter',
+    'user-agent': 'tools/ua-parser',
   };
 
   // Direct rule lookup (lowercase check)
