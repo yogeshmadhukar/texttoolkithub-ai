@@ -28,6 +28,9 @@ export default function ContactView() {
   const [subject, setSubject] = useState('Feedback');
   const [message, setMessage] = useState('');
   
+  // Anti-spam Honeypot state
+  const [honeypot, setHoneypot] = useState('');
+  
   // Status States
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -39,6 +42,19 @@ export default function ContactView() {
 
   // Interactive FAQs Accordion State
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  // Retrieve on-device ticket logs for security transparency
+  const [savedTickets, setSavedTickets] = useState<any[]>(() => {
+    try {
+      const stored = localStorage.getItem('texttoolkithub_support_tickets');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // State to manage clean, non-blocking on-screen clear logs confirmation
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const faqs: FAQItem[] = [
     {
@@ -65,10 +81,25 @@ export default function ContactView() {
     return re.test(emailStr);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
     setFieldErrors({});
+
+    // Cooldown verification to prevent spam and duplicate submissions
+    try {
+      const lastSubmission = localStorage.getItem('texttoolkithub_last_submit_time');
+      if (lastSubmission) {
+        const timeElapsed = Date.now() - parseInt(lastSubmission, 10);
+        const cooldownRemaining = Math.ceil((60000 - timeElapsed) / 1000);
+        if (timeElapsed < 60000) {
+          setFormError(`Please wait ${cooldownRemaining}s before transmitting another message to prevent system spam.`);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("Failed checking submission cooldown:", err);
+    }
 
     // Perform thorough validations
     const errors: { name?: string; email?: string; message?: string } = {};
@@ -96,14 +127,72 @@ export default function ContactView() {
       return;
     }
 
+    // If honeypot is filled out, simulate submission to trick automatic bots
+    if (honeypot.trim()) {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        const randomId = `TK-${Math.floor(100000 + Math.random() * 900000)}`;
+        setGeneratedTicketId(randomId);
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setMessage('');
+        setHoneypot('');
+      }, 1000);
+      return;
+    }
+
     setLoading(true);
 
-    // Simulate API transmit delay with high-fidelity loading response
-    setTimeout(() => {
-      setLoading(false);
-      
-      // Random professional-looking Ticket ID
-      const randomId = `TK-${Math.floor(100000 + Math.random() * 900000)}`;
+    const randomId = `TK-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    try {
+      // Send the actual form details directly to FormSubmit using Ajax
+      const payload = {
+        name: name.trim(),
+        email: email.trim(),
+        _subject: `TextToolkitHub Support: [${subject}] - ${name.trim()}`,
+        message: message.trim(),
+        _replyto: email.trim(),
+        _captcha: "false",
+        "Ticket Reference ID": randomId,
+        "Subject Category": subject
+      };
+
+      const response = await fetch("https://formsubmit.co/ajax/texttoolkithub@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Service responded with status ${response.status}`);
+      }
+
+      const resData = await response.json();
+      if (resData.success === "false") {
+        throw new Error(resData.message || "Failed to transmit message securely.");
+      }
+
+      // Record successful transmission timestamp for cooldown checks
+      localStorage.setItem('texttoolkithub_last_submit_time', Date.now().toString());
+
+      // Save ticket in history logs
+      const newTicket = {
+        id: randomId,
+        subject,
+        timestamp: new Date().toISOString(),
+        summary: message.trim().substring(0, 80) + (message.trim().length > 80 ? '...' : '')
+      };
+      const updatedTickets = [newTicket, ...savedTickets].slice(0, 10);
+      setSavedTickets(updatedTickets);
+      localStorage.setItem('texttoolkithub_support_tickets', JSON.stringify(updatedTickets));
+
+      // Update submit screen state
       setGeneratedTicketId(randomId);
       setSubmitted(true);
 
@@ -114,11 +203,85 @@ export default function ContactView() {
         console.warn("Failed tracking contact submit event:", err);
       }
 
-      // Save form inputs for success summary but clear fields
+      // Reset form variables
       setName('');
       setEmail('');
       setMessage('');
-    }, 1100);
+      setHoneypot('');
+
+    } catch (err: any) {
+      console.warn("Support form transmission AJAX failed, initiating robust iframe fallback...", err);
+      
+      try {
+        // Build a temporary form to submit via standard form post targeting the hidden iframe
+        const tempForm = document.createElement('form');
+        tempForm.method = 'POST';
+        tempForm.action = 'https://formsubmit.co/texttoolkithub@gmail.com';
+        tempForm.target = 'hidden_support_iframe';
+        tempForm.style.display = 'none';
+
+        const fields: Record<string, string> = {
+          name: name.trim(),
+          email: email.trim(),
+          _subject: `TextToolkitHub Support: [${subject}] - ${name.trim()}`,
+          message: message.trim(),
+          _replyto: email.trim(),
+          _captcha: 'false',
+          'Ticket Reference ID': randomId,
+          'Subject Category': subject
+        };
+
+        for (const [key, val] of Object.entries(fields)) {
+          const hiddenInput = document.createElement('input');
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = key;
+          hiddenInput.value = val;
+          tempForm.appendChild(hiddenInput);
+        }
+
+        document.body.appendChild(tempForm);
+        tempForm.submit();
+        
+        // Clean up the temporary form from DOM
+        setTimeout(() => {
+          if (tempForm.parentNode) {
+            tempForm.parentNode.removeChild(tempForm);
+          }
+        }, 1000);
+
+        // Record successful transmission timestamp for cooldown checks
+        localStorage.setItem('texttoolkithub_last_submit_time', Date.now().toString());
+
+        // Save ticket in history logs
+        const newTicket = {
+          id: randomId,
+          subject,
+          timestamp: new Date().toISOString(),
+          summary: message.trim().substring(0, 80) + (message.trim().length > 80 ? '...' : '')
+        };
+        const updatedTickets = [newTicket, ...savedTickets].slice(0, 10);
+        setSavedTickets(updatedTickets);
+        localStorage.setItem('texttoolkithub_support_tickets', JSON.stringify(updatedTickets));
+
+        // Update submit screen state
+        setGeneratedTicketId(randomId);
+        setSubmitted(true);
+
+        // Reset form variables
+        setName('');
+        setEmail('');
+        setMessage('');
+        setHoneypot('');
+        return;
+      } catch (fallbackErr) {
+        console.error("Iframe fallback submission failed:", fallbackErr);
+      }
+
+      console.error("Support form transmission failure:", err);
+      setFormError(err?.message || "An unexpected error occurred while transmitting your request. Please try again or contact us directly at texttoolkithub@gmail.com");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const toggleFaq = (index: number) => {
@@ -289,6 +452,19 @@ export default function ContactView() {
                     className="border border-slate-200/60 dark:border-slate-850 rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#0c111d] shadow-sm flex flex-col gap-5 relative"
                   >
                     
+                    {/* Anti-spam Honeypot field (hidden from screen readers & users, but attractive to scrapers) */}
+                    <div className="absolute opacity-0 pointer-events-none w-0 h-0 overflow-hidden" aria-hidden="true">
+                      <label htmlFor="form_username_verification">Leave this field blank</label>
+                      <input 
+                        type="text" 
+                        id="form_username_verification" 
+                        value={honeypot} 
+                        onChange={(e) => setHoneypot(e.target.value)} 
+                        autoComplete="off" 
+                        tabIndex={-1}
+                      />
+                    </div>
+                    
                     <div>
                       <h3 className="font-sans font-semibold text-lg text-slate-900 dark:text-white pb-1">
                         Submit a Support Request
@@ -431,6 +607,78 @@ export default function ContactView() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Local On-Device Submission History Archive */}
+            {savedTickets.length > 0 && (
+              <div className="mt-8 p-6 bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 rounded-3xl shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white font-sans">
+                      On-Device Ticket History ({savedTickets.length})
+                    </h4>
+                  </div>
+                  {showClearConfirm ? (
+                    <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/60 px-3 py-1 rounded-full border border-slate-100 dark:border-slate-800/80">
+                      <span className="text-[10px] font-sans font-medium text-slate-500 dark:text-slate-400">Are you sure?</span>
+                      <button
+                        onClick={() => {
+                          localStorage.removeItem('texttoolkithub_support_tickets');
+                          setSavedTickets([]);
+                          setShowClearConfirm(false);
+                        }}
+                        className="text-[10px] font-bold text-red-500 hover:text-red-600 transition-colors focus:outline-none"
+                      >
+                        Yes, Clear
+                      </button>
+                      <span className="text-[10px] text-slate-300 dark:text-slate-700">|</span>
+                      <button
+                        onClick={() => setShowClearConfirm(false)}
+                        className="text-[10px] font-bold text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors focus:outline-none"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => setShowClearConfirm(true)}
+                      className="text-[10px] text-red-500 hover:underline hover:text-red-600 focus:outline-none font-semibold transition-all duration-150"
+                    >
+                      Clear Logs
+                    </button>
+                  )}
+                </div>
+                <div className="space-y-3">
+                  {savedTickets.map((ticket, i) => (
+                    <div key={ticket.id || i} className="p-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-900 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs font-semibold text-indigo-600 dark:text-indigo-400">{ticket.id}</span>
+                          <span className="text-[10px] px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100/50 dark:border-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-sans rounded-full font-medium">
+                            {ticket.subject}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-1 italic">
+                          "{ticket.summary}"
+                        </p>
+                      </div>
+                      <div className="text-[10px] text-slate-400 sm:text-right shrink-0">
+                        <div>{new Date(ticket.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</div>
+                        <div>{new Date(ticket.timestamp).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Hidden iframe target for robust form submission backup */}
+            <iframe
+              name="hidden_support_iframe"
+              id="hidden_support_iframe"
+              style={{ display: 'none', width: 0, height: 0, border: 'none' }}
+              title="Support Delivery Verification"
+            />
 
           </div>
 
