@@ -273,35 +273,50 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           icon: <Activity className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
           bgColor: 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-100 dark:border-emerald-900/40 text-emerald-700 dark:text-emerald-350',
           hoverColor: 'group-hover:border-emerald-300 dark:group-hover:border-emerald-850',
-          pill: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-350'
+          pill: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-350',
+          borderAccent: 'border-t-[3px] border-t-emerald-500/80 dark:border-t-emerald-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.15)]',
+          hoverBorder: 'hover:border-emerald-500/60 dark:hover:border-emerald-400/50'
         };
       case 'cleaner': 
         return {
           icon: <Eraser className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />,
           bgColor: 'bg-indigo-50/50 dark:bg-indigo-950/20 border-indigo-100 dark:border-indigo-900/40 text-indigo-700 dark:text-indigo-350',
           hoverColor: 'group-hover:border-indigo-300 dark:group-hover:border-indigo-850',
-          pill: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-355'
+          pill: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-355',
+          borderAccent: 'border-t-[3px] border-t-indigo-500/80 dark:border-t-indigo-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(99,102,241,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(99,102,241,0.15)]',
+          hoverBorder: 'hover:border-indigo-500/60 dark:hover:border-indigo-400/50'
         };
       case 'converter': 
         return {
           icon: <Type className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
           bgColor: 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-100 dark:border-amber-900/40 text-amber-700 dark:text-amber-350',
           hoverColor: 'group-hover:border-amber-300 dark:group-hover:border-amber-850',
-          pill: 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-350'
+          pill: 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-350',
+          borderAccent: 'border-t-[3px] border-t-amber-500/80 dark:border-t-amber-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(245,158,11,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(245,158,11,0.15)]',
+          hoverBorder: 'hover:border-amber-500/60 dark:hover:border-amber-400/50'
         };
       case 'encoding': 
         return {
           icon: <Globe className="w-5 h-5 text-violet-600 dark:text-violet-400" />,
           bgColor: 'bg-violet-50/50 dark:bg-violet-950/20 border-violet-100 dark:border-violet-900/40 text-violet-700 dark:text-violet-350',
           hoverColor: 'group-hover:border-violet-300 dark:group-hover:border-violet-850',
-          pill: 'bg-violet-100 text-violet-800 dark:bg-violet-950/60 dark:text-violet-350'
+          pill: 'bg-violet-100 text-violet-800 dark:bg-violet-950/60 dark:text-violet-350',
+          borderAccent: 'border-t-[3px] border-t-violet-500/80 dark:border-t-violet-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(139,92,246,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(139,92,246,0.15)]',
+          hoverBorder: 'hover:border-violet-500/60 dark:hover:border-violet-400/50'
         };
       case 'generator': 
         return {
           icon: <Sparkle className="w-5 h-5 text-rose-600 dark:text-rose-450" />,
           bgColor: 'bg-rose-50/50 dark:bg-rose-950/20 border-rose-100 dark:border-rose-900/40 text-rose-700 dark:text-rose-350',
           hoverColor: 'group-hover:border-rose-300 dark:group-hover:border-rose-850',
-          pill: 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-350'
+          pill: 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-350',
+          borderAccent: 'border-t-[3px] border-t-rose-500/80 dark:border-t-rose-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(244,63,94,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(244,63,94,0.15)]',
+          hoverBorder: 'hover:border-rose-500/60 dark:hover:border-rose-400/50'
         };
     }
   };
@@ -604,7 +619,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 key={tool.id}
                 onClick={() => onNavigateToTool(tool.id)}
                 onMouseEnter={() => onPrefetchTool?.(tool.id)}
-                className="group border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-5 rounded-2xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-450 hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+                className="group border border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-5 rounded-2xl cursor-pointer hover:border-emerald-500/50 dark:hover:border-emerald-400/50 hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.06)] dark:hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.14)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between border-t-[3px] border-t-emerald-500/85 dark:border-t-emerald-400/85"
                 id={`popular-${tool.id}`}
               >
                 <div>
@@ -791,7 +806,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                     key={tool.id}
                     onClick={() => onNavigateToTool(tool.id)}
                     onMouseEnter={() => onPrefetchTool?.(tool.id)}
-                    className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-500 p-6 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                    className={`group bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-850/80 p-6 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 ${spec?.borderAccent || ''} ${spec?.hoverBorder || 'hover:border-indigo-500'} ${spec?.glowColor || 'hover:shadow-lg'}`}
                     id={`catalog-tool-${tool.id}`}
                   >
                     <div>
@@ -852,7 +867,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                   key={tool.id}
                   onClick={() => onNavigateToTool(tool.id)}
                   onMouseEnter={() => onPrefetchTool?.(tool.id)}
-                  className="group bg-slate-50/40 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 hover:border-indigo-400 dark:hover:border-indigo-500/80 p-6 rounded-3xl cursor-pointer hover:shadow-xl transition-all duration-350 relative overflow-hidden flex flex-col justify-between"
+                  className="group bg-slate-50/40 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 hover:border-indigo-400 dark:hover:border-indigo-500/80 p-6 rounded-3xl cursor-pointer hover:shadow-[0_15px_30px_-5px_rgba(99,102,241,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(99,102,241,0.15)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between border-t-[3px] border-t-indigo-500/85 dark:border-t-indigo-400/85"
                   id={`featured-${tool.id}`}
                 >
                   <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-xl group-hover:scale-125 transition-transform duration-300" />

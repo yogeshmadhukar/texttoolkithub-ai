@@ -1539,8 +1539,11 @@ export default function App() {
   };
 
   return (
-    <div className={`flex flex-col min-h-screen bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200 ${darkMode ? 'dark' : ''}`}>
+    <div className={`flex flex-col min-h-screen bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200 ${darkMode ? 'dark' : ''} bg-grid-pattern relative overflow-hidden`}>
       
+      {/* Premium Ambient Top Glow */}
+      <div className="ambient-glow-top" aria-hidden="true" />
+
       {/* Universal header navigation */}
       <Navbar 
         activePage={activePage} 
