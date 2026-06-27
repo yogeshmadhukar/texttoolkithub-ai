@@ -304,71 +304,150 @@ export default function TextToSpeechView({ onNavigateToTool, onNavigateHome }: T
 
         let chunkTranslated = '';
         
-        // Attempt 1: Google Translate via Vite Local Proxy (safest against CORS blocks in browser iframe)
-        try {
-          const googleProxyUrl = `/api-proxy/google/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(chunk)}`;
-          const response = await fetch(googleProxyUrl);
-          if (response.ok) {
-            const data = await response.json();
-            if (Array.isArray(data) && Array.isArray(data[0])) {
-              chunkTranslated = data[0]
-                .map(item => item && item[0])
-                .filter(val => typeof val === 'string')
-                .join('');
-            }
-          }
-        } catch (eProxyGoogle) {
-          console.warn("Google Translate proxy failed, trying MyMemory proxy...", eProxyGoogle);
-        }
-
-        // Attempt 2: MyMemory Translate via Vite Local Proxy (safest fallback in dev/preview)
-        if (!chunkTranslated) {
-          try {
-            const myMemoryProxyUrl = `/api-proxy/mymemory/get?q=${encodeURIComponent(chunk)}&langpair=Autodetect|${targetLang}`;
-            const response = await fetch(myMemoryProxyUrl);
-            if (response.ok) {
-              const resJson = await response.json();
-              if (resJson.responseData && resJson.responseData.translatedText) {
-                chunkTranslated = resJson.responseData.translatedText;
-              }
-            }
-          } catch (eProxyMyMemory) {
-            console.warn("MyMemory proxy failed, trying direct Google Translate...", eProxyMyMemory);
-          }
-        }
-
-        // Attempt 3: Direct Google Translate Client API (Fallback if proxy is bypassed or in static build context)
-        if (!chunkTranslated) {
-          try {
-            const googleUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(chunk)}`;
-            const response = await fetch(googleUrl);
+        // Multi-layered fallback strategy to guarantee successful translation across dev, iframes, and static hosting
+        const translationAttempts = [
+          // 1. Google Translate via Local Proxy (safe in development)
+          async () => {
+            const googleProxyUrl = `/api-proxy/google/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(chunk)}`;
+            const response = await fetch(googleProxyUrl);
             if (response.ok) {
               const data = await response.json();
               if (Array.isArray(data) && Array.isArray(data[0])) {
-                chunkTranslated = data[0]
+                return data[0]
                   .map(item => item && item[0])
                   .filter(val => typeof val === 'string')
                   .join('');
               }
             }
-          } catch (eDirectGoogle) {
-            console.warn("Direct Google Translate fallback failed...", eDirectGoogle);
-          }
-        }
-
-        // Attempt 4: Direct MyMemory Translated API (Final desperate fallback)
-        if (!chunkTranslated) {
-          try {
+            throw new Error("Proxy Google failed");
+          },
+          // 2. MyMemory via Local Proxy (safe in development)
+          async () => {
+            const myMemoryProxyUrl = `/api-proxy/mymemory/get?q=${encodeURIComponent(chunk)}&langpair=Autodetect|${targetLang}`;
+            const response = await fetch(myMemoryProxyUrl);
+            if (response.ok) {
+              const resJson = await response.json();
+              if (resJson.responseData && resJson.responseData.translatedText) {
+                return resJson.responseData.translatedText;
+              }
+            }
+            throw new Error("Proxy MyMemory failed");
+          },
+          // 3. Direct MyMemory Translated API (supports CORS natively)
+          async () => {
             const myMemoryUrl = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=Autodetect|${targetLang}`;
             const response = await fetch(myMemoryUrl);
             if (response.ok) {
               const resJson = await response.json();
               if (resJson.responseData && resJson.responseData.translatedText) {
-                chunkTranslated = resJson.responseData.translatedText;
+                return resJson.responseData.translatedText;
               }
             }
-          } catch (eDirectMyMemory) {
-            console.error("Direct MyMemory fallback translation also failed:", eDirectMyMemory);
+            throw new Error("Direct MyMemory failed");
+          },
+          // 4. Lingva Translate API (CORS-friendly, keyless, fast)
+          async () => {
+            const lingvaUrl = `https://lingva.ml/api/v1/auto/${targetLang}/${encodeURIComponent(chunk)}`;
+            const response = await fetch(lingvaUrl);
+            if (response.ok) {
+              const resJson = await response.json();
+              if (resJson && resJson.translation) {
+                return resJson.translation;
+              }
+            }
+            throw new Error("Lingva Translate failed");
+          },
+          // 5. Lingva Mirror API
+          async () => {
+            const lingvaUrl2 = `https://translate.plausibility.cloud/api/v1/auto/${targetLang}/${encodeURIComponent(chunk)}`;
+            const response = await fetch(lingvaUrl2);
+            if (response.ok) {
+              const resJson = await response.json();
+              if (resJson && resJson.translation) {
+                return resJson.translation;
+              }
+            }
+            throw new Error("Lingva Mirror failed");
+          },
+          // 6. Argos Open Tech (LibreTranslate engine, CORS-friendly)
+          async () => {
+            const response = await fetch("https://translate.argosopentech.com/translate", {
+              method: "POST",
+              body: JSON.stringify({
+                q: chunk,
+                source: "auto",
+                target: targetLang,
+                format: "text"
+              }),
+              headers: { "Content-Type": "application/json" }
+            });
+            if (response.ok) {
+              const resJson = await response.json();
+              if (resJson && resJson.translatedText) {
+                return resJson.translatedText;
+              }
+            }
+            throw new Error("Argos Open Tech failed");
+          },
+          // 7. LibreTranslate de Mirror
+          async () => {
+            const response = await fetch("https://libretranslate.de/translate", {
+              method: "POST",
+              body: JSON.stringify({
+                q: chunk,
+                source: "auto",
+                target: targetLang,
+                format: "text"
+              }),
+              headers: { "Content-Type": "application/json" }
+            });
+            if (response.ok) {
+              const resJson = await response.json();
+              if (resJson && resJson.translatedText) {
+                return resJson.translatedText;
+              }
+            }
+            throw new Error("LibreTranslate de failed");
+          },
+          // 8. SimplyTranslate API
+          async () => {
+            const url = `https://simplytranslate.org/api/translate?engine=google&html=0&text=${encodeURIComponent(chunk)}&current_lang=auto&target_lang=${targetLang}`;
+            const response = await fetch(url);
+            if (response.ok) {
+              const resJson = await response.json();
+              if (resJson) {
+                return resJson["translated-text"] || resJson.translated_text || resJson.translation || "";
+              }
+            }
+            throw new Error("SimplyTranslate failed");
+          },
+          // 9. Direct Google Translate API (Fallback)
+          async () => {
+            const googleUrl = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(chunk)}`;
+            const response = await fetch(googleUrl);
+            if (response.ok) {
+              const data = await response.json();
+              if (Array.isArray(data) && Array.isArray(data[0])) {
+                return data[0]
+                  .map(item => item && item[0])
+                  .filter(val => typeof val === 'string')
+                  .join('');
+              }
+            }
+            throw new Error("Direct Google failed");
+          }
+        ];
+
+        // Execute sequential attempts until one succeeds
+        for (const attempt of translationAttempts) {
+          try {
+            const result = await attempt();
+            if (result && result.trim()) {
+              chunkTranslated = result;
+              break;
+            }
+          } catch (err) {
+            console.warn("Translation attempt failed, trying next...", err);
           }
         }
 
