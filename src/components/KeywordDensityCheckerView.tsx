@@ -359,7 +359,7 @@ export default function KeywordDensityCheckerView({ onNavigateToTool, onNavigate
           </button>
           <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-700" />
           <button
-            onClick={onNavigateHome}
+            onClick={() => onNavigateToTool('tools')}
             className="text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
             id="kd-breadcrumbs-tools"
           >

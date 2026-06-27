@@ -363,7 +363,7 @@ Writing blog drafts or corporate press articles can be stressful when characters
           </button>
           <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-700" />
           <button 
-            onClick={onNavigateHome}
+            onClick={() => onNavigateToTool('tools')}
             className="text-xs font-bold text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer capitalize"
             id="breadcrumb-category-btn"
           >

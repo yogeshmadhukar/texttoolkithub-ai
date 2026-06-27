@@ -223,7 +223,7 @@ All scripts run strictly inside your browser, making it completely private. Give
           </button>
           <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-700" />
           <button 
-            onClick={onNavigateHome}
+            onClick={() => onNavigateToTool('tools')}
             className="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
             id="breadcrumbs-category"
           >

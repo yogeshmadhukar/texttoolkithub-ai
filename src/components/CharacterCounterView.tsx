@@ -230,7 +230,7 @@ This Character Counter tracks typographic boundaries instantly. Simply paste scr
           </button>
           <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-700" />
           <button 
-            onClick={onNavigateHome}
+            onClick={() => onNavigateToTool('tools')}
             className="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer"
             id="breadcrumbs-tools"
           >
