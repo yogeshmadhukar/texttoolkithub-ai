@@ -107,6 +107,11 @@ const ContrastCheckerPaletteView = lazyWithRetry(() => import('./components/Cont
 const UuidGuidGeneratorView = lazyWithRetry(() => import('./components/UuidGuidGeneratorView.tsx'));
 const CssBeautifierMinifierView = lazyWithRetry(() => import('./components/CssBeautifierMinifierView.tsx'));
 const UserAgentParserView = lazyWithRetry(() => import('./components/UserAgentParserView.tsx'));
+const MarkdownTableGeneratorView = lazyWithRetry(() => import('./components/MarkdownTableGeneratorView.tsx'));
+const TextToSpeechView = lazyWithRetry(() => import('./components/TextToSpeechView.tsx'));
+const HtmlFormatterView = lazyWithRetry(() => import('./components/HtmlFormatterView.tsx'));
+const TextToBinaryView = lazyWithRetry(() => import('./components/TextToBinaryView.tsx'));
+const JsonXmlConverterView = lazyWithRetry(() => import('./components/JsonXmlConverterView.tsx'));
 const NotFoundView = lazyWithRetry(() => import('./components/NotFoundView.tsx'));
 const ToolsDirectoryView = lazyWithRetry(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = lazyWithRetry(() => import('./components/HowToUseAccordion.tsx'));
@@ -170,6 +175,16 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/uuid-generator': () => import('./components/UuidGuidGeneratorView.tsx'),
   'tools/css-formatter': () => import('./components/CssBeautifierMinifierView.tsx'),
   'tools/ua-parser': () => import('./components/UserAgentParserView.tsx'),
+  'tools/markdown-table-generator': () => import('./components/MarkdownTableGeneratorView.tsx'),
+  'tools/text-to-speech': () => import('./components/TextToSpeechView.tsx'),
+  'tools/html-formatter': () => import('./components/HtmlFormatterView.tsx'),
+  'tools/text-to-binary': () => import('./components/TextToBinaryView.tsx'),
+  'tools/json-xml-converter': () => import('./components/JsonXmlConverterView.tsx'),
+  'about': () => import('./components/AboutView.tsx'),
+  'faq': () => import('./components/FaqView.tsx'),
+  'security-faq': () => import('./components/SecurityFaqView.tsx'),
+  'contact': () => import('./components/ContactView.tsx'),
+  'tools': () => import('./components/ToolsDirectoryView.tsx'),
 };
 
 const prefetchTool = (id: string) => {
@@ -387,6 +402,15 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'unix-timestamp': 'tools/unix-timestamp-converter',
     'css-beautifier-minifier': 'tools/css-formatter',
     'user-agent': 'tools/ua-parser',
+    'markdown-table-generator': 'tools/markdown-table-generator',
+    'text-to-speech': 'tools/text-to-speech',
+    'tts-reader': 'tools/text-to-speech',
+    'html-formatter': 'tools/html-formatter',
+    'html-beautifier': 'tools/html-formatter',
+    'text-to-binary': 'tools/text-to-binary',
+    'binary-translator': 'tools/text-to-binary',
+    'json-xml-converter': 'tools/json-xml-converter',
+    'json-xml': 'tools/json-xml-converter',
   };
 
   // Direct rule lookup (lowercase check)
@@ -438,6 +462,43 @@ export default function App() {
   // Initialize Google Analytics ONCE on initial module mount (with GDPR-safe defaults)
   useEffect(() => {
     initializeAnalytics();
+  }, []);
+
+  // Background sequential prefetching of ALL components when idle
+  useEffect(() => {
+    const keys = Object.keys(PREFETCH_MAP);
+    let index = 0;
+    let timeoutId: any = null;
+
+    const scheduleNextPrefetch = () => {
+      if (index >= keys.length) return;
+
+      const key = keys[index];
+      const loader = PREFETCH_MAP[key];
+      if (loader) {
+        loader().catch(() => {});
+      }
+      index++;
+
+      // Stagger prefetches when the CPU is idle or with small intervals to avoid blocking UI main thread
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => {
+          timeoutId = setTimeout(scheduleNextPrefetch, 50);
+        });
+      } else {
+        timeoutId = setTimeout(scheduleNextPrefetch, 100);
+      }
+    };
+
+    // Delay start of prefetching slightly to not interfere with core home page paint
+    const initialDelayId = setTimeout(() => {
+      scheduleNextPrefetch();
+    }, 1200);
+
+    return () => {
+      clearTimeout(initialDelayId);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   const [activePage, setActivePage] = useState<ActivePage>('home');
@@ -1491,6 +1552,51 @@ export default function App() {
     if (activePage === 'tools/ua-parser' || activePage === 'ua-parser') {
       return (
         <UserAgentParserView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/markdown-table-generator' || activePage === 'markdown-table-generator') {
+      return (
+        <MarkdownTableGeneratorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/text-to-speech' || activePage === 'text-to-speech') {
+      return (
+        <TextToSpeechView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/html-formatter' || activePage === 'html-formatter') {
+      return (
+        <HtmlFormatterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/text-to-binary' || activePage === 'text-to-binary') {
+      return (
+        <TextToBinaryView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/json-xml-converter' || activePage === 'json-xml-converter') {
+      return (
+        <JsonXmlConverterView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

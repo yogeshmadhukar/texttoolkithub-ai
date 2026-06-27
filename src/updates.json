@@ -1,5 +1,47 @@
 [
   {
+    "id": "update-milestone-56-tools",
+    "title": "Major Milestone: 56+ Professional Developer Tools!",
+    "description": "Celebrating another huge milestone! We have now reached 56+ specialized, fully offline, privacy-first developer utilities. Check out our brand-new tools for visual Markdown table generation, Text-to-Speech playback, HTML/XML beautification, Text-to-Binary translations, and bidirectional JSON-to-XML conversion!",
+    "category": "Feature Update",
+    "date": "2026-06-27"
+  },
+  {
+    "id": "update-markdown-table-generator",
+    "title": "Markdown Table Generator & Editor",
+    "description": "Design and edit beautifully aligned Markdown, HTML, and CSV tables with an interactive, visual grid editor. Supports row/column management and alignment toggles 100% locally.",
+    "category": "New Tool",
+    "date": "2026-06-27"
+  },
+  {
+    "id": "update-text-to-speech",
+    "title": "Text to Speech Reader",
+    "description": "Read any text aloud with custom speeds, pitches, and local system voice options using your browser's native offline Web Speech Synthesis engine. Perfect for content review and accessibility.",
+    "category": "New Tool",
+    "date": "2026-06-27"
+  },
+  {
+    "id": "update-html-formatter",
+    "title": "HTML & XML Formatter",
+    "description": "Beautify cluttered HTML or XML markup elements with customized spaces or tabs, or use high-efficiency minification to compress pages and increase speed.",
+    "category": "New Tool",
+    "date": "2026-06-27"
+  },
+  {
+    "id": "update-text-to-binary",
+    "title": "Text ↔ Binary Translator",
+    "description": "Convert plain text to standard binary bytes, hexadecimal numbers, or ASCII decimal strings and vice-versa in real-time with customizable dividers.",
+    "category": "New Tool",
+    "date": "2026-06-27"
+  },
+  {
+    "id": "update-json-xml-converter",
+    "title": "JSON ↔ XML Converter",
+    "description": "Transform structured JSON schemas to beautiful XML hierarchies, or convert XML tags back into clean JSON objects 100% locally and safely in your browser.",
+    "category": "New Tool",
+    "date": "2026-06-27"
+  },
+  {
     "id": "update-milestone-51-tools",
     "title": "Major Milestone: 51+ Professional Developer Tools!",
     "description": "Celebrating a massive update! We have officially crossed the milestone of hosting 51+ specialized premium, browser-native tools with zero API trackers. Enjoy the moment with our brand-new expanded tool suites!",
