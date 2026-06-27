@@ -161,7 +161,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
     {
       id: "faq-3",
       question: "Will the premium suite of tools ever require a paid subscription?",
-      answer: "No. The standard core portfolio comprising our 51+ utilities—including formatting, converters, count tables, and dev tools—is, and will remain, 100% free to use. There are no plans to introduce mandatory registration, user thresholds, or artificial limitations on basic system functions. We may introduce premium cloud collaboration features in the future, but on-device local utilities remain public, unlimited, and free of paywalls."
+      answer: "No. The standard core portfolio comprising our 56+ utilities—including formatting, converters, count tables, and dev tools—is, and will remain, 100% free to use. There are no plans to introduce mandatory registration, user thresholds, or artificial limitations on basic system functions. We may introduce premium cloud collaboration features in the future, but on-device local utilities remain public, unlimited, and free of paywalls."
     },
     {
       id: "faq-4",
@@ -181,7 +181,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
     {
       id: "faq-7",
       question: "What is the long-term plan to expand the tool architecture?",
-      answer: "We are actively executing our platform roadmap to scale TextToolkitHub from our current stable suite of 51+ active utilities up to an expansive ecosystem of over 200+ dedicated tools. Our next development cycles center on advanced cryptography analyzers, binary structures parsers, deep CSV validators, and richer accessibility performance builders."
+      answer: "We are actively executing our platform roadmap to scale TextToolkitHub from our current stable suite of 56+ active utilities up to an expansive ecosystem of over 200+ dedicated tools. Our next development cycles center on advanced cryptography analyzers, binary structures parsers, deep CSV validators, and richer accessibility performance builders."
     },
     {
       id: "faq-8",
@@ -256,7 +256,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
               className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/20 transition flex items-center gap-2"
               id="hero-ctx-btn"
             >
-              Explore 51+ Tools <ArrowRight className="w-4 h-4" />
+              Explore 56+ Tools <ArrowRight className="w-4 h-4" />
             </a>
             <a 
               href="/security-faq" 
@@ -274,7 +274,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
             
             <div className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-2xl p-4 text-center shadow-xs">
-              <span className="block text-2xl md:text-3xl font-extrabold text-indigo-600 dark:text-indigo-400 font-sans">51+</span>
+              <span className="block text-2xl md:text-3xl font-extrabold text-indigo-600 dark:text-indigo-400 font-sans">56+</span>
               <span className="block text-xs font-bold text-slate-700 dark:text-slate-300 mt-1 uppercase tracking-wider">Active Tools</span>
               <span className="block text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Online Now</span>
             </div>
@@ -508,7 +508,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
               Our Expanding Multi-Core Ecosystem
             </h2>
             <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm leading-relaxed">
-              We group our 51+ active tools into cohesive structural blocks, allowing specialists to move from converters to encoders inside a clean interface.
+              We group our 56+ active tools into cohesive structural blocks, allowing specialists to move from converters to encoders inside a clean interface.
             </p>
           </div>
 
@@ -625,7 +625,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
                   Phase 1: Completed
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white font-sans mt-2">
-                  Launch Visual Core Utilities (51+ Tools)
+                  Launch Visual Core Utilities (56+ Tools)
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-450 mt-1.5 max-w-2xl leading-relaxed">
                   Establish client-first environment infrastructure. Incorporate robust visual components for characters scanning, text case adjustments, URL decoder systems, JWT audits, formatting parsers, duplicate cleaners, and light/dark theme models.

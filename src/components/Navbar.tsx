@@ -150,6 +150,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
   const websiteNews = [
     {
+      id: "news-milestone-56",
+      title: "56 Core Tools Hub Live!",
+      description: "TextToolkitHub has officially reached 56 fully custom, browser-native tools! Enjoy our brand-new utilities: Markdown Table Generator & Editor, Text-to-Speech Reader, HTML & XML Formatter, Text ↔ Binary Translator, and JSON ↔ XML Converter.",
+      date: "2026-06-27",
+      category: "Website News"
+    },
+    {
       id: "news-milestone-51",
       title: "51 Core Tools Hub Live!",
       description: "TextToolkitHub has officially reached 51 fully custom, browser-native tools! Enjoy our new tools: YAML/JSON, Color Contrast, UUID Generator, CSS Beautifier, User Agent Parser, Unix Timestamp, and more.",

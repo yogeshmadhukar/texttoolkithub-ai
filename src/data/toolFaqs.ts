@@ -220,7 +220,7 @@ export const SPECIFIC_TOOL_FAQS: Record<string, FaqItem[]> = {
   ]
 };
 
-// Smart template builders for different tool categories to generate 100% accurate, highly relevant FAQs for any of the 51+ tools
+// Smart template builders for different tool categories to generate 100% accurate, highly relevant FAQs for any of the 56+ tools
 export function getFaqsForTool(toolId: string, toolTitle: string, toolDescription: string, toolCategory: string, keywords: string[]): FaqItem[] {
   // Return the handcrafted list if it exists
   if (SPECIFIC_TOOL_FAQS[toolId]) {
