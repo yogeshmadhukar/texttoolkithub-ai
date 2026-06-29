@@ -1,28 +1,107 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Rounded Squircle Background in Royal Blue #1066e2 -->
-  <rect width="512" height="512" rx="116" fill="#1066e2" />
-  
-  <!-- White Wrench Silhouette -->
-  <!-- Main Head Circle -->
-  <circle cx="256" cy="180" r="74" fill="#ffffff" />
-  
-  <!-- Neck Connection -->
-  <rect x="220" y="220" width="72" height="40" fill="#ffffff" />
-  
-  <!-- Handle Grip -->
-  <rect x="212" y="250" width="88" height="136" rx="28" fill="#ffffff" />
-  
-  <!-- Tapered Bottom End (Screwdriver / Wedge tip) -->
-  <path d="M 226,380 L 286,380 L 274,420 C 273,423 270,425 266,425 L 246,425 C 242,425 239,423 238,420 Z" fill="#ffffff" />
-  
-  <!-- Blue Cuts/Carvings representing empty details -->
-  <!-- Rotated head cutout (opening at 30 degrees) -->
-  <g transform="rotate(30, 256, 180)">
-    <rect x="234" y="90" width="44" height="90" rx="6" fill="#1066e2" />
-    <circle cx="256" cy="180" r="22" fill="#1066e2" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient for subtle depth -->
+    <radialGradient id="bg_grad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8faff" />
+    </radialGradient>
+
+    <!-- Main Front Face Gradient for T and Bubble (Vibrant Premium Blue) -->
+    <linearGradient id="brand_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3da2ff" />
+      <stop offset="40%" stop-color="#1a7eff" />
+      <stop offset="100%" stop-color="#0052d9" />
+    </linearGradient>
+
+    <!-- 3D Shadow/Extrusion Gradient for Depth -->
+    <linearGradient id="shadow_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a4dbd" />
+      <stop offset="100%" stop-color="#05338a" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter for professional touch -->
+    <filter id="drop_shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="3" dy="10" stdDeviation="8" flood-color="#0a3fa0" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Clean, vibrant outer border circle -->
+  <circle cx="256" cy="256" r="238" fill="url(#bg_grad)" stroke="#1066e2" stroke-width="15" />
+
+  <!-- 3D Extrusion Shadows (Drawn behind the main elements with a slight offset) -->
+  <g transform="translate(6, 12)">
+    <!-- T shadow -->
+    <path d="M 115 190 
+             C 102 190, 96 178, 102 165 
+             L 132 105 
+             C 137 95, 148 90, 162 90 
+             L 380 90 
+             C 395 90, 408 100, 400 118 
+             L 372 178 
+             C 367 190, 354 195, 340 195 
+             L 270 195 
+             L 190 380 
+             C 182 398, 166 408, 142 408 
+             C 118 408, 108 395, 115 378 
+             L 175 240 
+             L 115 240 
+             C 102 240, 96 230, 102 218 
+             L 115 190 Z" 
+          fill="url(#shadow_grad)" />
+
+    <!-- Chat bubble shadow -->
+    <path d="M 260 230 
+             L 390 230 
+             Q 420 230, 420 260 
+             L 420 350 
+             Q 420 380, 390 380 
+             L 300 380 
+             L 245 415 
+             L 260 375 
+             Q 250 370, 250 350 
+             L 250 260 
+             Q 250 230, 260 230 Z" 
+          fill="url(#shadow_grad)" />
   </g>
-  
-  <!-- Two vertical slots on the handle grip -->
-  <rect x="230" y="276" width="16" height="84" rx="8" fill="#1066e2" />
-  <rect x="266" y="276" width="16" height="84" rx="8" fill="#1066e2" />
+
+  <!-- Front Faces of the Elements (With Premium Blue Gradient) -->
+  <g filter="url(#drop_shadow)">
+    <!-- Main "T" Shape -->
+    <path d="M 115 190 
+             C 102 190, 96 178, 102 165 
+             L 132 105 
+             C 137 95, 148 90, 162 90 
+             L 380 90 
+             C 395 90, 408 100, 400 118 
+             L 372 178 
+             C 367 190, 354 195, 340 195 
+             L 270 195 
+             L 190 380 
+             C 182 398, 166 408, 142 408 
+             C 118 408, 108 395, 115 378 
+             L 175 240 
+             L 115 240 
+             C 102 240, 96 230, 102 218 
+             L 115 190 Z" 
+          fill="url(#brand_grad)" />
+
+    <!-- Main Chat Bubble Shape -->
+    <path d="M 260 230 
+             L 390 230 
+             Q 420 230, 420 260 
+             L 420 350 
+             Q 420 380, 390 380 
+             L 300 380 
+             L 245 415 
+             L 260 375 
+             Q 250 370, 250 350 
+             L 250 260 
+             Q 250 230, 260 230 Z" 
+          fill="url(#brand_grad)" />
+
+    <!-- Three Horizontal White Message Dots inside Chat Bubble -->
+    <circle cx="295" cy="305" r="14" fill="#ffffff" />
+    <circle cx="335" cy="305" r="14" fill="#ffffff" />
+    <circle cx="375" cy="305" r="14" fill="#ffffff" />
+  </g>
 </svg>

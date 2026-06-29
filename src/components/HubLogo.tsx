@@ -20,6 +20,10 @@ export default function HubLogo({
   // Create unique IDs to support multiple SVG instances in the DOM
   const uniqueId = React.useId ? React.useId().replace(/:/g, '') : Math.random().toString(36).substr(2, 9);
   const clipPathId = `logo-c-${uniqueId}`;
+  const brandGradId = `logo-bg-grad-${uniqueId}`;
+  const shadowGradId = `logo-sh-grad-${uniqueId}`;
+  const bgGradId = `logo-radial-grad-${uniqueId}`;
+  const dropShadowId = `logo-ds-filter-${uniqueId}`;
 
   useEffect(() => {
     const checkLogo = () => {
@@ -152,7 +156,7 @@ export default function HubLogo({
                 cx="50" 
                 cy="50" 
                 r="46" 
-                stroke="#6366f1" 
+                stroke="#1066e2" 
                 strokeWidth="3.2" 
                 fill="#ffffff" 
                 className="dark:fill-slate-900 transition-colors"
@@ -171,39 +175,106 @@ export default function HubLogo({
           />
         </svg>
       ) : (
-        /* Default brand wrench logo SVG from public/logo.svg, updated to premium brand indigo */
+        /* Brand new vector SVG representing the "T" and Chat bubble logo precisely */
         <svg 
           viewBox="0 0 512 512" 
-          className={`${sizeClasses[size]} shrink-0 block transition-transform duration-200 group-hover/logo:scale-105 rounded-xl shadow-sm`}
+          className={`${sizeClasses[size]} shrink-0 block transition-transform duration-200 group-hover/logo:scale-105 rounded-full`}
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
-          {/* Rounded Squircle Background in Royal Indigo #6366f1 */}
-          <rect width="512" height="512" rx="116" fill="#6366f1" />
-          
-          {/* White Wrench Silhouette */}
-          {/* Main Head Circle */}
-          <circle cx="256" cy="180" r="74" fill="#ffffff" />
-          
-          {/* Neck Connection */}
-          <rect x="220" y="220" width="72" height="40" fill="#ffffff" />
-          
-          {/* Handle Grip */}
-          <rect x="212" y="250" width="88" height="136" rx="28" fill="#ffffff" />
-          
-          {/* Tapered Bottom End (Screwdriver / Wedge tip) */}
-          <path d="M 226,380 L 286,380 L 274,420 C 273,423 270,425 266,425 L 246,425 C 242,425 239,423 238,420 Z" fill="#ffffff" />
-          
-          {/* Indigo Cuts/Carvings representing empty details */}
-          {/* Rotated head cutout (opening at 30 degrees) */}
-          <g transform="rotate(30, 256, 180)">
-            <rect x="234" y="90" width="44" height="90" rx="6" fill="#6366f1" />
-            <circle cx="256" cy="180" r="22" fill="#6366f1" />
+          <defs>
+            <radialGradient id={bgGradId} cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#f8faff" />
+            </radialGradient>
+
+            <linearGradient id={brandGradId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#3da2ff" />
+              <stop offset="40%" stopColor="#1a7eff" />
+              <stop offset="100%" stopColor="#0052d9" />
+            </linearGradient>
+
+            <linearGradient id={shadowGradId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0a4dbd" />
+              <stop offset="100%" stopColor="#05338a" />
+            </linearGradient>
+
+            <filter id={dropShadowId} x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="3" dy="10" stdDeviation="8" floodColor="#0a3fa0" floodOpacity="0.18" />
+            </filter>
+          </defs>
+
+          <circle cx="256" cy="256" r="238" fill={`url(#${bgGradId})`} stroke="#1066e2" strokeWidth="15" />
+
+          <g transform="translate(6, 12)">
+            <path d="M 115 190 
+                     C 102 190, 96 178, 102 165 
+                     L 132 105 
+                     C 137 95, 148 90, 162 90 
+                     L 380 90 
+                     C 395 90, 408 100, 400 118 
+                     L 372 178 
+                     C 367 190, 354 195, 340 195 
+                     L 270 195 
+                     L 190 380 
+                     C 182 398, 166 408, 142 408 
+                     C 118 408, 108 395, 115 378 
+                     L 175 240 
+                     L 115 240 
+                     C 102 240, 96 230, 102 218 
+                     L 115 190 Z" 
+                  fill={`url(#${shadowGradId})`} />
+
+            <path d="M 260 230 
+                     L 390 230 
+                     Q 420 230, 420 260 
+                     L 420 350 
+                     Q 420 380, 390 380 
+                     L 300 380 
+                     L 245 415 
+                     L 260 375 
+                     Q 250 370, 250 350 
+                     L 250 260 
+                     Q 250 230, 260 230 Z" 
+                  fill={`url(#${shadowGradId})`} />
           </g>
-          
-          {/* Two vertical slots on the handle grip */}
-          <rect x="230" y="276" width="16" height="84" rx="8" fill="#6366f1" />
-          <rect x="266" y="276" width="16" height="84" rx="8" fill="#6366f1" />
+
+          <g filter={`url(#${dropShadowId})`}>
+            <path d="M 115 190 
+                     C 102 190, 96 178, 102 165 
+                     L 132 105 
+                     C 137 95, 148 90, 162 90 
+                     L 380 90 
+                     C 395 90, 408 100, 400 118 
+                     L 372 178 
+                     C 367 190, 354 195, 340 195 
+                     L 270 195 
+                     L 190 380 
+                     C 182 398, 166 408, 142 408 
+                     C 118 408, 108 395, 115 378 
+                     L 175 240 
+                     L 115 240 
+                     C 102 240, 96 230, 102 218 
+                     L 115 190 Z" 
+                  fill={`url(#${brandGradId})`} />
+
+            <path d="M 260 230 
+                     L 390 230 
+                     Q 420 230, 420 260 
+                     L 420 350 
+                     Q 420 380, 390 380 
+                     L 300 380 
+                     L 245 415 
+                     L 260 375 
+                     Q 250 370, 250 350 
+                     L 250 260 
+                     Q 250 230, 260 230 Z" 
+                  fill={`url(#${brandGradId})`} />
+
+            <circle cx="295" cy="305" r="14" fill="#ffffff" />
+            <circle cx="335" cy="305" r="14" fill="#ffffff" />
+            <circle cx="375" cy="305" r="14" fill="#ffffff" />
+          </g>
         </svg>
       )}
 
