@@ -26,6 +26,7 @@ export default function HubLogo({
   const uniqueId = React.useId ? React.useId().replace(/:/g, '') : Math.random().toString(36).substr(2, 9);
   const clipPathId = `logo-c-${uniqueId}`;
   const brandGradId = `logo-bg-grad-${uniqueId}`;
+  const bubbleGradId = `logo-bubble-grad-${uniqueId}`;
   const shadowGradId = `logo-sh-grad-${uniqueId}`;
   const bgGradId = `logo-radial-grad-${uniqueId}`;
   const dropShadowId = `logo-ds-filter-${uniqueId}`;
@@ -259,6 +260,11 @@ export default function HubLogo({
               <stop offset="100%" stopColor="#0052d9" />
             </linearGradient>
 
+            <linearGradient id={bubbleGradId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="#4f46e5" />
+            </linearGradient>
+
             <linearGradient id={shadowGradId} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#0a4dbd" />
               <stop offset="100%" stopColor="#05338a" />
@@ -284,9 +290,9 @@ export default function HubLogo({
                      L 190 380 
                      C 182 398, 166 408, 142 408 
                      C 118 408, 108 395, 115 378 
-                     L 175 240 
-                     L 115 240 
-                     C 102 240, 96 230, 102 218 
+                     L 195 195 
+                     L 115 195 
+                     C 102 195, 96 183, 102 170 
                      L 115 190 Z" 
                   fill={`url(#${shadowGradId})`} />
 
@@ -317,11 +323,29 @@ export default function HubLogo({
                      L 190 380 
                      C 182 398, 166 408, 142 408 
                      C 118 408, 108 395, 115 378 
-                     L 175 240 
-                     L 115 240 
-                     C 102 240, 96 230, 102 218 
+                     L 195 195 
+                     L 115 195 
+                     C 102 195, 96 183, 102 170 
                      L 115 190 Z" 
                   fill={`url(#${brandGradId})`} />
+
+            {/* Chat Bubble White Mask Separator (draws a thick border underneath the fill to slice the T stem) */}
+            <path d="M 260 230 
+                     L 390 230 
+                     Q 420 230, 420 260 
+                     L 420 350 
+                     Q 420 380, 390 380 
+                     L 300 380 
+                     L 245 415 
+                     L 260 375 
+                     Q 250 370, 250 350 
+                     L 250 260 
+                     Q 250 230, 260 230 Z" 
+                  fill="none" 
+                  stroke="#ffffff" 
+                  strokeWidth="12" 
+                  strokeLinejoin="round" 
+                  strokeLinecap="round" />
 
             <path d="M 260 230 
                      L 390 230 
@@ -334,7 +358,7 @@ export default function HubLogo({
                      Q 250 370, 250 350 
                      L 250 260 
                      Q 250 230, 260 230 Z" 
-                  fill={`url(#${brandGradId})`} />
+                  fill={`url(#${bubbleGradId})`} />
 
             <circle cx="295" cy="305" r="14" fill="#ffffff" />
             <circle cx="335" cy="305" r="14" fill="#ffffff" />

@@ -1,6 +1,6 @@
 // Auto-generated logo configuration
 export const logoConfig = {
-  hasCustomLogo: true,
-  logoType: 'svg',
-  updatedAt: 1782736906065
+  hasCustomLogo: false,
+  logoType: 'default',
+  updatedAt: 1782738391579
 };
