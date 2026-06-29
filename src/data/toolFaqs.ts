@@ -217,6 +217,141 @@ export const SPECIFIC_TOOL_FAQS: Record<string, FaqItem[]> = {
       question: 'How do I test color contrast for both small and large text sizes?',
       answer: 'The results board displays compliance badges for small text (under 18pt or 14pt bold) and large text (18pt or 14pt bold and above), because larger text sizes require slightly lower contrast ratios (3:1 for AA) to remain accessible.'
     }
+  ],
+  'tools/yaml-json-converter': [
+    {
+      id: 1,
+      question: 'Is this YAML to JSON converter safe for enterprise API secrets?',
+      answer: 'Yes, absolutely! All parsing, validation, and conversions are executed entirely inside your browser\'s local sandbox, ensuring zero server uploads or credential exposures.'
+    },
+    {
+      id: 2,
+      question: 'Can I convert JSON back to YAML format?',
+      answer: 'Yes, the tool is bidirectional. You can translate YAML text blocks to formatted JSON configurations and serialize JSON blocks back to clean, comment-safe YAML documents.'
+    },
+    {
+      id: 3,
+      question: 'Which indentation rules are supported?',
+      answer: 'We support customized indentation sizes including 2-space and 4-space styles, which is standard for Kubernetes manifests, docker-compose systems, and YAML files.'
+    },
+    {
+      id: 4,
+      question: 'Does this converter validate nested schemas and highlight errors?',
+      answer: 'Yes. It features a real-time validator that checks for common issues such as unbalanced quotes, improper indent spaces, mixed tabs, or missing key-value colon separators, highlighting the exact error line.'
+    },
+    {
+      id: 5,
+      question: 'Does it support multi-document YAML conversion?',
+      answer: 'Our local converter supports standard single-document YAML maps and arrays, which is highly optimized for standard developer payloads, config files, and JSON payloads.'
+    }
+  ],
+  'tools/uuid-generator': [
+    {
+      id: 1,
+      question: 'What is a Version 4 UUID and how is it generated?',
+      answer: 'A Version 4 UUID (Universally Unique Identifier) is a 128-bit identifier generated using cryptographically strong random numbers. It contains 32 hexadecimal characters grouped into five segments separated by hyphens (e.g., 8-4-4-4-12).'
+    },
+    {
+      id: 2,
+      question: 'Are the generated UUIDs truly unique and safe for database primary keys?',
+      answer: 'Yes. Since they are generated using the browser\'s cryptographically secure Web Crypto API (`window.crypto.getRandomValues`), the probability of a collision is virtually zero, making them highly reliable for distributed database tables.'
+    },
+    {
+      id: 3,
+      question: 'Does this UUID generator require an active internet connection?',
+      answer: 'No. The entire generation runs client-side in your browser. This offline capability ensures maximum generation speed and complete data privacy.'
+    },
+    {
+      id: 4,
+      question: 'What customization options are available for bulk UUID generation?',
+      answer: 'You can generate up to 500 UUIDs per batch. Options include toggling uppercase/lowercase styling, adding or removing standard hyphens, and wrapping each ID in custom curly brackets.'
+    },
+    {
+      id: 5,
+      question: 'Is there a cost or license restriction for using these UUIDs?',
+      answer: 'No. All generated UUIDs are completely in the public domain. You can use them in any personal, open-source, or commercial application without attribution or licensing fees.'
+    }
+  ],
+  'tools/unix-timestamp-converter': [
+    {
+      id: 1,
+      question: 'What is a Unix epoch timestamp?',
+      answer: 'A Unix timestamp (epoch time) represents the number of elapsed seconds since January 1, 1970 (00:00:00 UTC), excluding leap seconds. It is a universal integer used in computing systems to track dates independently of timezones.'
+    },
+    {
+      id: 2,
+      question: 'Does this converter support both seconds and millisecond timestamps?',
+      answer: 'Yes. The converter dynamically detects if your input is a standard 10-digit timestamp (seconds) or a 13-digit timestamp (milliseconds) and displays accurate dates for both styles.'
+    },
+    {
+      id: 3,
+      question: 'Can I translate a local calendar date back to raw Unix time?',
+      answer: 'Yes, our tool is fully bidirectional. You can use the interactive calendar inputs to specify any date and timezone, and it will instantly calculate the corresponding Unix epoch seconds.'
+    },
+    {
+      id: 4,
+      question: 'Is the conversion calculated based on my local timezone or UTC?',
+      answer: 'Both! The results panel displays the translated date in your device\'s local timezone as well as the standard Coordinated Universal Time (UTC) to simplify server logs troubleshooting.'
+    },
+    {
+      id: 5,
+      question: 'How do I fetch the active current Unix timestamp?',
+      answer: 'The page features an active digital clock that displays the current epoch seconds ticking in real-time. You can pause the ticking clock or copy the current timestamp with a single click.'
+    }
+  ],
+  'tools/markdown-table-generator': [
+    {
+      id: 1,
+      question: 'How do I create and edit table content inside this generator?',
+      answer: 'Our Markdown Table Generator provides an interactive visual grid editor. Simply use the column and row adder buttons to resize your table, then click directly inside any grid cell to write or edit your values.'
+    },
+    {
+      id: 2,
+      question: 'Does this generator support text alignments for columns?',
+      answer: 'Yes. You can click on the alignment controls above each column to set text alignment to left-aligned, centered, or right-aligned. The generated Markdown and HTML codes will automatically apply the correct alignment markup.'
+    },
+    {
+      id: 3,
+      question: 'Can I import existing CSV files into this visual grid editor?',
+      answer: 'Yes, we support backward CSV parsing. You can paste standard comma-separated values into the raw text input tab, and our tool will automatically populate the interactive visual grid for easy editing.'
+    },
+    {
+      id: 4,
+      question: 'Does this tool generate Github-Flavored Markdown (GFM) tables?',
+      answer: 'Yes. The default output conforms to GitHub-Flavored Markdown tables, which are fully supported on GitHub, GitLab, Reddit, Slack, and almost all major Markdown editors.'
+    },
+    {
+      id: 5,
+      question: 'Can I copy the output as clean web-compliant HTML tables?',
+      answer: 'Yes, the results panel features a dedicated "HTML Output" tab that instantly renders standard, clean `<table>` markup complete with aligned headers and cells.'
+    }
+  ],
+  'tools/regex-tester': [
+    {
+      id: 1,
+      question: 'How does real-time regex pattern testing work on this platform?',
+      answer: 'As you type your regular expression, our sandboxed engine compiles it in real-time. It instantly scans your test text block and highlights all matching strings, captured groups, and match ranges on the fly.'
+    },
+    {
+      id: 2,
+      question: 'Which regex flags can I customize inside the tester?',
+      answer: 'We support standard RegExp flags: Global (g) for finding all matches, Case-insensitive (i) to ignore uppercase/lowercase bounds, and Multiline (m) to let ^ and $ anchors match line starts and ends.'
+    },
+    {
+      id: 3,
+      question: 'Does the tool highlight regular expression syntax errors?',
+      answer: 'Yes! If you write an incomplete or invalid regex pattern, our built-in analyzer catches the error and displays a detailed, friendly warning message explaining what is wrong (e.g., unmatched brackets).'
+    },
+    {
+      id: 4,
+      question: 'Is my input text secure when testing sensitive logs or user datasets?',
+      answer: 'Absolutely. All testing is handled locally by your browser\'s standard JavaScript engine. Your regular expressions, test logs, and personal test files never leave your device.'
+    },
+    {
+      id: 5,
+      question: 'What are captured groups and how do I view them?',
+      answer: 'Captured groups are sub-expressions enclosed in parentheses `( )`. When matches are found, our tester lists all captured groupings in a dedicated results panel, displaying the precise matched strings alongside their capture indexes.'
+    }
   ]
 };
 

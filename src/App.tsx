@@ -115,6 +115,7 @@ const JsonXmlConverterView = lazyWithRetry(() => import('./components/JsonXmlCon
 const NotFoundView = lazyWithRetry(() => import('./components/NotFoundView.tsx'));
 const ToolsDirectoryView = lazyWithRetry(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = lazyWithRetry(() => import('./components/HowToUseAccordion.tsx'));
+const GuidesView = lazyWithRetry(() => import('./components/GuidesView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -411,6 +412,9 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'binary-translator': 'tools/text-to-binary',
     'json-xml-converter': 'tools/json-xml-converter',
     'json-xml': 'tools/json-xml-converter',
+    'uuid-guid-generator': 'tools/uuid-generator',
+    'qr-code-generator': 'tools/qr-generator',
+    'cron-expression-builder': 'tools/cron-builder',
   };
 
   // Direct rule lookup (lowercase check)
@@ -419,9 +423,14 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   }
 
   // Verify matched static pages
-  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms', 'security-faq', 'disclaimer'];
+  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms', 'security-faq', 'disclaimer', 'guides'];
   if (defaultPages.includes(path)) {
     return { normalized: path, redirected: rawPath !== path };
+  }
+
+  // Handle nested guide paths
+  if (path.startsWith('guides/')) {
+    return { normalized: 'guides', redirected: false };
   }
 
   // Check valid tool paths (case-insensitive checks)
@@ -640,6 +649,9 @@ export default function App() {
     } else if (activePage === 'contact') {
       pageTitle = "Contact Us | TextToolkitHub - Support & Tool Suggestions";
       pageDesc = "Get in touch with the TextToolkitHub development team. Send bug reports, submit feature recommendations, or request technical support.";
+    } else if (activePage === 'guides') {
+      pageTitle = "Professional Writing, SEO, and Coding Guides | TextToolkitHub";
+      pageDesc = "Deep-dive educational guides and professional tutorials on SEO copywriting, keyword density, resolving PDF carriage breaks, readability scores, and local Base64 safety.";
     } else if (activePage === 'privacy') {
       pageTitle = "Privacy Policy | TextToolkitHub - 100% Local Browser Processing";
       pageDesc = "Review the TextToolkitHub Privacy Policy. All text conversions and analytics are securely handled locally inside your web browser secure viewport.";
@@ -1617,6 +1629,8 @@ export default function App() {
     switch (activePage) {
       case 'home':
         return <HomeView onNavigateToTool={(id) => handlePageNavigation(id)} onPrefetchTool={prefetchTool} />;
+      case 'guides':
+        return <GuidesView onNavigateToTool={(id) => handlePageNavigation(id)} onNavigateHome={() => handlePageNavigation('home')} />;
       case 'tools':
         return <ToolsDirectoryView onNavigateToTool={(id) => handlePageNavigation(id)} onPrefetchTool={prefetchTool} />;
       case 'about':

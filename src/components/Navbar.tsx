@@ -384,14 +384,16 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
           
           {/* Logo & Brand */}
           <div 
-            onClick={() => handleLinkSelect('home')} 
-            className="flex items-center gap-2 cursor-pointer group flex-shrink-0"
+            className="flex items-center gap-2 flex-shrink-0"
             id="nav-logo-link"
           >
-            <div className="group-hover:scale-105 transition-transform duration-200 shrink-0">
-              <HubLogo size="lg" />
+            <div className="hover:scale-105 transition-transform duration-200 shrink-0">
+              <HubLogo size="lg" editable={false} />
             </div>
-            <span className="font-sans font-extrabold text-xl tracking-tight text-slate-950 dark:text-white">
+            <span 
+              onClick={() => handleLinkSelect('home')} 
+              className="font-sans font-extrabold text-xl tracking-tight text-slate-950 dark:text-white cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            >
               Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
             </span>
           </div>
@@ -400,9 +402,9 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
           {/* Desktop Navigation links */}
           <nav className="hidden md:flex items-center gap-1.5 relative">
-            {(['home', 'tools', 'about', 'faq', 'contact'] as const).map((page) => {
+            {(['home', 'tools', 'guides', 'about', 'faq', 'contact'] as const).map((page) => {
               const isActive = activePage === page;
-              const labels = { home: 'Home', tools: 'Tools', about: 'About', faq: 'FAQ', contact: 'Contact' };
+              const labels = { home: 'Home', tools: 'Tools', guides: 'Guides', about: 'About', faq: 'FAQ', contact: 'Contact' };
               return (
                 <button
                   key={page}
@@ -924,6 +926,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               id="mobile-nav-tools"
             >
               Tools
+            </button>
+            <button
+              onClick={() => handleLinkSelect('guides')}
+              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'guides' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
+              id="mobile-nav-guides"
+            >
+              Guides
             </button>
             <button
               onClick={() => handleLinkSelect('about')}

@@ -242,7 +242,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
           <button
             onClick={onNavigateHome}
             className="flex items-center gap-1 text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
-            id="dedup-breadcrumbs-home"
+            id="breadcrumbs-home"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Portal Home
           </button>
@@ -250,7 +250,7 @@ export default function RemoveDuplicateLinesView({ onNavigateToTool, onNavigateH
           <button
             onClick={() => onNavigateToTool('tools')}
             className="text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
-            id="dedup-breadcrumbs-tools"
+            id="breadcrumbs-tools"
           >
             Tools
           </button>

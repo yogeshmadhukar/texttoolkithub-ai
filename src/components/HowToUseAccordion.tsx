@@ -397,6 +397,142 @@ const TOOL_INSTRUCTIONS: {
       'Organizing shopping checklists, names lists, inventory sheets, or directory guides.',
       'Alphabetizing sitemap URL blocks, vocabulary items, or keyword lists.'
     ]
+  },
+  'tools/yaml-json-converter': {
+    summary: 'A secure, bidirectional config translator that shifts datasets between YAML markup and JSON variables locally.',
+    steps: [
+      'Select your target conversion mode: YAML to JSON or JSON to YAML.',
+      'Paste your configuration text (like Kubernetes manifests or docker-compose schemes) into the active textarea.',
+      'Observe real-time validation and syntax highlight feedback. Address any parsing warnings if highlighted.',
+      'Adjust indentation parameters (2-space or 4-space indent) and download or copy your converted schema.'
+    ],
+    tips: [
+      'YAML is highly indentation-sensitive; ensure you do not mix tabs and spaces as this raises parser syntax errors.',
+      'Use our bidirectional mode to quickly convert JSON API responses into YAML files for your local DevOps pipelines.'
+    ],
+    cases: [
+      'Converting docker-compose configuration files or Kubernetes helm charts to structured JSON.',
+      'Translating database schemas or API payloads back to clean YAML declarations for DevOps pipelines.'
+    ]
+  },
+  'tools/uuid-generator': {
+    summary: 'A cryptographically secure bulk generator that produces high-entropy Version 4 RFC-compliant UUIDs.',
+    steps: [
+      'Specify the number of unique identifiers you need to generate (up to 500 in a single batch).',
+      'Toggle style checkboxes such as adding hyphens, converting to uppercase, or wrapping IDs inside curly brackets.',
+      'Review generated UUID arrays printed in the local output box.',
+      'Click Copy to clipboard or download the list as a clean, text-formatted registry file.'
+    ],
+    tips: [
+      'Version 4 UUIDs use randomized hex combinations, offering a 1-in-2^122 chance of collisions, which is perfect for database primaries.',
+      'Keep hyphens enabled if your database strictly conforms to standard string-based GUID/UUID formats.'
+    ],
+    cases: [
+      'Generating high-entropy primary keys for relational databases like PostgreSQL or MySQL.',
+      'Creating unique request tracking correlation IDs for distributed microservices or transaction logging.'
+    ]
+  },
+  'tools/unix-timestamp-converter': {
+    summary: 'An interactive date-time translator that decodes Unix epoch numbers into human-readable ISO stamps bidirectionally.',
+    steps: [
+      'Input your raw 10-digit (seconds) or 13-digit (milliseconds) epoch timestamp.',
+      'View human-readable date strings parsed instantly in local timezones and UTC formats.',
+      'To convert a human date back to Unix, utilize our interactive calendar form fields.',
+      'Copy the output epoch seconds or formatted calendar ISO date stamp instantly.'
+    ],
+    tips: [
+      'Epoch time represents the number of seconds elapsed since January 1, 1970 (UTC). Remember to adjust for timezone offsets.',
+      'If your raw timestamp contains 13 characters, it is in millisecond format; toggle our millisecond checkbox for accurate conversions.'
+    ],
+    cases: [
+      'Debugging API response logs displaying unformatted Unix timestamp metrics.',
+      'Converting calendar scheduling dates to raw Epoch integers for storage in database tables.'
+    ]
+  },
+  'tools/markdown-table-generator': {
+    summary: 'An interactive visual table generator and grid editor that creates beautifully aligned Markdown, HTML, and CSV sheets.',
+    steps: [
+      'Use our visual grid interface to specify your desired row and column amounts.',
+      'Click directly into any cell to type, format, or edit cell text.',
+      'Configure visual formatting options like column text alignment (Left, Center, Right).',
+      'Select your output tab (Markdown, HTML table markup, or standard CSV) and copy the generated tables.'
+    ],
+    tips: [
+      'Visual alignment tags in Markdown use trailing colons (e.g. :---: for centered). Let our tool handle syntax spacing automatically.',
+      'You can paste raw CSV text directly to load and visually format legacy tables inside our editor.'
+    ],
+    cases: [
+      'Creating clean documentation tables for GitHub README files or technical project wikis.',
+      'Formatting plain tabular text or spreadsheet copy into web-compliant HTML tables.'
+    ]
+  },
+  'tools/text-to-speech': {
+    summary: 'A secure offline TTS reader that synthesizes plain text blocks into natural-sounding voices locally in your browser.',
+    steps: [
+      'Write, edit, or paste your article drafts, scripts, or school essays into the textbox.',
+      'Select your preferred synthesis voice from the dropdown menu populated with your device\'s local system voices.',
+      'Adjust sliders for vocal speed (pacing rate) and frequency pitch to match your ideal tone.',
+      'Click Play to hear your text read aloud, and use Pause or Stop controls to manage playback.'
+    ],
+    tips: [
+      'Reading your draft text aloud using TTS is one of the most effective proofreading hacks for identifying passive voice and structural flow issues.',
+      'Since we use your browser\'s native Web Speech API, this tool works entirely offline without consuming internet bandwidth.'
+    ],
+    cases: [
+      'Proofreading blog drafts and essays by listening to vocal flows and sentence structures.',
+      'Generating verbal instructions or vocal aids for users with visual or reading impairments.'
+    ]
+  },
+  'tools/regex-tester': {
+    summary: 'An interactive regular expression editor that tests, matches, and captures string patterns in real-time.',
+    steps: [
+      'Enter your regular expression pattern (e.g. ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-0.-]+\\.[a-zA-Z]{2,}$) into the regex bar.',
+      'Input test strings or mock documents in the large content workspace.',
+      'Configure regex flags such as Global (g), Case-insensitive (i), and Multiline (m).',
+      'Instantly view highlighted expression matches, captured group listings, and syntax validity logs.'
+    ],
+    tips: [
+      'Use the case-insensitive flag (i) to simplify your regex patterns instead of manually declaring upper and lower characters.',
+      'Hover over matched highlights to view precise capture index indexes and matched word lengths.'
+    ],
+    cases: [
+      'Validating form input fields (emails, zip codes, phone numbers) before writing production code.',
+      'Parsing unstructured log datasets to isolate specific warning strings or system telemetry flags.'
+    ]
+  },
+  'tools/jwt-decoder': {
+    summary: 'A local sandbox utility that decodes JSON Web Token structures, extracting header attributes, payload parameters, and signatures securely.',
+    steps: [
+      'Paste your encoded three-part JSON Web Token (separated by dots) into the token input area.',
+      'Observe immediate decoded outputs parsing headers, claims payload, and signature schemas.',
+      'Verify expiration dates, issuer credentials, and user permissions printed in formatted JSON grids.',
+      'Check the token state indicator representing active, expired, or malformed states.'
+    ],
+    tips: [
+      'JSON Web Tokens are Base64Url encoded, not encrypted. Never store sensitive, private keys inside JWT claims payloads.',
+      'Hover over individual fields to view ISO date conversions of expiration (exp) and issued-at (iat) time markers.'
+    ],
+    cases: [
+      'Debugging user authentication credentials and token authorization claims during API integrations.',
+      'Checking whether a client-side JSON Web Token is expired or carries invalid scopes.'
+    ]
+  },
+  'tools/html-formatter': {
+    summary: 'A local code beautifier that formats, pretty-prints, and indents nested HTML and XML markups or minifies them for speed.',
+    steps: [
+      'Insert your messy, unformatted, or single-line HTML/XML markup into the editor sandbox.',
+      'Choose your preferred formatting structure: Pretty-Print Beautify or Compress Minify.',
+      'Select indentation rules (2 spaces, 4 spaces, or Tab alignments) to match your codebase styles.',
+      'Click the transform button to acquire neatly aligned tag hierarchies and clean nesting.'
+    ],
+    tips: [
+      'Minification strips unnecessary whitespace, line feeds, and comment tags, which can reduce raw document load times up to 35%.',
+      'Our formatter highlights unbalanced or unclosed HTML tags to prevent broken layouts on your production site.'
+    ],
+    cases: [
+      'Cleaning cluttered markup generated by visual page builders or nested WYSIWYG editors.',
+      'Compressing templates and email markups before deployment to maximize site delivery speeds.'
+    ]
   }
 };
 

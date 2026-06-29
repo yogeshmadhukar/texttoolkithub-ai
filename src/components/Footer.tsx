@@ -20,14 +20,16 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Column 1: Brand Pitch */}
           <div className="flex flex-col gap-4">
             <div 
-              onClick={() => onNavigate('home')} 
-              className="flex items-center gap-2 cursor-pointer group"
+              className="flex items-center gap-2"
               id="footer-logo-link"
             >
-              <div className="group-hover:scale-105 transition-transform duration-200 shrink-0">
-                <HubLogo size="md" />
+              <div className="hover:scale-105 transition-transform duration-200 shrink-0">
+                <HubLogo size="md" editable={false} />
               </div>
-              <span className="font-sans font-extrabold text-lg tracking-tight text-slate-950 dark:text-white">
+              <span 
+                onClick={() => onNavigate('home')} 
+                className="font-sans font-extrabold text-lg tracking-tight text-slate-950 dark:text-white cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              >
                 Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
               </span>
             </div>
@@ -93,6 +95,11 @@ export default function Footer({ onNavigate }: FooterProps) {
               <li>
                 <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors font-semibold text-indigo-600 dark:text-indigo-400" id="footer-link-tools">
                   Tools Directory
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('guides')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors font-semibold text-indigo-600 dark:text-indigo-400" id="footer-link-guides">
+                  Educational Guides
                 </button>
               </li>
               <li>
