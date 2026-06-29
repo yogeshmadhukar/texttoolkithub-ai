@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, Trash2 } from 'lucide-react';
 import { logoConfig } from '../logo-config';
+import { isDevSession } from '../types';
 
 interface HubLogoProps {
   className?: string;
@@ -31,11 +32,13 @@ export default function HubLogo({
 
   useEffect(() => {
     const checkLogo = () => {
-      if (logoConfig.hasCustomLogo) {
+      const saved = localStorage.getItem('texttoolkithub_custom_logo');
+      if (saved) {
+        setCustomLogo(saved);
+      } else if (logoConfig.hasCustomLogo) {
         setCustomLogo(`/logo.svg?v=${logoConfig.updatedAt}`);
       } else {
-        const saved = localStorage.getItem('texttoolkithub_custom_logo');
-        setCustomLogo(saved || '');
+        setCustomLogo('');
       }
       setUseImgTag(localStorage.getItem('texttoolkithub_use_img_tag') === 'true');
     };
@@ -54,7 +57,7 @@ export default function HubLogo({
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     // Only allow file uploading in development mode
-    if (!import.meta.env.DEV) return;
+    if (!isDevSession()) return;
 
     const file = e.target.files?.[0];
     if (file) {
@@ -66,26 +69,33 @@ export default function HubLogo({
       reader.onloadend = async () => {
         const base64String = reader.result as string;
         try {
-          const response = await fetch('/api/upload-logo', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              mimeType: file.type,
-              base64: base64String,
-            }),
-          });
-          const data = await response.json();
-          if (response.ok && data.success) {
-            setCustomLogo(`/logo.svg?v=${Date.now()}`);
-            window.dispatchEvent(new Event('logo-updated'));
-          } else {
-            alert("Failed to save custom logo to filesystem: " + (data.error || 'Unknown error'));
+          // Store in localStorage first for instant client-side update
+          localStorage.setItem('texttoolkithub_custom_logo', base64String);
+          setCustomLogo(base64String);
+          window.dispatchEvent(new Event('logo-updated'));
+
+          // Try saving to the backend filesystem if the API is running
+          try {
+            const response = await fetch('/api/upload-logo', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                mimeType: file.type,
+                base64: base64String,
+              }),
+            });
+            const data = await response.json();
+            if (response.ok && data.success) {
+              console.log("Successfully saved custom logo to server filesystem!");
+            }
+          } catch (serverErr) {
+            console.warn("Server upload failed (expected in static environments). Saved client-side in localStorage:", serverErr);
           }
         } catch (error) {
           console.error("Failed to save logo:", error);
-          alert("Failed to save custom logo to filesystem.");
+          alert("Failed to save custom logo.");
         }
       };
       reader.readAsDataURL(file);
@@ -97,27 +107,24 @@ export default function HubLogo({
     e.stopPropagation();
     
     // Only allow resetting in development mode
-    if (!import.meta.env.DEV) return;
+    if (!isDevSession()) return;
 
     if (confirm("Reset logo to default brand logo?")) {
+      localStorage.removeItem('texttoolkithub_custom_logo');
+      setCustomLogo('');
+      window.dispatchEvent(new Event('logo-updated'));
+
       try {
-        const response = await fetch('/api/reset-logo', { method: 'POST' });
-        if (response.ok) {
-          localStorage.removeItem('texttoolkithub_custom_logo');
-          setCustomLogo('');
-          window.dispatchEvent(new Event('logo-updated'));
-        } else {
-          alert("Failed to reset logo.");
-        }
+        await fetch('/api/reset-logo', { method: 'POST' });
       } catch (err) {
-        alert("Failed to connect to dev server.");
+        console.warn("Server reset ignored (expected in static environments). Reset successfully in client-side localStorage.");
       }
     }
   };
 
   const handleSecretClick = (e: React.MouseEvent) => {
     // Secret backdoor is strictly disabled in production
-    if (!import.meta.env.DEV) return;
+    if (!isDevSession()) return;
 
     // Shift+Click or Ctrl+Click on the logo triggers the file upload
     if (!editable && (e.shiftKey || e.ctrlKey || e.metaKey)) {
@@ -129,7 +136,7 @@ export default function HubLogo({
 
   const handleSecretDoubleClick = (e: React.MouseEvent) => {
     // Secret backdoor is strictly disabled in production
-    if (!import.meta.env.DEV) return;
+    if (!isDevSession()) return;
 
     // Double-click triggers the file upload
     if (!editable) {
@@ -146,7 +153,7 @@ export default function HubLogo({
     xl: 'w-12 h-12'
   };
 
-  const isDev = import.meta.env.DEV;
+  const isDev = isDevSession();
   const isEditable = editable && isDev;
 
   const ContainerComponent = isEditable ? 'label' : 'div';

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Upload, ArrowLeft, RefreshCw, Trash2, CheckCircle2, AlertCircle, FileImage, Layers } from 'lucide-react';
 import { logoConfig } from '../logo-config';
 import HubLogo from './HubLogo';
+import { isDevSession } from '../types';
 
 interface LogoManagerViewProps {
   onNavigateHome: () => void;
@@ -32,8 +33,8 @@ export default function LogoManagerView({ onNavigateHome }: LogoManagerViewProps
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Check if we are actually in development mode
-  const isDev = import.meta.env.DEV;
+  // Check if we are actually in development mode or active sandbox
+  const isDev = isDevSession();
 
   if (!isDev) {
     return (
@@ -108,44 +109,60 @@ export default function LogoManagerView({ onNavigateHome }: LogoManagerViewProps
     setMessage(null);
 
     try {
-      const response = await fetch('/api/upload-logo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          mimeType: selectedFile.type,
-          base64: previewUrl,
-        }),
+      // 1. Store in localStorage first for absolute client-side reliability
+      localStorage.setItem('texttoolkithub_custom_logo', previewUrl);
+      window.dispatchEvent(new Event('logo-updated'));
+
+      // 2. Try saving to the backend filesystem if the development server is active
+      let serverSaved = false;
+      let logoType = 'custom';
+      try {
+        const response = await fetch('/api/upload-logo', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            mimeType: selectedFile.type,
+            base64: previewUrl,
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            serverSaved = true;
+            logoType = data.logoType || 'custom';
+          }
+        }
+      } catch (err) {
+        console.warn("Server upload bypassed in client-side preview:", err);
+      }
+
+      setSelectedFile(null);
+      setPreviewUrl('');
+      setCurrentConfig({
+        hasCustomLogo: true,
+        logoType: logoType as any,
+        updatedAt: Date.now(),
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
+      if (serverSaved) {
         setMessage({
           type: 'success',
-          text: 'Logo uploaded and optimized successfully! All web formats, favicon.ico, responsive touch icons, and config parameters have been refreshed. Refresh your browser to see them in effect.',
+          text: 'Logo uploaded and optimized successfully! The new logo has been written to your filesystem repository, and all responsive favicon parameters have been rebuilt. Refresh your browser to see them.',
         });
-        setSelectedFile(null);
-        setPreviewUrl('');
-        setCurrentConfig({
-          hasCustomLogo: true,
-          logoType: data.logoType,
-          updatedAt: Date.now(),
-        });
-        
-        // Dispatch local event to sync instantly in Header/Footer
-        window.dispatchEvent(new Event('logo-updated'));
       } else {
         setMessage({
-          type: 'error',
-          text: data.error || 'Failed to process and optimize the uploaded logo.',
+          type: 'success',
+          text: 'Logo updated successfully! The logo has been saved securely to your browser session and is now active across all tools on this domain. To make this permanent in the repository files, please notify the developer agent.',
         });
       }
     } catch (error) {
+      console.error("Save error:", error);
       setMessage({
         type: 'error',
-        text: 'Connection failed! Make sure your dev server is active and accessible.',
+        text: 'An unexpected error occurred while saving your custom logo.',
       });
     } finally {
       setIsSaving(false);
@@ -161,37 +178,50 @@ export default function LogoManagerView({ onNavigateHome }: LogoManagerViewProps
     setMessage(null);
 
     try {
-      const response = await fetch('/api/reset-logo', {
-        method: 'POST',
+      // 1. Revert client-side state
+      localStorage.removeItem('texttoolkithub_custom_logo');
+      window.dispatchEvent(new Event('logo-updated'));
+
+      // 2. Revert server state
+      let serverReset = false;
+      try {
+        const response = await fetch('/api/reset-logo', {
+          method: 'POST',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            serverReset = true;
+          }
+        }
+      } catch (err) {
+        console.warn("Server reset bypassed in client-side preview:", err);
+      }
+
+      setSelectedFile(null);
+      setPreviewUrl('');
+      setCurrentConfig({
+        hasCustomLogo: false,
+        logoType: 'default',
+        updatedAt: Date.now(),
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
+      if (serverReset) {
         setMessage({
           type: 'success',
-          text: 'The brand logo and all associated favicons have been successfully restored to the default vector standards!',
+          text: 'The brand logo and all associated favicons have been successfully restored to default standards in both the browser and server repository files!',
         });
-        setSelectedFile(null);
-        setPreviewUrl('');
-        setCurrentConfig({
-          hasCustomLogo: false,
-          logoType: 'default',
-          updatedAt: Date.now(),
-        });
-        
-        // Dispatch local event to sync instantly in Header/Footer
-        window.dispatchEvent(new Event('logo-updated'));
       } else {
         setMessage({
-          type: 'error',
-          text: data.error || 'Failed to restore default brand logo.',
+          type: 'success',
+          text: 'The brand logo has been successfully restored to the default TextToolkitHub vector logo inside your browser session!',
         });
       }
     } catch (error) {
+      console.error("Reset error:", error);
       setMessage({
         type: 'error',
-        text: 'Connection failed! Make sure your dev server is active.',
+        text: 'An unexpected error occurred while resetting the logo.',
       });
     } finally {
       setIsResetting(false);

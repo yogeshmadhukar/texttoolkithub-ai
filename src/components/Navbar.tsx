@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TOOLS, searchTools } from '../data.ts';
-import { ActivePage, Tool } from '../types.ts';
+import { ActivePage, Tool, isDevSession } from '../types.ts';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
 import HubLogo from './HubLogo.tsx';
@@ -384,7 +384,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
           
           {/* Logo & Brand */}
           <div 
-            className="flex items-center gap-2 flex-shrink-0"
+            className="flex items-center gap-2 flex-shrink-0 animate-fade-in"
             id="nav-logo-link"
           >
             <div className="hover:scale-105 transition-transform duration-200 shrink-0">
@@ -427,7 +427,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                 </button>
               );
             })}
-            {import.meta.env.DEV && (
+            {isDevSession() && (
               <button
                 onClick={() => handleLinkSelect('logo-manager' as any)}
                 className={`relative px-3.5 py-1.5 text-xs font-bold transition-all border border-dashed border-indigo-500/40 bg-indigo-50/20 text-indigo-600 hover:bg-indigo-600 hover:text-white dark:bg-indigo-950/20 dark:text-indigo-400 dark:hover:bg-indigo-900 cursor-pointer rounded-full z-10 flex items-center gap-1.5 ${
@@ -967,7 +967,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             >
               Contact
             </button>
-            {import.meta.env.DEV && (
+            {isDevSession() && (
               <button
                 onClick={() => handleLinkSelect('logo-manager' as any)}
                 className={`w-full text-left py-2 px-3.5 rounded-xl text-sm font-bold border border-dashed border-indigo-500/30 bg-indigo-50/10 text-indigo-600 dark:text-indigo-400 dark:bg-indigo-950/10 hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-900 cursor-pointer flex items-center gap-1.5`}

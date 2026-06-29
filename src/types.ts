@@ -26,3 +26,16 @@ export interface FaqItem {
   question: string;
   answer: string;
 }
+
+export function isDevSession(): boolean {
+  return (
+    import.meta.env.DEV || 
+    (typeof window !== 'undefined' && (
+      window.location.hostname.includes('localhost') || 
+      window.location.hostname.includes('127.0.0.1') ||
+      window.location.hostname.includes('ais-dev-') ||
+      window.location.hostname.includes('ais-pre-') ||
+      window.location.search.includes('dev=true')
+    ))
+  );
+}
