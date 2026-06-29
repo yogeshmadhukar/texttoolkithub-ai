@@ -261,8 +261,8 @@ export default function HubLogo({
             </linearGradient>
 
             <linearGradient id={bubbleGradId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8b5cf6" />
-              <stop offset="100%" stopColor="#4f46e5" />
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#1d4ed8" />
             </linearGradient>
 
             <linearGradient id={shadowGradId} x1="0%" y1="0%" x2="100%" y2="100%">

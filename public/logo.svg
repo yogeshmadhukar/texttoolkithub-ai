@@ -13,10 +13,10 @@
       <stop offset="100%" stop-color="#0052d9" />
     </linearGradient>
 
-    <!-- Main Front Face Gradient for Chat Bubble (Vibrant Premium Indigo-Purple) -->
+    <!-- Main Front Face Gradient for Chat Bubble (Vibrant Premium Blue) -->
     <linearGradient id="bubble_grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8b5cf6" />
-      <stop offset="100%" stop-color="#4f46e5" />
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
     </linearGradient>
 
     <!-- 3D Shadow/Extrusion Gradient for Depth -->
