@@ -35,7 +35,7 @@ export default function HubLogo({
       const saved = localStorage.getItem('texttoolkithub_custom_logo');
       if (saved) {
         setCustomLogo(saved);
-      } else if (logoConfig.hasCustomLogo) {
+      } else if (logoConfig.hasCustomLogo && logoConfig.logoType !== 'svg') {
         setCustomLogo(`/logo.svg?v=${logoConfig.updatedAt}`);
       } else {
         setCustomLogo('');

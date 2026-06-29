@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import {defineConfig} from 'vite';
 import sharp from 'sharp';
+import { GoogleGenAI } from '@google/genai';
 
 const PUBLIC_DIR = path.resolve(__dirname, 'public');
 const BACKUP_DIR = path.resolve(__dirname, 'src/assets/default-logo-backup');
@@ -181,6 +182,141 @@ export const logoConfig = {
                 res.end(JSON.stringify({ success: true }));
               } catch (err) {
                 console.error('Logo reset processing error:', err);
+                res.statusCode = 500;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ error: err instanceof Error ? err.message : 'Internal Server Error' }));
+              }
+            } else if (
+              req.url &&
+              [
+                '/api/generate-commit-message',
+                '/api/commit-message',
+                '/api/git-commit-message',
+                '/api/git/commit-message',
+                '/api/git/commit'
+              ].includes(req.url.split('?')[0])
+            ) {
+              try {
+                const BASELINE_TIME = 1782734138000;
+                const modifiedFiles = [];
+                const baseDir = process.cwd();
+
+                function scan(dir) {
+                  const files = fs.readdirSync(dir);
+                  for (const file of files) {
+                    const fullPath = path.join(dir, file);
+                    const relativePath = path.relative(baseDir, fullPath);
+
+                    if (
+                      relativePath.includes('node_modules') ||
+                      relativePath.includes('.git') ||
+                      relativePath.includes('dist') ||
+                      relativePath.includes('tmp') ||
+                      relativePath === 'package-lock.json' ||
+                      relativePath === '.dev.pid' ||
+                      relativePath === '.dev.env.json'
+                    ) {
+                      continue;
+                    }
+
+                    if (
+                      relativePath.startsWith('scripts/list') ||
+                      relativePath.startsWith('scripts/check') ||
+                      relativePath.startsWith('scripts/find') ||
+                      relativePath.startsWith('scripts/git') ||
+                      relativePath.startsWith('scripts/test')
+                    ) {
+                      continue;
+                    }
+
+                    let stat;
+                    try {
+                      stat = fs.statSync(fullPath);
+                    } catch (e) {
+                      continue;
+                    }
+
+                    if (stat.isDirectory()) {
+                      scan(fullPath);
+                    } else {
+                      if (stat.mtimeMs > BASELINE_TIME) {
+                        modifiedFiles.push({
+                          path: relativePath,
+                          size: stat.size
+                        });
+                      }
+                    }
+                  }
+                }
+
+                scan(baseDir);
+
+                let commitMsg = '';
+                if (modifiedFiles.length === 0) {
+                  commitMsg = 'chore: minor updates and optimizations';
+                } else {
+                  const fileDetails = [];
+                  for (const file of modifiedFiles) {
+                    let contentSnippet = '[Binary / Large / Non-text Asset]';
+                    const isText = /\.(ts|tsx|js|json|css|html|md|env|example|txt)$/i.test(file.path);
+                    if (isText && file.size < 100000) {
+                      try {
+                        const content = fs.readFileSync(path.join(baseDir, file.path), 'utf8');
+                        contentSnippet = content.substring(0, 2500);
+                      } catch (e) {}
+                    }
+                    fileDetails.push(`File: ${file.path}\nContent Snippet:\n${contentSnippet}\n---`);
+                  }
+
+                  const apiKey = process.env.GEMINI_API_KEY;
+                  if (!apiKey) {
+                    throw new Error('GEMINI_API_KEY is not defined in the environment.');
+                  }
+
+                  const ai = new GoogleGenAI({
+                    apiKey,
+                    httpOptions: {
+                      headers: {
+                        'User-Agent': 'aistudio-build',
+                      }
+                    }
+                  });
+
+                  const prompt = `You are an expert developer assistant. Below is a list of files that were modified or newly created in this workspace, along with snippets of their current content.
+Analyze these changes and automatically generate a professional, git-friendly, and highly descriptive commit message.
+
+Requirements:
+- First line (subject) should be concise (50-100 characters preferred) and follow standard commit formatting (e.g., "feat: implement brand assets generator" or "fix: resolve SVG logo wrapper rendering").
+- If there are multiple files or different categories of changes, add a blank line after the subject, followed by a bulleted multi-line description summarizing the actual code changes accurately.
+- Mention newly added files appropriately.
+- If files are modified or deleted, summarize those changes accurately.
+- Keep the message professional and Git-friendly.
+- Return ONLY the commit message text. Do NOT wrap it in markdown block quotes or triple backticks.
+
+Modified Files & Snippets:
+${fileDetails.join('\n\n')}
+`;
+
+                  const response = await ai.models.generateContent({
+                    model: 'gemini-3.5-flash',
+                    contents: prompt,
+                  });
+
+                  commitMsg = response.text ? response.text.trim() : 'chore: optimize project files and resources';
+                }
+
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({
+                  success: true,
+                  commitMessage: commitMsg,
+                  message: commitMsg,
+                  summary: commitMsg,
+                  text: commitMsg,
+                  commit: commitMsg
+                }));
+              } catch (err) {
+                console.error('Commit message generation error:', err);
                 res.statusCode = 500;
                 res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ error: err instanceof Error ? err.message : 'Internal Server Error' }));
