@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, Trash2 } from 'lucide-react';
+import { logoConfig } from '../logo-config';
 
 interface HubLogoProps {
   className?: string;
@@ -15,6 +16,9 @@ export default function HubLogo({
   editable = false
 }: HubLogoProps) {
   const [customLogo, setCustomLogo] = useState<string>('');
+  const [useImgTag, setUseImgTag] = useState<boolean>(() => {
+    return localStorage.getItem('texttoolkithub_use_img_tag') === 'true';
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Create unique IDs to support multiple SVG instances in the DOM
@@ -27,8 +31,13 @@ export default function HubLogo({
 
   useEffect(() => {
     const checkLogo = () => {
-      const saved = localStorage.getItem('texttoolkithub_custom_logo');
-      setCustomLogo(saved || '');
+      if (logoConfig.hasCustomLogo) {
+        setCustomLogo(`/logo.svg?v=${logoConfig.updatedAt}`);
+      } else {
+        const saved = localStorage.getItem('texttoolkithub_custom_logo');
+        setCustomLogo(saved || '');
+      }
+      setUseImgTag(localStorage.getItem('texttoolkithub_use_img_tag') === 'true');
     };
     checkLogo();
 
@@ -43,41 +52,74 @@ export default function HubLogo({
     };
   }, []);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Only allow file uploading in development mode
+    if (!import.meta.env.DEV) return;
+
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert("Please upload an image smaller than 5MB.");
+      if (file.size > 10 * 1024 * 1024) {
+        alert("Please upload an image smaller than 10MB.");
         return;
       }
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         const base64String = reader.result as string;
         try {
-          localStorage.setItem('texttoolkithub_custom_logo', base64String);
-          setCustomLogo(base64String);
-          window.dispatchEvent(new Event('logo-updated'));
+          const response = await fetch('/api/upload-logo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              mimeType: file.type,
+              base64: base64String,
+            }),
+          });
+          const data = await response.json();
+          if (response.ok && data.success) {
+            setCustomLogo(`/logo.svg?v=${Date.now()}`);
+            window.dispatchEvent(new Event('logo-updated'));
+          } else {
+            alert("Failed to save custom logo to filesystem: " + (data.error || 'Unknown error'));
+          }
         } catch (error) {
-          console.error("Failed to save logo to localStorage (likely too large or quota exceeded):", error);
-          alert("Failed to save custom logo. Try uploading a smaller image (under 1MB is recommended).");
+          console.error("Failed to save logo:", error);
+          alert("Failed to save custom logo to filesystem.");
         }
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleReset = (e: React.MouseEvent) => {
+  const handleReset = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    
+    // Only allow resetting in development mode
+    if (!import.meta.env.DEV) return;
+
     if (confirm("Reset logo to default brand logo?")) {
-      localStorage.removeItem('texttoolkithub_custom_logo');
-      setCustomLogo('');
-      window.dispatchEvent(new Event('logo-updated'));
+      try {
+        const response = await fetch('/api/reset-logo', { method: 'POST' });
+        if (response.ok) {
+          localStorage.removeItem('texttoolkithub_custom_logo');
+          setCustomLogo('');
+          window.dispatchEvent(new Event('logo-updated'));
+        } else {
+          alert("Failed to reset logo.");
+        }
+      } catch (err) {
+        alert("Failed to connect to dev server.");
+      }
     }
   };
 
   const handleSecretClick = (e: React.MouseEvent) => {
-    // Secret backdoor: Shift+Click or Ctrl+Click on the logo triggers the file upload
+    // Secret backdoor is strictly disabled in production
+    if (!import.meta.env.DEV) return;
+
+    // Shift+Click or Ctrl+Click on the logo triggers the file upload
     if (!editable && (e.shiftKey || e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       e.stopPropagation();
@@ -86,7 +128,10 @@ export default function HubLogo({
   };
 
   const handleSecretDoubleClick = (e: React.MouseEvent) => {
-    // Secret backdoor: Double-click triggers the file upload on live website
+    // Secret backdoor is strictly disabled in production
+    if (!import.meta.env.DEV) return;
+
+    // Double-click triggers the file upload
     if (!editable) {
       e.preventDefault();
       e.stopPropagation();
@@ -101,35 +146,48 @@ export default function HubLogo({
     xl: 'w-12 h-12'
   };
 
-  const ContainerComponent = editable ? 'label' : 'div';
+  const isDev = import.meta.env.DEV;
+  const isEditable = editable && isDev;
+
+  const ContainerComponent = isEditable ? 'label' : 'div';
 
   return (
     <ContainerComponent 
-      className={`relative group/logo inline-block shrink-0 ${editable ? 'cursor-pointer select-none' : ''} ${className}`} 
+      className={`relative group/logo inline-block shrink-0 ${isEditable ? 'cursor-pointer select-none' : ''} ${className}`} 
       id={`logo-container-${uniqueId}`}
       title={
-        editable 
+        isEditable 
           ? (customLogo ? "Click to change custom logo image" : "Click to upload your image logo") 
           : "TextToolkitHub"
       }
       onClick={handleSecretClick}
       onDoubleClick={handleSecretDoubleClick}
     >
-      {/* Hidden input field for custom logo upload */}
-      <input 
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        accept="image/*"
-        className="hidden"
-        id={`logo-file-input-${uniqueId}`}
-        onClick={(e) => {
-          // Prevent file input click from bubbling back up to the label component
-          e.stopPropagation();
-        }}
-      />
+      {/* Hidden input field for custom logo upload (dev-only) */}
+      {isDev && (
+        <input 
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept="image/*"
+          className="hidden"
+          id={`logo-file-input-${uniqueId}`}
+          onClick={(e) => {
+            // Prevent file input click from bubbling back up to the label component
+            e.stopPropagation();
+          }}
+        />
+      )}
 
-      {customLogo ? (
+      {customLogo && useImgTag ? (
+        <img 
+          src={customLogo} 
+          alt="TextToolkitHub Logo" 
+          className={`${sizeClasses[size]} shrink-0 block transition-transform duration-200 group-hover/logo:scale-105 object-contain ${withCircleBorder ? 'rounded-full border border-indigo-600/30 p-0.5 bg-white dark:bg-slate-900 shadow-sm' : ''}`}
+          id={`logo-img-${uniqueId}`}
+          referrerPolicy="no-referrer"
+        />
+      ) : customLogo ? (
         <svg 
           viewBox="0 0 100 100" 
           className={`${sizeClasses[size]} shrink-0 block transition-transform duration-200 group-hover/logo:scale-105`}
@@ -278,8 +336,8 @@ export default function HubLogo({
         </svg>
       )}
 
-      {/* Action triggers */}
-      {editable && (
+      {/* Action triggers (dev-only) */}
+      {isEditable && (
         <>
           {/* Bottom-right Camera Icon Upload Trigger */}
           <span
@@ -309,3 +367,4 @@ export default function HubLogo({
     </ContainerComponent>
   );
 }
+

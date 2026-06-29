@@ -427,6 +427,18 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                 </button>
               );
             })}
+            {import.meta.env.DEV && (
+              <button
+                onClick={() => handleLinkSelect('logo-manager' as any)}
+                className={`relative px-3.5 py-1.5 text-xs font-bold transition-all border border-dashed border-indigo-500/40 bg-indigo-50/20 text-indigo-600 hover:bg-indigo-600 hover:text-white dark:bg-indigo-950/20 dark:text-indigo-400 dark:hover:bg-indigo-900 cursor-pointer rounded-full z-10 flex items-center gap-1.5 ${
+                  activePage === 'logo-manager' ? 'bg-indigo-600 text-white' : ''
+                }`}
+                id="desktop-nav-logo-manager"
+                title="Sovereign Logo Management Control Panel (Dev-Only)"
+              >
+                🔧 Logo Manager
+              </button>
+            )}
           </nav>
 
           {/* Premium Desktop Search Input */}
@@ -955,6 +967,15 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             >
               Contact
             </button>
+            {import.meta.env.DEV && (
+              <button
+                onClick={() => handleLinkSelect('logo-manager' as any)}
+                className={`w-full text-left py-2 px-3.5 rounded-xl text-sm font-bold border border-dashed border-indigo-500/30 bg-indigo-50/10 text-indigo-600 dark:text-indigo-400 dark:bg-indigo-950/10 hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-900 cursor-pointer flex items-center gap-1.5`}
+                id="mobile-nav-logo-manager"
+              >
+                🔧 Logo Manager (Dev-Only)
+              </button>
+            )}
           </div>
 
           <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">

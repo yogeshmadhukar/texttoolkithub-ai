@@ -116,6 +116,7 @@ const NotFoundView = lazyWithRetry(() => import('./components/NotFoundView.tsx')
 const ToolsDirectoryView = lazyWithRetry(() => import('./components/ToolsDirectoryView.tsx'));
 const HowToUseAccordion = lazyWithRetry(() => import('./components/HowToUseAccordion.tsx'));
 const GuidesView = lazyWithRetry(() => import('./components/GuidesView.tsx'));
+const LogoManagerView = lazyWithRetry(() => import('./components/LogoManagerView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -1647,6 +1648,8 @@ export default function App() {
         return <LegalView mode="terms" />;
       case 'disclaimer':
         return <LegalView mode="disclaimer" />;
+      case 'logo-manager':
+        return <LogoManagerView onNavigateHome={() => handlePageNavigation('home')} />;
       default:
         // Handle unexpected route states by safely rendering 404 NotFoundView
         return (
