@@ -150,6 +150,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
   const websiteNews = [
     {
+      id: "news-legal-framework-2026",
+      title: "New Legal & Copyright Framework Live",
+      description: "We have updated our site's legal documentation and compliance standards! Review our completely customized, browser-native Cookie Policy and DMCA & Copyright Policy sections.",
+      date: "2026-06-30",
+      category: "Website News"
+    },
+    {
       id: "news-milestone-56",
       title: "56 Core Tools Hub Live!",
       description: "TextToolkitHub has officially reached 56 fully custom, browser-native tools! Enjoy our brand-new utilities: Markdown Table Generator & Editor, Text-to-Speech Reader, HTML & XML Formatter, Text ↔ Binary Translator, and JSON ↔ XML Converter.",

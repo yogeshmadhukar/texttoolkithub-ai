@@ -1,5 +1,12 @@
 [
   {
+    "id": "update-legal-framework-june-2026",
+    "title": "Legal Framework Deployed: Cookie Policy & DMCA Policy",
+    "description": "We have deployed an original, comprehensive, and compliance-hardened legal framework. Check out our new interactive Cookie Policy & Tracking Consent page and our DMCA & Copyright Policy page. These updates strengthen our regulatory compliance for Google AdSense, GDPR, CCPA, and copyright transparency while guaranteeing our standard 100% private, local-first computing model.",
+    "category": "Feature Update",
+    "date": "2026-06-30"
+  },
+  {
     "id": "update-milestone-56-tools",
     "title": "Major Milestone: 56+ Professional Developer Tools!",
     "description": "Celebrating another huge milestone! We have now reached 56+ specialized, fully offline, privacy-first developer utilities. Check out our brand-new tools for visual Markdown table generation, Text-to-Speech playback, HTML/XML beautification, Text-to-Binary translations, and bidirectional JSON-to-XML conversion!",

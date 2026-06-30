@@ -132,6 +132,16 @@ export default function Footer({ onNavigate }: FooterProps) {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('cookie-policy')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-cookie-policy">
+                  Cookie Policy
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('dmca')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-dmca">
+                  DMCA Policy
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('terms')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-terms">
                   Terms & Conditions
                 </button>

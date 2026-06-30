@@ -56,6 +56,8 @@ const FaqView = lazyWithRetry(() => import('./components/FaqView.tsx'));
 const SecurityFaqView = lazyWithRetry(() => import('./components/SecurityFaqView.tsx'));
 const ContactView = lazyWithRetry(() => import('./components/ContactView.tsx'));
 const LegalView = lazyWithRetry(() => import('./components/LegalView.tsx'));
+const CookiePolicyView = lazyWithRetry(() => import('./components/CookiePolicyView.tsx'));
+const DmcaView = lazyWithRetry(() => import('./components/DmcaView.tsx'));
 const WordCounterView = lazyWithRetry(() => import('./components/WordCounterView.tsx'));
 const SentenceCounterView = lazyWithRetry(() => import('./components/SentenceCounterView.tsx'));
 const CharacterCounterView = lazyWithRetry(() => import('./components/CharacterCounterView.tsx'));
@@ -424,7 +426,7 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
   }
 
   // Verify matched static pages
-  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms', 'security-faq', 'disclaimer', 'guides'];
+  const defaultPages = ['tools', 'about', 'faq', 'contact', 'privacy', 'terms', 'security-faq', 'disclaimer', 'guides', 'cookie-policy', 'dmca'];
   if (defaultPages.includes(path)) {
     return { normalized: path, redirected: rawPath !== path };
   }
@@ -656,6 +658,12 @@ export default function App() {
     } else if (activePage === 'privacy') {
       pageTitle = "Privacy Policy | TextToolkitHub - 100% Local Browser Processing";
       pageDesc = "Review the TextToolkitHub Privacy Policy. All text conversions and analytics are securely handled locally inside your web browser secure viewport.";
+    } else if (activePage === 'cookie-policy') {
+      pageTitle = "Cookie Policy & Tracking Consent | TextToolkitHub";
+      pageDesc = "Review our Cookie Policy. Manage your analytics preferences, examine essential and functional browser web storage keys, and understand our GDPR/CCPA compliance standards.";
+    } else if (activePage === 'dmca') {
+      pageTitle = "DMCA & Copyright Policy | TextToolkitHub";
+      pageDesc = "Read our DMCA and Copyright Policy. Understand how we protect intellectual property rights and find instructions for submitting copyright takedown notices.";
     } else if (activePage === 'terms') {
       pageTitle = "Terms of Service | TextToolkitHub - Suite Guidelines";
       pageDesc = "Read our Terms of Service. Understand your rights, user guidelines, and terms for utilizing our free, local-first string utilities.";
@@ -844,6 +852,66 @@ export default function App() {
           ]
         });
       }
+    } else if (activePage === 'cookie-policy') {
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://texttoolkithub.com/cookie-policy/#webpage",
+        "url": "https://texttoolkithub.com/cookie-policy",
+        "name": "Cookie Policy & Tracking Consent | TextToolkitHub",
+        "description": "Review our Cookie Policy. Manage your analytics preferences, examine essential and functional browser web storage keys, and understand our GDPR/CCPA compliance standards.",
+        "publisher": {
+          "@id": "https://texttoolkithub.com/#organization"
+        }
+      });
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://texttoolkithub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Cookie Policy",
+            "item": "https://texttoolkithub.com/cookie-policy"
+          }
+        ]
+      });
+    } else if (activePage === 'dmca') {
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://texttoolkithub.com/dmca/#webpage",
+        "url": "https://texttoolkithub.com/dmca",
+        "name": "DMCA & Copyright Policy | TextToolkitHub",
+        "description": "Read our DMCA and Copyright Policy. Understand how we protect intellectual property rights and find instructions for submitting copyright takedown notices.",
+        "publisher": {
+          "@id": "https://texttoolkithub.com/#organization"
+        }
+      });
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://texttoolkithub.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "DMCA & Copyright Policy",
+            "item": "https://texttoolkithub.com/dmca"
+          }
+        ]
+      });
     } else if (activePage === 'faq') {
       schemas.push({
         "@context": "https://schema.org",
@@ -1644,6 +1712,20 @@ export default function App() {
         return <ContactView />;
       case 'privacy':
         return <LegalView mode="privacy" />;
+      case 'cookie-policy':
+        return (
+          <CookiePolicyView 
+            onNavigateHome={() => handlePageNavigation('home')}
+            onNavigateToTool={(id) => handlePageNavigation(id)}
+          />
+        );
+      case 'dmca':
+        return (
+          <DmcaView 
+            onNavigateHome={() => handlePageNavigation('home')}
+            onNavigateToTool={(id) => handlePageNavigation(id)}
+          />
+        );
       case 'terms':
         return <LegalView mode="terms" />;
       case 'disclaimer':
