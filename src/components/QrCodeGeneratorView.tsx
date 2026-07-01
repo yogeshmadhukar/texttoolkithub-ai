@@ -841,7 +841,7 @@ export default function QrCodeGeneratorView({ onNavigateToTool, onNavigateHome }
                     Error Correction tolerance (ECL)
                   </span>
                 </div>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
                     { id: 'L', label: 'L - Low', damage: '~7%' },
                     { id: 'M', label: 'M - Medium', damage: '~15%' },

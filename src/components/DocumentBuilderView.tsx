@@ -945,7 +945,7 @@ export default function DocumentBuilderView({ onNavigateToTool, onNavigateHome }
                   </div>
 
                   {/* Operational Character Counters metadata metrics */}
-                  <div className="grid grid-cols-4 gap-2 bg-slate-50/70 dark:bg-slate-900/60 p-2.5 rounded-xl border border-slate-200/10 dark:border-slate-800/30 text-center select-none font-sans">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-50/70 dark:bg-slate-900/60 p-2.5 rounded-xl border border-slate-200/10 dark:border-slate-800/30 text-center select-none font-sans">
                     <div>
                       <span className="text-[9px] text-slate-400 dark:text-slate-500 tracking-wider block">Words</span>
                       <span className="text-[13px] font-extrabold text-slate-800 dark:text-slate-200 block mt-0.5">{getWordCount()}</span>

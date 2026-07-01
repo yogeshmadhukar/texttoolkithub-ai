@@ -524,7 +524,7 @@ export default function ContrastCheckerPaletteView({ onNavigateToTool, onNavigat
               {harmonies.map((scheme, sIdx) => (
                 <div key={sIdx} className="p-3 bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-700 rounded-xl">
                   <span className="block text-[10px] font-bold text-slate-500 uppercase mb-2 font-mono">{scheme.name}</span>
-                  <div className="grid grid-cols-5 gap-2">
+                  <div className="grid grid-cols-5 gap-1 sm:gap-2">
                     {scheme.hexCodes.map((hex, hexIdx) => (
                       <button
                         key={hexIdx}
