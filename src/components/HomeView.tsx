@@ -653,7 +653,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-8 sm:p-12 rounded-3xl shadow-sm">
             
             <div className="lg:col-span-12 space-y-4">
-              <span className="text-[10px] uppercase tracking-widest font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-950">
+              <span className="inline-flex w-auto items-center text-[10px] uppercase tracking-widest font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-950 mt-2.5 sm:mt-3">
                 Authorized Growth Framework
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white leading-tight">
