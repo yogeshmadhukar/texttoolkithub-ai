@@ -68,7 +68,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Column 2: Core Tools */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-amber-500 dark:text-amber-400 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5" /> Popular Utilities
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
@@ -88,17 +88,17 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Column 3: Corporate Info */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-blue-500 dark:text-blue-400 flex items-center gap-1.5">
               <HelpCircle className="w-3.5 h-3.5" /> Corporate Info
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
-                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors font-semibold text-indigo-600 dark:text-indigo-400" id="footer-link-tools">
+                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors" id="footer-link-tools">
                   Tools Directory
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('guides')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors font-semibold text-indigo-600 dark:text-indigo-400" id="footer-link-guides">
+                <button onClick={() => onNavigate('guides')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors" id="footer-link-guides">
                   Educational Guides
                 </button>
               </li>
@@ -122,7 +122,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Column 4: Legal Framework */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5">
               <Shield className="w-3.5 h-3.5" /> Legal Framework
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">

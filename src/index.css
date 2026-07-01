@@ -106,48 +106,20 @@ html.dark, body.dark {
 
 /* PREMIUM SAAS DARK THEME IMPLEMENTATION OVERRIDES (WCAG AA + ACCESSIBLITY) */
 
-/* Card theme depth mapping: Translate generic slate card class declarations to active theme #161F2F */
-.dark .bg-slate-950:not(.min-h-screen):not([id*="-page"]):not(main),
-.dark .dark\:bg-slate-950:not(.min-h-screen):not([id*="-page"]):not(main),
-.dark [class*="bg-white"]:not(html):not(body):not(header):not(nav):not(input):not(textarea):not(select):not(.bg-indigo-600):not(.min-h-screen):not([id*="-page"]):not(main) {
-  background-color: #161F2F !important;
+/* Fallback card mapping for dark mode: fallback for elements with explicit .bg-white that don't declare a custom dark bg */
+.dark .bg-white:not(.min-h-screen):not([id*="-page"]):not(main) {
+  background-color: #161F2F;
 }
 
-/* Sub-panels, custom headers, and secondary areas layout mappings */
-.dark .bg-slate-50,
-.dark .dark\:bg-slate-900,
-.dark .bg-slate-50\/50,
-.dark .bg-slate-50\/40,
-.dark .bg-slate-50\/30,
-.dark .bg-slate-50\/20,
-.dark .bg-slate-50\/10 {
-  background-color: #111827 !important;
+/* Fallback for slate-50 backgrounds without active dark bg overrides */
+.dark .bg-slate-50 {
+  background-color: #111827;
 }
 
-/* Reset page background templates to deepest rich dark slate #0B0F19 */
-.dark #word-counter-page,
-.dark #character-counter-page,
-.dark #remove-line-breaks-page,
-.dark #remove-extra-spaces-page,
-.dark #case-converter-page,
-.dark #text-compare-page,
-.dark #slug-generator-page,
-.dark #url-encoder-page,
-.dark #url-decoder-page,
-.dark #fancy-text-generator-page,
-.dark #html-encoder-page,
-.dark #html-decoder-page,
-.dark #base64-encoder-page,
-.dark #base64-decoder-page,
-.dark #text-sorter-page,
-.dark #text-reverser-page,
-.dark #grammar-checker-page,
-.dark #readability-checker-page,
-.dark #remove-duplicate-lines-page,
-.dark #keyword-density-checker-page,
+/* Standard page-level default dark mode container fallback */
 .dark .min-h-screen,
-.dark .relative.min-h-screen.bg-slate-50\/50.dark\:bg-slate-950 {
-  background-color: #0B0F19 !important;
+.dark main {
+  background-color: #0B0F19;
 }
 
 /* Perfecting inputs and textareas premium focus/contrast schemas */
@@ -155,45 +127,45 @@ html.dark, body.dark {
 .dark input[type="search"],
 .dark textarea,
 .dark select {
-  background-color: #111827 !important;
-  border-color: #253046 !important;
-  color: #F9FAFB !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
-  transition: border-color 200ms ease, box-shadow 200ms ease !important;
+  background-color: #111827;
+  border-color: #253046;
+  color: #F9FAFB;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .dark input[type="text"]:focus,
 .dark input[type="search"]:focus,
 .dark textarea:focus,
 .dark select:focus {
-  border-color: #3B82F6 !important;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
-  outline: none !important;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  outline: none;
 }
 
 /* Enhance form labels and descriptive text elements */
 .dark label,
-.dark .text-slate-500,
-.dark .text-slate-600 {
-  color: #94A3B8 !important; /* Premium muted text */
+.dark .text-slate-500:not(.text-indigo-600):not(.text-emerald-600),
+.dark .text-slate-600:not(.text-indigo-600):not(.text-emerald-600) {
+  color: #94A3B8; /* Premium muted text */
 }
 
 /* Enhance hover states for group components and catalog utility grids */
 .dark .group {
-  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease, box-shadow 200ms ease !important;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .dark .group:hover {
   transform: translateY(-4px);
-  border-color: #3B82F6 !important;
-  box-shadow: 0 12px 30px -10px rgba(37, 99, 235, 0.16) !important;
+  border-color: #3B82F6;
+  box-shadow: 0 12px 30px -10px rgba(37, 99, 235, 0.16);
 }
 
 /* Premium glassmorphic navigation header */
 .dark header {
-  border-bottom: 1px solid rgba(37, 48, 70, 0.8) !important;
-  background-color: rgba(11, 15, 25, 0.8) !important;
-  backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(37, 48, 70, 0.8);
+  background-color: rgba(11, 15, 25, 0.8);
+  backdrop-filter: blur(16px);
 }
 
 /* Accessibility Indicators for keyboard focus */
@@ -201,38 +173,38 @@ html.dark, body.dark {
 .dark button:focus-visible,
 .dark input:focus-visible,
 .dark textarea:focus-visible {
-  outline: 2px solid #3B82F6 !important;
-  outline-offset: 2px !important;
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
 }
 
 /* Elegant custom dropdowns style rules */
 .dark [id*="dropdown"],
 .dark [id*="menu"] {
-  background-color: #161F2F !important;
-  border-color: #253046 !important;
-  box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.5) !important;
+  background-color: #161F2F;
+  border-color: #253046;
+  box-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.5);
 }
 
 /* Backdrop blur overlay for modular popups */
 .dark-backdrop-blur {
   backdrop-filter: blur(8px);
-  background-color: rgba(11, 15, 25, 0.8) !important;
+  background-color: rgba(11, 15, 25, 0.8);
 }
 
-/* Soft transition support for elegant dark toggling */
-html, body, div, header, nav, section, footer {
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms ease !important;
+/* Soft transition support for elegant dark toggling without affecting layout performance or interactive animation frames */
+html, body, header, nav, footer, .theme-transition {
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms ease;
 }
 
 /* Active and Hover states of regular secondary dashboard buttons */
 .dark .border-slate-200.bg-slate-50 {
-  background-color: #111827 !important;
-  border-color: #253046 !important;
+  background-color: #111827;
+  border-color: #253046;
 }
 
 .dark .border-slate-200.bg-slate-50:hover {
-  border-color: #3B82F6 !important;
-  background-color: #161F2F !important;
+  border-color: #3B82F6;
+  background-color: #161F2F;
 }
 
 .dark button:active:not(:disabled) {
