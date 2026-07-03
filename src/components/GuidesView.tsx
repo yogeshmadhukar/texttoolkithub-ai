@@ -13,6 +13,8 @@ import { KeywordDensityGuideContent } from './KeywordDensityGuideContent';
 import { MessyOcrGuideContent } from './MessyOcrGuideContent';
 import { ReadabilityGuideContent } from './ReadabilityGuideContent';
 import { SecureBase64GuideContent } from './SecureBase64GuideContent';
+import { RegexGuideContent } from './RegexGuideContent';
+import { JwtGuideContent } from './JwtGuideContent';
 import { 
   BookOpen, 
   ArrowLeft, 
@@ -1396,5 +1398,66 @@ const articles: Article[] = [
       'URL-safe variants use hyphen (-) and underscore (_) characters to prevent routing breaks.'
     ],
     content: <SecureBase64GuideContent />
+  },
+  {
+    id: 'guide-regex-parsing-validation',
+    title: 'The Professional Guide to Regular Expressions (Regex) for Text Processing & Validation',
+    category: 'Developer Tools',
+    iconName: 'developer',
+    excerpt: 'Master regular expressions. From anchors and character classes to advanced non-backtracking patterns, negative lookarounds, and ReDoS prevention.',
+    readTime: '8 min read',
+    date: '2026-07-02',
+    author: 'TextToolkitHub Developer Advocacy',
+    authorRole: 'Senior Software Architecture Specialists',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'Regex Tester', id: 'tools/regex-tester' },
+      { title: 'Remove Special Characters', id: 'tools/remove-special-characters' }
+    ],
+    headings: [
+      { id: 'introduction', text: 'Executive Briefing' },
+      { id: 'theory', text: 'Deterministic vs. Non-Deterministic Automata' },
+      { id: 'syntax', text: 'Enterprise Syntax Reference Guide' },
+      { id: 'catastrophic-backtracking', text: 'Preventing ReDoS: Catastrophic Backtracking' },
+      { id: 'building-patterns', text: 'Step-by-Step ISO 8601 Date Validator' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'Regular expressions compile internally into finite automata graphs.',
+      'NFAs support lookarounds and backreferences but are susceptible to backtracking.',
+      'Always use anchor tokens (^ and $) to prevent pattern-matching bypass vulnerabilities.',
+      'Overlapping nested quantifiers trigger ReDoS and must be avoided at all costs.'
+    ],
+    content: <RegexGuideContent />
+  },
+  {
+    id: 'guide-jwt-security-architecture',
+    title: 'Demystifying JWTs: The Developer\'s Guide to JSON Web Tokens & Token-Based Authentication',
+    category: 'Developer Tools',
+    iconName: 'security',
+    excerpt: 'An in-depth security architectural guide exploring base64url serialization, symmetric (HS256) vs asymmetric (RS256) validation, and essential JWT security safeguards.',
+    readTime: '10 min read',
+    date: '2026-07-03',
+    author: 'TextToolkitHub Documentation Team',
+    authorRole: 'Security & Developer Advocacy',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'JWT Decoder', id: 'tools/jwt-decoder' },
+      { title: 'Base64 Decoder', id: 'tools/base64-decoder' }
+    ],
+    headings: [
+      { id: 'introduction', text: 'Executive Briefing' },
+      { id: 'jwt-structure', text: 'The Anatomy of a JWT' },
+      { id: 'jwt-algorithms', text: 'Symmetric (HS256) vs. Asymmetric (RS256)' },
+      { id: 'jwt-vulnerabilities', text: 'Top JWT Security Pitfalls & Remedies' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'JWTs are typically composed of three distinct segments separated by dot tokens.',
+      'Symmetric signing uses a single shared secret, while asymmetric uses RSA/ECDSA keypairs.',
+      'JWT payload information is only Base64URL-encoded, meaning it contains zero encryption.',
+      'Always enforce secure HttpOnly, SameSite cookie transport to prevent XSS-based hijacking.'
+    ],
+    content: <JwtGuideContent />
   }
 ];
