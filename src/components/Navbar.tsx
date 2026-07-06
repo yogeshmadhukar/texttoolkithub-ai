@@ -150,6 +150,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
   const websiteNews = [
     {
+      id: "news-milestone-58",
+      title: "58 Core Tools Hub Live!",
+      description: "TextToolkitHub has officially reached 58 fully custom, browser-native tools! Enjoy our brand-new utilities: Morse Code Translator Pro and List Randomizer & Raffle Picker, designed for high-performance translations, audio feedback, and beautiful collection shuffling.",
+      date: "2026-07-05",
+      category: "Website News"
+    },
+    {
       id: "news-legal-framework-2026",
       title: "New Legal & Copyright Framework Live",
       description: "We have updated our site's legal documentation and compliance standards! Review our completely customized, browser-native Cookie Policy and DMCA & Copyright Policy sections.",

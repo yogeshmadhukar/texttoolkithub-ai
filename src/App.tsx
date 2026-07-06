@@ -119,6 +119,8 @@ const ToolsDirectoryView = lazyWithRetry(() => import('./components/ToolsDirecto
 const HowToUseAccordion = lazyWithRetry(() => import('./components/HowToUseAccordion.tsx'));
 const GuidesView = lazyWithRetry(() => import('./components/GuidesView.tsx'));
 const LogoManagerView = lazyWithRetry(() => import('./components/LogoManagerView.tsx'));
+const MorseCodeTranslatorView = lazyWithRetry(() => import('./components/MorseCodeTranslatorView.tsx'));
+const ListRandomizerView = lazyWithRetry(() => import('./components/ListRandomizerView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -184,6 +186,8 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/html-formatter': () => import('./components/HtmlFormatterView.tsx'),
   'tools/text-to-binary': () => import('./components/TextToBinaryView.tsx'),
   'tools/json-xml-converter': () => import('./components/JsonXmlConverterView.tsx'),
+  'tools/morse-code-translator': () => import('./components/MorseCodeTranslatorView.tsx'),
+  'tools/list-randomizer': () => import('./components/ListRandomizerView.tsx'),
   'about': () => import('./components/AboutView.tsx'),
   'faq': () => import('./components/FaqView.tsx'),
   'security-faq': () => import('./components/SecurityFaqView.tsx'),
@@ -418,6 +422,13 @@ function resolveNormalizedPath(rawPath: string): { normalized: string; redirecte
     'uuid-guid-generator': 'tools/uuid-generator',
     'qr-code-generator': 'tools/qr-generator',
     'cron-expression-builder': 'tools/cron-builder',
+    'morse-code-translator': 'tools/morse-code-translator',
+    'morse-code': 'tools/morse-code-translator',
+    'morse': 'tools/morse-code-translator',
+    'list-randomizer': 'tools/list-randomizer',
+    'list-shuffler': 'tools/list-randomizer',
+    'shuffler': 'tools/list-randomizer',
+    'raffle-picker': 'tools/list-randomizer',
   };
 
   // Direct rule lookup (lowercase check)
@@ -1678,6 +1689,24 @@ export default function App() {
     if (activePage === 'tools/json-xml-converter' || activePage === 'json-xml-converter') {
       return (
         <JsonXmlConverterView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/morse-code-translator' || activePage === 'morse-code-translator') {
+      return (
+        <MorseCodeTranslatorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/list-randomizer' || activePage === 'list-randomizer') {
+      return (
+        <ListRandomizerView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

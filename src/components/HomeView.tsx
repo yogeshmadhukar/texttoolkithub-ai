@@ -47,7 +47,9 @@ import {
   Clock,
   QrCode,
   FileJson,
-  ArrowDownWideNarrow
+  ArrowDownWideNarrow,
+  Volume2,
+  Dice5
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -262,6 +264,8 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       case 'FileJson': return <FileJson className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'ArrowDownWideNarrow': return <ArrowDownWideNarrow className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'ShieldCheck': return <ShieldCheck className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
+      case 'Volume2': return <Volume2 className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
+      case 'Dice5': return <Dice5 className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       default: return <FileText className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
     }
   };

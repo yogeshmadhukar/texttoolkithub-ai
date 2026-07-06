@@ -649,6 +649,28 @@ export const TOOLS: Tool[] = [
     seoTitle: 'JSON to XML & XML to JSON Converter Online | Free Tool',
     seoDescription: 'Convert JSON files to formatted XML sheets or decode XML tags back into structured JSON objects instantly with our free offline bidirectional converter.',
     keywords: ['json to xml converter', 'xml to json converter', 'json to xml translator', 'xml to json parser', 'offline json xml converter', 'validate xml data'],
+  },
+  {
+    id: 'tools/morse-code-translator',
+    title: 'Morse Code Translator Pro',
+    description: 'Bidirectionally translate text to Morse code and decode Morse signals back to letters instantly with audio playbacks.',
+    longDescription: 'Translate standard written words into International Morse Code or decode pulse combination text blocks back to English characters. Fully adjust timing speed (WPM) limits, synthesize audio frequencies directly in-browser, and manage customized dots, dashes and spacing separators.',
+    iconName: 'Volume2',
+    category: 'encoding',
+    seoTitle: 'Morse Code Translator Online | Audio Player & Text Decoder',
+    seoDescription: 'Convert text to Morse code and decode Morse code back to readable text instantly. Play real-time audio beeps, configure custom symbols, and adjust WPM/pitch fully locally.',
+    keywords: ['morse code translator', 'morse code decoder', 'text to morse', 'morse to text', 'audio morse player', 'giveaway name picker'],
+  },
+  {
+    id: 'tools/list-randomizer',
+    title: 'List Randomizer & Picker',
+    description: 'Shuffle list rows, sort alphabetically, filter empty spaces, and pick random name raffle winners instantly.',
+    longDescription: 'A comprehensive suite for organizing, cleaning, and shuffling list data. Support for sorting alphabetically (A-Z/Z-A), removing duplicates/empty lines, adding dynamic row prefix/suffix formats, and drawing giveaway raffle winners with high-speed ticker rolling animations.',
+    iconName: 'Dice5',
+    category: 'generator',
+    seoTitle: 'List Randomizer Online | Name Picker & List Shuffler',
+    seoDescription: 'Shuffle lists, sort text rows, clean empty lines, and pick random name raffle winners instantly. A powerful offline-first toolkit for giveaways, content, and data sets.',
+    keywords: ['list randomizer', 'list shuffler', 'pick random name', 'raffle picker', 'giveaway winner drawer', 'sort lines online'],
   }
 ];
 
