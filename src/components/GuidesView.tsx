@@ -15,6 +15,8 @@ import { ReadabilityGuideContent } from './ReadabilityGuideContent';
 import { SecureBase64GuideContent } from './SecureBase64GuideContent';
 import { RegexGuideContent } from './RegexGuideContent';
 import { JwtGuideContent } from './JwtGuideContent';
+import { MarkdownGuideContent } from './MarkdownGuideContent';
+import { TtsGuideContent } from './TtsGuideContent';
 import { 
   BookOpen, 
   ArrowLeft, 
@@ -1459,5 +1461,66 @@ const articles: Article[] = [
       'Always enforce secure HttpOnly, SameSite cookie transport to prevent XSS-based hijacking.'
     ],
     content: <JwtGuideContent />
+  },
+  {
+    id: 'guide-markdown-tables-rendering',
+    title: 'The Masterclass Guide to Markdown Syntax & Dynamic Table Generation',
+    category: 'Content Authoring',
+    iconName: 'developer',
+    excerpt: 'Master Markdown formatting, GFM table design rules, and nested document structures while learning how to secure your parsing pipeline from XSS exploits.',
+    readTime: '8 min read',
+    date: '2026-07-04',
+    author: 'TextToolkitHub Documentation Team',
+    authorRole: 'Senior Technical Writers',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'Markdown Table Generator', id: 'tools/markdown-table-generator' },
+      { title: 'HTML Formatter', id: 'tools/html-formatter' }
+    ],
+    headings: [
+      { id: 'introduction', text: 'Executive Briefing' },
+      { id: 'specifications', text: 'CommonMark vs. GFM Parser Landscape' },
+      { id: 'syntax-guide', text: 'High-Fidelity Syntax Reference' },
+      { id: 'tables', text: 'Mastering Markdown Table Construction' },
+      { id: 'security', text: 'Preventing Markdown XSS Exploits' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'Markdown is designed to remain highly readable as plain text without compilation.',
+      'GitHub Flavored Markdown (GFM) builds on CommonMark to support tables and task checklists.',
+      'GFM tables utilize pipe (|) and hyphen (-) characters for structured alignments.',
+      'Always sanitize rendered Markdown output to eliminate persistent XSS script injections.'
+    ],
+    content: <MarkdownGuideContent />
+  },
+  {
+    id: 'guide-tts-speech-synthesis',
+    title: 'The Architecture of Modern Text-to-Speech (TTS) & Web Voice Synthesis',
+    category: 'Linguistics & Audio',
+    iconName: 'readability',
+    excerpt: 'An in-depth guide on Speech Synthesis Markup Language (SSML), phoneme mappings, browser-native SpeechSynthesis APIs, and multi-device voice profiles.',
+    readTime: '9 min read',
+    date: '2026-07-05',
+    author: 'TextToolkitHub Research & Linguistics',
+    authorRole: 'Audio & Speech Synthesizer Team',
+    authorAvatar: regeneratedImage1782726026127,
+    relatedTools: [
+      { title: 'Text to Speech', id: 'tools/text-to-speech' },
+      { title: 'Readability Checker', id: 'tools/readability-checker' }
+    ],
+    headings: [
+      { id: 'introduction', text: 'Executive Briefing' },
+      { id: 'synthesis-pipeline', text: 'The Auditory Synthesis Pipeline' },
+      { id: 'ssml', text: 'Speech Synthesis Markup Language (SSML)' },
+      { id: 'web-speech-api', text: 'Building with Browser-Native Web Speech APIs' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'Text-to-Speech translation acts in two primary steps: text processing and acoustic synthesis.',
+      'SSML provides XML-style control over vocal tone, pause duration, and phonetic accents.',
+      'The client-side Web Speech API facilitates zero-latency, private synthesis in-browser.',
+      'Break up lengthy textual runs to avoid chromium audio buffering glitches.'
+    ],
+    content: <TtsGuideContent />
   }
 ];
