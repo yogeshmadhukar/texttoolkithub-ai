@@ -24,6 +24,7 @@ export default function AdPlacement({
   className = '',
   adSlot
 }: AdPlacementProps) {
+  const [isReady, setIsReady] = useState(false);
   const [isAdBlockEnabled, setIsAdBlockEnabled] = useState(false);
   const adRef = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
@@ -38,34 +39,76 @@ export default function AdPlacement({
   useEffect(() => {
     if (initialized.current) return;
 
-    const pushAd = () => {
+    let observer: ResizeObserver | null = null;
+    let timerId: NodeJS.Timeout | null = null;
+
+    const checkWidth = () => {
+      const element = adRef.current;
+      if (!element) return;
+
+      const width = element.getBoundingClientRect().width || element.offsetWidth;
+      if (width > 0) {
+        setIsReady(true);
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+      }
+    };
+
+    // Use a ResizeObserver to wait until the ad container has a valid visible width before rendering the ad unit
+    if (typeof window !== 'undefined') {
+      if ('ResizeObserver' in window) {
+        observer = new ResizeObserver((entries) => {
+          for (const entry of entries) {
+            const w = entry.contentRect.width || entry.target.getBoundingClientRect().width;
+            if (w > 0) {
+              checkWidth();
+            }
+          }
+        });
+        if (adRef.current) {
+          observer.observe(adRef.current);
+        }
+      }
+
+      // Perform a direct immediate check
+      checkWidth();
+
+      // Safe delayed fallback check in case ResizeObserver isn't immediately triggered or supported
+      timerId = setTimeout(() => {
+        checkWidth();
+      }, 500);
+    }
+
+    return () => {
+      if (observer) (observer as ResizeObserver).disconnect();
+      if (timerId) clearTimeout(timerId);
+    };
+  }, [adSlot]);
+
+  // Once container reports a positive width, render the <ins> tag and trigger adsbygoogle push
+  useEffect(() => {
+    if (!isReady || initialized.current) return;
+
+    const pushTimer = setTimeout(() => {
+      if (initialized.current) return;
       try {
         if (typeof window !== 'undefined') {
           const adsbygoogle = (window as any).adsbygoogle;
           if (adsbygoogle) {
             adsbygoogle.push({});
             initialized.current = true;
-          } else {
-            // If window.adsbygoogle is not loaded yet, retry a bit later
-            const checkTimer = setTimeout(() => {
-              if ((window as any).adsbygoogle && !initialized.current) {
-                ((window as any).adsbygoogle).push({});
-                initialized.current = true;
-              }
-            }, 1000);
-            return () => clearTimeout(checkTimer);
           }
         }
       } catch (err) {
         console.warn('AdSense init warning (this is normal during local testing or if an ad blocker is enabled):', err);
         setIsAdBlockEnabled(true);
       }
-    };
+    }, 120);
 
-    // Delay initialization slightly to prevent React rendering race conditions
-    const timer = setTimeout(pushAd, 350);
-    return () => clearTimeout(timer);
-  }, [adSlot]);
+    return () => clearTimeout(pushTimer);
+  }, [isReady]);
 
   // Unified ca-pub identifier from the verification script
   const adClient = "ca-pub-5005679225743658";
@@ -86,14 +129,20 @@ export default function AdPlacement({
 
       {/* Real Google AdSense responsive tag */}
       <div className="w-full h-full flex items-center justify-center z-0">
-        <ins 
-          className="adsbygoogle"
-          style={{ display: 'block', width: '100%', height: '100%' }}
-          data-ad-client={adClient}
-          data-ad-slot={activeAdSlot}
-          data-ad-format={slot === 'leaderboard' ? 'horizontal' : 'rectangle'}
-          data-full-width-responsive="true"
-        />
+        {isReady && (
+          <ins 
+            className="adsbygoogle"
+            style={{ 
+              display: 'block', 
+              width: '100%', 
+              minHeight: slot === 'leaderboard' ? '90px' : '250px' 
+            }}
+            data-ad-client={adClient}
+            data-ad-slot={activeAdSlot}
+            data-ad-format={slot === 'leaderboard' ? 'horizontal' : 'rectangle'}
+            data-full-width-responsive="true"
+          />
+        )}
       </div>
 
       {/* Behind-the-ad background guide text - acts as placeholder during local dev, and stays behind in production */}
