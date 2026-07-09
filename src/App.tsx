@@ -1797,7 +1797,10 @@ export default function App() {
                 if (currentTool) {
                   return (
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                      <HowToUseAccordion toolId={currentTool.id} />
+                      <HowToUseAccordion 
+                        toolId={currentTool.id} 
+                        onNavigateToTool={(id) => handlePageNavigation(id)}
+                      />
                     </div>
                   );
                 }
@@ -1807,11 +1810,6 @@ export default function App() {
           </Suspense>
         </ErrorBoundary>
       </main>
-
-      {/* Policy-compliant, responsive leaderboard ad slot with preallocated spacing to enforce CLS:0 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
-        <AdPlacement slot="leaderboard" id="global-footer-lead" />
-      </div>
 
       {/* Universal footer brand segments */}
       <Footer onNavigate={handlePageNavigation} />

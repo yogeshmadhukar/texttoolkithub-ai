@@ -310,8 +310,47 @@ Writing blog drafts or corporate press articles can be stressful when characters
     setText(result);
   };
 
-  // Related Tools Recommendation List
-  const relatedTools = TOOLS.filter(t => t.id !== toolId).slice(0, 3);
+  // Related Tools Recommendation List - Built strategically for SEO internal linking & PageRank flow
+  const getRelatedToolsForSEO = (): Tool[] => {
+    const SPECIFIC_RELATIONS: Record<string, string[]> = {
+      'tools/readability-checker': ['tools/grammar-checker', 'tools/word-counter', 'tools/keyword-density-checker'],
+      'tools/grammar-checker': ['tools/readability-checker', 'tools/word-counter', 'tools/keyword-density-checker'],
+      'tools/word-counter': ['tools/character-counter', 'tools/sentence-counter', 'tools/readability-checker'],
+      'tools/character-counter': ['tools/word-counter', 'tools/sentence-counter', 'tools/keyword-density-checker'],
+      'tools/sentence-counter': ['tools/word-counter', 'tools/character-counter', 'tools/readability-checker'],
+      'tools/keyword-density-checker': ['tools/word-counter', 'tools/character-counter', 'tools/readability-checker'],
+      'tools/remove-line-breaks': ['tools/remove-extra-spaces', 'tools/remove-empty-lines', 'tools/remove-duplicate-lines'],
+      'tools/remove-extra-spaces': ['tools/remove-line-breaks', 'tools/remove-empty-lines', 'tools/remove-duplicate-lines'],
+      'tools/remove-duplicate-lines': ['tools/remove-empty-lines', 'tools/remove-extra-spaces', 'tools/remove-line-breaks'],
+      'tools/remove-empty-lines': ['tools/remove-duplicate-lines', 'tools/remove-extra-spaces', 'tools/remove-line-breaks'],
+      'tools/case-converter': ['tools/case-converter-pro', 'tools/lorem-ipsum-generator', 'tools/random-text-generator'],
+      'tools/case-converter-pro': ['tools/case-converter', 'tools/lorem-ipsum-generator', 'tools/random-text-generator'],
+      'tools/lorem-ipsum-generator': ['tools/random-text-generator', 'tools/case-converter', 'tools/case-converter-pro'],
+      'tools/random-text-generator': ['tools/lorem-ipsum-generator', 'tools/case-converter', 'tools/case-converter-pro'],
+    };
+
+    const specificIds = SPECIFIC_RELATIONS[tool.id];
+    let list: Tool[] = [];
+    if (specificIds) {
+      list = specificIds
+        .map(id => TOOLS.find(t => t.id === id))
+        .filter((t): t is Tool => !!t);
+    }
+
+    if (list.length < 3) {
+      const sameCategory = TOOLS.filter(t => t.id !== tool.id && t.category === tool.category && !list.some(existing => existing.id === t.id));
+      list = [...list, ...sameCategory];
+    }
+
+    if (list.length < 3) {
+      const otherTools = TOOLS.filter(t => t.id !== tool.id && !list.some(existing => existing.id === t.id));
+      list = [...list, ...otherTools];
+    }
+
+    return list.slice(0, 3);
+  };
+
+  const relatedTools = getRelatedToolsForSEO();
 
   // Icon mapping
   const getToolIconElement = (name: string, sizeClass = "w-5 h-5") => {
@@ -350,7 +389,7 @@ Writing blog drafts or corporate press articles can be stressful when characters
       {/* Decorative Glow background */}
       <div className="glow-accent top-10 right-20"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 lg:py-8">
         
         {/* Navigation Breadcrumb */}
         <div className="flex flex-wrap items-center gap-2 mb-6">
@@ -989,14 +1028,14 @@ Writing blog drafts or corporate press articles can be stressful when characters
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedTools.map((relTool) => (
-              <div
+              <a
                 key={relTool.id}
+                href={`/${relTool.id.startsWith('tools/') ? relTool.id.substring(6) : relTool.id}`}
                 onClick={() => {
                   setText('');
                   setHistory('');
-                  onNavigateToTool(relTool.id);
                 }}
-                className="group border border-slate-200 dark:border-slate-850 rounded-2xl p-5 bg-white dark:bg-slate-950 hover:border-indigo-500/30 dark:hover:border-indigo-400/30 cursor-pointer transition-all duration-200"
+                className="group border border-slate-200 dark:border-slate-850 rounded-2xl p-5 bg-white dark:bg-slate-950 hover:border-indigo-500/30 dark:hover:border-indigo-400/30 cursor-pointer transition-all duration-200 block"
                 id={`rel-tool-${relTool.id}`}
               >
                 <div className="flex items-center gap-3.5 mb-3">
@@ -1010,7 +1049,7 @@ Writing blog drafts or corporate press articles can be stressful when characters
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
                   {relTool.description}
                 </p>
-              </div>
+              </a>
             ))}
           </div>
         </section>

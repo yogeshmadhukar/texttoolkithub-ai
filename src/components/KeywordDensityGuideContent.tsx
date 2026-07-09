@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const KeywordDensityGuideContent: React.FC = () => {
+export const KeywordDensityGuideContent: React.FC<{ onNavigateToTool?: (toolId: string) => void }> = ({ onNavigateToTool }) => {
   return (
     <>
       {/* Premium Badge / Introduction Section */}
@@ -113,6 +113,23 @@ export const KeywordDensityGuideContent: React.FC = () => {
       <p className="leading-relaxed text-slate-650 dark:text-slate-350">
         In general, for long-form content, aim to include your primary target keyword <strong>1 to 2 times per 100 words</strong> of text. If you find yourself needing to repeat the keyword more frequently, you are likely writing unnatural sentences that will frustrate readers and degrade engagement.
       </p>
+
+      {/* USE THIS TOOL CALLOUT */}
+      <div className="my-8 p-6 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl text-white shadow-lg shadow-emerald-600/15 flex flex-col md:flex-row items-center justify-between gap-6 select-none">
+        <div className="space-y-1.5 text-center md:text-left">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest bg-white/20 px-2.5 py-1 rounded-full text-white">Interactive Utility</span>
+          <h3 className="text-base font-bold font-sans text-white">Verify Keyword Density Safely</h3>
+          <p className="text-xs text-emerald-100 leading-relaxed max-w-xl">
+            Protect your content against unnatural stuffing penalties. Our 100% private, client-side Keyword Density Checker lists single-word and multi-word phrases instantly.
+          </p>
+        </div>
+        <a
+          href="/keyword-density-checker"
+          className="px-5 py-3 bg-white hover:bg-slate-50 text-emerald-750 rounded-xl text-xs font-bold tracking-wide transition shadow-md whitespace-nowrap self-stretch md:self-auto text-center cursor-pointer"
+        >
+          Open Keyword Density Checker &rarr;
+        </a>
+      </div>
 
       {/* SECTION 4: KEYWORD DENSITY VS SEMANTIC SEO */}
       <h2 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mt-10 mb-4 font-sans border-b border-slate-100 dark:border-slate-850 pb-2" id="semantic-seo">Keyword Density vs. Semantic SEO and NLP</h2>
@@ -339,6 +356,32 @@ export function analyzeTermFrequency(rawText: string): TermFrequency[] {
             A: For meta tags (such as your SEO Title and Meta Description), target a high-relevance, natural-sounding placement rather than density. Include your primary keyword once near the beginning of your SEO Title (under 60 characters) and once naturally in your Meta Description (under 160 characters) to maximize your organic click-through rate.
           </p>
         </div>
+      </div>
+
+      {/* RELATED EDUCATIONAL GUIDES */}
+      <h2 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mt-10 mb-4 font-sans border-b border-slate-100 dark:border-slate-850 pb-2">Related Educational Guides</h2>
+      <p className="leading-relaxed text-slate-650 dark:text-slate-350 mb-6">
+        Continue your strategic optimization training with our companion copywriting and data sanitization handbooks:
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+        <a
+          href="/guides/guide-readability-formulas"
+          className="p-5 bg-white dark:bg-[#111622] hover:bg-slate-50 dark:hover:bg-slate-850/50 border border-slate-200 dark:border-slate-800 rounded-xl text-left group transition duration-200 shadow-sm cursor-pointer block"
+        >
+          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-1">Content Analytics</span>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+            Flesch Reading Ease vs. Flesch-Kincaid: Demystifying Readability Formulas &rarr;
+          </h4>
+        </a>
+        <a
+          href="/guides/guide-messy-ocr-pdf"
+          className="p-5 bg-white dark:bg-[#111622] hover:bg-slate-50 dark:hover:bg-slate-850/50 border border-slate-200 dark:border-slate-800 rounded-xl text-left group transition duration-200 shadow-sm cursor-pointer block"
+        >
+          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-1">Content Cleaning</span>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+            How to Repair Messy OCR and PDF Clipboard Layouts Instantly &rarr;
+          </h4>
+        </a>
       </div>
 
       {/* SECTION 10: SUMMARY & CHECKLIST */}

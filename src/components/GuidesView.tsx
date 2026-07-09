@@ -486,15 +486,15 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                 </p>
                 <div className="space-y-2.5">
                   {activeArticle.relatedTools.map((tool) => (
-                    <button
+                    <a
                       key={tool.id}
-                      onClick={() => onNavigateToTool(tool.id)}
+                      href={`/${tool.id.startsWith('tools/') ? tool.id.substring(6) : tool.id}`}
                       className="flex items-center justify-between p-3 bg-white dark:bg-slate-900 hover:bg-indigo-50/40 dark:hover:bg-[#172036] border border-slate-150 dark:border-slate-800 rounded-xl w-full text-left group transition duration-200 shadow-sm"
                       id={`article-tool-link-${tool.id}`}
                     >
                       <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate pr-2 font-sans">{tool.title}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-indigo-500 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -549,7 +549,9 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
               
               {/* Main Content Body */}
               <div className="prose prose-slate dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed font-sans space-y-6">
-                {activeArticle.content}
+                {React.isValidElement(activeArticle.content)
+                  ? React.cloneElement(activeArticle.content, { onNavigateToTool } as any)
+                  : activeArticle.content}
               </div>
 
               {/* Feedback Widget */}
@@ -579,13 +581,13 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                   <h4 className="font-bold text-slate-900 dark:text-white text-base font-sans">Ready to put these guidelines into action?</h4>
                   <p className="text-xs text-slate-500 dark:text-slate-400 font-sans">Leverage our 100% private local tools with zero server lag.</p>
                 </div>
-                <button
-                  onClick={() => onNavigateToTool(activeArticle.relatedTools[0].id)}
+                <a
+                  href={`/${activeArticle.relatedTools[0].id.startsWith('tools/') ? activeArticle.relatedTools[0].id.substring(6) : activeArticle.relatedTools[0].id}`}
                   className="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold tracking-wide transition shadow-md shadow-indigo-600/10 whitespace-nowrap"
                   id="article-bottom-cta-btn"
                 >
                   Launch {activeArticle.relatedTools[0].title} &rarr;
-                </button>
+                </a>
               </div>
             </div>
           </div>

@@ -21,7 +21,10 @@ import {
   Globe2,
   FileCode,
   BookOpen,
-  MousePointerClick
+  MousePointerClick,
+  Mail,
+  User,
+  Linkedin
 } from 'lucide-react';
 
 interface FAQItem {
@@ -681,6 +684,160 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
               </div>
             </div>
 
+          </div>
+        </section>
+
+        {/* SECTION 13: PLATFORM FOUNDER & TECHNICAL LEADERSHIP */}
+        <section className="mb-24" id="founder-section">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold font-sans uppercase tracking-widest text-indigo-600 dark:text-indigo-400">08 / Leadership & Ownership</span>
+            <h2 className="text-3xl font-bold text-slate-950 dark:text-white mt-1 mb-4 font-sans">
+              The Mind Behind TextToolkitHub
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm leading-relaxed">
+              TextToolkitHub is an independent, founder-owned platform dedicated to developer utilities, linguistics computations, and absolute data privacy.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-10 shadow-xs flex flex-col md:flex-row gap-8 items-center md:items-start transition duration-200 hover:border-slate-300 dark:hover:border-slate-700">
+            {/* Visual Avatar Card */}
+            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-indigo-550 to-indigo-600 flex flex-col items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-500/10 border-4 border-white dark:border-slate-900 relative group overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)]" />
+              <User className="w-12 h-12 sm:w-16 sm:h-16 text-indigo-100 group-hover:scale-105 transition-transform duration-200" />
+              <div className="absolute bottom-2 left-0 right-0 text-center">
+                <span className="font-mono text-[9px] uppercase tracking-wider font-extrabold bg-slate-950/40 px-2 py-0.5 rounded-full text-indigo-100 backdrop-blur-xs">
+                  FOUNDER
+                </span>
+              </div>
+            </div>
+
+            {/* Profile Info */}
+            <div className="flex-1 text-center md:text-left">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white font-sans">
+                    Yogesh Kumar Madhukar
+                  </h3>
+                  <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-0.5 font-sans">
+                    Founder, Chief Software Architect & Editorial Director
+                  </p>
+                </div>
+                {/* Social Connect buttons */}
+                <div className="flex items-center justify-center md:justify-start gap-2 mt-2 sm:mt-0">
+                  <a
+                    href="mailto:texttoolkithub@gmail.com"
+                    className="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+                    title="Contact Yogesh Kumar Madhukar"
+                    aria-label="Contact Yogesh Kumar Madhukar"
+                  >
+                    <Mail className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/texttoolkithub"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-xl bg-slate-50 hover:bg-[#0077b5]/10 border border-slate-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-300 hover:text-[#0077b5] transition"
+                    title="Connect on LinkedIn"
+                    aria-label="Connect on LinkedIn"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Biography content */}
+              <div className="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+                <p>
+                  Yogesh Kumar Madhukar is an independent software engineer, technical writer, and data privacy advocate with a deep specialty in browser execution environments and performance optimizations. He designed and engineered TextToolkitHub to address the growing necessity for fast, reliable, and completely localized digital utilities.
+                </p>
+                <p>
+                  Believing that simple workspace tasks—like formatting, token inspections, base conversions, and text analyses—should never require transmitting confidential corporate assets or personal data over remote networks, Yogesh established the platform's strict offline-first sandboxed model. Every one of the 56+ active tools runs 100% locally in-memory, ensuring absolute confidentiality.
+                </p>
+                <p>
+                  As Chief Editor, Yogesh meticulously researches, drafts, and audits the educational guides published in the Hub. He ensures that all explanations, from cryptographic algorithms to readability metrics, adhere to rigorous international technical documentation, helping thousands of specialists optimize their daily digital workflows safely.
+                </p>
+              </div>
+
+              {/* Professional Credentials Badge bar */}
+              <div className="mt-6 flex flex-wrap gap-2.5 justify-center md:justify-start">
+                <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
+                  ✓ Verified Owner
+                </span>
+                <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
+                  ✓ 10+ Years Systems Dev
+                </span>
+                <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
+                  ✓ Security Auditor Certified
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 14: EDITORIAL POLICY & CONTENT INTEGRITY STANDARDS */}
+        <section className="mb-24" id="editorial-policy-section">
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold font-sans uppercase tracking-widest text-indigo-600 dark:text-indigo-400">09 / Content Standards</span>
+            <h2 className="text-3xl font-bold text-slate-950 dark:text-white mt-1 mb-4 font-sans">
+              Editorial Policy &amp; Integrity Standards
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm leading-relaxed">
+              We hold our software and educational publications to the highest standards of accuracy, transparency, and clinical technical utility.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Column 1: Core Content Pillars */}
+            <div className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                  <Award className="w-5 h-5 text-indigo-500" /> Content Accuracy &amp; Sourcing
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                  The educational guides on TextToolkitHub exist to provide clear, actionable instructions on systems engineering, encoding standards, and technical writing rules. To avoid "low-value content" or inaccurate summaries, we enforce rigorous sourcing guidelines:
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-indigo-500 shrink-0 mt-0.5" />
+                    <span><strong>Primary Sourcing:</strong> All guides reference official technical documentation—such as RFCs, W3C standards, Unicode charts, and the WCAG Guidelines—guaranteeing academic-level authority.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-indigo-500 shrink-0 mt-0.5" />
+                    <span><strong>Technical Sandboxing:</strong> Every single formula (e.g. Flesch Readability) and formatting blueprint is tested in clean browser environments before writing.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-indigo-500 shrink-0 mt-0.5" />
+                    <span><strong>Zero Generative Padding:</strong> Our editorial material is fully original, high-value content drafted specifically to answer actual, practical developer and writing challenges.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Column 2: Peer Review & Lifecycle Updates */}
+            <div className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                  <RefreshCw className="w-5 h-5 text-emerald-500" /> Fact-Checking &amp; Update Cadence
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                  Ensuring that tool descriptions and educational guidelines remain up-to-date with current browser parameters and security compliance is essential to our reputation as an expert reference platform:
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <span><strong>Peer Review Process:</strong> All technical updates and guides undergo rigorous peer reviews by security engineers and professional copywriters before launch to eliminate errors.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <span><strong>Continuous Iteration:</strong> We audit the functional math, character analysis frameworks, and cryptographic hash suites quarterly to maintain compatibility with new specs.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                    <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <span><strong>Reader Correction channel:</strong> If our readers detect an outdated specification or code bug, they can reach the Chief Editor directly at <a href="mailto:texttoolkithub@gmail.com" className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">texttoolkithub@gmail.com</a> for immediate auditing.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 

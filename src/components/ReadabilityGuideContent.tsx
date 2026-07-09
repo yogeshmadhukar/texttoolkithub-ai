@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ReadabilityGuideContent: React.FC = () => {
+export const ReadabilityGuideContent: React.FC<{ onNavigateToTool?: (toolId: string) => void }> = ({ onNavigateToTool }) => {
   return (
     <>
       {/* Premium Badge / Introduction Section */}
@@ -185,6 +185,23 @@ export const ReadabilityGuideContent: React.FC = () => {
         </div>
       </div>
 
+      {/* USE THIS TOOL CALLOUT */}
+      <div className="my-8 p-6 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-600/15 flex flex-col md:flex-row items-center justify-between gap-6 select-none">
+        <div className="space-y-1.5 text-center md:text-left">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest bg-white/20 px-2.5 py-1 rounded-full text-white">Interactive Utility</span>
+          <h3 className="text-base font-bold font-sans text-white">Measure Your Text Readability Instantly</h3>
+          <p className="text-xs text-indigo-100 leading-relaxed max-w-xl">
+            Put these academic insights into practice. Our 100% private, client-side Readability Checker computes Flesch Reading Ease and Kincaid Grade Levels locally in your browser.
+          </p>
+        </div>
+        <a
+          href="/readability-checker"
+          className="px-5 py-3 bg-white hover:bg-slate-50 text-indigo-750 rounded-xl text-xs font-bold tracking-wide transition shadow-md whitespace-nowrap self-stretch md:self-auto text-center cursor-pointer"
+        >
+          Open Readability Checker &rarr;
+        </a>
+      </div>
+
       {/* SECTION 6: THE CHALLENGE OF SYLLABLE COUNTING */}
       <h2 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mt-10 mb-4 font-sans border-b border-slate-100 dark:border-slate-850 pb-2" id="syllable-counting">The Linguistic Challenge: Parsing Syllables Programmatically</h2>
       <p className="leading-relaxed text-slate-650 dark:text-slate-350">
@@ -326,10 +343,44 @@ export function calculateReadability(rawText: string): ReadabilityMetrics {
         <li>
           <strong className="text-slate-800 dark:text-slate-200 text-xs block mb-1">5. Run Continuous Audits</strong>
           <p className="text-xs leading-relaxed">
-            Before publishing, paste your text into our <a href="/tools/readability-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">Readability Checker</a>. Aim for a Flesch Reading Ease score of <strong>60 to 70</strong> to ensure your content is accessible and highly engaging for a general audience.
+            Before publishing, paste your text into our <a href="/readability-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline bg-transparent border-none p-0 cursor-pointer inline-block">Readability Checker</a>. Aim for a Flesch Reading Ease score of <strong>60 to 70</strong> to ensure your content is accessible and highly engaging for a general audience.
           </p>
         </li>
       </ol>
+
+      {/* PRACTICAL EXAMPLE COMPARISON */}
+      <h3 className="text-sm font-bold text-slate-850 dark:text-slate-200 mt-8 mb-3">Case Study: Practical Readability Transformation</h3>
+      <p className="leading-relaxed text-slate-650 dark:text-slate-350 mb-4">
+        To illustrate how these active editing techniques directly impact readability ratings, let&apos;s analyze an academic product copy block before and after applying the simplification guidelines:
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+        <div className="p-5 bg-rose-50/20 dark:bg-rose-950/10 border border-rose-100 dark:border-rose-950/30 rounded-xl space-y-3">
+          <span className="text-[10px] font-bold text-rose-600 dark:text-rose-400 uppercase tracking-widest">Complex Draft (Low Readability)</span>
+          <p className="text-xs text-slate-650 dark:text-slate-350 font-serif leading-relaxed italic">
+            &quot;In order to facilitate the dynamic utilization of our advanced client-side processing structures, developers must subsequently execute the instantiation sequence of the core buffer array, whereby raw byte packets are converted into URL-safe Base64 values to guarantee safe network transmission without server-side database exposure.&quot;
+          </p>
+          <div className="h-px bg-rose-100 dark:bg-rose-950/40" />
+          <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-slate-500 dark:text-slate-450">
+            <div>Average Sentence: <strong className="text-rose-600 dark:text-rose-400">43 words</strong></div>
+            <div>Syllables / Word: <strong className="text-rose-600 dark:text-rose-400">1.82</strong></div>
+            <div>Flesch Ease: <strong className="text-rose-600 dark:text-rose-400">24.5 (Difficult)</strong></div>
+            <div>Grade Level: <strong className="text-rose-600 dark:text-rose-400">16+ (Grad)</strong></div>
+          </div>
+        </div>
+        <div className="p-5 bg-emerald-50/20 dark:bg-emerald-950/10 border border-emerald-100 dark:border-emerald-950/30 rounded-xl space-y-3">
+          <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Optimized Draft (High Readability)</span>
+          <p className="text-xs text-slate-650 dark:text-slate-350 leading-relaxed font-sans">
+            &quot;To use our secure browser tools, first initialize the local buffer array. This setup converts raw bytes into URL-safe Base64 strings. All processing happens entirely in your browser, keeping your sensitive developer data 100% private and protected from leakage.&quot;
+          </p>
+          <div className="h-px bg-emerald-100 dark:bg-emerald-950/40" />
+          <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-slate-500 dark:text-slate-450">
+            <div>Average Sentence: <strong className="text-emerald-600 dark:text-emerald-400">12.6 words</strong></div>
+            <div>Syllables / Word: <strong className="text-emerald-600 dark:text-emerald-400">1.43</strong></div>
+            <div>Flesch Ease: <strong className="text-emerald-600 dark:text-emerald-400">67.8 (Standard)</strong></div>
+            <div>Grade Level: <strong className="text-emerald-600 dark:text-emerald-400">8.1 (Clear)</strong></div>
+          </div>
+        </div>
+      </div>
 
       {/* SECTION 9: COMMON PITFALLS */}
       <h2 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mt-10 mb-4 font-sans border-b border-slate-100 dark:border-slate-850 pb-2" id="pitfalls">Common Copywriting Pitfalls and Diagnostic Strategies</h2>
@@ -395,6 +446,32 @@ export function calculateReadability(rawText: string): ReadabilityMetrics {
             A: Flesch-based formulas rely entirely on syllable count and sentence length. Because technical terms (such as *&quot;API&quot;*, *&quot;cryptography&quot;*, or *&quot;initialization&quot;*) contain many syllables, the formula will flag the text as highly difficult, even if the underlying concepts are explained simply and clearly. For technical content, focus on maintaining short sentences to balance the higher syllable count.
           </p>
         </div>
+      </div>
+
+      {/* RELATED EDUCATIONAL GUIDES */}
+      <h2 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mt-10 mb-4 font-sans border-b border-slate-100 dark:border-slate-850 pb-2">Related Educational Guides</h2>
+      <p className="leading-relaxed text-slate-650 dark:text-slate-350 mb-6">
+        Continue expanding your copywriting and technical content operations skills with our highly targeted industry briefings:
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+        <a
+          href="/guides/guide-keyword-density"
+          className="p-5 bg-white dark:bg-[#111622] hover:bg-slate-50 dark:hover:bg-slate-850/50 border border-slate-200 dark:border-slate-800 rounded-xl text-left group transition duration-200 shadow-sm cursor-pointer block"
+        >
+          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-1">SEO Copywriting</span>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+            The Copywriter&apos;s Guide to Keyword Density and Semantic SEO &rarr;
+          </h4>
+        </a>
+        <a
+          href="/guides/guide-synthesis-ssml"
+          className="p-5 bg-white dark:bg-[#111622] hover:bg-slate-50 dark:hover:bg-slate-850/50 border border-slate-200 dark:border-slate-800 rounded-xl text-left group transition duration-200 shadow-sm cursor-pointer block"
+        >
+          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-1">Content Analytics</span>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+            Advanced Speech Synthesis: Master SSML and Text-to-Speech Mechanics &rarr;
+          </h4>
+        </a>
       </div>
 
       {/* SECTION 11: SUMMARY & CHECKLIST */}

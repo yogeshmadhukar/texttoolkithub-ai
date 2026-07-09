@@ -451,7 +451,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </div>
 
       {/* 1. HERO SECTION */}
-      <section className="relative pt-20 pb-16 md:pt-28 md:pb-24 text-center z-20">
+      <section className="relative pt-14 pb-10 md:pt-20 md:pb-16 text-center z-20">
         <motion.div 
           variants={heroContainerVariants}
           initial="hidden"
@@ -681,7 +681,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </div>
 
       {/* 3.5 CENTRAL EDITORIAL MISSION & TARGET AUDIENCE BLUEPRINT */}
-      <section className="py-16 bg-slate-50/10 dark:bg-slate-950/20 border-b border-slate-200 dark:border-slate-850 z-10 relative">
+      <section className="py-10 md:py-14 bg-slate-50/10 dark:bg-slate-950/20 border-b border-slate-200 dark:border-slate-850 z-10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-8 sm:p-12 rounded-3xl shadow-sm space-y-10">
             
@@ -713,7 +713,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                   </div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-xs">Writers & Content Creators</h4>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-                    Polish essays, novels, and copy drafts locally. Utilize our <button onClick={() => onNavigateToTool('tools/word-counter')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Word Counter</button> and <button onClick={() => onNavigateToTool('tools/readability-checker')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Readability Checker</button> to audit sentence density and improve clarity scores dynamically.
+                    Polish essays, novels, and copy drafts locally. Utilize our <a href="/word-counter" className="font-bold text-indigo-500 hover:underline cursor-pointer">Word Counter</a> and <a href="/readability-checker" className="font-bold text-indigo-500 hover:underline cursor-pointer">Readability Checker</a> to audit sentence density and improve clarity scores dynamically.
                   </p>
                 </div>
 
@@ -723,7 +723,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                   </div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-xs">Developers & DevOps Engineers</h4>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-                    Validate system keys and transform variables securely. Code with our zero-knowledge <button onClick={() => onNavigateToTool('tools/jwt-decoder')} className="font-bold text-indigo-500 hover:underline cursor-pointer">JWT Decoder</button>, <button onClick={() => onNavigateToTool('tools/unix-timestamp-converter')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Unix Timestamp Converter</button>, and high-performance offline hashing engines.
+                    Validate system keys and transform variables securely. Code with our zero-knowledge <a href="/jwt-decoder" className="font-bold text-indigo-500 hover:underline cursor-pointer">JWT Decoder</a>, <a href="/unix-timestamp-converter" className="font-bold text-indigo-500 hover:underline cursor-pointer">Unix Timestamp Converter</a>, and high-performance offline hashing engines.
                   </p>
                 </div>
 
@@ -733,7 +733,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                   </div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-xs">SEO & Marketing Specialists</h4>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-                    Optimize content snippets for maximum visual click-through rates. Generate clean paths with our <button onClick={() => onNavigateToTool('tools/slug-generator')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Slug Generator</button> and check key densities with the <button onClick={() => onNavigateToTool('tools/keyword-density-checker')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Keyword Density Checker</button>.
+                    Optimize content snippets for maximum visual click-through rates. Generate clean paths with our <a href="/slug-generator" className="font-bold text-indigo-500 hover:underline cursor-pointer">Slug Generator</a> and check key densities with the <a href="/keyword-density-checker" className="font-bold text-indigo-500 hover:underline cursor-pointer">Keyword Density Checker</a>.
                   </p>
                 </div>
 
@@ -743,7 +743,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                   </div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-xs">Students & Academics</h4>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-                    Sanitize and structure reference datasets for papers. Clean messy text blocks using our <button onClick={() => onNavigateToTool('tools/remove-duplicate-lines')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Remove Duplicate Lines</button> tool and sort data lines instantly.
+                    Sanitize and structure reference datasets for papers. Clean messy text blocks using our <a href="/remove-duplicate-lines" className="font-bold text-indigo-500 hover:underline cursor-pointer">Remove Duplicate Lines</a> tool and sort data lines instantly.
                   </p>
                 </div>
               </div>
@@ -773,7 +773,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* 3.6 FEATURED EDUCATIONAL GUIDES SECTION */}
-      <section className="py-16 bg-slate-50/30 dark:bg-slate-950/10 border-b border-slate-205 dark:border-slate-855 z-10 relative" id="featured-guides-section">
+      <section className="py-10 md:py-14 bg-slate-50/30 dark:bg-slate-950/10 border-b border-slate-205 dark:border-slate-855 z-10 relative" id="featured-guides-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
@@ -789,17 +789,14 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
               </p>
             </div>
             
-            <button 
-              onClick={() => {
-                window.history.pushState({}, '', '/guides');
-                onNavigateToTool('guides');
-              }}
+            <a 
+              href="/guides"
               className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 group cursor-pointer"
               id="btn-all-guides"
             >
               Access Complete Guides Library
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
           </div>
 
           {/* Guides Grid */}
@@ -843,30 +840,27 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 <div>
                   <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-405 dark:text-slate-500 block mb-2">Practice Tools:</span>
                   <div className="flex flex-wrap gap-2">
-                    <button 
-                      onClick={() => onNavigateToTool('tools/contrast-checker')}
+                    <a 
+                      href="/contrast-checker"
                       className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
                     >
                       Contrast Checker
-                    </button>
-                    <button 
-                      onClick={() => onNavigateToTool('tools/readability-checker')}
+                    </a>
+                    <a 
+                      href="/readability-checker"
                       className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
                     >
                       Readability Checker
-                    </button>
+                    </a>
                   </div>
                 </div>
 
-                <button 
-                  onClick={() => {
-                    window.history.pushState({}, '', '/guides/guide-wcag-contrast-standards');
-                    onNavigateToTool('guides');
-                  }}
-                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer"
+                <a 
+                  href="/guides/guide-wcag-contrast-standards"
+                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer block text-center"
                 >
                   Read Technical Guide &rarr;
-                </button>
+                </a>
               </div>
             </div>
 
@@ -908,30 +902,27 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 <div>
                   <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-405 dark:text-slate-500 block mb-2">Practice Tools:</span>
                   <div className="flex flex-wrap gap-2">
-                    <button 
-                      onClick={() => onNavigateToTool('tools/regex-tester')}
+                    <a 
+                      href="/regex-tester"
                       className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
                     >
                       Regex Tester
-                    </button>
-                    <button 
-                      onClick={() => onNavigateToTool('tools/contact-extractor')}
+                    </a>
+                    <a 
+                      href="/contact-extractor"
                       className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
                     >
                       Email Extractor
-                    </button>
+                    </a>
                   </div>
                 </div>
 
-                <button 
-                  onClick={() => {
-                    window.history.pushState({}, '', '/guides/guide-regular-expression-mastery');
-                    onNavigateToTool('guides');
-                  }}
-                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer"
+                <a 
+                  href="/guides/guide-regular-expression-mastery"
+                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer block text-center"
                 >
                   Read Technical Guide &rarr;
-                </button>
+                </a>
               </div>
             </div>
 
@@ -973,30 +964,27 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 <div>
                   <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-405 dark:text-slate-500 block mb-2">Practice Tools:</span>
                   <div className="flex flex-wrap gap-2">
-                    <button 
-                      onClick={() => onNavigateToTool('tools/word-counter')}
+                    <a 
+                      href="/word-counter"
                       className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
                     >
                       Word Counter
-                    </button>
-                    <button 
-                      onClick={() => onNavigateToTool('tools/character-counter')}
+                    </a>
+                    <a 
+                      href="/character-counter"
                       className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
                     >
                       Char Counter
-                    </button>
+                    </a>
                   </div>
                 </div>
 
-                <button 
-                  onClick={() => {
-                    window.history.pushState({}, '', '/guides/guide-word-counting-tokenization');
-                    onNavigateToTool('guides');
-                  }}
-                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer"
+                <a 
+                  href="/guides/guide-word-counting-tokenization"
+                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer block text-center"
                 >
                   Read Technical Guide &rarr;
-                </button>
+                </a>
               </div>
             </div>
 
@@ -1005,7 +993,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* 4. MAIN CATEGORIES & DYNAMIC TOOLBOX */}
-      <section className="py-16 bg-slate-50/30 dark:bg-slate-950/20 border-b border-slate-205 dark:border-slate-855 z-10 relative" id="toolbox-section">
+      <section className="py-10 md:py-14 bg-slate-50/30 dark:bg-slate-950/20 border-b border-slate-205 dark:border-slate-855 z-10 relative" id="toolbox-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center md:text-left mb-10">
@@ -1159,7 +1147,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* 5. FEATURED TOOLS SECTION */}
-      <section className="py-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-10 relative" id="featured-tools-section">
+      <section className="py-10 md:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-10 relative" id="featured-tools-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex items-center gap-2 mb-8 animate-fade-in">
@@ -1210,7 +1198,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* 6. RECENTLY ADDED TOOLS */}
-      <section className="py-16 bg-slate-50/20 dark:bg-slate-950/30 border-b border-slate-200 dark:border-slate-850 z-10 relative">
+      <section className="py-10 md:py-14 bg-slate-50/20 dark:bg-slate-950/30 border-b border-slate-200 dark:border-slate-850 z-10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex items-center justify-between mb-8">
@@ -1274,7 +1262,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* 7. WHY CHOOSE TEXTTOOLKITHUB */}
-      <section className="py-16 md:py-24 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-850 z-10 relative">
+      <section className="py-10 md:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-850 z-10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-16">
@@ -1325,7 +1313,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* BRAND COMPARATIVE & SEO ENRICHMENT CONTENT BLOCK */}
-      <section className="py-16 md:py-24 bg-slate-50/50 dark:bg-slate-900/30 border-b border-slate-200 dark:border-slate-850 z-10 relative">
+      <section className="py-10 md:py-14 bg-slate-50/50 dark:bg-slate-900/30 border-b border-slate-200 dark:border-slate-850 z-10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
@@ -1376,7 +1364,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* 8. FAQ ACCORDION */}
-      <section className="py-16 md:py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 bg-transparent">
+      <section className="py-10 md:py-14 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 bg-transparent">
         <div className="text-center mb-12">
           <div className="inline-flex p-3 rounded-full bg-indigo-50/80 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 mb-4 border border-indigo-100/30">
             <HelpCircle className="w-6 h-6" />
@@ -1420,7 +1408,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       </section>
 
       {/* 9. CTA & BOOKMARKING INSTRUCTIONS */}
-      <section className="py-16 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-900 relative overflow-hidden z-10">
+      <section className="py-10 md:py-14 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-900 relative overflow-hidden z-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-indigo-900 to-indigo-950 dark:from-slate-950 dark:to-slate-950 rounded-3xl p-8 sm:p-12 text-white border border-slate-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-3.5 max-w-2xl text-center md:text-left">

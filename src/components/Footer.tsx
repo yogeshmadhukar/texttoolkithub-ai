@@ -161,7 +161,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         {/* Bottom Bar: Copyright & Attribution */}
         <div className="border-t border-slate-200 dark:border-slate-900 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 dark:text-slate-500">
-          <p>© {currentYear} TextToolkitHub. Authorized client software. No data packets are transferred to external cloud storages.</p>
+          <p>© {currentYear} TextToolkitHub. Founded &amp; Edited by Yogesh Kumar Madhukar. 100% on-device client-side processing with zero remote data collection.</p>
           <div className="flex items-center gap-4">
             <span className="text-slate-300 dark:text-slate-800">|</span>
             <span className="font-mono bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded text-[10px]">v1.0.0 Stable</span>

@@ -1,26 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Camera, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { logoConfig } from '../logo-config';
-import { isDevSession } from '../types';
 
 interface HubLogoProps {
   className?: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   withCircleBorder?: boolean;
   editable?: boolean;
+  style?: React.CSSProperties;
 }
 
 export default function HubLogo({ 
   className = '', 
   size = 'md', 
   withCircleBorder = true,
-  editable = false
+  editable = false,
+  style
 }: HubLogoProps) {
   const [customLogo, setCustomLogo] = useState<string>('');
   const [useImgTag, setUseImgTag] = useState<boolean>(() => {
     return localStorage.getItem('texttoolkithub_use_img_tag') === 'true';
   });
-  const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Create unique IDs to support multiple SVG instances in the DOM
   const uniqueId = React.useId ? React.useId().replace(/:/g, '') : Math.random().toString(36).substr(2, 9);
@@ -56,97 +55,6 @@ export default function HubLogo({
     };
   }, []);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Only allow file uploading in development mode
-    if (!isDevSession()) return;
-
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        alert("Please upload an image smaller than 10MB.");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const base64String = reader.result as string;
-        try {
-          // Store in localStorage first for instant client-side update
-          localStorage.setItem('texttoolkithub_custom_logo', base64String);
-          setCustomLogo(base64String);
-          window.dispatchEvent(new Event('logo-updated'));
-
-          // Try saving to the backend filesystem if the API is running
-          try {
-            const response = await fetch('/api/upload-logo', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                mimeType: file.type,
-                base64: base64String,
-              }),
-            });
-            const data = await response.json();
-            if (response.ok && data.success) {
-              console.log("Successfully saved custom logo to server filesystem!");
-            }
-          } catch (serverErr) {
-            console.warn("Server upload failed (expected in static environments). Saved client-side in localStorage:", serverErr);
-          }
-        } catch (error) {
-          console.error("Failed to save logo:", error);
-          alert("Failed to save custom logo.");
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleReset = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    // Only allow resetting in development mode
-    if (!isDevSession()) return;
-
-    if (confirm("Reset logo to default brand logo?")) {
-      localStorage.removeItem('texttoolkithub_custom_logo');
-      setCustomLogo('');
-      window.dispatchEvent(new Event('logo-updated'));
-
-      try {
-        await fetch('/api/reset-logo', { method: 'POST' });
-      } catch (err) {
-        console.warn("Server reset ignored (expected in static environments). Reset successfully in client-side localStorage.");
-      }
-    }
-  };
-
-  const handleSecretClick = (e: React.MouseEvent) => {
-    // Secret backdoor is strictly disabled in production
-    if (!isDevSession()) return;
-
-    // Shift+Click or Ctrl+Click on the logo triggers the file upload
-    if (!editable && (e.shiftKey || e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      e.stopPropagation();
-      fileInputRef.current?.click();
-    }
-  };
-
-  const handleSecretDoubleClick = (e: React.MouseEvent) => {
-    // Secret backdoor is strictly disabled in production
-    if (!isDevSession()) return;
-
-    // Double-click triggers the file upload
-    if (!editable) {
-      e.preventDefault();
-      e.stopPropagation();
-      fileInputRef.current?.click();
-    }
-  };
-
   const sizeClasses = {
     sm: 'w-6 h-6',
     md: 'w-8 h-8',
@@ -154,39 +62,12 @@ export default function HubLogo({
     xl: 'w-12 h-12'
   };
 
-  const isDev = isDevSession();
-  const isEditable = editable && isDev;
-
-  const ContainerComponent = isEditable ? 'label' : 'div';
-
   return (
-    <ContainerComponent 
-      className={`relative group/logo inline-block shrink-0 ${isEditable ? 'cursor-pointer select-none' : ''} ${className}`} 
+    <div 
+      className={`relative inline-block shrink-0 ${className}`} 
       id={`logo-container-${uniqueId}`}
-      title={
-        isEditable 
-          ? (customLogo ? "Click to change custom logo image" : "Click to upload your image logo") 
-          : "TextToolkitHub"
-      }
-      onClick={handleSecretClick}
-      onDoubleClick={handleSecretDoubleClick}
+      title="TextToolkitHub"
     >
-      {/* Hidden input field for custom logo upload (dev-only) */}
-      {isDev && (
-        <input 
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          accept="image/*"
-          className="hidden"
-          id={`logo-file-input-${uniqueId}`}
-          onClick={(e) => {
-            // Prevent file input click from bubbling back up to the label component
-            e.stopPropagation();
-          }}
-        />
-      )}
-
       {customLogo && useImgTag ? (
         <img 
           src={customLogo} 
@@ -194,6 +75,7 @@ export default function HubLogo({
           className={`${sizeClasses[size]} shrink-0 block transition-transform duration-200 group-hover/logo:scale-105 object-contain ${withCircleBorder ? 'rounded-full border border-indigo-600/30 p-0.5 bg-white dark:bg-slate-900 shadow-sm' : ''}`}
           id={`logo-img-${uniqueId}`}
           referrerPolicy="no-referrer"
+          style={style}
         />
       ) : customLogo ? (
         <svg 
@@ -201,6 +83,7 @@ export default function HubLogo({
           className={`${sizeClasses[size]} shrink-0 block transition-transform duration-200 group-hover/logo:scale-105`}
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
+          style={style}
         >
           <defs>
             <clipPath id={clipPathId}>
@@ -247,6 +130,7 @@ export default function HubLogo({
           className={`${sizeClasses[size]} shrink-0 block transition-transform duration-200 group-hover/logo:scale-105 rounded-full`}
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
+          style={style}
         >
           <defs>
             <radialGradient id={bgGradId} cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
@@ -360,36 +244,7 @@ export default function HubLogo({
           </g>
         </svg>
       )}
-
-      {/* Action triggers (dev-only) */}
-      {isEditable && (
-        <>
-          {/* Bottom-right Camera Icon Upload Trigger */}
-          <span
-            className="absolute -bottom-1 -right-1 p-1 bg-indigo-600 rounded-full text-white shadow-md border-2 border-white dark:border-slate-900 opacity-0 group-hover/logo:opacity-100 focus:opacity-100 transition-all duration-200 cursor-pointer hover:bg-indigo-700 hover:scale-110 active:scale-95 z-20 flex items-center justify-center"
-            title={customLogo ? "Change logo image" : "Upload your image logo"}
-            aria-label="Upload custom logo image"
-            id={`logo-upload-btn-${uniqueId}`}
-          >
-            <Camera className="w-3.5 h-3.5" />
-          </span>
-
-          {/* Top-right Trash Icon Reset Trigger */}
-          {customLogo && (
-            <button
-              type="button"
-              onClick={handleReset}
-              className="absolute -top-1 -right-1 p-1 bg-rose-600 rounded-full text-white shadow-md border-2 border-white dark:border-slate-900 opacity-0 group-hover/logo:opacity-100 focus:opacity-100 transition-all duration-200 cursor-pointer hover:bg-rose-500 hover:scale-110 active:scale-95 z-20 flex items-center justify-center"
-              title="Reset logo to default"
-              aria-label="Reset logo to default"
-              id={`logo-reset-btn-${uniqueId}`}
-            >
-              <Trash2 className="w-3 h-3" />
-            </button>
-          )}
-        </>
-      )}
-    </ContainerComponent>
+    </div>
   );
 }
 

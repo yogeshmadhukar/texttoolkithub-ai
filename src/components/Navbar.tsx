@@ -43,7 +43,8 @@ import {
   QrCode,
   FileJson,
   ArrowDownWideNarrow,
-  ShieldCheck
+  ShieldCheck,
+  ChevronRight
 } from 'lucide-react';
 import updatesData from '../updates.json';
 
@@ -393,29 +394,31 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
   return (
     <header className="sticky top-0 z-50 w-full border-b backdrop-blur-md border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 gap-3 sm:gap-4">
           
           {/* Logo & Brand */}
           <div 
-            className="flex items-center gap-2 flex-shrink-0 animate-fade-in"
+            className="flex items-center gap-1.5 min-[350px]:gap-2 sm:gap-2.5 flex-shrink-0 animate-fade-in"
             id="nav-logo-link"
           >
             <div className="hover:scale-105 transition-transform duration-200 shrink-0">
-              <HubLogo size="lg" editable={false} />
+              <HubLogo size="md" editable={true} style={{ width: '51px', height: '46px' }} />
             </div>
             <span 
               onClick={() => handleLinkSelect('home')} 
-              className="font-sans font-extrabold text-xl tracking-tight text-slate-950 dark:text-white cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              className="font-sans font-extrabold text-[13px] min-[350px]:text-[15px] sm:text-lg md:text-xl tracking-tight text-slate-950 dark:text-white cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors select-none"
             >
-              Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
+              Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span><span className="hidden min-[350px]:inline">Hub</span>
             </span>
           </div>
 
 
 
+
+
           {/* Desktop Navigation links */}
-          <nav className="hidden md:flex items-center gap-1.5 relative">
+          <nav className="hidden md:flex items-center md:gap-0.5 lg:gap-1 xl:gap-1.5 relative">
             {(['home', 'tools', 'guides', 'about', 'faq', 'contact'] as const).map((page) => {
               const isActive = activePage === page;
               const labels = { home: 'Home', tools: 'Tools', guides: 'Guides', about: 'About', faq: 'FAQ', contact: 'Contact' };
@@ -423,7 +426,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                 <button
                   key={page}
                   onClick={() => handleLinkSelect(page)}
-                  className={`relative px-4 py-2 text-sm font-semibold transition-colors duration-250 rounded-full z-10 cursor-pointer ${
+                  className={`relative md:px-2 lg:px-3 xl:px-4 py-2 md:text-xs lg:text-sm font-semibold transition-colors duration-250 rounded-full z-10 cursor-pointer ${
                     isActive 
                       ? 'text-indigo-600 dark:text-indigo-400' 
                       : 'text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100'
@@ -444,7 +447,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
           </nav>
 
           {/* Premium Desktop Search Input */}
-          <div className="relative hidden lg:block w-60 xl:w-72" ref={searchDropdownRef}>
+          <div className="relative hidden md:block md:w-36 lg:w-56 xl:w-72" ref={searchDropdownRef}>
             <div className="relative">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
               <input
@@ -480,7 +483,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             {/* Premium Floating Search suggestions list */}
             {isSearchFocused && searchQuery.trim() !== '' && (
               <div 
-                className="absolute top-full right-0 mt-2 w-[440px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1 duration-150"
+                className="absolute top-full right-0 mt-2 w-[280px] sm:w-[360px] md:w-[440px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1 duration-150"
                 id="desktop-search-suggestions"
               >
                 <div className="p-3 bg-slate-50/50 dark:bg-slate-900/30 flex justify-between items-center text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
@@ -542,24 +545,24 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
           </div>
 
           {/* Right Action buttons */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
             {/* Redesigned Notification Bell with Categorizations */}
-            <div className="relative" ref={notifDropdownRef}>
+            <div className="relative hidden md:block" ref={notifDropdownRef}>
               <button
                 id="notification-bell-btn"
                 onClick={handleToggleNotifications}
-                className="relative p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-650 dark:border-slate-800 dark:bg-slate-800/80 dark:text-slate-305 hover:text-slate-900 group dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-705 transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-505/40"
+                className="relative p-1.5 min-[350px]:p-2 sm:p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-650 dark:border-slate-800 dark:bg-slate-800/80 dark:text-slate-305 hover:text-slate-900 group dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-705 transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-505/40"
                 title="Recent Updates & News"
                 aria-label="Open notifications center"
                 aria-expanded={isNotifOpen}
               >
                 {hasUnread ? (
-                  <BellRing className="w-4.5 h-4.5 text-indigo-550 dark:text-indigo-400 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 animate-pulse" />
+                  <BellRing className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-indigo-550 dark:text-indigo-400 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 animate-pulse" />
                 ) : (
-                  <Bell className="w-4.5 h-4.5 text-slate-600 dark:text-slate-350 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                  <Bell className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-slate-600 dark:text-slate-350 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                 )}
                 {hasUnread && (
-                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-910 animate-pulse" />
+                  <span className="absolute top-1 sm:top-1.5 right-1 sm:right-1.5 w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-910 animate-pulse" />
                 )}
               </button>
 
@@ -795,11 +798,10 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                 </div>
               )}
             </div>
-
-            {/* Theme Toggle */}
+                    {/* Theme Toggle */}
             <button
               onClick={onToggleDarkMode}
-              className="p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition"
+              className="hidden md:inline-flex p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-650 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition"
               title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               aria-label="Toggle layout theme"
               id="theme-toggle"
@@ -807,51 +809,55 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               {darkMode ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5 text-indigo-600" />}
             </button>
 
-            {/* X (Twitter) Social Icon Link for Desktop */}
-            <a
-              href="https://x.com/TextToolkitHub"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition cursor-pointer items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-              title="Follow TextToolkitHub on X (Twitter)"
-              aria-label="Follow TextToolkitHub on X (Twitter)"
-              id="desktop-x-link"
-            >
-              <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-
-            {/* LinkedIn Social Icon Link for Desktop */}
-            <a
-              href="https://www.linkedin.com/in/texttoolkithub"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex p-2.5 rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-[#0077b5] dark:hover:text-[#0a66c2] hover:border-slate-300 dark:hover:border-slate-700 transition cursor-pointer items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-              title="Connect with TextToolkitHub on LinkedIn"
-              aria-label="Connect with TextToolkitHub on LinkedIn"
-              id="desktop-linkedin-link"
-            >
-              <Linkedin className="w-4.5 h-4.5" />
-            </a>
-
-            {/* Mobile menu toggle */}
+            {/* Mobile menu toggle (Hamburger - Minimum 44x44px Touch Target) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 md:hidden rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+              className="w-11 h-11 flex-shrink-0 md:hidden rounded-full border border-slate-200 dark:border-slate-800 bg-slate-50/60 text-slate-650 dark:bg-slate-800/50 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               id="mobile-menu-toggle"
+              aria-label={mobileMenuOpen ? 'Close navigation drawer' : 'Open navigation drawer'}
+              aria-expanded={mobileMenuOpen}
+              title={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
             >
-              {mobileMenuOpen ? <X className="w-4.5 h-4.5" /> : <Menu className="w-4.5 h-4.5" />}
+              {mobileMenuOpen ? (
+                <X className="w-4.5 h-4.5 animate-in spin-in-12 duration-200" />
+              ) : (
+                <Menu className="w-4.5 h-4.5 animate-in fade-in duration-200" />
+              )}
             </button>
           </div>
 
         </div>
       </div>
-
-      {/* Mobile drawer menu */}
+        {/* Mobile drawer menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-4 px-4 shadow-xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-5 px-4 shadow-xl flex flex-col gap-5 animate-in fade-in slide-in-from-top-4 duration-200 max-h-[calc(100vh-4.5rem)] overflow-y-auto" id="mobile-menu-drawer">
           
+          {/* Quick-Action Controls: Theme toggle & Preferences */}
+          <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-850 p-3 rounded-2xl border border-slate-150 dark:border-slate-800/80">
+            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-indigo-500" /> Interface Preference
+            </span>
+            <div className="flex items-center gap-2">
+              {/* Theme toggle directly on drawer */}
+              <button
+                onClick={onToggleDarkMode}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-650 transition cursor-pointer shadow-sm focus:outline-none"
+              >
+                {darkMode ? (
+                  <>
+                    <Sun className="w-3.5 h-3.5 text-amber-500" />
+                    <span className="text-[11px] font-semibold">Light</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
+                    <span className="text-[11px] font-semibold">Dark</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
           {/* Quick search inside mobile menu */}
           <div className="relative w-full">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -860,8 +866,8 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleSearchKeyDown}
-              placeholder="Search tools..."
-              className="w-full pl-10 pr-8 py-2 border rounded-full text-sm outline-none bg-slate-50 border-slate-200 text-slate-800 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 focus:bg-white focus:ring-1 focus:ring-indigo-500"
+              placeholder="Search 58 browser tools..."
+              className="w-full pl-10 pr-8 py-2.5 border rounded-xl text-sm outline-none bg-slate-50 border-slate-200 text-slate-800 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 focus:bg-white focus:ring-2 focus:ring-indigo-500/20"
               id="search-input-mobile"
             />
             {searchQuery && (
@@ -875,7 +881,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
             {/* Search dropdown list for mobile */}
             {searchQuery.trim() !== '' && (
-              <div className="mt-2 border border-slate-150 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/95 backdrop-blur-md rounded-2xl max-h-64 overflow-y-auto p-1.5 flex flex-col gap-1 z-50 relative">
+              <div className="mt-2 border border-slate-150 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md rounded-2xl max-h-64 overflow-y-auto p-1.5 flex flex-col gap-1 z-50 relative shadow-lg">
                 {filteredTools.length > 0 ? (
                   <>
                     {filteredTools.slice(0, 5).map((tool, idx) => {
@@ -926,90 +932,75 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             )}
           </div>
 
-          <div className="flex flex-col gap-2 font-medium">
-            <button
-              onClick={() => handleLinkSelect('home')}
-              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'home' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
-              id="mobile-nav-home"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => handleLinkSelect('tools')}
-              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'tools' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
-              id="mobile-nav-tools"
-            >
-              Tools
-            </button>
-            <button
-              onClick={() => handleLinkSelect('guides')}
-              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'guides' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
-              id="mobile-nav-guides"
-            >
-              Guides
-            </button>
-            <button
-              onClick={() => handleLinkSelect('about')}
-              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'about' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
-              id="mobile-nav-about"
-            >
-              About
-            </button>
-            <button
-              onClick={() => handleLinkSelect('faq')}
-              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'faq' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
-              id="mobile-nav-faq"
-            >
-              FAQ
-            </button>
-            <button
-              onClick={() => handleLinkSelect('contact')}
-              className={`w-full text-left py-2 px-3.5 rounded-xl text-sm ${activePage === 'contact' ? 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'}`}
-              id="mobile-nav-contact"
-            >
-              Contact
-            </button>
-          </div>
-
-          <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-            <div className="flex flex-wrap gap-2 text-xs text-slate-400">
-              <button onClick={() => handleLinkSelect('privacy')} className="hover:underline">Privacy Policy</button>
-              <span>•</span>
-              <button onClick={() => handleLinkSelect('terms')} className="hover:underline">Terms of Service</button>
-            </div>
-
-            <div className="flex items-center gap-2">
-              {/* Mobile X (Twitter) Link */}
-              <a
-                href="https://x.com/TextToolkitHub"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                title="Follow TextToolkitHub on X"
-                aria-label="Follow TextToolkitHub on X"
-                id="mobile-x-link"
-              >
-                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-                <span className="text-xs font-semibold">X</span>
-              </a>
-
-              {/* Mobile LinkedIn Link */}
-              <a
-                href="https://www.linkedin.com/in/texttoolkithub"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300 hover:text-[#0077b5] dark:hover:text-[#0a66c2] hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                title="Connect with TextToolkitHub on LinkedIn"
-                aria-label="Connect with TextToolkitHub on LinkedIn"
-                id="mobile-linkedin-link"
-              >
-                <Linkedin className="w-3.5 h-3.5" />
-                <span className="text-xs font-semibold">LinkedIn</span>
-              </a>
+          {/* Quick Navigation Pages (Grid format for high-contrast touch targets on mobile) */}
+          <div className="space-y-2">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-1">Main Directories</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { name: 'home', label: 'Home Feed' },
+                { name: 'tools', label: 'All 58 Tools' },
+                { name: 'guides', label: 'Guides Hub' },
+                { name: 'about', label: 'Our Story' },
+                { name: 'faq', label: 'Help & FAQ' },
+                { name: 'contact', label: 'Support Desk' }
+              ].map((pg) => {
+                const isActive = activePage === pg.name;
+                return (
+                  <button
+                    key={pg.name}
+                    onClick={() => handleLinkSelect(pg.name)}
+                    className={`flex items-center justify-between p-3 rounded-xl border text-left transition duration-150 ${
+                      isActive 
+                        ? 'bg-indigo-50/70 border-indigo-200 dark:bg-indigo-950/20 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 font-bold' 
+                        : 'bg-white dark:bg-[#111622] border-slate-150 dark:border-slate-800/60 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-850'
+                    }`}
+                  >
+                    <span className="text-xs">{pg.label}</span>
+                    <ChevronRight className={`w-3.5 h-3.5 opacity-60 ${isActive ? 'text-indigo-500' : ''}`} />
+                  </button>
+                );
+              })}
             </div>
           </div>
+
+          {/* QUICK ACCESS: POPULAR TOOLS (The "Important Things" requested by the user) */}
+          <div className="space-y-2.5">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-1">Popular Utilities</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { id: 'tools/word-counter', title: 'Word Counter', icon: <FileText className="w-4 h-4 text-emerald-500" /> },
+                { id: 'tools/readability-checker', title: 'Readability Checker', icon: <BookOpen className="w-4 h-4 text-emerald-500" /> },
+                { id: 'tools/json-formatter', title: 'JSON Formatter', icon: <FileJson className="w-4 h-4 text-indigo-500" /> },
+                { id: 'tools/paragraph-formatter', title: 'Paragraph Formatter', icon: <Pilcrow className="w-4 h-4 text-indigo-500" /> },
+                { id: 'tools/regex-tester', title: 'Regex Matcher', icon: <Code className="w-4 h-4 text-indigo-500" /> },
+                { id: 'tools/csv-formatter', title: 'CSV Formatter', icon: <FileSpreadsheet className="w-4 h-4 text-emerald-500" /> },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleToolSelect(item.id)}
+                  className="flex items-center gap-2.5 p-3 rounded-xl border border-slate-150 dark:border-slate-800 bg-white dark:bg-[#111622] hover:bg-slate-50 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 transition duration-150 text-left"
+                >
+                  <div className="p-1 rounded-lg bg-slate-50 dark:bg-slate-900 shrink-0 border border-slate-100 dark:border-slate-800">
+                    {item.icon}
+                  </div>
+                  <span className="text-xs font-semibold leading-tight line-clamp-1">{item.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Compact Footnote (Privacy & Terms only, NO SOCIAL MEDIA ICONS) */}
+          <div className="border-t border-slate-150 dark:border-slate-800/80 pt-4 mt-1 flex flex-col gap-2.5">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 px-1">
+              <div className="flex gap-3">
+                <button onClick={() => handleLinkSelect('privacy')} className="hover:underline hover:text-indigo-500 dark:hover:text-indigo-400">Privacy Policy</button>
+                <span>•</span>
+                <button onClick={() => handleLinkSelect('terms')} className="hover:underline hover:text-indigo-500 dark:hover:text-indigo-400">Terms of Service</button>
+              </div>
+              <span>© 2026 Toolkit</span>
+            </div>
+          </div>
+
         </div>
       )}
     </header>
