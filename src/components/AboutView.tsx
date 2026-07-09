@@ -701,15 +701,11 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
 
           <div className="max-w-4xl mx-auto border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-10 shadow-xs flex flex-col md:flex-row gap-8 items-center md:items-start transition duration-200 hover:border-slate-300 dark:hover:border-slate-700">
             {/* Visual Avatar Card */}
-            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl shrink-0 shadow-lg border-4 border-white dark:border-slate-900 relative group overflow-hidden">
-              <img 
-                src="/founder.png" 
-                alt="Yogesh Kumar Madhukar" 
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute bottom-2 left-0 right-0 text-center z-10">
-                <span className="font-mono text-[9px] uppercase tracking-wider font-extrabold bg-slate-950/60 px-2 py-0.5 rounded-full text-white backdrop-blur-xs">
+            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-indigo-550 to-indigo-600 flex flex-col items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-500/10 border-4 border-white dark:border-slate-900 relative group overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)]" />
+              <User className="w-12 h-12 sm:w-16 sm:h-16 text-indigo-100 group-hover:scale-105 transition-transform duration-200" />
+              <div className="absolute bottom-2 left-0 right-0 text-center">
+                <span className="font-mono text-[9px] uppercase tracking-wider font-extrabold bg-slate-950/40 px-2 py-0.5 rounded-full text-indigo-100 backdrop-blur-xs">
                   FOUNDER
                 </span>
               </div>
