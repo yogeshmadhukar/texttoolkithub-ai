@@ -701,11 +701,15 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
 
           <div className="max-w-4xl mx-auto border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-10 shadow-xs flex flex-col md:flex-row gap-8 items-center md:items-start transition duration-200 hover:border-slate-300 dark:hover:border-slate-700">
             {/* Visual Avatar Card */}
-            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-indigo-550 to-indigo-600 flex flex-col items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-500/10 border-4 border-white dark:border-slate-900 relative group overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)]" />
-              <User className="w-12 h-12 sm:w-16 sm:h-16 text-indigo-100 group-hover:scale-105 transition-transform duration-200" />
-              <div className="absolute bottom-2 left-0 right-0 text-center">
-                <span className="font-mono text-[9px] uppercase tracking-wider font-extrabold bg-slate-950/40 px-2 py-0.5 rounded-full text-indigo-100 backdrop-blur-xs">
+            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl shrink-0 shadow-lg border-4 border-white dark:border-slate-900 relative group overflow-hidden">
+              <img 
+                src="/founder.png" 
+                alt="Yogesh Kumar Madhukar" 
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute bottom-2 left-0 right-0 text-center z-10">
+                <span className="font-mono text-[9px] uppercase tracking-wider font-extrabold bg-slate-950/60 px-2 py-0.5 rounded-full text-white backdrop-blur-xs">
                   FOUNDER
                 </span>
               </div>
@@ -719,7 +723,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
                     Yogesh Kumar Madhukar
                   </h3>
                   <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-0.5 font-sans">
-                    Founder, Chief Software Architect & Editorial Director
+                    Founder, Software Developer & Editorial Director
                   </p>
                 </div>
                 {/* Social Connect buttons */}
@@ -748,26 +752,35 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
               {/* Biography content */}
               <div className="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
                 <p>
-                  Yogesh Kumar Madhukar is an independent software engineer, technical writer, and data privacy advocate with a deep specialty in browser execution environments and performance optimizations. He designed and engineered TextToolkitHub to address the growing necessity for fast, reliable, and completely localized digital utilities.
+                  Yogesh Kumar Madhukar is the founder of TextToolkitHub, an independent software developer, technical writer, and digital publishing entrepreneur focused on building fast, privacy-first web applications.
                 </p>
                 <p>
-                  Believing that simple workspace tasks—like formatting, token inspections, base conversions, and text analyses—should never require transmitting confidential corporate assets or personal data over remote networks, Yogesh established the platform's strict offline-first sandboxed model. Every one of the 56+ active tools runs 100% locally in-memory, ensuring absolute confidentiality.
+                  He created TextToolkitHub with a simple goal: to provide writers, developers, students, marketers, and professionals with reliable browser-based utilities that process data entirely on the user’s device. Every tool on the platform is designed to perform its operations locally, helping users work with sensitive text and documents without sending their data to external servers whenever technically possible.
                 </p>
                 <p>
-                  As Chief Editor, Yogesh meticulously researches, drafts, and audits the educational guides published in the Hub. He ensures that all explanations, from cryptographic algorithms to readability metrics, adhere to rigorous international technical documentation, helping thousands of specialists optimize their daily digital workflows safely.
+                  As the platform’s Editorial Director, Yogesh researches, writes, and reviews educational content covering text processing, SEO, readability, encoding, formatting, and developer workflows. His focus is on publishing practical, easy-to-understand resources that help users solve real-world problems while maintaining technical accuracy.
+                </p>
+                <p>
+                  TextToolkitHub continues to evolve with a commitment to privacy, performance, accessibility, and high-quality educational content alongside professional productivity tools.
                 </p>
               </div>
 
               {/* Professional Credentials Badge bar */}
               <div className="mt-6 flex flex-wrap gap-2.5 justify-center md:justify-start">
                 <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
-                  ✓ Verified Owner
+                  ✓ Verified Website Owner
                 </span>
                 <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
-                  ✓ 10+ Years Systems Dev
+                  ✓ Founder of TextToolkitHub
                 </span>
                 <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
-                  ✓ Security Auditor Certified
+                  ✓ Independent Software Developer
+                </span>
+                <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
+                  ✓ Technical Writer & Digital Publisher
+                </span>
+                <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
+                  ✓ Privacy-First Web Application Advocate
                 </span>
               </div>
             </div>
