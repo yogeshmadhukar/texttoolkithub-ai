@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { TOOLS, CATEGORIES, FAQS, searchTools } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
+import HubLogo from './HubLogo.tsx';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
 import AdPlacement from './AdPlacement.tsx';
@@ -49,7 +50,9 @@ import {
   FileJson,
   ArrowDownWideNarrow,
   Volume2,
-  Dice5
+  Dice5,
+  Calendar,
+  User
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -325,6 +328,29 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
     }
   };
 
+  // Featured tools custom titles and rich descriptions for AdSense E-E-A-T and educational quality
+  const featuredToolEditorialMap: Record<string, { title: string; desc: string }> = {
+    'tools/word-counter': {
+      title: 'Multi-Dimensional Word & Character Counter',
+      desc: 'A high-fidelity text analyzer built for authors, researchers, and SEO copywriters. Beyond basic counts, it calculates real-time reading durations, speaking paces, total sentences, average word lengths, and presents an interactive keyword density table to help maintain optimal search relevance without keyword stuffing.'
+    },
+    'tools/text-compare': {
+      title: 'Line-by-Line Semantic Diff Comparison Engine',
+      desc: 'A compiler-grade text comparison utility that computes the Longest Common Subsequence (LCS) to highlight textual differences. Ideal for developers reviewing source files, editors tracking draft updates, and legal teams auditing contract revisions. Safe, secure, and executed entirely client-side.'
+    },
+    'tools/fancy-text-generator': {
+      title: 'Unicode Typographic Stylist & Case Transform',
+      desc: 'An elegant typography converter that maps standard alphanumeric strings into artistic Unicode symbols and mathematical layout glyphs. Perfect for copywriters, social media publishers, and designers looking to add visual emphasis and typographic interest to public profiles.'
+    }
+  };
+
+  // Popular tools rich descriptions for educational context
+  const popularToolEditorialMap: Record<string, string> = {
+    'tools/case-converter': 'An expert-grade casing formatter supporting UPPERCASE, lowercase, Title Case, camelCase, snake_case, PascalCase, and kebab-case. Essential for code variables and raw SQL naming formats.',
+    'tools/slug-generator': 'A semantic SEO URL formatter that sanitizes text inputs by purging punctuation, special characters, and double-hyphens, yielding clean lowercase slugs to maximize SERP crawling efficiency.',
+    'tools/character-counter': 'A precise character indexer utilizing the modern Intl.Segmenter API to measure exact visual lengths, properly handling multi-byte surrogate pairs, tabs, and complex emoji modifiers.'
+  };
+
   // 1. Featured Tools list
   const featuredTools = useMemo(() => {
     return TOOLS.filter(t => 
@@ -449,9 +475,9 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
             className="text-4xl sm:text-5xl lg:text-7xl font-light font-display tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6"
             id="master-hero-heading"
           >
-            Text Tools Built for <br />
+            Authoritative Text Utilities <br />
             <span className="relative inline-block font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-sky-500 dark:from-indigo-400 dark:via-blue-400 dark:to-sky-300 drop-shadow-[0_2px_20px_rgba(99,102,241,0.15)] dark:drop-shadow-[0_4px_30px_rgba(129,140,248,0.22)]">
-              Speed and Simplicity
+              & Educational Guides
             </span>
           </motion.h1>
 
@@ -461,7 +487,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
             className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed mb-10 font-sans font-medium"
             id="master-hero-desc"
           >
-            Convert, clean, compare, count, and transform text instantly with powerful browser-based utilities designed for productivity.
+            Empowering writers, developers, and researchers with zero-knowledge, local browser text processing, alongside rigorous technical manuals.
           </motion.p>
 
           {/* 2. TOOL SEARCH */}
@@ -618,29 +644,32 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6" id="popular-tools-row">
-            {popularTools.map((tool) => (
-              <div 
-                key={tool.id}
-                onClick={() => onNavigateToTool(tool.id)}
-                onMouseEnter={() => onPrefetchTool?.(tool.id)}
-                className="group border border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-5 rounded-2xl cursor-pointer hover:border-emerald-500/50 dark:hover:border-emerald-400/50 hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.06)] dark:hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.14)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between border-t-[3px] border-t-emerald-500/85 dark:border-t-emerald-400/85"
-                id={`popular-${tool.id}`}
-              >
-                <div>
-                  <h3 className="font-sans font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 text-sm transition-colors flex items-center justify-between">
-                    {tool.title}
-                    <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 transition-all duration-200" />
-                  </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-                    {tool.description}
-                  </p>
+            {popularTools.map((tool) => {
+              const displayDesc = popularToolEditorialMap[tool.id] || tool.description;
+              return (
+                <div 
+                  key={tool.id}
+                  onClick={() => onNavigateToTool(tool.id)}
+                  onMouseEnter={() => onPrefetchTool?.(tool.id)}
+                  className="group border border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 p-5 rounded-2xl cursor-pointer hover:border-emerald-500/50 dark:hover:border-emerald-400/50 hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.06)] dark:hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.14)] hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between border-t-[3px] border-t-emerald-500/85 dark:border-t-emerald-400/85"
+                  id={`popular-${tool.id}`}
+                >
+                  <div>
+                    <h3 className="font-sans font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 text-sm transition-colors flex items-center justify-between">
+                      {tool.title}
+                      <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 transition-all duration-200" />
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                      {displayDesc}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center gap-1.5 mt-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-ping" /> Popular Choice
+                  </div>
                 </div>
-                
-                <div className="flex items-center gap-1.5 mt-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-ping" /> Popular Choice
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
         </div>
@@ -651,51 +680,326 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
         <AdPlacement slot="leaderboard" id="homepage-mid-lead" />
       </div>
 
-      {/* 3.5 CENTRAL KEYWORD-RICH SEO INTRODUCTION SECTION */}
+      {/* 3.5 CENTRAL EDITORIAL MISSION & TARGET AUDIENCE BLUEPRINT */}
       <section className="py-16 bg-slate-50/10 dark:bg-slate-950/20 border-b border-slate-200 dark:border-slate-850 z-10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-8 sm:p-12 rounded-3xl shadow-sm">
+          <div className="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-8 sm:p-12 rounded-3xl shadow-sm space-y-10">
             
-            <div className="lg:col-span-12 space-y-4">
-              <span className="inline-flex w-auto items-center text-[10px] uppercase tracking-widest font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-950 mt-2.5 sm:mt-3">
-                Authorized Growth Framework
+            {/* Mission Statement */}
+            <div className="space-y-4">
+              <span className="inline-flex w-auto items-center text-[10px] uppercase tracking-widest font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-950">
+                Editorial Mission & Vision Statement
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white leading-tight">
-                All-in-One Suite of Free Online Text Tools & String Utilities
+                Empowering Digital Creators and Developers with High-Performance Client-Side Knowledge
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-405 leading-relaxed max-w-5xl">
-                Welcome to <strong>TextToolkitHub</strong>, your premiere destination for fast, local-first, privacy-respecting browser utilities. Standard text preparation and coding workflows require absolute reliability, which is why our entire tool catalog executes 100% inside your sandboxed web browser memory. No text or coding logs ever touch the cloud, making our platform safe for confidential corporate data and creative drafts.
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-5xl">
+                Standard text processing should never come at the expense of user privacy or intellectual property. At <strong>TextToolkitHub</strong>, we bridge the gap between high-performance local utilities and advanced technical education. Many online tools silently route your private drafts, API keys, or code parameters to remote servers, causing critical security hazards. Our mission is to provide an open, professional-grade, zero-knowledge directory of browser utilities paired with rigorous, peer-reviewed educational articles. Every transformation, analysis, and generation executes entirely in your client memory, giving you total data ownership.
               </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-100 dark:border-slate-800 mt-6 text-xs text-slate-600 dark:text-slate-400">
-                <div className="space-y-2">
-                  <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" /> High-Performance Analyzers
-                  </h3>
-                  <p className="leading-relaxed text-[11px] text-slate-500 dark:text-slate-400">
-                    Extract deep insights using our premium <strong>word counter</strong>, precise <strong>character counter</strong>, comprehensive <strong>readability checker</strong>, and SEO-focused <strong>keyword density checker</strong> inside a single tab.
+            </div>
+
+            {/* Target Audience Profiles */}
+            <div className="space-y-6 pt-6 border-t border-slate-100 dark:border-slate-800/60">
+              <div>
+                <span className="text-[10px] uppercase tracking-widest font-extrabold text-indigo-600 dark:text-indigo-400">Target Audience Profiles</span>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-1">Who Is TextToolkitHub Built For?</h3>
+                <p className="text-xs text-slate-500 mt-1">Our suite is meticulously engineered to satisfy the rigorous workflows of modern professionals and academics.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="p-5 bg-slate-50/50 dark:bg-slate-950/40 border border-slate-150 dark:border-slate-800/80 rounded-2xl space-y-2.5">
+                  <div className="p-2 bg-indigo-50 dark:bg-indigo-950/35 text-indigo-500 rounded-lg w-fit">
+                    <SpellCheck className="w-4 h-4" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 dark:text-white text-xs">Writers & Content Creators</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Polish essays, novels, and copy drafts locally. Utilize our <button onClick={() => onNavigateToTool('tools/word-counter')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Word Counter</button> and <button onClick={() => onNavigateToTool('tools/readability-checker')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Readability Checker</button> to audit sentence density and improve clarity scores dynamically.
                   </p>
                 </div>
-                
-                <div className="space-y-2">
-                  <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
-                    <span className="w-2 h-2 rounded-full bg-indigo-500 inline-block" /> Sanitizers & Formatters
-                  </h3>
-                  <p className="leading-relaxed text-[11px] text-slate-500 dark:text-slate-400">
-                    Purge layout noises immediately. <strong>Remove extra spaces</strong>, clean duplicate spaces, <strong>remove duplicate lines</strong>, organize tables, and <strong>remove line breaks</strong> securely.
+
+                <div className="p-5 bg-slate-50/50 dark:bg-slate-950/40 border border-slate-150 dark:border-slate-800/80 rounded-2xl space-y-2.5">
+                  <div className="p-2 bg-emerald-50 dark:bg-emerald-950/35 text-emerald-500 rounded-lg w-fit">
+                    <Code className="w-4 h-4" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 dark:text-white text-xs">Developers & DevOps Engineers</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Validate system keys and transform variables securely. Code with our zero-knowledge <button onClick={() => onNavigateToTool('tools/jwt-decoder')} className="font-bold text-indigo-500 hover:underline cursor-pointer">JWT Decoder</button>, <button onClick={() => onNavigateToTool('tools/unix-timestamp-converter')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Unix Timestamp Converter</button>, and high-performance offline hashing engines.
                   </p>
                 </div>
-                
-                <div className="space-y-2">
-                  <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
-                    <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" /> Dynamic Code Encoders
-                  </h3>
-                  <p className="leading-relaxed text-[11px] text-slate-500 dark:text-slate-400">
-                    Bypass raw communication issues with clean format shifts. Shift text schemas using our compliant <strong>slug generator</strong>, <strong>url encoder</strong>, <strong>url decoder</strong>, <strong>base64 encoder</strong>, <strong>base64 decoder</strong>, and robust casing adjusters.
+
+                <div className="p-5 bg-slate-50/50 dark:bg-slate-950/40 border border-slate-150 dark:border-slate-800/80 rounded-2xl space-y-2.5">
+                  <div className="p-2 bg-amber-50 dark:bg-amber-950/35 text-amber-500 rounded-lg w-fit">
+                    <TrendingUp className="w-4 h-4" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 dark:text-white text-xs">SEO & Marketing Specialists</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Optimize content snippets for maximum visual click-through rates. Generate clean paths with our <button onClick={() => onNavigateToTool('tools/slug-generator')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Slug Generator</button> and check key densities with the <button onClick={() => onNavigateToTool('tools/keyword-density-checker')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Keyword Density Checker</button>.
+                  </p>
+                </div>
+
+                <div className="p-5 bg-slate-50/50 dark:bg-slate-950/40 border border-slate-150 dark:border-slate-800/80 rounded-2xl space-y-2.5">
+                  <div className="p-2 bg-rose-50 dark:bg-rose-950/35 text-rose-500 rounded-lg w-fit">
+                    <BookOpen className="w-4 h-4" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 dark:text-white text-xs">Students & Academics</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    Sanitize and structure reference datasets for papers. Clean messy text blocks using our <button onClick={() => onNavigateToTool('tools/remove-duplicate-lines')} className="font-bold text-indigo-500 hover:underline cursor-pointer">Remove Duplicate Lines</button> tool and sort data lines instantly.
                   </p>
                 </div>
               </div>
             </div>
+
+            {/* Privacy-First Browser Processing Charter */}
+            <div className="pt-6 border-t border-slate-100 dark:border-slate-800/60 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <div className="lg:col-span-8 space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-emerald-500 animate-pulse" />
+                  The Privacy-First Browser Processing Standard (Zero-Knowledge Sandbox)
+                </h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Unlike traditional platforms that rely on remote cloud servers, TextToolkitHub executes 100% of its computational operations inside your sandboxed browser viewport. Your clipboard characters, source codes, files, and credentials are processed strictly in local hardware memory (RAM) and are discarded instantly upon tab closure. No database logs, cloud tracking, or network transmission payloads are ever created.
+                </p>
+              </div>
+              <div className="lg:col-span-4 flex justify-end">
+                <div className="px-4 py-2.5 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40 rounded-xl flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                  <span className="text-[10px] text-emerald-700 dark:text-emerald-450 font-bold uppercase tracking-wider">Local Processing Verified</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 3.6 FEATURED EDUCATIONAL GUIDES SECTION */}
+      <section className="py-16 bg-slate-50/30 dark:bg-slate-950/10 border-b border-slate-205 dark:border-slate-855 z-10 relative" id="featured-guides-section">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+            <div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-650 dark:text-indigo-400 text-[10px] font-extrabold uppercase tracking-widest rounded-full border border-indigo-100 dark:border-indigo-950/40 mb-3">
+                <BookOpen className="w-3.5 h-3.5" /> Editorial Learning Hub
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white">
+                Featured Technical & SEO Guides
+              </h2>
+              <p className="text-sm text-slate-500 mt-1 max-w-xl dark:text-slate-400 font-sans">
+                Rigorous, peer-reviewed educational articles detailing linguistic analysis, accessibility standards, cryptography concepts, and regular expression compiling.
+              </p>
+            </div>
+            
+            <button 
+              onClick={() => {
+                window.history.pushState({}, '', '/guides');
+                onNavigateToTool('guides');
+              }}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 group cursor-pointer"
+              id="btn-all-guides"
+            >
+              Access Complete Guides Library
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+
+          {/* Guides Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            {/* Guide Card 1 */}
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl flex flex-col justify-between shadow-sm hover:border-indigo-500/40 dark:hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="px-2.5 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-650 dark:text-indigo-400 text-[9px] font-extrabold uppercase tracking-widest rounded">
+                    Design & UX
+                  </span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500 flex items-center gap-1 font-medium">
+                    <Clock className="w-3.5 h-3.5" /> 8 min read
+                  </span>
+                </div>
+                
+                <h3 className="font-sans font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-snug">
+                  Designing Accessible Color Palettes: WCAG 2.1 Contrast Standards
+                </h3>
+                
+                <p className="text-xs text-slate-505 dark:text-slate-400 leading-relaxed">
+                  Discover the relative luminance math behind visual color accessibility, contrast ratios, and how to design beautiful, WCAG AA and AAA compliant interfaces.
+                </p>
+
+                {/* EEAT Author Row */}
+                <div className="flex items-center gap-2 p-3 bg-slate-50/50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-850">
+                  <HubLogo size="sm" withCircleBorder={false} />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1 leading-none">
+                      TextToolkitHub UX Research
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500 fill-emerald-500/10" />
+                    </div>
+                    <span className="text-[9px] text-slate-400 dark:text-slate-500 leading-none mt-1 block">Verified E-E-A-T Lead</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                {/* Related Tools Box */}
+                <div>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-405 dark:text-slate-500 block mb-2">Practice Tools:</span>
+                  <div className="flex flex-wrap gap-2">
+                    <button 
+                      onClick={() => onNavigateToTool('tools/contrast-checker')}
+                      className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
+                    >
+                      Contrast Checker
+                    </button>
+                    <button 
+                      onClick={() => onNavigateToTool('tools/readability-checker')}
+                      className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
+                    >
+                      Readability Checker
+                    </button>
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => {
+                    window.history.pushState({}, '', '/guides/guide-wcag-contrast-standards');
+                    onNavigateToTool('guides');
+                  }}
+                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer"
+                >
+                  Read Technical Guide &rarr;
+                </button>
+              </div>
+            </div>
+
+            {/* Guide Card 2 */}
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl flex flex-col justify-between shadow-sm hover:border-indigo-500/40 dark:hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="px-2.5 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-650 dark:text-indigo-400 text-[9px] font-extrabold uppercase tracking-widest rounded">
+                    Developer Info
+                  </span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500 flex items-center gap-1 font-medium">
+                    <Clock className="w-3.5 h-3.5" /> 8 min read
+                  </span>
+                </div>
+                
+                <h3 className="font-sans font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-snug">
+                  Advanced Pattern Matching: A Pragmatic Field Guide to Regular Expressions
+                </h3>
+                
+                <p className="text-xs text-slate-505 dark:text-slate-400 leading-relaxed">
+                  Master the power of regular expressions (Regex). Understand greedy quantifiers, non-capturing groups, lookarounds, and how to write optimized, ReDoS-safe patterns.
+                </p>
+
+                {/* EEAT Author Row */}
+                <div className="flex items-center gap-2 p-3 bg-slate-50/50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-850">
+                  <HubLogo size="sm" withCircleBorder={false} />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1 leading-none">
+                      TextToolkitHub Compiler Group
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500 fill-emerald-500/10" />
+                    </div>
+                    <span className="text-[9px] text-slate-400 dark:text-slate-500 leading-none mt-1 block">Verified E-E-A-T Lead</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                {/* Related Tools Box */}
+                <div>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-405 dark:text-slate-500 block mb-2">Practice Tools:</span>
+                  <div className="flex flex-wrap gap-2">
+                    <button 
+                      onClick={() => onNavigateToTool('tools/regex-tester')}
+                      className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
+                    >
+                      Regex Tester
+                    </button>
+                    <button 
+                      onClick={() => onNavigateToTool('tools/contact-extractor')}
+                      className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
+                    >
+                      Email Extractor
+                    </button>
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => {
+                    window.history.pushState({}, '', '/guides/guide-regular-expression-mastery');
+                    onNavigateToTool('guides');
+                  }}
+                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer"
+                >
+                  Read Technical Guide &rarr;
+                </button>
+              </div>
+            </div>
+
+            {/* Guide Card 3 */}
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl flex flex-col justify-between shadow-sm hover:border-indigo-500/40 dark:hover:border-indigo-500/40 transition-all duration-300 hover:-translate-y-1">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="px-2.5 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-650 dark:text-indigo-400 text-[9px] font-extrabold uppercase tracking-widest rounded">
+                    Linguistics
+                  </span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500 flex items-center gap-1 font-medium">
+                    <Clock className="w-3.5 h-3.5" /> 6 min read
+                  </span>
+                </div>
+                
+                <h3 className="font-sans font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-snug">
+                  The Science of Counting: Word Counts, Reading Pace, and Tokenization
+                </h3>
+                
+                <p className="text-xs text-slate-505 dark:text-slate-400 leading-relaxed">
+                  Understand character segmentation, Unicode byte weights, hyphenation heuristics, and silences vs speaking speed formulas.
+                </p>
+
+                {/* EEAT Author Row */}
+                <div className="flex items-center gap-2 p-3 bg-slate-50/50 dark:bg-slate-950/40 rounded-xl border border-slate-100 dark:border-slate-850">
+                  <HubLogo size="sm" withCircleBorder={false} />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1 leading-none">
+                      TextToolkitHub Linguistics
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500 fill-emerald-500/10" />
+                    </div>
+                    <span className="text-[9px] text-slate-400 dark:text-slate-500 leading-none mt-1 block">Verified E-E-A-T Lead</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-4">
+                {/* Related Tools Box */}
+                <div>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-405 dark:text-slate-500 block mb-2">Practice Tools:</span>
+                  <div className="flex flex-wrap gap-2">
+                    <button 
+                      onClick={() => onNavigateToTool('tools/word-counter')}
+                      className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
+                    >
+                      Word Counter
+                    </button>
+                    <button 
+                      onClick={() => onNavigateToTool('tools/character-counter')}
+                      className="px-2.5 py-1 bg-slate-50 hover:bg-indigo-50 dark:bg-slate-950 dark:hover:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-lg text-[10px] font-bold text-slate-705 dark:text-slate-300 transition cursor-pointer"
+                    >
+                      Char Counter
+                    </button>
+                  </div>
+                </div>
+
+                <button 
+                  onClick={() => {
+                    window.history.pushState({}, '', '/guides/guide-word-counting-tokenization');
+                    onNavigateToTool('guides');
+                  }}
+                  className="w-full py-2.5 bg-slate-50 hover:bg-indigo-600 hover:text-white dark:bg-slate-950 dark:hover:bg-indigo-600 border border-slate-150 dark:border-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 rounded-xl transition cursor-pointer"
+                >
+                  Read Technical Guide &rarr;
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -866,6 +1170,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" id="featured-tools-grid">
             {featuredTools.map((tool) => {
               const info = getCategoryDetails(tool.category);
+              const editorial = featuredToolEditorialMap[tool.id] || { title: tool.title, desc: tool.description };
               return (
                 <div 
                   key={tool.id}
@@ -884,12 +1189,12 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                       <Award className="w-5 h-5 text-indigo-500 dark:text-indigo-400 group-hover:rotate-12 transition-transform" />
                     </div>
 
-                    <h3 className="font-sans font-bold text-xl text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-450 transition-colors">
-                      {tool.title}
+                    <h3 className="font-sans font-bold text-lg text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-450 transition-colors">
+                      {editorial.title}
                     </h3>
                     
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed min-h-[48px]">
-                      {tool.description}
+                    <p className="text-xs text-slate-505 dark:text-slate-400 leading-relaxed min-h-[48px]">
+                      {editorial.desc}
                     </p>
                   </div>
 
