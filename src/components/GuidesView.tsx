@@ -2544,7 +2544,7 @@ const articles: Article[] = [
     excerpt: 'An in-depth reference on line height mathematics, container measures (ch width), and WCAG success criteria for optimized readability and visual accessibility.',
     readTime: '8 min read',
     date: '2026-07-20',
-    author: 'Yogesh Kumar Madhukar',
+    author: 'TextToolkitHub',
     authorRole: 'Editorial Director & Software Developer',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
@@ -2573,7 +2573,7 @@ const articles: Article[] = [
     excerpt: 'Dissect the inner mechanics of 2D barcodes, Reed-Solomon algebraic error correction codes, and optimal physical printing dimensions.',
     readTime: '9 min read',
     date: '2026-07-22',
-    author: 'Yogesh Kumar Madhukar',
+    author: 'TextToolkitHub',
     authorRole: 'Founder & Independent Developer',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
@@ -2601,7 +2601,7 @@ const articles: Article[] = [
     excerpt: 'A masterclass in parsing cron strings, understanding step-increments, scheduling Linux background services, and coordinating serverless task queues.',
     readTime: '8 min read',
     date: '2026-07-24',
-    author: 'Yogesh Kumar Madhukar',
+    author: 'TextToolkitHub',
     authorRole: 'Founder & Technical Architect',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
@@ -2629,7 +2629,7 @@ const articles: Article[] = [
     excerpt: 'An authoritative look at comma-separated values, data escaping pipelines, text-qualification standards under RFC 4180, and data security vectors.',
     readTime: '9 min read',
     date: '2026-07-26',
-    author: 'Yogesh Kumar Madhukar',
+    author: 'TextToolkitHub',
     authorRole: 'Editorial Director & Developer',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
@@ -2656,7 +2656,7 @@ const articles: Article[] = [
     excerpt: 'Demystify crawler rendering engines, metadata tag lengths, canonical routing, and structured JSON-LD schemas to win prominent Google Rich Results.',
     readTime: '9 min read',
     date: '2026-07-28',
-    author: 'Yogesh Kumar Madhukar',
+    author: 'TextToolkitHub',
     authorRole: 'Editorial Director & Publisher',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
