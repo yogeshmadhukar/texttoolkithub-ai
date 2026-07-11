@@ -832,32 +832,6 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-5 px-4 shadow-xl flex flex-col gap-5 animate-in fade-in slide-in-from-top-4 duration-200 max-h-[calc(100vh-4.5rem)] overflow-y-auto" id="mobile-menu-drawer">
           
-          {/* Quick-Action Controls: Theme toggle & Preferences */}
-          <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-850 p-3 rounded-2xl border border-slate-150 dark:border-slate-800/80">
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-indigo-500" /> Interface Preference
-            </span>
-            <div className="flex items-center gap-2">
-              {/* Theme toggle directly on drawer */}
-              <button
-                onClick={onToggleDarkMode}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-650 transition cursor-pointer shadow-sm focus:outline-none"
-              >
-                {darkMode ? (
-                  <>
-                    <Sun className="w-3.5 h-3.5 text-amber-500" />
-                    <span className="text-[11px] font-semibold">Light</span>
-                  </>
-                ) : (
-                  <>
-                    <Moon className="w-3.5 h-3.5 text-indigo-500 animate-pulse" />
-                    <span className="text-[11px] font-semibold">Dark</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-
           {/* Quick search inside mobile menu */}
           <div className="relative w-full">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
