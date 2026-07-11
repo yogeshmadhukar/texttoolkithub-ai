@@ -17,6 +17,11 @@ import { RegexGuideContent } from './RegexGuideContent';
 import { JwtGuideContent } from './JwtGuideContent';
 import { MarkdownGuideContent } from './MarkdownGuideContent';
 import { TtsGuideContent } from './TtsGuideContent';
+import { TypographyGuideContent } from './TypographyGuideContent';
+import { QrGuideContent } from './QrGuideContent';
+import { CronGuideContent } from './CronGuideContent';
+import { CsvGuideContent } from './CsvGuideContent';
+import { MetaSchemaGuideContent } from './MetaSchemaGuideContent';
 import { 
   BookOpen, 
   ArrowLeft, 
@@ -2530,5 +2535,144 @@ const articles: Article[] = [
         </div>
       </>
     )
+  },
+  {
+    id: 'guide-typography-and-readability',
+    title: 'The Science of Typography, Fluid Font Scaling, and Digital Accessibility',
+    category: 'Writing & Productivity',
+    iconName: 'readability',
+    excerpt: 'An in-depth reference on line height mathematics, container measures (ch width), and WCAG success criteria for optimized readability and visual accessibility.',
+    readTime: '8 min read',
+    date: '2026-07-20',
+    author: 'Yogesh Kumar Madhukar',
+    authorRole: 'Editorial Director & Software Developer',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'Paragraph Formatter', id: 'tools/paragraph-formatter' },
+      { title: 'Fancy Text Generator', id: 'tools/fancy-text-generator' }
+    ],
+    headings: [
+      { id: 'line-height-math', text: 'The Mathematics of Line Heights and Leading' },
+      { id: 'wcag-standards', text: 'WCAG 2.1 Success Criteria 1.4.12: Text Spacing' },
+      { id: 'optimal-reading-line', text: 'The Optimal Measure: Reading Line Length' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'Relative font scaling using rem units guarantees client font preferences are respected.',
+      'Unitless line-height rules scale correctly across child elements without scaling cascades.',
+      'A comfortable measure bounds line widths between 50 and 75 characters.',
+      'WCAG criteria require layout engines to survive dynamic text spacing overrides.'
+    ],
+    content: <TypographyGuideContent />
+  },
+  {
+    id: 'guide-qr-code-engineering',
+    title: 'Quick Response (QR) Code Engineering: Encoding Standards, Error Correction, and Matrix Mechanics',
+    category: 'Developer Tools',
+    iconName: 'developer',
+    excerpt: 'Dissect the inner mechanics of 2D barcodes, Reed-Solomon algebraic error correction codes, and optimal physical printing dimensions.',
+    readTime: '9 min read',
+    date: '2026-07-22',
+    author: 'Yogesh Kumar Madhukar',
+    authorRole: 'Founder & Independent Developer',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'QR Code Generator', id: 'tools/qr-generator' }
+    ],
+    headings: [
+      { id: 'qr-anatomy', text: 'The Structural Anatomy of a 2D QR Matrix' },
+      { id: 'error-correction', text: 'Reed-Solomon Algebraic Error Correction' },
+      { id: 'styling-limits', text: 'Designing Custom QR Codes: The Scanning Pitfalls' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'Finder patterns on three corners provide spatial anchor coordinates for image parsers.',
+      'Reed-Solomon error correction polynomials reconstruct missing data blocks.',
+      'Contrast margins and quiet zones must be maintained to prevent binarizer dropouts.',
+      'Dynamic QR codes utilize remote redirect gateways to decouple physical print from URL states.'
+    ],
+    content: <QrGuideContent />
+  },
+  {
+    id: 'guide-cron-syntax-automation',
+    title: 'Mastering Cron Expression Syntax, System Automations, and Cloud Task Orchestration',
+    category: 'Developer Tools',
+    iconName: 'developer',
+    excerpt: 'A masterclass in parsing cron strings, understanding step-increments, scheduling Linux background services, and coordinating serverless task queues.',
+    readTime: '8 min read',
+    date: '2026-07-24',
+    author: 'Yogesh Kumar Madhukar',
+    authorRole: 'Founder & Technical Architect',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'Cron Expression Builder', id: 'tools/cron-builder' }
+    ],
+    headings: [
+      { id: 'cron-syntax', text: 'The Standard 5-Field Cron Expression Layout' },
+      { id: 'cron-wildcards', text: 'Mastering Cron Special Syntax Characters' },
+      { id: 'cloud-triggers', text: 'Cloud Task Orchestration vs. Local Crontabs' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'Cron schedules divide time parameters into 5 standard positional fields.',
+      'Step wildcards define repetition intervals without listing explicit minutes or hours.',
+      'Serverless schedules offer high-availability, logging, and concurrency control over traditional crontabs.',
+      'UTC server configurations prevent timezone overlap errors during Daylight Saving conversions.'
+    ],
+    content: <CronGuideContent />
+  },
+  {
+    id: 'guide-csv-data-parsing',
+    title: 'The Architecture of CSV Data Exchange: Parsing Pipelines, Escape Sequences, and RFC 4180 Specifications',
+    category: 'Content Cleaning',
+    iconName: 'developer',
+    excerpt: 'An authoritative look at comma-separated values, data escaping pipelines, text-qualification standards under RFC 4180, and data security vectors.',
+    readTime: '9 min read',
+    date: '2026-07-26',
+    author: 'Yogesh Kumar Madhukar',
+    authorRole: 'Editorial Director & Developer',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'CSV Formatter & Extractor', id: 'tools/csv-formatter' }
+    ],
+    headings: [
+      { id: 'rfc-4180', text: 'Demystifying the RFC 4180 Specification' },
+      { id: 'escapement', text: 'The Mechanics of Escape Sequences and Text Qualifiers' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'RFC 4180 defines standard CSV parameters including CRLF line endings and header presence.',
+      'Text qualifiers protect field delimiters inside character streams.',
+      'CSV Injection formulas can execute malicious spreadsheet macros if left unsanitized.',
+      'Prepending a Byte Order Mark forces legacy tools to parse files with correct UTF-8 mapping.'
+    ],
+    content: <CsvGuideContent />
+  },
+  {
+    id: 'guide-seo-metadata-and-schema',
+    title: 'The Masterclass on Web Search Mechanics: Metadata Optimization, Structured JSON-LD Schemas, and Google Rich Results',
+    category: 'SEO Copywriting',
+    iconName: 'seo',
+    excerpt: 'Demystify crawler rendering engines, metadata tag lengths, canonical routing, and structured JSON-LD schemas to win prominent Google Rich Results.',
+    readTime: '9 min read',
+    date: '2026-07-28',
+    author: 'Yogesh Kumar Madhukar',
+    authorRole: 'Editorial Director & Publisher',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'SEO Meta Tag Generator', id: 'tools/meta-generator' }
+    ],
+    headings: [
+      { id: 'seo-meta', text: 'The Core Pillars of SEO Metadata Headers' },
+      { id: 'json-ld', text: 'The Architecture of Structured Schema Markup (JSON-LD)' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQ)' }
+    ],
+    takeaways: [
+      'Descriptive title and meta description tags act as CTR drivers in visual organic SERPs.',
+      'Canonical link attributes align page indexing priority, preventing duplicate content penalties.',
+      'JSON-LD schema scripts communicate explicit entity definitions directly to crawler brains.',
+      'Google Rich Results reward high-quality structured data with stars, ratings, and site search boxes.'
+    ],
+    content: <MetaSchemaGuideContent />
   }
 ];
