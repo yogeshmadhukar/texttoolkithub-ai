@@ -129,3 +129,53 @@ export function sanitizeHtml(html: string): string {
     return fallbackClean(html);
   }
 }
+
+/**
+ * Escapes special characters in HTML to prevent Reflected and Stored XSS.
+ */
+export function escapeHtml(str: string): string {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
+}
+
+/**
+ * Validates whether a URL is secure and safe (prevents Open Redirects, SSRF, and javascript: injection).
+ */
+export function isValidUrl(urlStr: string, allowedOrigins: string[] = []): boolean {
+  if (!urlStr) return false;
+  try {
+    const url = new URL(urlStr, typeof window !== 'undefined' ? window.location.origin : undefined);
+    
+    // Only allow http and https protocols to prevent protocol hijacking (like javascript:, file:, data:)
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+      return false;
+    }
+    
+    // If strict allowed origins are specified, verify host matching
+    if (allowedOrigins.length > 0) {
+      return allowedOrigins.includes(url.origin);
+    }
+    
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+/**
+ * Strips dangerous control characters and limits length to prevent Browser DoS.
+ */
+export function sanitizeInputString(str: string, maxLength: number = 50000): string {
+  if (!str) return '';
+  // Limit length to prevent DoS (ReDoS or browser thread hanging)
+  const clean = str.substring(0, maxLength);
+  // Strip null bytes and non-printable control characters (excluding tab, carriage return, newline)
+  return clean.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]/g, '').trim();
+}
+

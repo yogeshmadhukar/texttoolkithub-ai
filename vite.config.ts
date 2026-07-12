@@ -58,11 +58,48 @@ export default defineConfig(() => {
                   ensureBackup();
 
                   const base64Data = base64.replace(/^data:image\/\w+;base64,/, "");
-                  const buffer = Buffer.from(base64Data, 'base64');
+                  let buffer = Buffer.from(base64Data, 'base64');
+                  
+                  // Strict file size verification (e.g. 10MB limit)
+                  if (buffer.length > 10 * 1024 * 1024) {
+                    res.statusCode = 400;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify({ error: 'Payload exceeds maximum limit of 10MB.' }));
+                    return;
+                  }
+
+                  const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/webp'];
+                  if (!allowedMimeTypes.includes(mimeType)) {
+                    res.statusCode = 400;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify({ error: 'Unsupported file MIME type.' }));
+                    return;
+                  }
                   
                   const isSvg = mimeType === 'image/svg+xml' || mimeType.includes('svg');
                   
                   if (isSvg) {
+                    // Safe SVG parsing & sanitization to block Stored XSS and XML External Entity (XXE) Injection
+                    let svgText = buffer.toString('utf8');
+                    
+                    // 1. Block XXE / DTD expansion completely
+                    svgText = svgText
+                      .replace(/<!DOCTYPE[\s\S]*?>/gi, '')
+                      .replace(/<!ENTITY[\s\S]*?>/gi, '')
+                      .replace(/<!SYSTEM[\s\S]*?>/gi, '');
+
+                    // 2. Remove script tags and inline handlers
+                    svgText = svgText
+                      .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, '')
+                      .replace(/\s+on\w+\s*=\s*"[^"]*"/gi, '')
+                      .replace(/\s+on\w+\s*=\s*'[^']*'/gi, '')
+                      .replace(/\s+on\w+\s*=\s*[^\s>]+/gi, '')
+                      .replace(/href\s*=\s*["']\s*javascript:[\s\S]*?["']/gi, 'href="#"')
+                      .replace(/xlink:href\s*=\s*["']\s*javascript:[\s\S]*?["']/gi, 'xlink:href="#"')
+                      .replace(/src\s*=\s*["']\s*javascript:[\s\S]*?["']/gi, 'src="#"');
+
+                    buffer = Buffer.from(svgText, 'utf8');
+
                     // Save SVGs directly
                     fs.writeFileSync(path.join(PUBLIC_DIR, 'logo-custom.svg'), buffer);
                     fs.writeFileSync(path.join(PUBLIC_DIR, 'logo.svg'), buffer);
@@ -334,6 +371,15 @@ ${fileDetails.join('\n\n')}
       },
     },
     server: {
+      headers: {
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'X-XSS-Protection': '1; mode=block',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+        'Cross-Origin-Resource-Policy': 'same-origin',
+      },
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
@@ -350,6 +396,17 @@ ${fileDetails.join('\n\n')}
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api-proxy\/google/, ''),
         }
+      }
+    },
+    preview: {
+      headers: {
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'X-XSS-Protection': '1; mode=block',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+        'Cross-Origin-Resource-Policy': 'same-origin',
       }
     },
   };
