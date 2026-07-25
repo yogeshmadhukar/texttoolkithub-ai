@@ -659,6 +659,1222 @@ export const SPECIFIC_EDUCATIONAL_PROFILES: Record<string, EducationalProfile> =
       excerpt: "Master URL structures, keyword densities, and structural headings to write content that ranks."
     },
     relatedTools: ["tools/case-converter", "tools/url-encoder", "tools/remove-extra-spaces"]
+  },
+  'tools/sentence-counter': {
+    whatIsThis: "Our free online Sentence Counter is a precise text-analytics utility designed to count sentences, calculate word-per-sentence averages, and evaluate paragraph cadence in real time.",
+    howItWorks: "The tool scans your text for sentence-ending punctuation marks (. ! ?) followed by whitespace or uppercase letters, accurately filtering out common abbreviations like 'e.g.', 'Dr.', and 'Mr.' to deliver exact sentence counts and structural metrics.",
+    useCases: [
+      "Academic Essay Editing: Auditing paragraph variation and ensuring sentences do not exceed recommended length thresholds.",
+      "SEO Content Writing: Optimizing paragraph structure for mobile readers by keeping sentence length averages between 12 and 18 words.",
+      "Public Speaking Prep: Structuring speech scripts with short, impactful sentences for maximum auditory retention."
+    ],
+    bestPractices: [
+      "Aim for an average sentence length of 15 to 20 words for general web publishing.",
+      "Vary sentence lengths across paragraphs—mix short punchy statements with longer compound sentences to build engaging reading rhythm.",
+      "Fix run-on sentences identified by high word-per-sentence ratios by splitting them at coordinating conjunctions."
+    ],
+    commonMistakes: [
+      "Confusing sentence count with paragraph count—short paragraphs can contain multiple concise sentences.",
+      "Overusing semicolons to merge unrelated thoughts into overly long run-on sentences.",
+      "Relying solely on spellcheckers without auditing sentence length and structural cadence."
+    ],
+    professionalTips: [
+      "If your average sentence length exceeds 25 words, review your text for passive voice and split compound clauses into separate sentences.",
+      "Pasting your text into our browser-based counter gives you instant statistics without transmitting your content to external servers."
+    ],
+    exampleInput: "Welcome to TextToolkitHub. Our sentence counter processes your copy instantly! Does it work offline? Yes, completely.",
+    exampleOutput: "Sentences: 4 | Words: 17 | Avg Sentence Length: 4.25 words",
+    exampleExplanation: "The sentence counter recognized four distinct sentence boundaries delimited by periods, exclamation marks, and question marks.",
+    relatedGuide: {
+      id: "guide-readability-clarity",
+      title: "The Science of Readability and Clear Writing",
+      excerpt: "Learn how sentence lengths, paragraph structures, and readability formulas shape reader comprehension."
+    },
+    relatedTools: ["tools/word-counter", "tools/readability-checker", "tools/paragraph-formatter"]
+  },
+  'tools/keyword-density-checker': {
+    whatIsThis: "Our Keyword Density Checker is a specialized SEO text analyzer that measures term frequency, keyword repetition, and percentage distributions for single words and multi-word phrases.",
+    howItWorks: "The analyzer tokenizes input text into 1-gram, 2-gram, and 3-gram sequences, filters out common stop words (e.g., 'the', 'is', 'at'), and calculates the exact percentage frequency of each term relative to total word count.",
+    useCases: [
+      "SEO Article Optimization: Auditing draft articles to maintain a healthy 1% to 2.5% density for target search keywords.",
+      "Content Audit: Detecting accidental keyword stuffing or unintended phrase repetition before publishing.",
+      "Competitor Analysis: Analyzing top-ranking competitor content snippets to identify core topical phrases and secondary keywords."
+    ],
+    bestPractices: [
+      "Keep target keyword density between 1% and 2.5% to avoid search engine over-optimization penalties.",
+      "Incorporate semantic variations, synonyms, and long-tail phrases rather than repeating exact-match terms.",
+      "Focus keyword placement naturally in the introduction, H2 subheadings, and conclusion."
+    ],
+    commonMistakes: [
+      "Keyword stuffing—forcing primary terms into every paragraph at densities above 3.5%, which degrades user readability and triggers search penalties.",
+      "Ignoring 2-gram and 3-gram keyphrases which often carry higher semantic relevance than isolated single words.",
+      "Counting stop words as keywords, which skews density calculations."
+    ],
+    professionalTips: [
+      "Filter out stop words using our built-in toggle to view only high-value topical keywords.",
+      "Use our client-side checker to privately audit client drafts or sensitive SEO briefs before publication."
+    ],
+    exampleInput: "Keyword density analysis helps SEO writers optimize keyword density naturally. Check keyword density easily.",
+    exampleOutput: "Top Keyword: 'keyword density' (Count: 3, Density: 21.4% of keyphrases)",
+    exampleExplanation: "The tool extracted the 2-gram phrase 'keyword density', computed its frequency against the total phrase pool, and displayed its exact density ratio.",
+    relatedGuide: {
+      id: "guide-seo-copywriting-density",
+      title: "SEO Copywriting and Keyword Density Optimization",
+      excerpt: "Master keyword frequency, semantic n-grams, and natural term placement for search engine ranking."
+    },
+    relatedTools: ["tools/word-counter", "tools/readability-checker", "tools/character-counter"]
+  },
+  'tools/remove-duplicate-lines': {
+    whatIsThis: "The Remove Duplicate Lines tool is a data-cleansing utility that scans multi-line text datasets, identifies repeated lines, and strips out duplicates to leave a clean, unique list.",
+    howItWorks: "The tool splits text by newline characters, compares each line against an in-memory set (with optional case-sensitivity or whitespace trimming), and outputs only the first occurrence of each unique line.",
+    useCases: [
+      "Email List Cleaning: Sanitizing subscriber exports by removing duplicate email addresses before sending campaigns.",
+      "Database Admin: Deduplicating log files, SQL queries, or ID lists before database imports.",
+      "Keyword Research: Cleaning up keyword lists generated from multiple research tools to prevent duplicate entries."
+    ],
+    bestPractices: [
+      "Enable 'Trim Whitespace' to catch duplicate lines that contain trailing spaces or indentation differences.",
+      "Select 'Case-Insensitive Mode' when deduplicating email addresses or URLs where capitalization does not alter identity.",
+      "Combine deduplication with alphabetical sorting for pristine list organization."
+    ],
+    commonMistakes: [
+      "Deduplicating ordered code files where repeating lines (such as closing brackets) are syntactically required.",
+      "Forgetting to trim invisible trailing spaces before deduplicating, leaving behind disguised duplicates.",
+      "Not keeping a backup of the original dataset before performing bulk line removals."
+    ],
+    professionalTips: [
+      "Use the 'Sort Output' checkbox to automatically sort your deduplicated list alphabetically in a single operation.",
+      "Because processing happens entirely in local browser RAM, you can deduplicate files with over 50,000 lines in milliseconds without server latency."
+    ],
+    exampleInput: "apple\nbanana\napple\norange\nbanana",
+    exampleOutput: "apple\nbanana\norange",
+    exampleExplanation: "The deduplication engine identified repeated occurrences of 'apple' and 'banana' and retained only the unique entries.",
+    relatedGuide: {
+      id: "guide-pdf-ocr-cleanup",
+      title: "Cleaning Up PDF Copy & Paste and Messy OCR Text Scans",
+      excerpt: "Learn how to deduplicate lines, strip formatting artifacts, and sanitize raw datasets effortlessly."
+    },
+    relatedTools: ["tools/remove-empty-lines", "tools/text-sorter", "tools/remove-extra-spaces"]
+  },
+  'tools/remove-empty-lines': {
+    whatIsThis: "The Remove Empty Lines tool is a text-sanitization utility designed to strip blank lines, empty returns, and excessive vertical whitespace from formatted documents and code.",
+    howItWorks: "The tool iterates through each line of the input string, evaluates whether the line contains non-whitespace characters, and drops lines that are empty or consist entirely of blank spaces.",
+    useCases: [
+      "PDF Text Cleanup: Purging double blank lines introduced when copying text from PDF documents or web pages.",
+      "Code Refactoring: Cleaning up messy source code files by removing extraneous line breaks and empty gaps.",
+      "Dataset Preparation: Formatting raw text lists before importing them into spreadsheets or database tables."
+    ],
+    bestPractices: [
+      "Use 'Collapse Consecutive Blank Lines' if you want to keep single spacing between paragraphs while removing double or triple gaps.",
+      "Combine empty line removal with extra space trimming for maximum formatting cleanliness.",
+      "Review code files after processing to ensure necessary vertical spacing in block structures is maintained."
+    ],
+    commonMistakes: [
+      "Stripping all empty lines from Markdown files where blank lines are required to delimit paragraphs and lists.",
+      "Confusing whitespace lines (lines containing spaces/tabs) with true empty lines; enable whitespace trimming for best results.",
+      "Removing intentional blank lines used as visual separators in plain text documentation."
+    ],
+    professionalTips: [
+      "Pasting text copied from PDFs into this tool instantly removes artificial paragraph gaps in one click.",
+      "Use the live preview to verify document formatting before copying the cleaned text to your clipboard."
+    ],
+    exampleInput: "Header Title\n\n\nSection Content paragraph text.\n\n\nFooter note.",
+    exampleOutput: "Header Title\nSection Content paragraph text.\nFooter note.",
+    exampleExplanation: "The tool removed all empty lines and blank carriage returns, consolidating the document into continuous text rows.",
+    relatedGuide: {
+      id: "guide-pdf-ocr-cleanup",
+      title: "Cleaning Up PDF Copy & Paste and Messy OCR Text Scans",
+      excerpt: "Discover strategies for purging blank lines, broken line wraps, and carriage returns from scanned documents."
+    },
+    relatedTools: ["tools/remove-line-breaks", "tools/remove-extra-spaces", "tools/remove-duplicate-lines"]
+  },
+  'tools/lorem-ipsum-generator': {
+    whatIsThis: "Our Lorem Ipsum Generator is a customizable dummy text utility that produces classic Latin placeholder copy for designers, web developers, and typographers.",
+    howItWorks: "The generator samples from Marcus Tullius Cicero's 45 BC treatise 'De Finibus Bonorum et Malorum', assembling structured paragraphs, sentences, or words based on your selected count, optional HTML wrapping, and starting options.",
+    useCases: [
+      "UI/UX Wireframing: Populating website layouts, mobile app screens, and print mockups with neutral placeholder text.",
+      "Typography Testing: Evaluating font pairings, line heights, and paragraph spacing without content distraction.",
+      "Template Development: Creating sample blog posts and landing page themes for CMS platforms."
+    ],
+    bestPractices: [
+      "Vary paragraph lengths in design mockups to mimic natural human reading flow and test responsive text wrapping.",
+      "Enable HTML `<p>` tag wrapping when populating web templates or CMS rich-text fields directly.",
+      "Use sentence mode when designing UI components like cards, tooltips, or callout banners."
+    ],
+    commonMistakes: [
+      "Leaving Lorem Ipsum placeholder copy live on public production websites after deployment.",
+      "Using fixed-length dummy blocks that fail to reveal how real text wraps on small mobile screens.",
+      "Relying on placeholder text for usability testing where real content context is necessary for user task completion."
+    ],
+    professionalTips: [
+      "Select 'Start with Lorem ipsum dolor sit amet...' for client wireframes so stakeholders immediately recognize it as placeholder copy.",
+      "Use our word count slider to generate exact-length snippets for character-constrained UI buttons and meta tags."
+    ],
+    exampleInput: "Generate 2 Paragraphs with HTML Tags",
+    exampleOutput: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>\n<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>",
+    exampleExplanation: "The generator produced two structured paragraphs of classic Latin dummy text wrapped in standard HTML paragraph tags.",
+    relatedGuide: {
+      id: "guide-markdown-formatting",
+      title: "Markdown Formatting and Table Structures",
+      excerpt: "Learn how to format dummy text, structural elements, and design wireframe layouts effectively."
+    },
+    relatedTools: ["tools/random-text-generator", "tools/fancy-text-generator", "tools/bullet-point-generator"]
+  },
+  'tools/random-text-generator': {
+    whatIsThis: "Our Random Text Generator is an engineering utility built to produce randomized string sequences, mock text data, alphanumeric tokens, and dummy payloads for development and testing.",
+    howItWorks: "The generator uses client-side cryptographic random number generation (`crypto.getRandomValues`) to compile strings from configurable character sets (uppercase, lowercase, numbers, special symbols) or English word lists.",
+    useCases: [
+      "Software QA Testing: Generating random string payloads to test input form validations, database boundary limits, and buffer overflows.",
+      "Database Seeding: Creating randomized names, tokens, or mock column values for local development environments.",
+      "Secure Token Drafting: Generating high-entropy alphanumeric strings for temporary keys and test identifiers."
+    ],
+    bestPractices: [
+      "Include special characters and numbers when generating test strings for password strength meters and authentication forms.",
+      "Use the word-based random generator when you need human-readable mock copy rather than abstract character strings.",
+      "Test boundary limits by generating maximum-length strings to verify UI layout responsiveness."
+    ],
+    commonMistakes: [
+      "Using non-cryptographic random sources for security-sensitive production keys (always use dedicated crypto tools for production secrets).",
+      "Generating random character strings without spaces when testing mobile UI wrapping, which can cause layout overflow.",
+      "Forgetting to verify character encoding support when generating strings with extended symbols."
+    ],
+    professionalTips: [
+      "Combine the random string generator with our Base64 Encoder to simulate encoded authorization headers during API development.",
+      "All generation runs locally in browser memory, ensuring your test tokens are generated securely."
+    ],
+    exampleInput: "Length: 16 | Character Set: Alphanumeric + Symbols",
+    exampleOutput: "k9#mP2$xL8!vQ4@w",
+    exampleExplanation: "The generator created a 16-character high-entropy random string using cryptographic randomness.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Understand cryptographic randomness, token generation, and secure data handling in web applications."
+    },
+    relatedTools: ["tools/uuid-generator", "tools/hash-generator", "tools/lorem-ipsum-generator"]
+  },
+  'tools/case-converter-pro': {
+    whatIsThis: "Case Converter Pro is a comprehensive text-transformation utility supporting advanced developer and typography casing conventions including Title Case, camelCase, PascalCase, snake_case, kebab-case, and CONSTANT_CASE.",
+    howItWorks: "The tool parses input strings into individual token words, strips existing delimiting characters, and applies precise capitalization and joining rules for the target casing format instantly in memory.",
+    useCases: [
+      "Software Engineering: Translating raw database column names into camelCase variables, PascalCase class names, or CONSTANT_CASE environment variables.",
+      "Content Publishing: Converting article titles into Chicago-style Title Case or search-friendly kebab-case URL slugs.",
+      "Data Normalization: Standardizing messy text inputs into consistent capitalization formats."
+    ],
+    bestPractices: [
+      "Use camelCase for JavaScript/TypeScript variable names and object keys.",
+      "Use PascalCase for React components, TypeScript interfaces, and class declarations.",
+      "Use kebab-case for URL paths, CSS class names, and file naming conventions."
+    ],
+    commonMistakes: [
+      "Applying Title Case to entire paragraphs instead of reserving it for headlines and titles.",
+      "Mixing casing styles within a single codebase, which degrades code maintainability.",
+      "Forgetting that camelCase and PascalCase strip spaces, making them harder to convert back to plain text without smart parsing."
+    ],
+    professionalTips: [
+      "Use the 'Batch Convert' mode to transform multiple variable names or lines simultaneously.",
+      "Our tool intelligently preserves acronyms like 'API' or 'URL' when converting to Title Case."
+    ],
+    exampleInput: "user authentication setting status",
+    exampleOutput: "camelCase: userAuthenticationSettingStatus | snake_case: user_authentication_setting_status | CONSTANT_CASE: USER_AUTHENTICATION_SETTING_STATUS",
+    exampleExplanation: "The tool tokenized the input phrase and formatted it across multiple programming casing conventions simultaneously.",
+    relatedGuide: {
+      id: "guide-readability-clarity",
+      title: "The Science of Readability and Clear Writing",
+      excerpt: "Master casing rules, typography conventions, and naming standards for clear communication."
+    },
+    relatedTools: ["tools/case-converter", "tools/slug-generator", "tools/fancy-text-generator"]
+  },
+  'tools/url-encoder': {
+    whatIsThis: "Our Online URL Encoder is a developer utility that converts raw text, special characters, and query string parameters into percent-encoded formats compliant with RFC 3986.",
+    howItWorks: "The encoder processes string input using `encodeURIComponent` and `encodeURI` algorithms, replacing reserved characters (e.g., `?`, `=`, `&`, `#`, spaces, non-ASCII symbols) with their corresponding `%` hex byte representations.",
+    useCases: [
+      "API Development: Encoding query parameter values containing spaces, symbols, or URLs before appending them to HTTP GET request paths.",
+      "Web Analytics: Preparing UTM tracking parameter values to ensure campaign URLs break neither routing nor parameters.",
+      "Form Data Transmission: Encoding form inputs for `application/x-www-form-urlencoded` payloads."
+    ],
+    bestPractices: [
+      "Use `encodeURIComponent` when encoding individual query parameter values.",
+      "Use `encodeURI` when encoding a full URL where structural delimiters (like `http://` or `?`) must remain intact.",
+      "Always encode user-supplied search queries before injecting them into URL parameters."
+    ],
+    commonMistakes: [
+      "Encoding an entire URL with `encodeURIComponent`, which corrupts the protocol (`http%3A%2F%2F`) and path structure.",
+      "Forgetting to encode spaces in query strings, leading to broken URLs or `%20` / `+` parameter parsing errors.",
+      "Double-encoding URLs that were already percent-encoded, creating invalid sequences like `%2520`."
+    ],
+    professionalTips: [
+      "Switch between 'Component Mode' (for parameter values) and 'Full URL Mode' depending on your encoding task.",
+      "All encoding takes place in-browser, making it safe to encode proprietary API paths and internal parameters."
+    ],
+    exampleInput: "https://example.com/search?q=text & tools!",
+    exampleOutput: "https://example.com/search?q=text%20%26%20tools%21",
+    exampleExplanation: "The tool replaced spaces with `%20`, ampersands with `%26`, and exclamation marks with `%21` to make the URL web-safe.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Learn how percent encoding, RFC standards, and URL formatting safeguard HTTP data transfers."
+    },
+    relatedTools: ["tools/url-decoder", "tools/base64-encoder", "tools/html-encoder"]
+  },
+  'tools/url-decoder': {
+    whatIsThis: "Our URL Decoder is a browser-based developer utility that converts percent-encoded strings and percent-escaped URLs back into clean, readable UTF-8 text.",
+    howItWorks: "The decoder scans input strings for `%` followed by two hexadecimal digits, converting those hex byte values back into their original UTF-8 characters via `decodeURIComponent`.",
+    useCases: [
+      "Log Inspection: Decoding web server access logs, redirect parameters, and analytics tracking URLs.",
+      "API Debugging: Inspecting encoded query parameter payloads received from external HTTP webhooks.",
+      "Link Verification: Unmasking percent-encoded URLs to verify link destinations before clicking."
+    ],
+    bestPractices: [
+      "Decode query strings when troubleshooting API request errors or unexpected routing behavior.",
+      "Handle `+` characters carefully—in query parameters, `+` often represents a space character.",
+      "Verify that decoded strings do not contain unescaped HTML/JavaScript before rendering them in web pages."
+    ],
+    commonMistakes: [
+      "Attempting to decode corrupted or truncated percent sequences (e.g., `%2` without the second hex digit), which causes decode errors.",
+      "Confusing URL decoding with Base64 or HTML entity decoding.",
+      "Ignoring character encoding differences when dealing with legacy non-UTF-8 URLs."
+    ],
+    professionalTips: [
+      "Our decoder automatically catches malformed percent sequences and highlights parsing errors gracefully.",
+      "Use our offline client-side tool to inspect sensitive API callback parameters without sharing data."
+    ],
+    exampleInput: "https%3A%2F%2Fexample.com%2Fsearch%3Fq%3Dhello%20world",
+    exampleOutput: "https://example.com/search?q=hello world",
+    exampleExplanation: "The decoder translated percent sequences (`%3A`, `%2F`, `%3F`, `%3D`, `%20`) back to their original characters.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Master percent-decoding, URL parameters, and safe string inspection techniques."
+    },
+    relatedTools: ["tools/url-encoder", "tools/base64-decoder", "tools/html-decoder"]
+  },
+  'tools/fancy-text-generator': {
+    whatIsThis: "Our Fancy Text Generator is a creative Unicode typography utility that transforms plain standard text into stylized mathematical alphanumeric characters, script fonts, gothic lettering, and circled symbols.",
+    howItWorks: "The generator maps standard ASCII letters and numbers to alternate Unicode character ranges (such as Mathematical Bold, Script, Fraktur, Double-Struck, and Monospace) using offset mapping algorithms in JavaScript.",
+    useCases: [
+      "Social Media Branding: Creating eye-catching bios, post captions, and headings for Instagram, X (Twitter), LinkedIn, and TikTok.",
+      "Digital Art & Design: Generating stylized headers and decorative typography for banners and graphic assets.",
+      "Gaming Profiles: Customizing player handles, team names, and discord nicknames with stylized lettering."
+    ],
+    bestPractices: [
+      "Use fancy Unicode styles selectively for short headings or bio highlights rather than long body text paragraphs.",
+      "Keep accessibility in mind—screen readers may read Unicode mathematical symbols as individual math terms rather than plain words.",
+      "Test generated stylized text across different devices to confirm symbol rendering support."
+    ],
+    commonMistakes: [
+      "Overusing stylized Unicode characters in main content, which severely impairs readability and screen reader accessibility.",
+      "Expecting fancy fonts to behave like standard CSS font-family styles (Unicode characters cannot be un-styled with plain CSS).",
+      "Using complex symbols for critical user data or search keywords, which breaks indexing and search functionality."
+    ],
+    professionalTips: [
+      "Click any generated style card to copy it instantly to your clipboard.",
+      "For professional brand profiles, pair a bold Unicode headline with clean standard text body copy."
+    ],
+    exampleInput: "TextToolkitHub",
+    exampleOutput: "𝓣𝓮𝔁𝓽𝓣𝓸𝓸𝓵𝓴𝓲𝓽𝓗𝓾𝓫 | 𝕋𝕖𝕩𝕥𝕋𝕠𝕠𝕝𝕜𝕚𝕥ℍ𝕦𝕓 | 𝕿𝖊𝖝𝖙𝕿𝖔𝖔𝖑𝖐𝖎𝖙𝕺𝖚𝖇",
+    exampleExplanation: "The tool mapped standard ASCII characters to Script, Double-Struck, and Fraktur Unicode code points.",
+    relatedGuide: {
+      id: "guide-readability-clarity",
+      title: "The Science of Readability and Clear Writing",
+      excerpt: "Understand typography, character set mappings, and visual presentation best practices."
+    },
+    relatedTools: ["tools/case-converter", "tools/lorem-ipsum-generator", "tools/bullet-point-generator"]
+  },
+  'tools/html-encoder': {
+    whatIsThis: "Our HTML Encoder is a security-focused web developer tool that escapes reserved HTML characters into their corresponding HTML entity equivalents (`&lt;`, `&gt;`, `&amp;`, `&quot;`, `&#39;`).",
+    howItWorks: "The tool scans input strings and replaces special HTML markup characters with named or numeric entities, preventing web browsers from interpreting user input as active HTML elements or executable JavaScript.",
+    useCases: [
+      "XSS Prevention: Escaping user-generated content before rendering it inside HTML templates to mitigate Cross-Site Scripting (XSS) attacks.",
+      "Code Documentation: Preparing code snippets and HTML examples to display raw tags cleanly inside `<pre>` and `<code>` blocks.",
+      "Email Template Building: Escaping dynamic variables in HTML email layouts to ensure consistent rendering across email clients."
+    ],
+    bestPractices: [
+      "Always escape `<`, `>`, `&`, `\"`, and `'` when outputting untrusted text into HTML element bodies or attributes.",
+      "Combine HTML escaping with proper Content Security Policy (CSP) headers for comprehensive web security.",
+      "Use named entities (like `&lt;`) for common markup symbols for better code readability."
+    ],
+    commonMistakes: [
+      "Relying solely on client-side escaping without performing server-side validation and sanitization.",
+      "Double-escaping text that already contains HTML entities, producing corrupted display strings like `&amp;lt;`.",
+      "Escaping content that is intended to be rendered as actual formatted HTML markup."
+    ],
+    professionalTips: [
+      "Pasting raw HTML source code into our encoder gives you instantly safe entity strings to paste into documentation.",
+      "All processing occurs locally in your browser memory, keeping code drafts completely confidential."
+    ],
+    exampleInput: "<script>alert('XSS Attack!');</script>",
+    exampleOutput: "&lt;script&gt;alert(&#39;XSS Attack!&#39;);&lt;/script&gt;",
+    exampleExplanation: "The tool replaced `<` and `>` with `&lt;` and `&gt;` and single quotes with `&#39;`, preventing browser execution.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Learn how entity escaping and output encoding protect web applications from security vulnerabilities."
+    },
+    relatedTools: ["tools/html-decoder", "tools/string-escaper", "tools/base64-encoder"]
+  },
+  'tools/html-decoder': {
+    whatIsThis: "Our HTML Decoder is a web developer tool that converts HTML entities (`&lt;`, `&gt;`, `&amp;`, `&quot;`, `&#39;`, `&#160;`) back into their original raw characters.",
+    howItWorks: "The decoder parses named, decimal, and hexadecimal HTML entity sequences, mapping them back to standard UTF-8 characters using browser DOM parsing mechanisms in a safe client-side environment.",
+    useCases: [
+      "Web Scraping Cleanups: Converting entity-encoded text extracted from web pages or XML feeds back into clean, human-readable text.",
+      "Database Debugging: Unescaping entity-encoded strings retrieved from legacy database tables.",
+      "Content Migration: Cleaning up encoded CMS export files during web site migrations."
+    ],
+    bestPractices: [
+      "Verify the decoded output before rendering it directly in a live browser DOM to prevent accidental XSS execution.",
+      "Use HTML decoding when converting HTML-encoded data feeds into plain text or JSON payloads.",
+      "Keep a copy of raw encoded source data when performing batch data migrations."
+    ],
+    commonMistakes: [
+      "Decoding untrusted input and directly injecting it into `innerHTML` without sanitization.",
+      "Expecting the HTML decoder to strip HTML tags (use a dedicated HTML tag stripper or converter for that purpose).",
+      "Confusing HTML decoding with URL decoding or Base64 decoding."
+    ],
+    professionalTips: [
+      "Use our client-side tool to safely decode scraped web content without uploading data to external servers.",
+      "The tool handles both named entities (`&copy;`) and numeric code points (`&#169;`) seamlessly."
+    ],
+    exampleInput: "&amp;lt;div class=&amp;quot;card&amp;quot;&amp;gt;Hello &amp;amp; Welcome&amp;lt;/div&amp;gt;",
+    exampleOutput: "<div class=\"card\">Hello & Welcome</div>",
+    exampleExplanation: "The decoder translated entity sequences back to standard HTML markup characters.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Master entity decoding, string sanitization, and secure web content handling."
+    },
+    relatedTools: ["tools/html-encoder", "tools/string-escaper", "tools/url-decoder"]
+  },
+  'tools/base64-encoder': {
+    whatIsThis: "Our Base64 Encoder is a secure, browser-based utility that encodes plain text, binary strings, and data payloads into MIME Base64 format according to RFC 4648 standards.",
+    howItWorks: "The encoder groups input data bytes into 24-bit blocks, splits them into four 6-bit index values, and maps each value to a printable ASCII character set (A-Z, a-z, 0-9, +, /) with `=` padding.",
+    useCases: [
+      "API Authorization: Encoding `username:password` credentials for HTTP Basic Authentication headers.",
+      "Data URI Creation: Converting small assets and SVG vectors into inline Base64 data strings for CSS and HTML embeddings.",
+      "Binary Payload Transmission: Encoding binary data streams for safe transmission over text-only protocols like SMTP or JSON."
+    ],
+    bestPractices: [
+      "Use URL-safe Base64 mode (replacing `+` with `-` and `/` with `_`) when embedding Base64 strings in URL parameters.",
+      "Remember that Base64 encoding increases data payload size by approximately 33%.",
+      "Never treat Base64 as encryption—it is an encoding scheme that can be decoded by anyone."
+    ],
+    commonMistakes: [
+      "Using Base64 to store sensitive passwords or API keys assuming it provides security (it provides zero confidentiality).",
+      "Encoding massive files in browser memory which can cause performance lag on low-spec devices.",
+      "Forgetting UTF-8 character encoding handling when encoding non-ASCII strings."
+    ],
+    professionalTips: [
+      "Use our offline client-side encoder to generate API Basic Auth headers safely without exposing credentials to network servers.",
+      "Enable 'URL-Safe Mode' when preparing Base64 tokens for web routing parameters."
+    ],
+    exampleInput: "TextToolkitHub:SecretKey2026",
+    exampleOutput: "VGV4dFRvb2xraXRIdWI6U2VjcmV0S2V5MjAyNg==",
+    exampleExplanation: "The encoder converted the ASCII string into a standard padded Base64 representation suitable for Basic Auth headers.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Deep dive into Base64 encoding mechanics, RFC 4648 standards, and web security implementations."
+    },
+    relatedTools: ["tools/base64-decoder", "tools/jwt-decoder", "tools/url-encoder"]
+  },
+  'tools/base64-decoder': {
+    whatIsThis: "Our Base64 Decoder is a client-side developer utility that converts Base64 encoded strings back into original UTF-8 text, JSON objects, or binary byte streams.",
+    howItWorks: "The decoder reverses the Base64 mapping, translating 6-bit index characters back into 8-bit binary bytes using browser native `atob` mechanisms enhanced with full UTF-8 character decoding support.",
+    useCases: [
+      "JWT Payload Inspection: Decoding the header and payload segments of JSON Web Tokens to inspect claims and expiration times.",
+      "API Log Debugging: Decoding encoded webhooks, error responses, and authorization header values during development.",
+      "Data Inspection: Unpacking Base64 data URIs and embedded payload strings."
+    ],
+    bestPractices: [
+      "Verify that the input string is valid Base64 (length is a multiple of 4 with valid padding characters).",
+      "Use UTF-8 aware decoding to properly render multi-byte Unicode characters and emojis.",
+      "Inspect decoded JWT tokens locally to verify expiration dates and role permissions."
+    ],
+    commonMistakes: [
+      "Attempting to decode corrupted Base64 strings containing illegal whitespace or missing padding characters.",
+      "Expecting the Base64 decoder to decrypt password hashes (hashes are one-way cryptographic functions).",
+      "Ignoring byte encoding differences when decoding non-text binary streams."
+    ],
+    professionalTips: [
+      "Our decoder features automatic UTF-8 decoding, ensuring non-English text and symbols decode perfectly.",
+      "Because all processing happens in your browser's local memory, you can safely inspect sensitive token payloads without privacy risks."
+    ],
+    exampleInput: "SGVsbG8gV29ybGQhIFdlbGNvbWUgdG8gVGV4dFRvb2xraXRIdWIs",
+    exampleOutput: "Hello World! Welcome to TextToolkitHub,",
+    exampleExplanation: "The decoder translated the Base64 character string back into clear UTF-8 text.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Learn how Base64 decoding, token inspection, and data payload parsing function."
+    },
+    relatedTools: ["tools/base64-encoder", "tools/jwt-decoder", "tools/url-decoder"]
+  },
+  'tools/text-sorter': {
+    whatIsThis: "Our Online Text Sorter is a flexible list-organization tool that sorts text lines alphabetically (A-Z or Z-A), numerically, by line length, or naturally.",
+    howItWorks: "The tool splits input text by newline characters, executes configurable JavaScript sorting algorithms (using `localeCompare` for natural sorting), and reconstructs the organized text list instantly.",
+    useCases: [
+      "List Organization: Sorting name directories, email lists, product SKUs, or inventory registers alphabetically.",
+      "Code Cleanups: Ordering CSS properties, import statements, or configuration keys alphabetically for better code structure.",
+      "Data Analysis: Sorting numeric datasets or log entries to identify minimum, maximum, or outlier values."
+    ],
+    bestPractices: [
+      "Enable 'Natural Sort' when sorting lists that contain numbered items (e.g., Item 2 before Item 10).",
+      "Use 'Case-Insensitive Mode' to prevent uppercase letters (A-Z) from all being grouped ahead of lowercase letters (a-z).",
+      "Combine sorting with deduplication to generate clean, ordered lists."
+    ],
+    commonMistakes: [
+      "Using standard alphabetical sorting on numerical lists, which places '10' before '2'.",
+      "Forgetting to trim leading whitespace before sorting, causing indented lines to group unexpectedly.",
+      "Sorting structured code blocks where execution order is dependent on line sequence."
+    ],
+    professionalTips: [
+      "Toggle the 'Remove Duplicates' option while sorting to clean and alphabetize lists in a single click.",
+      "Use 'Sort by Length' when arranging keywords or headlines by character length for UI design."
+    ],
+    exampleInput: "banana\n10. Orange\n2. Apple\ncherry",
+    exampleOutput: "2. Apple\n10. Orange\nbanana\ncherry",
+    exampleExplanation: "With Natural Sort enabled, the engine correctly ordered numbered items numerically before sorting remaining text lines.",
+    relatedGuide: {
+      id: "guide-pdf-ocr-cleanup",
+      title: "Cleaning Up PDF Copy & Paste and Messy OCR Text Scans",
+      excerpt: "Discover strategies for organizing, sorting, and cleaning list datasets efficiently."
+    },
+    relatedTools: ["tools/remove-duplicate-lines", "tools/text-reverser", "tools/list-randomizer"]
+  },
+  'tools/text-reverser': {
+    whatIsThis: "Our Text Reverser is a text-manipulation utility that reverses character order, flips word order, or reverses line sequences in multi-line text blocks.",
+    howItWorks: "The tool processes text strings using Unicode-aware splitting algorithms, reversing character arrays, word sequences, or line arrays based on your selected reversal mode.",
+    useCases: [
+      "Palindrome Checking: Verifying whether words or phrases read identically forwards and backwards.",
+      "Data Formatting: Reversing list ordering or inverted data logs.",
+      "Creative Writing: Generating mirrored text effects and cryptographic text puzzles."
+    ],
+    bestPractices: [
+      "Use 'Reverse Words' mode when you want to flip word order while keeping individual words legible.",
+      "Use 'Reverse Lines' mode to flip chronological log entries so newest or oldest entries appear first.",
+      "Ensure Unicode surrogate pair support when reversing text containing emojis."
+    ],
+    commonMistakes: [
+      "Using naive string reversal methods on multi-byte Unicode emojis, which can break emoji glyphs into broken surrogate pairs.",
+      "Confusing line reversal with text sorting.",
+      "Reversing code files where syntax order is required."
+    ],
+    professionalTips: [
+      "Our tool features Unicode-aware character splitting to ensure emojis and accents reverse perfectly without breaking.",
+      "Use 'Reverse Lines' to quickly invert log exports so recent events appear at the top."
+    ],
+    exampleInput: "TextToolkitHub is fast",
+    exampleOutput: "Character Reverse: tsaf si buTtiklooTXe | Word Reverse: fast is TextToolkitHub",
+    exampleExplanation: "The tool demonstrated both character-level and word-level string reversal modes.",
+    relatedGuide: {
+      id: "guide-readability-clarity",
+      title: "The Science of Readability and Clear Writing",
+      excerpt: "Explore text structure, character sequencing, and string manipulation techniques."
+    },
+    relatedTools: ["tools/text-sorter", "tools/text-repeater", "tools/case-converter"]
+  },
+  'tools/text-repeater': {
+    whatIsThis: "Our Text Repeater is an automated string generator built to duplicate text snippets, phrases, or test patterns a specified number of times with custom separators.",
+    howItWorks: "The tool takes your input string and repeats it `N` times using optimized string concatenation algorithms, joining repetitions with your choice of newline, space, comma, or custom separator.",
+    useCases: [
+      "QA Stress Testing: Generating massive text blocks to test input field limits, memory usage, and UI truncation.",
+      "Design Wireframing: Creating repeating text patterns to test scrolling performance and container bounds.",
+      "Social Media Formatting: Generating repeated decorative text elements or separators."
+    ],
+    bestPractices: [
+      "Choose the right delimiter (newline, space, comma) based on how the repeated text will be consumed.",
+      "Test large repeat counts incrementally to avoid browser memory lag.",
+      "Include spaces in repeated phrases if testing natural text wrapping."
+    ],
+    commonMistakes: [
+      "Setting extremely high repeat counts (e.g., 1,000,000) on low-spec mobile devices, causing browser tab unresponsiveness.",
+      "Forgetting to add separators between repeated words, creating an unintended continuous string.",
+      "Using repeated placeholder strings instead of realistic copy when testing UI readability."
+    ],
+    professionalTips: [
+      "Use 'Newline Separator' mode to quickly generate multi-line test datasets for deduplication testing.",
+      "Click the copy button to transfer the generated repeated string directly to your clipboard."
+    ],
+    exampleInput: "Text: 'Sample' | Count: 4 | Separator: ' - '",
+    exampleOutput: "Sample - Sample - Sample - Sample",
+    exampleExplanation: "The repeater duplicated the string 'Sample' 4 times separated by ' - '.",
+    relatedGuide: {
+      id: "guide-markdown-formatting",
+      title: "Markdown Formatting and Table Structures",
+      excerpt: "Learn how to build repeating structural elements and mock data layouts for testing."
+    },
+    relatedTools: ["tools/lorem-ipsum-generator", "tools/random-text-generator", "tools/paragraph-formatter"]
+  },
+  'tools/paragraph-formatter': {
+    whatIsThis: "Our Paragraph Formatter is a document styling utility designed to clean up paragraph indentations, adjust line spacing, rewrap margins, and normalize multi-line document structures.",
+    howItWorks: "The tool parses document text into logical paragraphs, applies configurable indentation rules, line wrapping character limits, and vertical paragraph spacing, returning clean, standardized copy.",
+    useCases: [
+      "Publishing Preparation: Formatting raw manuscript drafts before copying into publishing software or CMS editors.",
+      "Email Formatting: Wrapping long email copy at 70-80 characters for legacy text-based email clients.",
+      "Academic Proofreading: Standardizing paragraph indents and line gaps across multi-author documents."
+    ],
+    bestPractices: [
+      "Set line wrapping between 60 and 80 characters for comfortable reading on fixed-width screens.",
+      "Maintain consistent paragraph spacing (either double carriage returns or first-line indents, not both).",
+      "Preview formatted paragraphs in both light and dark reading modes before copying."
+    ],
+    commonMistakes: [
+      "Mixing tabs and spaces for paragraph indents, causing alignment errors across different text editors.",
+      "Hard-wrapping paragraphs at narrow character limits when publishing to responsive websites.",
+      "Over-indenting paragraphs in web body copy where block spacing is standard."
+    ],
+    professionalTips: [
+      "Use 'Normalize Paragraph Breaks' to convert irregular line gaps into clean, uniform double returns.",
+      "All formatting executes locally in browser RAM, protecting your drafts and intellectual property."
+    ],
+    exampleInput: "   First paragraph with messy indent.\n\n\nSecond paragraph with extra gaps.",
+    exampleOutput: "First paragraph with messy indent.\n\nSecond paragraph with extra gaps.",
+    exampleExplanation: "The formatter trimmed irregular indents and normalized paragraph gaps to standard double returns.",
+    relatedGuide: {
+      id: "guide-readability-clarity",
+      title: "The Science of Readability and Clear Writing",
+      excerpt: "Master paragraph length, spacing rules, and document formatting for optimal reader engagement."
+    },
+    relatedTools: ["tools/remove-line-breaks", "tools/remove-extra-spaces", "tools/sentence-counter"]
+  },
+  'tools/remove-special-characters': {
+    whatIsThis: "The Remove Special Characters tool is a regex-driven text sanitization utility that strips symbols, punctuation, non-ASCII characters, or custom character ranges from text strings.",
+    howItWorks: "The tool scans text using configurable regular expression patterns, removing non-alphanumeric symbols while retaining letters, numbers, and basic whitespace based on your selected sanitization settings.",
+    useCases: [
+      "File Naming Cleanups: Purging illegal file path characters (`/`, `\\\\`, `:`, `*`, `?`, `\"`, `<`, `>`, `|`) from titles before saving assets.",
+      "Database Sanitization: Stripping special symbols from raw inputs before executing database insert queries.",
+      "Text Processing: Preparing raw text for machine learning tokenization or NLP pipeline ingestion."
+    ],
+    bestPractices: [
+      "Select 'Keep Spaces and Numbers' to preserve readable word boundaries while stripping symbols.",
+      "Use 'ASCII Only Mode' when cleaning text for legacy backend systems that do not support Unicode.",
+      "Save a backup of original source text before running destructive character removals."
+    ],
+    commonMistakes: [
+      "Stripping hyphens or apostrophes from words like 'don't' or 'user-friendly', altering word meanings.",
+      "Accidentally removing accent marks from international names.",
+      "Removing math operators when sanitizing numeric or financial datasets."
+    ],
+    professionalTips: [
+      "Toggle 'Preserve Punctuation' if you want to strip only special code symbols while keeping periods and commas.",
+      "Use our client-side cleaner to sanitize large datasets instantly without server transmission."
+    ],
+    exampleInput: "Hello @World! #2026 $Text%Toolkit^Hub&",
+    exampleOutput: "Hello World 2026 TextToolkitHub",
+    exampleExplanation: "The tool purged all special symbols (`@`, `!`, `#`, `$`, `%`, `^`, `&`) while preserving alphanumeric characters and spacing.",
+    relatedGuide: {
+      id: "guide-pdf-ocr-cleanup",
+      title: "Cleaning Up PDF Copy & Paste and Messy OCR Text Scans",
+      excerpt: "Learn how regex filtering and character sanitization clean messy input data."
+    },
+    relatedTools: ["tools/remove-emojis", "tools/slug-generator", "tools/remove-extra-spaces"]
+  },
+  'tools/remove-emojis': {
+    whatIsThis: "The Remove Emojis tool is a specialized text-sanitization utility built to detect and strip Unicode emojis, pictographs, emoticons, and multi-byte surrogate pairs from text strings.",
+    howItWorks: "The tool uses modern Unicode property escapes (`\\\\p{Extended_Pictographic}`) to scan text strings and remove emoji characters, skin-tone modifiers, and zero-width joiner (ZWJ) sequences.",
+    useCases: [
+      "PDF Document Generation: Stripping emojis from social copy before exporting to formal PDF reports to prevent rendering bugs.",
+      "Database Ingestion: Cleaning user inputs for legacy database columns that do not support 4-byte UTF-8 (`utf8mb4`).",
+      "SMS & Telecom Copy: Removing emojis to prevent SMS messages from switching from GSM-7 to expensive Unicode encoding."
+    ],
+    bestPractices: [
+      "Strip emojis before exporting copy to legacy desktop software or print layout systems.",
+      "Audit social media copy to ensure removing emojis does not change sentence clarity.",
+      "Combine emoji removal with extra space trimming to fix double spaces left behind by deleted glyphs."
+    ],
+    commonMistakes: [
+      "Using outdated regex patterns that leave behind floating skin-tone modifier blocks or zero-width joiner artifacts.",
+      "Stripping emojis from content where visual emotion and reaction context are essential.",
+      "Confusing emoji removal with special symbol removal."
+    ],
+    professionalTips: [
+      "Our cleaner uses full Unicode 15+ property matching to catch compound emojis, flags, and skin-tone modifiers completely.",
+      "Use this tool before sending bulk SMS campaigns to keep character counts within standard GSM-7 limits."
+    ],
+    exampleInput: "Welcome to TextToolkitHub! 🚀 Clean text easily ✨🔥",
+    exampleOutput: "Welcome to TextToolkitHub! Clean text easily",
+    exampleExplanation: "The tool identified and purged all Unicode emoji glyphs (`🚀`, `✨`, `🔥`) and cleaned trailing spaces.",
+    relatedGuide: {
+      id: "guide-pdf-ocr-cleanup",
+      title: "Cleaning Up PDF Copy & Paste and Messy OCR Text Scans",
+      excerpt: "Master Unicode character filtering, emoji purging, and dataset sanitization."
+    },
+    relatedTools: ["tools/remove-special-characters", "tools/remove-extra-spaces", "tools/character-counter"]
+  },
+  'tools/bullet-point-generator': {
+    whatIsThis: "Our Bullet Point Generator is a content structuring tool that converts raw text, paragraphs, or unorganized lists into clean Markdown, HTML, or ASCII bulleted and numbered lists.",
+    howItWorks: "The tool splits input text by line breaks or sentence boundaries, strips existing list prefixes, and formats each line with your chosen list style (`•`, `-`, `1.`, `a.`, or `[ ]` checkboxes).",
+    useCases: [
+      "Executive Summaries: Structuring dense paragraphs into scannable bullet points for business reports and presentations.",
+      "Markdown Editing: Converting raw ideas into structured Markdown lists for GitHub READMEs and documentation.",
+      "Task List Creation: Formatting actionable items into interactive checkbox lists."
+    ],
+    bestPractices: [
+      "Keep bullet point entries concise—start each point with a strong action verb.",
+      "Maintain consistent grammatical structure across all list items.",
+      "Use numbered lists for sequential processes and bulleted lists for non-sequential items."
+    ],
+    commonMistakes: [
+      "Creating overly long bullet points that read like full dense paragraphs.",
+      "Mixing different bullet styles within the same list block.",
+      "Nesting list items too deeply, causing visual clutter on mobile screens."
+    ],
+    professionalTips: [
+      "Select 'Checkbox Mode' (`[ ]`) to instantly generate interactive Markdown task lists for project documentation.",
+      "Our generator runs offline in your browser, keeping meeting notes and proprietary drafts private."
+    ],
+    exampleInput: "Feature 1: Instant processing\nFeature 2: Privacy first\nFeature 3: Free forever",
+    exampleOutput: "• Feature 1: Instant processing\n• Feature 2: Privacy first\n• Feature 3: Free forever",
+    exampleExplanation: "The generator formatted each line with standard bullet points and clean indentation.",
+    relatedGuide: {
+      id: "guide-markdown-formatting",
+      title: "Markdown Formatting and Table Structures",
+      excerpt: "Master list formatting, Markdown syntax, and structured document preparation."
+    },
+    relatedTools: ["tools/markdown-table-generator", "tools/document-builder", "tools/paragraph-formatter"]
+  },
+  'tools/document-builder': {
+    whatIsThis: "Our Document Builder is an interactive plain-text editor designed to assemble structured Markdown and HTML documents complete with headers, tables, code blocks, lists, and metadata blocks.",
+    howItWorks: "The builder provides visual controls and syntax helpers that generate compliant Markdown and HTML markup in real time, featuring live side-by-side rendering and local file exporting.",
+    useCases: [
+      "Technical Documentation: Writing clean Markdown README files, API guides, and system documentation.",
+      "Blog Post Publishing: Assembling structured blog drafts complete with H2/H3 headers, blockquotes, and tables.",
+      "Meeting Summaries: Drafting structured meeting notes with bullet points and action items."
+    ],
+    bestPractices: [
+      "Use a logical heading hierarchy (`# H1` -> `## H2` -> `### H3`) without skipping heading levels.",
+      "Include a metadata header (frontmatter) at the top of documents when writing for static site generators.",
+      "Export completed documents as `.md` or `.html` files for instant deployment."
+    ],
+    commonMistakes: [
+      "Skipping heading levels (e.g., going directly from H1 to H3), which harms document outline structure and SEO accessibility.",
+      "Forgetting blank lines around block-level elements like tables, code blocks, and lists in Markdown.",
+      "Not backing up text when working on extensive multi-page documents."
+    ],
+    professionalTips: [
+      "Use the 'Export Markdown' button to download your document directly as a `.md` file.",
+      "All editing and preview rendering happen in client-side memory with zero server lag."
+    ],
+    exampleInput: "Title: Project Plan\nSection: Phase 1\nTask: Setup database",
+    exampleOutput: "# Project Plan\n\n## Phase 1\n\n- [ ] Setup database",
+    exampleExplanation: "The document builder converted raw structured notes into semantically valid Markdown syntax.",
+    relatedGuide: {
+      id: "guide-markdown-formatting",
+      title: "Markdown Formatting and Table Structures",
+      excerpt: "Learn how to build comprehensive Markdown documents, tables, and structured guides."
+    },
+    relatedTools: ["tools/markdown-to-html", "tools/markdown-table-generator", "tools/bullet-point-generator"]
+  },
+  'tools/json-minifier': {
+    whatIsThis: "Our JSON Minifier is a high-performance developer tool designed to compress JSON data payloads by removing whitespaces, line breaks, indentations, and comments.",
+    howItWorks: "The minifier parses input text using strict native `JSON.parse` validation, then serializes the JavaScript object back into a compact string with `JSON.stringify(data)` without formatting gaps.",
+    useCases: [
+      "API Payload Optimization: Compressing JSON API responses to reduce network transfer size and latency.",
+      "Database Storage: Minifying JSON configuration strings before storing them in database columns.",
+      "Web Performance: Reducing config file sizes in web applications to accelerate page load times."
+    ],
+    bestPractices: [
+      "Always validate JSON syntax before minifying to catch missing commas or unquoted keys.",
+      "Keep a prettified version of critical JSON configuration files for human maintenance.",
+      "Verify minified JSON payloads with automated tests in your API pipeline."
+    ],
+    commonMistakes: [
+      "Attempting to minify invalid JSON containing trailing commas or single quotes.",
+      "Minifying JSON files manually without using an automated parser, which can accidentally corrupt string values.",
+      "Forgetting that minification removes structural comments (if using non-standard JSON with comments)."
+    ],
+    professionalTips: [
+      "Our minifier instantly displays payload size reduction percentages so you can measure bandwith savings.",
+      "Processing is 100% local, so you can safely minify sensitive API configs and internal JSON data."
+    ],
+    exampleInput: "{\n  \"name\": \"TextToolkitHub\",\n  \"status\": \"active\"\n}",
+    exampleOutput: "{\"name\":\"TextToolkitHub\",\"status\":\"active\"}",
+    exampleExplanation: "The minifier stripped all carriage returns and spacing gaps, reducing byte size by over 40%.",
+    relatedGuide: {
+      id: "guide-json-validation",
+      title: "JSON Formatting, Validation, and Data Optimization",
+      excerpt: "Master JSON parsing, payload minification, and API optimization strategies."
+    },
+    relatedTools: ["tools/json-formatter", "tools/yaml-json-converter", "tools/json-xml-converter"]
+  },
+  'tools/markdown-to-html': {
+    whatIsThis: "Our Markdown to HTML Converter is a developer and publisher tool that compiles raw Markdown syntax (`#`, `**`, `[link]`, `| table |`) into clean, semantically valid HTML markup.",
+    howItWorks: "The tool compiles Markdown text using a client-side parser, converting structural headers, list elements, code blocks, tables, and inline formatting into standard HTML tags.",
+    useCases: [
+      "CMS Publishing: Converting Markdown documentation drafts into HTML for WordPress, Webflow, or custom CMS platforms.",
+      "Email Campaign Building: Transforming Markdown notes into clean HTML code for newsletter tools.",
+      "Web Development: Generating static HTML page content from Markdown source files."
+    ],
+    bestPractices: [
+      "Ensure proper line spacing around block elements like headings and lists for accurate HTML parsing.",
+      "Use clean semantic HTML output settings to maintain web accessibility standards.",
+      "Validate code blocks and table structures before copying the compiled HTML."
+    ],
+    commonMistakes: [
+      "Forgetting double line breaks between paragraphs in Markdown, causing them to merge into a single HTML paragraph.",
+      "Using non-standard Markdown extensions that may not compile cleanly into standard HTML.",
+      "Not escaping untrusted user HTML inside Markdown source files."
+    ],
+    professionalTips: [
+      "Use the 'Copy HTML' button to get clean, minified or indented HTML code ready to paste into your CMS.",
+      "All compilation happens in-browser, ensuring fast conversion of long documentation files."
+    ],
+    exampleInput: "# Welcome\n\nThis is **bold** and *italic* text.",
+    exampleOutput: "<h1>Welcome</h1>\n<p>This is <strong>bold</strong> and <em>italic</em> text.</p>",
+    exampleExplanation: "The compiler converted Markdown header and inline formatting markers into semantic HTML tags.",
+    relatedGuide: {
+      id: "guide-markdown-formatting",
+      title: "Markdown Formatting and Table Structures",
+      excerpt: "Learn Markdown-to-HTML conversion rules, semantic markup, and formatting patterns."
+    },
+    relatedTools: ["tools/html-to-markdown", "tools/markdown-table-generator", "tools/html-formatter"]
+  },
+  'tools/html-to-markdown': {
+    whatIsThis: "Our HTML to Markdown Converter is a content utility that transforms complex HTML web pages, markup snippets, and rich text into clean, readable Markdown syntax.",
+    howItWorks: "The converter parses HTML DOM elements, stripping inline styles and script tags while mapping semantic tags (`<h1>`, `<p>`, `<a>`, `<table>`, `<ul>`) to their Markdown equivalents.",
+    useCases: [
+      "Content Migration: Converting legacy HTML web pages into Markdown source files for static site generators (Hugo, Jekyll, Astro).",
+      "Documentation Conversion: Extracting clean text and code blocks from HTML pages to build Markdown documentation.",
+      "Note Taking: Converting web article clippings into clean Markdown for Notion or Obsidian."
+    ],
+    bestPractices: [
+      "Clean up unnecessary `<span>` tags and inline CSS attributes before converting to Markdown.",
+      "Verify table conversions to ensure complex multi-column HTML tables format properly in Markdown syntax.",
+      "Keep raw links clean by using concise reference links where appropriate."
+    ],
+    commonMistakes: [
+      "Converting script or style tags into Markdown (ensure inline scripts are stripped before conversion).",
+      "Expecting complex CSS layouts or grid structures to convert into plain Markdown.",
+      "Ignoring nested list structures which require precise indentation in Markdown."
+    ],
+    professionalTips: [
+      "Pasting scraped web HTML into this tool gives you instant Markdown ready for static site generators.",
+      "Conversion runs completely client-side in your browser for absolute privacy."
+    ],
+    exampleInput: "<h2>Features</h2><ul><li>Fast</li><li>Private</li></ul>",
+    exampleOutput: "## Features\n\n* Fast\n* Private",
+    exampleExplanation: "The converter parsed HTML header and list tags into standard Markdown syntax.",
+    relatedGuide: {
+      id: "guide-markdown-formatting",
+      title: "Markdown Formatting and Table Structures",
+      excerpt: "Master HTML reverse-engineering, Markdown compilation, and document migration."
+    },
+    relatedTools: ["tools/markdown-to-html", "tools/html-formatter", "tools/markdown-table-generator"]
+  },
+  'tools/csv-formatter': {
+    whatIsThis: "Our CSV Formatter is a data-cleansing tool built to validate, reformat, align, and convert Comma-Separated Values (CSV) datasets and tabular text.",
+    howItWorks: "The tool parses CSV rows, handles quote escaping and custom delimiters (commas, tabs, semicolons, pipes), aligns columns into neat tabular structures, or converts CSV data to JSON objects.",
+    useCases: [
+      "Spreadsheet Preparation: Formatting messy CSV exports from CRM or financial software before opening in Excel or Google Sheets.",
+      "Database Import Cleanups: Standardizing CSV delimiters and quote headers before executing database bulk copy commands.",
+      "Data Inspection: Pretty-printing CSV datasets with aligned column margins for easy manual review."
+    ],
+    bestPractices: [
+      "Ensure all CSV records contain the same number of fields as the header row.",
+      "Enclose fields containing commas, spaces, or line breaks in double quotes (`\"...\"`).",
+      "Choose the correct delimiter (comma, tab, semicolon) matching your target software requirement."
+    ],
+    commonMistakes: [
+      "Forgetting to quote text fields that contain literal commas, causing column misalignment.",
+      "Mixing different delimiters within the same dataset.",
+      "Exporting CSV files with non-standard line endings (`CR` vs `CRLF`) that cause parsing errors in legacy tools."
+    ],
+    professionalTips: [
+      "Use the 'CSV to JSON' toggle to instantly transform tabular spreadsheet datasets into JSON arrays for API testing.",
+      "Our in-browser parser handles files with thousands of records securely without server uploads."
+    ],
+    exampleInput: "name,role,city\nAlice,Developer,\"New York\"\nBob,Designer,London",
+    exampleOutput: "Aligned Table / Formatted CSV with consistent quotes and standardized headers.",
+    exampleExplanation: "The formatter validated CSV record structures and aligned columns cleanly.",
+    relatedGuide: {
+      id: "guide-pdf-ocr-cleanup",
+      title: "Cleaning Up PDF Copy & Paste and Messy OCR Text Scans",
+      excerpt: "Learn tabular data formatting, CSV delimiter standardization, and dataset cleaning."
+    },
+    relatedTools: ["tools/json-formatter", "tools/markdown-table-generator", "tools/text-sorter"]
+  },
+  'tools/meta-generator': {
+    whatIsThis: "Our SEO Meta Tag Generator is a marketing tool that creates search engine meta title tags, meta descriptions, Open Graph (`og:`) social tags, and Twitter Card markup.",
+    howItWorks: "The tool takes your page title, description, URL, image asset, and site details, dynamically compiling compliant HTML `<meta>` tags with real-time character count limits and Google search snippet previews.",
+    useCases: [
+      "SEO Optimization: Drafting search engine title tags (50-60 characters) and meta descriptions (150-160 characters) that maximize click-through rates.",
+      "Social Sharing Setup: Generating Open Graph meta tags to ensure rich link previews on Facebook, LinkedIn, X (Twitter), and Discord.",
+      "Website Launch Preparation: Generating consistent meta tag headers across web pages during development."
+    ],
+    bestPractices: [
+      "Keep primary SEO meta titles under 60 characters to prevent search engines from truncating them.",
+      "Write compelling meta descriptions between 140 and 160 characters including primary keywords and a call to action.",
+      "Provide high-resolution Open Graph images (1200x630 pixels) for crisp social media card previews."
+    ],
+    commonMistakes: [
+      "Exceeding character limits, causing search engines to truncate title and description snippets with `...`.",
+      "Using duplicate meta tags across multiple pages, which confuses search engine crawlers.",
+      "Forgetting to specify canonical URL tags, leading to potential duplicate content indexing issues."
+    ],
+    professionalTips: [
+      "Use our live Google Search Preview card to visually inspect how your listing will appear in search results.",
+      "Click 'Copy Code' to get pristine `<head>` meta tag HTML ready for injection into your project."
+    ],
+    exampleInput: "Title: Free Text Tools | Desc: Online developer utilities | URL: https://example.com",
+    exampleOutput: "<title>Free Text Tools | TextToolkitHub</title>\n<meta name=\"description\" content=\"Online developer utilities...\">\n<meta property=\"og:title\" content=\"...\">",
+    exampleExplanation: "The generator compiled standard HTML meta tags and Open Graph protocol tags.",
+    relatedGuide: {
+      id: "guide-seo-copywriting-density",
+      title: "SEO Copywriting and Keyword Density Optimization",
+      excerpt: "Master meta tag optimization, character limits, and search engine SERP preview formatting."
+    },
+    relatedTools: ["tools/character-counter", "tools/slug-generator", "tools/keyword-density-checker"]
+  },
+  'tools/number-base-converter': {
+    whatIsThis: "Our Number Base Converter is a computer science utility that translates numeric values between Binary (Base 2), Octal (Base 8), Decimal (Base 10), Hexadecimal (Base 16), and custom bases.",
+    howItWorks: "The converter parses input numbers using JavaScript big integer mechanisms, converting values into arbitrary base representations with bitwise insights and byte-padding options.",
+    useCases: [
+      "Computer Science Education: Understanding binary bit patterns, hex memory addresses, and base math conversions.",
+      "Low-Level Programming: Converting memory addresses, byte masks, and color hex values to binary streams.",
+      "Network Engineering: Calculating IP address subnet bits, MAC addresses, and binary packet values."
+    ],
+    bestPractices: [
+      "Pad binary representations into 8-bit, 16-bit, or 32-bit byte groupings for easy reading.",
+      "Use uppercase hexadecimal characters (`0x1A3F`) for standard code documentation.",
+      "Verify signed vs unsigned integer context when converting negative values."
+    ],
+    commonMistakes: [
+      "Confusing Hexadecimal color codes (`#FF5733`) with plain numeric hex values.",
+      "Inputting characters outside the allowed base set (e.g., entering '9' in binary or 'G' in hex).",
+      "Ignoring integer overflow limits in non-BigInt programming contexts."
+    ],
+    professionalTips: [
+      "View live simultaneous conversions across Binary, Octal, Decimal, and Hexadecimal as you type.",
+      "All conversions execute instantly client-side without any server processing."
+    ],
+    exampleInput: "Decimal: 255",
+    exampleOutput: "Binary: 11111111 | Hexadecimal: FF | Octal: 377",
+    exampleExplanation: "The converter translated Decimal 255 into its exact Binary, Hex, and Octal equivalents.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Understand binary representations, hexadecimal notation, and computer data encoding."
+    },
+    relatedTools: ["tools/text-to-binary", "tools/hash-generator", "tools/string-escaper"]
+  },
+  'tools/typedef-converter': {
+    whatIsThis: "Our TypeDefinition Converter is a developer productivity tool that converts raw JSON sample payloads into TypeScript interfaces, Go structs, Rust types, or JSON Schema definitions.",
+    howItWorks: "The tool analyzes JSON object structures, infers data types (string, number, boolean, array, nested object), and generates strongly-typed code interface declarations in real time.",
+    useCases: [
+      "API Integration: Converting JSON webhook or API response payloads into TypeScript interfaces for frontend web development.",
+      "Backend Engineering: Generating Go or Rust structs directly from sample JSON database outputs.",
+      "Schema Validation: Creating JSON Schema definitions to validate incoming API requests."
+    ],
+    bestPractices: [
+      "Provide representative JSON samples containing populated fields to ensure correct type inference.",
+      "Use optional property flags (`?`) for fields that may be null or omitted in API responses.",
+      "Rename generated root interface types to match your domain model naming conventions."
+    ],
+    commonMistakes: [
+      "Using empty JSON objects (`{}`) or empty arrays (`[]`) which force the parser to default to `any` or `unknown` types.",
+      "Forgetting to handle nullable fields in API responses.",
+      "Passing invalid JSON syntax into the type converter."
+    ],
+    professionalTips: [
+      "Toggle between TypeScript, Go Structs, Rust Structs, and JSON Schema outputs instantly with a single click.",
+      "Our converter operates completely offline in your browser, keeping proprietary API payload schemas secure."
+    ],
+    exampleInput: "{\n  \"userId\": 101,\n  \"username\": \"alex\",\n  \"isVerified\": true\n}",
+    exampleOutput: "export interface UserProfile {\n  userId: number;\n  username: string;\n  isVerified: boolean;\n}",
+    exampleExplanation: "The converter analyzed the JSON fields and generated a strongly-typed TypeScript interface.",
+    relatedGuide: {
+      id: "guide-json-validation",
+      title: "JSON Formatting, Validation, and Data Optimization",
+      excerpt: "Master JSON parsing, TypeScript interface generation, and API schema design."
+    },
+    relatedTools: ["tools/json-formatter", "tools/yaml-json-converter", "tools/json-minifier"]
+  },
+  'tools/string-escaper': {
+    whatIsThis: "Our String Escaper is a multi-language developer utility that escapes special characters (`\n`, `\t`, `\"`, `\''`, `\\`) for use in JavaScript, Python, JSON, Java, C#, SQL, and Bash strings.",
+    howItWorks: "The tool processes text input and replaces control characters, quotes, and backslashes with syntax-compliant escape sequences (`\\n`, `\\t`, `\\\"`, `\\\\`) based on your target programming language.",
+    useCases: [
+      "Code Generation: Escaping multi-line text blocks or template strings before embedding them into source code variables.",
+      "SQL Query Building: Escaping quotes in string literals to prevent syntax errors in SQL queries.",
+      "JSON Configuration: Escaping raw strings for inclusion in JSON payload strings."
+    ],
+    bestPractices: [
+      "Select the specific target language (JavaScript, Python, C#, SQL) to apply correct escape sequences.",
+      "Use raw template literals in modern languages (like JS backticks) where available to minimize excessive backslash escaping.",
+      "Test escaped string variables in your programming environment."
+    ],
+    commonMistakes: [
+      "Double-escaping strings that are already escaped, creating unreadable sequences like `\\\\n`.",
+      "Confusing string escaping with URL encoding or HTML entity escaping.",
+      "Forgetting to escape backslashes themselves (`\\\\`)."
+    ],
+    professionalTips: [
+      "Switch between 'Escape' and 'Unescape' modes to convert back and forth between raw text and escaped programming strings.",
+      "All processing runs locally in browser memory for privacy and speed."
+    ],
+    exampleInput: "Line 1\nLine 2 with \"quotes\"",
+    exampleOutput: "Line 1\\nLine 2 with \\\"quotes\\\"",
+    exampleExplanation: "The escaper converted literal newlines to `\\n` and double quotes to `\\\"` for programming string compatibility.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Understand string escaping, control characters, and cross-language string literals."
+    },
+    relatedTools: ["tools/html-encoder", "tools/url-encoder", "tools/json-formatter"]
+  },
+  'tools/hash-generator': {
+    whatIsThis: "Our Cryptographic Hash Generator is an in-browser security tool that computes secure message digests using SHA-256, SHA-512, MD5, SHA-1, and SHA-3 algorithms.",
+    howItWorks: "The tool processes text input using browser Web Crypto APIs (`crypto.subtle.digest`), computing fixed-size cryptographic hex string hashes locally in real time.",
+    useCases: [
+      "Data Integrity Checking: Generating digital checksum hashes to verify file or text transmission accuracy.",
+      "Software Development: Computing SHA-256 hash digests for digital signatures, cache keys, and asset integrity checks (`integrity=\"sha256-...\"`).",
+      "Security Auditing: Comparing hash outputs to verify data has not been altered."
+    ],
+    bestPractices: [
+      "Use SHA-256 or SHA-512 for modern cryptographic data integrity applications.",
+      "Avoid using MD5 or SHA-1 for security-critical applications due to known collision vulnerabilities.",
+      "Remember that hashing is a one-way mathematical function—hashes cannot be decrypted back to original text."
+    ],
+    commonMistakes: [
+      "Confusing password hashing (which requires salted algorithms like bcrypt/Argon2) with simple unsalted hash digests.",
+      "Expecting identical text with different line endings (`CRLF` vs `LF`) to produce the same hash value.",
+      "Attempting to 'decrypt' a hash digest."
+    ],
+    professionalTips: [
+      "View simultaneous SHA-256, SHA-512, SHA-1, and MD5 hash outputs in real time as you type.",
+      "Uses browser-native Web Crypto API for maximum cryptographic accuracy and hardware speed."
+    ],
+    exampleInput: "TextToolkitHub2026",
+    exampleOutput: "SHA-256: 3a7bd3e2360a33c4edd312b4e82b7... (64 hex characters)",
+    exampleExplanation: "The tool generated a 256-bit cryptographic digest using native Web Crypto APIs.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Deep dive into cryptographic hash functions, data integrity, and web security."
+    },
+    relatedTools: ["tools/uuid-generator", "tools/random-text-generator", "tools/base64-encoder"]
+  },
+  'tools/contrast-checker': {
+    whatIsThis: "Our Color Contrast Checker is an accessibility utility that measures contrast ratios between background and foreground colors according to Web Content Accessibility Guidelines (WCAG 2.1) standards.",
+    howItWorks: "The tool converts input Hex/RGB color values into relative luminance scores, computing exact contrast ratios (1:1 to 21:1) and evaluating compliance for WCAG AA and AAA thresholds across normal text, large text, and UI components.",
+    useCases: [
+      "Web Design Accessibility: Auditing website color palettes to ensure text readability for users with visual impairments.",
+      "UI Component Styling: Verifying button text, form labels, and badge contrast ratios before finalizing design systems.",
+      "Brand Style Guide Creation: Selecting accessible brand color pairs compliant with WCAG 2.1 AA standards."
+    ],
+    bestPractices: [
+      "Target a minimum contrast ratio of 4.5:1 for normal text (WCAG AA compliance).",
+      "Target a minimum contrast ratio of 3.0:1 for large text (18pt+ or 14pt+ bold) and UI components.",
+      "Aim for 7.0:1 contrast ratios to achieve enhanced WCAG AAA compliance."
+    ],
+    commonMistakes: [
+      "Using light gray text on white backgrounds, which fails basic WCAG AA accessibility tests.",
+      "Checking text contrast without considering font weight and size differences.",
+      "Ignoring contrast compliance in hover and focus UI element states."
+    ],
+    professionalTips: [
+      "Use our visual preview card to instantly test how your color pair looks on real UI buttons and paragraph text.",
+      "Click the color swap button to invert foreground and background colors instantly."
+    ],
+    exampleInput: "Foreground: #0f172a (Dark Slate) | Background: #f8fafc (Off White)",
+    exampleOutput: "Contrast Ratio: 15.8:1 | WCAG AA: PASS | WCAG AAA: PASS",
+    exampleExplanation: "The tool computed a high 15.8:1 relative luminance ratio, confirming full WCAG AAA accessibility compliance.",
+    relatedGuide: {
+      id: "guide-typography-hierarchy",
+      title: "Typography, Web Fonts, and Visual Hierarchy",
+      excerpt: "Master color contrast ratios, WCAG standards, and accessible visual design principles."
+    },
+    relatedTools: ["tools/fancy-text-generator", "tools/html-formatter", "tools/css-formatter"]
+  },
+  'tools/css-formatter': {
+    whatIsThis: "Our CSS Formatter & Minifier is a stylesheet optimization utility that beautifies minified CSS rulesets or compresses CSS code to reduce file sizes.",
+    howItWorks: "The tool parses CSS syntax, standardizes property indentation, manages selector spacing, orders rulesets logically, or strips comments and whitespace for minified production delivery.",
+    useCases: [
+      "Code Cleanup: Beautifying minified or messy CSS stylesheets for easier code review and debugging.",
+      "Performance Optimization: Minifying CSS files to accelerate web page load speeds and improve Core Web Vitals.",
+      "Design System Maintenance: Standardizing CSS formatting conventions across team projects."
+    ],
+    bestPractices: [
+      "Keep a beautified CSS source file for development and serve a minified version in production.",
+      "Group CSS properties logically (layout, typography, background, borders) for better readability.",
+      "Remove unused CSS rules before formatting to keep stylesheets lean."
+    ],
+    commonMistakes: [
+      "Editing minified CSS directly in production environments.",
+      "Forgetting closing semicolons or curly braces, causing CSS syntax parsing errors.",
+      "Minifying CSS without verifying layout rendering in browser DevTools."
+    ],
+    professionalTips: [
+      "Use the 'Beautify' mode to clean up legacy minified stylesheets instantly.",
+      "Toggle 'Minify' mode before deploying assets to reduce file transfer sizes."
+    ],
+    exampleInput: "body{margin:0;padding:0;color:#333;}",
+    exampleOutput: "body {\n  margin: 0;\n  padding: 0;\n  color: #333;\n}",
+    exampleExplanation: "The formatter structured the CSS block with consistent 2-space indentation and proper line breaks.",
+    relatedGuide: {
+      id: "guide-markdown-formatting",
+      title: "Markdown Formatting and Table Structures",
+      excerpt: "Learn code formatting best practices, stylesheet optimization, and clean syntax principles."
+    },
+    relatedTools: ["tools/html-formatter", "tools/json-formatter", "tools/contrast-checker"]
+  },
+  'tools/ua-parser': {
+    whatIsThis: "Our User-Agent Parser is a web diagnostic utility that analyzes User-Agent HTTP header strings to identify browser names, rendering engines, operating system versions, and device architectures.",
+    howItWorks: "The tool parses input User-Agent strings against regex pattern libraries, extracting browser details (Chrome, Firefox, Safari, Edge), OS versions (Windows, macOS, iOS, Android, Linux), and device types (Desktop, Mobile, Tablet).",
+    useCases: [
+      "Web Analytics Debugging: Inspecting client User-Agent strings from access logs to identify visitor device distributions.",
+      "Browser Compatibility Testing: Verifying User-Agent detection logic used in web applications for responsive rendering.",
+      "Security Analysis: Identifying bot crawlers, automated scripts, and spoofed browser User-Agent strings."
+    ],
+    bestPractices: [
+      "Use modern feature detection (`@supports`, JavaScript feature checks) alongside User-Agent parsing for web capabilities.",
+      "Keep User-Agent parsing pattern libraries updated to recognize new browser releases.",
+      "Audit access logs for abnormal User-Agent strings that may indicate automated web scraping."
+    ],
+    commonMistakes: [
+      "Relying solely on User-Agent strings for critical feature detection (browsers can be spoofed or alter string formats).",
+      "Misinterpreting browser engine details (e.g., Chrome User-Agents include 'Safari' and 'AppleWebKit' strings for compatibility).",
+      "Failing to handle unknown or custom User-Agent headers gracefully."
+    ],
+    professionalTips: [
+      "Click 'Detect My User-Agent' to instantly analyze your current browser's exact User-Agent details.",
+      "All parsing runs locally in your browser memory for immediate, private inspection."
+    ],
+    exampleInput: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    exampleOutput: "Browser: Chrome 122.0 | OS: macOS 10.15.7 | Engine: Blink / AppleWebKit | Device: Desktop",
+    exampleExplanation: "The parser successfully extracted browser, operating system, rendering engine, and device category details.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Understand HTTP headers, client identification, and web device analytics."
+    },
+    relatedTools: ["tools/unix-timestamp-converter", "tools/string-escaper", "tools/number-base-converter"]
+  },
+  'tools/text-to-binary': {
+    whatIsThis: "Our Text to Binary Converter is a developer and computer science utility that translates human-readable text into 8-bit ASCII/UTF-8 binary code streams (`0`s and `1`s) and vice versa.",
+    howItWorks: "The converter converts each character of the input string into its corresponding numeric Unicode code point, then formats that number as an 8-bit binary byte string separated by spaces.",
+    useCases: [
+      "Computer Science Learning: Visualizing how text characters translate into raw binary bits inside computer hardware.",
+      "Data Communication: Inspecting bit-level binary encodings for low-level protocol development.",
+      "Encoding Exercises: Translating text to binary for educational quizzes and computer science projects."
+    ],
+    bestPractices: [
+      "Separate binary bytes with spaces for readability when working with multi-character strings.",
+      "Use 8-bit byte padding (`01001000`) for standard ASCII character representations.",
+      "Verify UTF-8 multi-byte character handling when converting non-English text or emojis."
+    ],
+    commonMistakes: [
+      "Omitting byte space separators, making it difficult to differentiate character boundaries in long binary streams.",
+      "Confusing binary text encoding with raw binary data file buffers.",
+      "Forgetting that uppercase and lowercase letters have distinct binary representations."
+    ],
+    professionalTips: [
+      "Switch between 'Text to Binary' and 'Binary to Text' modes for instant bidirectional conversion.",
+      "Our converter handles multi-byte UTF-8 Unicode characters smoothly."
+    ],
+    exampleInput: "Hi",
+    exampleOutput: "01001000 01101001",
+    exampleExplanation: "Character 'H' (ASCII 72) converted to `01001000` and 'i' (ASCII 105) converted to `01101001`.",
+    relatedGuide: {
+      id: "guide-secure-encoding",
+      title: "Secure Web Communication: Base64 and HTML Entity Escaping",
+      excerpt: "Explore binary encoding, ASCII tables, and byte-level data transmission."
+    },
+    relatedTools: ["tools/number-base-converter", "tools/base64-encoder", "tools/hash-generator"]
+  },
+  'tools/json-xml-converter': {
+    whatIsThis: "Our JSON to XML Converter is a web developer data tool that performs bidirectional conversion between JSON objects and XML (Extensible Markup Language) document trees.",
+    howItWorks: "The converter parses input JSON into JavaScript object structures, maps keys and nested objects into XML element nodes and attributes, or parses XML DOM nodes back into clean JSON arrays and objects.",
+    useCases: [
+      "API Refactoring: Bridging legacy XML web services (SOAP) with modern RESTful JSON APIs.",
+      "Configuration Conversion: Converting XML config files into lightweight JSON configuration objects.",
+      "Data Interoperability: Exchanging structured data between platforms requiring different serialization formats."
+    ],
+    bestPractices: [
+      "Define clear root element wrapper names when converting JSON to XML.",
+      "Handle XML attributes consistently during JSON conversion (e.g., using `@attributes` keys).",
+      "Validate input JSON or XML syntax before initiating conversion."
+    ],
+    commonMistakes: [
+      "Attempting to convert JSON with invalid XML element tag names (e.g., keys starting with numbers or containing spaces).",
+      "Losing attribute data when converting XML to simple JSON objects.",
+      "Ignoring XML namespace prefixes during payload conversion."
+    ],
+    professionalTips: [
+      "Use custom root element naming options to match your target XML schema specification.",
+      "All conversions execute locally in your browser, keeping proprietary API schemas completely private."
+    ],
+    exampleInput: "{\n  \"user\": {\n    \"name\": \"Alex\",\n    \"role\": \"Admin\"\n  }\n}",
+    exampleOutput: "<root>\n  <user>\n    <name>Alex</name>\n    <role>Admin</role>\n  </user>\n</root>",
+    exampleExplanation: "The converter mapped JSON key-value pairs into nested XML element tags with a clean root element.",
+    relatedGuide: {
+      id: "guide-json-validation",
+      title: "JSON Formatting, Validation, and Data Optimization",
+      excerpt: "Master JSON-to-XML conversion, schema structures, and API payload transformation."
+    },
+    relatedTools: ["tools/json-formatter", "tools/yaml-json-converter", "tools/csv-formatter"]
+  },
+  'tools/morse-code-translator': {
+    whatIsThis: "Our Morse Code Translator is an interactive communication utility that translates plain text into Morse code signals (`.` and `-`) and decodes Morse code back into readable text, complete with audio tone playback.",
+    howItWorks: "The translator maps alphanumeric characters to International Morse Code sequences, separated by character gaps and word slashes (`/`), with client-side Web Audio API synthesizer playback.",
+    useCases: [
+      "Educational Learning: Practicing International Morse Code for amateur radio (Ham radio) operators and aviation enthusiasts.",
+      "Audio Signalling: Listening to synthesized Morse code audio tones at adjustable speeds (WPM).",
+      "Creative Projects: Generating Morse code text strings for puzzles, games, and decorative graphics."
+    ],
+    bestPractices: [
+      "Use single spaces between Morse letter signals and `/` or triple spaces between words.",
+      "Adjust playback frequency (Hz) and speed (Words Per Minute) to match your listening skill level.",
+      "Use standard International Morse Code characters for maximum compatibility."
+    ],
+    commonMistakes: [
+      "Forgetting spacing between Morse character signals, making decoding ambiguous.",
+      "Using non-standard punctuation that lacks official Morse code character representations.",
+      "Confusing dits (`.`) and dahs (`-`) when typing Morse manually."
+    ],
+    professionalTips: [
+      "Click the 'Play Sound' button to hear your Morse code synthesized live using Web Audio API tones.",
+      "Switch instantly between Text-to-Morse and Morse-to-Text modes."
+    ],
+    exampleInput: "SOS",
+    exampleOutput: "... --- ...",
+    exampleExplanation: "The translator converted 'S' (`...`), 'O' (`---`), and 'S' (`...`) into the universal distress signal.",
+    relatedGuide: {
+      id: "guide-readability-clarity",
+      title: "The Science of Readability and Clear Writing",
+      excerpt: "Explore character encoding history, audio signal synthesis, and text translation methods."
+    },
+    relatedTools: ["tools/text-to-speech", "tools/text-to-binary", "tools/fancy-text-generator"]
+  },
+  'tools/list-randomizer': {
+    whatIsThis: "Our List Randomizer & Shuffler is an unbiased data tool that randomizes the order of text lines, list items, names, or team rosters using the cryptographic Fisher-Yates shuffle algorithm.",
+    howItWorks: "The tool splits input text into individual lines, applies an unbiased Fisher-Yates shuffle using client-side random number generators, and outputs the newly randomized list sequence.",
+    useCases: [
+      "Contests & Giveaways: Selecting fair, unbiased winners or sequence orders for raffles and competitions.",
+      "Team Generation: Randomizing participant lists to assemble balanced project teams or sports groups.",
+      "Study Flashcards: Shuffling vocabulary or study question lists to improve memory retention without order bias."
+    ],
+    bestPractices: [
+      "Trim empty lines before shuffling to prevent blank items in the randomized list.",
+      "Click 'Re-Shuffle' multiple times to perform consecutive random passes.",
+      "Export or copy the shuffled list immediately after generation."
+    ],
+    commonMistakes: [
+      "Using non-random sorting methods (like string sorting) which introduce ordering bias.",
+      "Forgetting to verify total line counts before and after shuffling.",
+      "Shuffling items where sequential order is required."
+    ],
+    professionalTips: [
+      "Use the 'Number Output' toggle to automatically add rank numbers (`1.`, `2.`, `3.`) to your shuffled list.",
+      "All shuffling is executed locally in your browser memory, guaranteeing complete fairness and privacy."
+    ],
+    exampleInput: "Alpha\nBeta\nGamma\nDelta",
+    exampleOutput: "1. Gamma\n2. Alpha\n3. Delta\n4. Beta",
+    exampleExplanation: "The Fisher-Yates shuffle engine generated an unbiased random permutation of the input list items.",
+    relatedGuide: {
+      id: "guide-pdf-ocr-cleanup",
+      title: "Cleaning Up PDF Copy & Paste and Messy OCR Text Scans",
+      excerpt: "Master list organization, random shuffling algorithms, and dataset management."
+    },
+    relatedTools: ["tools/text-sorter", "tools/remove-duplicate-lines", "tools/random-text-generator"]
   }
 };
 
