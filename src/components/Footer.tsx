@@ -160,11 +160,22 @@ export default function Footer({ onNavigate }: FooterProps) {
         </div>
 
         {/* Bottom Bar: Copyright & Attribution */}
-        <div className="border-t border-slate-200 dark:border-slate-900 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 dark:text-slate-500">
-          <p>© {currentYear} TextToolkitHub. Founded &amp; Edited by Yogesh Kumar Madhukar. 100% on-device client-side processing with zero remote data collection.</p>
-          <div className="flex items-center gap-4">
-            <span className="text-slate-300 dark:text-slate-800">|</span>
-            <span className="font-mono bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded text-[10px]">v1.0.0 Stable</span>
+        <div className="border-t border-slate-200 dark:border-slate-850 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+          <div className="space-y-1 text-center md:text-left">
+            <p className="font-semibold text-slate-800 dark:text-slate-200">
+              © {currentYear} TextToolkitHub. Founded &amp; Edited by Yogesh Kumar Madhukar.
+            </p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              This website comes under <strong className="font-semibold text-indigo-650 dark:text-indigo-400">Madhukar &amp; Sons</strong>. 100% on-device client-side processing with zero remote data collection.
+            </p>
+          </div>
+          <div className="flex items-center gap-2.5 shrink-0">
+            <span className="font-mono bg-slate-100 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 px-2.5 py-1 rounded-md text-[10px] text-slate-600 dark:text-slate-400 font-semibold">
+              Madhukar &amp; Sons Digital
+            </span>
+            <span className="font-mono bg-slate-100 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 px-2.5 py-1 rounded-md text-[10px] text-slate-500 dark:text-slate-400">
+              v1.0.0 Stable
+            </span>
           </div>
         </div>
 

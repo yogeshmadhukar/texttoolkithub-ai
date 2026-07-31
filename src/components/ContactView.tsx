@@ -385,7 +385,10 @@ export default function ContactView() {
               <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400 block mb-2">Platform Ownership</span>
               <div className="mb-3">
                 <p className="text-xs font-bold text-slate-800 dark:text-slate-100">Yogesh Kumar Madhukar</p>
-                <p className="text-[10px] text-slate-500">Founder & Chief Software Architect</p>
+                <p className="text-[10px] text-slate-500">Founder &amp; Chief Software Architect</p>
+                <span className="mt-1.5 inline-block text-[10px] font-extrabold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded border border-indigo-200/50 dark:border-indigo-800/50">
+                  Madhukar &amp; Sons Digital
+                </span>
               </div>
               
               <div className="space-y-2 border-t border-slate-100 dark:border-slate-900 pt-3">

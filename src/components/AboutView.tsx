@@ -748,7 +748,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
               {/* Biography content */}
               <div className="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
                 <p>
-                  Yogesh Kumar Madhukar is the founder of TextToolkitHub, an independent software developer, technical writer, and digital publishing entrepreneur focused on building fast, privacy-first web applications.
+                  Yogesh Kumar Madhukar is the founder of TextToolkitHub (a digital web application under <strong>Madhukar &amp; Sons</strong>), an independent software developer, technical writer, and digital publishing entrepreneur focused on building fast, privacy-first web applications.
                 </p>
                 <p>
                   He created TextToolkitHub with a simple goal: to provide writers, developers, students, marketers, and professionals with reliable browser-based utilities that process data entirely on the user’s device. Every tool on the platform is designed to perform its operations locally, helping users work with sensitive text and documents without sending their data to external servers whenever technically possible.
@@ -757,12 +757,15 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
                   As the platform’s Editorial Director, Yogesh researches, writes, and reviews educational content covering text processing, SEO, readability, encoding, formatting, and developer workflows. His focus is on publishing practical, easy-to-understand resources that help users solve real-world problems while maintaining technical accuracy.
                 </p>
                 <p>
-                  TextToolkitHub continues to evolve with a commitment to privacy, performance, accessibility, and high-quality educational content alongside professional productivity tools.
+                  TextToolkitHub continues to evolve under <strong>Madhukar &amp; Sons</strong> with an uncompromised commitment to privacy, performance, accessibility, and high-quality educational content alongside professional productivity tools.
                 </p>
               </div>
 
               {/* Professional Credentials Badge bar */}
               <div className="mt-6 flex flex-wrap gap-2.5 justify-center md:justify-start">
+                <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 rounded-lg">
+                  ✓ Madhukar &amp; Sons Digital
+                </span>
                 <span className="text-[10px] font-bold tracking-wider py-1 px-2.5 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-850 rounded-lg">
                   ✓ Verified Website Owner
                 </span>

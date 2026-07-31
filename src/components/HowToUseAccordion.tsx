@@ -99,6 +99,41 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
   return (
     <div className="space-y-16 border-t border-slate-150 dark:border-slate-850 pt-16 mt-16" id="educational-landing-wrapper">
       
+      {/* SECTION 0: Key Takeaways Educational Highlights */}
+      <section className="p-6 md:p-8 bg-gradient-to-r from-indigo-50/40 via-purple-50/20 to-slate-50/40 dark:from-indigo-950/20 dark:via-purple-950/10 dark:to-slate-950/20 border border-indigo-100/50 dark:border-indigo-900/30 rounded-3xl space-y-4 shadow-sm" id="educational-key-takeaways">
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-100/60 dark:bg-indigo-950/60 text-indigo-750 dark:text-indigo-350 text-[10px] font-extrabold uppercase tracking-widest rounded-full border border-indigo-200/40 dark:border-indigo-800/40">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" /> Educational Key Takeaways
+          </span>
+          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
+            Interactive Learning Guide
+          </span>
+        </div>
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight font-display">
+          Mastering the <span className="text-indigo-600 dark:text-indigo-400">{tool.title}</span>
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+          <div className="p-4 bg-white/80 dark:bg-slate-900/80 border border-slate-150 dark:border-slate-800 rounded-2xl space-y-1.5">
+            <span className="text-[10px] font-extrabold uppercase text-indigo-600 dark:text-indigo-400 tracking-wider">01. Core Purpose</span>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+              Designed to process, clean, or convert your text in real time with 100% precision.
+            </p>
+          </div>
+          <div className="p-4 bg-white/80 dark:bg-slate-900/80 border border-slate-150 dark:border-slate-800 rounded-2xl space-y-1.5">
+            <span className="text-[10px] font-extrabold uppercase text-indigo-600 dark:text-indigo-400 tracking-wider">02. Local Privacy</span>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+              All computations execute locally inside your browser RAM. Zero external uploads.
+            </p>
+          </div>
+          <div className="p-4 bg-white/80 dark:bg-slate-900/80 border border-slate-150 dark:border-slate-800 rounded-2xl space-y-1.5">
+            <span className="text-[10px] font-extrabold uppercase text-indigo-600 dark:text-indigo-400 tracking-wider">03. Professional Output</span>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+              Includes export options, syntax checking, and instant clipboard copying.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 1: What is this Tool & How It Works */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8" id="educational-overview">
         {/* Left Column: What is this tool? */}

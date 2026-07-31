@@ -52,7 +52,8 @@ import {
   Volume2,
   Dice5,
   Calendar,
-  User
+  User,
+  BookMarked
 } from 'lucide-react';
 
 interface HomeViewProps {
@@ -1258,6 +1259,210 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* 6.5 EDUCATIONAL KNOWLEDGE CENTER & WRITING ACADEMY */}
+      <section className="py-12 md:py-16 bg-gradient-to-b from-indigo-50/20 via-slate-50/40 to-white dark:from-indigo-950/10 dark:via-slate-950/20 dark:to-slate-900 border-b border-slate-200 dark:border-slate-850 z-10 relative" id="educational-knowledge-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100/60 dark:bg-indigo-950/60 text-indigo-750 dark:text-indigo-350 text-[10px] font-extrabold uppercase tracking-widest rounded-full border border-indigo-200/50 dark:border-indigo-800/40">
+              <BookOpen className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" /> Free Educational Knowledge Center
+            </span>
+            <h2 className="text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+              Learn the Science of Text Engineering & Copywriting
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+              Master text formatting, SEO density optimization, developer syntax conventions, and privacy best practices with our free educational resources and deep-dive guides.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            {/* Guide Card 1: Readability & Flesch Scores */}
+            <div 
+              onClick={() => onNavigateToTool('guides')}
+              className="group p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500/50 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4"
+              id="edu-card-readability"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="p-2.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                    <BookOpen className="w-5 h-5" />
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">5 Min Read</span>
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  The Science of Readability &amp; Flesch Scores
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Learn how Flesch-Kincaid formulas calculate reading grade levels using sentence length and syllable counts to make content accessible to wider audiences.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-900 flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                <span>Explore Readability Guide</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Guide Card 2: SEO & Keyword Density */}
+            <div 
+              onClick={() => onNavigateToTool('guides')}
+              className="group p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500/50 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4"
+              id="edu-card-seo"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="p-2.5 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                    <TrendingUp className="w-5 h-5" />
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">6 Min Read</span>
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  SEO Copywriting &amp; Term Frequency Rules
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Discover how search engine crawlers evaluate keyword density, term frequency (TF-IDF), and phrase variations without triggering over-optimization penalties.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-900 flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                <span>Explore SEO Density Guide</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Guide Card 3: PDF & OCR Sanitization */}
+            <div 
+              onClick={() => onNavigateToTool('guides')}
+              className="group p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500/50 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4"
+              id="edu-card-ocr"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="p-2.5 bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 rounded-xl">
+                    <Eraser className="w-5 h-5" />
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">4 Min Read</span>
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  Cleaning PDF Copy-Paste &amp; OCR Scans
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Understand why PDFs copy with jagged line breaks and how browser-based regex patterns strip carriage returns while preserving natural paragraph breaks.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-900 flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                <span>Explore OCR Cleanup Guide</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Guide Card 4: Developer Casing Standards */}
+            <div 
+              onClick={() => onNavigateToTool('guides')}
+              className="group p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500/50 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4"
+              id="edu-card-casing"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="p-2.5 bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 rounded-xl">
+                    <Code className="w-5 h-5" />
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">5 Min Read</span>
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  Developer Code Casing Standards
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  A complete cheat sheet comparing camelCase, snake_case, kebab-case, and PascalCase across JavaScript, Python, CSS, and database naming conventions.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-900 flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                <span>Explore Casing Guide</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Guide Card 5: Web Security & Base64 */}
+            <div 
+              onClick={() => onNavigateToTool('guides')}
+              className="group p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500/50 rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4"
+              id="edu-card-security"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="p-2.5 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-xl">
+                    <ShieldCheck className="w-5 h-5" />
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">7 Min Read</span>
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  Secure Web Encoding &amp; HTML Escaping
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Learn how Base64 transforms binary payloads, why HTML entity escaping stops XSS vulnerabilities, and why local browser processing keeps keys safe.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-900 flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400">
+                <span>Explore Security Guide</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Guide Card 6: Educational Library Banner */}
+            <div 
+              onClick={() => onNavigateToTool('guides')}
+              className="group p-6 bg-gradient-to-br from-indigo-900 via-indigo-950 to-slate-950 text-white rounded-2xl cursor-pointer hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4 border border-indigo-800"
+              id="edu-card-all-guides"
+            >
+              <div className="space-y-3">
+                <span className="p-2.5 bg-indigo-500/20 text-indigo-300 rounded-xl inline-block">
+                  <BookMarked className="w-5 h-5" />
+                </span>
+                <h3 className="font-bold text-white text-lg group-hover:text-indigo-300 transition-colors">
+                  Browse Full Educational Library
+                </h3>
+                <p className="text-xs text-indigo-200 leading-relaxed font-sans">
+                  Access 14+ comprehensive step-by-step tutorials, interactive code samples, and writing cheat sheets designed for students, developers, and creators.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-indigo-800/80 flex items-center justify-between text-xs font-bold text-indigo-300">
+                <span>View All 14+ Guides</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+          </div>
+
+          {/* Quick Learning Tips Bar */}
+          <div className="p-6 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 rounded-2xl space-y-3 shadow-sm">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-indigo-500" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                Text Engineering Quick Rule of Thumb:
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs font-sans text-slate-600 dark:text-slate-400">
+              <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                <strong className="block font-bold text-slate-900 dark:text-white mb-1">Web Articles</strong>
+                Target Flesch score 60-70 for general audience comprehension.
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                <strong className="block font-bold text-slate-900 dark:text-white mb-1">SEO Keywords</strong>
+                Maintain 1.0% to 2.5% density for optimal search ranking.
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                <strong className="block font-bold text-slate-900 dark:text-white mb-1">URL Slugs</strong>
+                Use lowercase kebab-case (`my-page-title`) for clean URLs.
+              </div>
+              <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                <strong className="block font-bold text-slate-900 dark:text-white mb-1">Local Privacy</strong>
+                All calculations run client-side inside browser RAM.
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
