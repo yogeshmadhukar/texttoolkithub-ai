@@ -121,6 +121,8 @@ const GuidesView = lazyWithRetry(() => import('./components/GuidesView.tsx'));
 const LogoManagerView = lazyWithRetry(() => import('./components/LogoManagerView.tsx'));
 const MorseCodeTranslatorView = lazyWithRetry(() => import('./components/MorseCodeTranslatorView.tsx'));
 const ListRandomizerView = lazyWithRetry(() => import('./components/ListRandomizerView.tsx'));
+const SubtitleCleanerView = lazyWithRetry(() => import('./components/SubtitleCleanerView.tsx'));
+const UtmBuilderView = lazyWithRetry(() => import('./components/UtmBuilderView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -188,6 +190,8 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/json-xml-converter': () => import('./components/JsonXmlConverterView.tsx'),
   'tools/morse-code-translator': () => import('./components/MorseCodeTranslatorView.tsx'),
   'tools/list-randomizer': () => import('./components/ListRandomizerView.tsx'),
+  'tools/subtitle-cleaner': () => import('./components/SubtitleCleanerView.tsx'),
+  'tools/utm-builder': () => import('./components/UtmBuilderView.tsx'),
   'about': () => import('./components/AboutView.tsx'),
   'faq': () => import('./components/FaqView.tsx'),
   'security-faq': () => import('./components/SecurityFaqView.tsx'),
@@ -1707,6 +1711,24 @@ export default function App() {
     if (activePage === 'tools/list-randomizer' || activePage === 'list-randomizer') {
       return (
         <ListRandomizerView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/subtitle-cleaner' || activePage === 'subtitle-cleaner') {
+      return (
+        <SubtitleCleanerView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/utm-builder' || activePage === 'utm-builder') {
+      return (
+        <UtmBuilderView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

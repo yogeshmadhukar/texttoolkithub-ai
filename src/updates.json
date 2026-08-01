@@ -1,5 +1,26 @@
 [
   {
+    "id": "update-milestone-60-tools",
+    "title": "Major Milestone: 60+ Professional Developer & Content Tools!",
+    "description": "We have reached a major milestone with 60+ custom, browser-native developer and content utilities! Check out our brand-new SRT & VTT Subtitle Cleaner and UTM Parameter & Link Builder designed with local-first, high-performance user interfaces.",
+    "category": "Feature Update",
+    "date": "2026-08-01"
+  },
+  {
+    "id": "update-subtitle-cleaner",
+    "title": "SRT & VTT Subtitle Cleaner",
+    "description": "Strip timestamps, sequence numbers, speaker labels, and HTML formatting from SRT, WebVTT, and YouTube caption files to extract clean, article-ready plain text transcripts 100% locally.",
+    "category": "New Tool",
+    "date": "2026-08-01"
+  },
+  {
+    "id": "update-utm-builder",
+    "title": "UTM Parameter & Link Builder",
+    "description": "Build clean, campaign-tagged tracking URLs for Google Analytics, newsletters, social media, and ad campaigns. Features quick channel presets, automatic lowercasing, space sanitization, and reverse UTM URL parsing.",
+    "category": "New Tool",
+    "date": "2026-08-01"
+  },
+  {
     "id": "update-milestone-58-tools",
     "title": "Major Milestone: 58+ Professional Developer Tools!",
     "description": "We have reached another massive milestone with 58+ custom, browser-native developer and string utilities! Check out our brand-new Morse Code Translator Pro and List Randomizer & Raffle Picker designed with local-first, premium user interfaces.",

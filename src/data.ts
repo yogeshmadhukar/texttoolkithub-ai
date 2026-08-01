@@ -671,6 +671,28 @@ export const TOOLS: Tool[] = [
     seoTitle: 'List Randomizer Online | Name Picker & List Shuffler',
     seoDescription: 'Shuffle lists, sort text rows, clean empty lines, and pick random name raffle winners instantly. A powerful offline-first toolkit for giveaways, content, and data sets.',
     keywords: ['list randomizer', 'list shuffler', 'pick random name', 'raffle picker', 'giveaway winner drawer', 'sort lines online'],
+  },
+  {
+    id: 'tools/subtitle-cleaner',
+    title: 'SRT & VTT Subtitle Cleaner',
+    description: 'Strip timestamps, sequence numbers, and formatting tags from SRT and VTT subtitle files to extract clean, readable plain text transcripts instantly.',
+    longDescription: 'Parse SRT, WebVTT, and YouTube caption files line-by-line. Strip timestamp markers, sequence numbers, speaker tags, and sound effect brackets to extract clean, fluid plain-text transcripts. 100% browser-native and private.',
+    iconName: 'Scissors',
+    category: 'cleaner',
+    seoTitle: 'SRT & VTT Subtitle Cleaner Online | Convert Subtitles to Plain Text',
+    seoDescription: 'Strip timestamps, line numbers, speaker labels, and formatting tags from SRT and VTT subtitle files to generate clean plain text transcripts 100% locally.',
+    keywords: ['subtitle cleaner', 'srt to text', 'vtt cleaner', 'youtube caption cleaner', 'strip timestamps', 'convert srt to transcript', 'clean subtitles online', 'remove srt timecodes'],
+  },
+  {
+    id: 'tools/utm-builder',
+    title: 'UTM Parameter & Link Builder',
+    description: 'Build clean, tracking-ready campaign URLs with UTM parameters for Google Analytics, newsletters, social media, and ad campaigns.',
+    longDescription: 'Create Google Analytics UTM tracking URLs with custom source, medium, campaign, term, and content parameters. Features quick channel presets, automatic lowercasing, space sanitization, and reverse UTM URL parsing.',
+    iconName: 'Link2',
+    category: 'generator',
+    seoTitle: 'UTM Parameter & Link Builder Online | Google Analytics Campaign Creator',
+    seoDescription: 'Create clean UTM tracking URLs for Google Analytics, newsletters, social media, and paid ads. Features quick presets, parameter parsing, and auto-sanitization.',
+    keywords: ['utm builder', 'utm parameter generator', 'google analytics campaign builder', 'utm link creator', 'tracking link builder', 'campaign url builder', 'parse utm url'],
   }
 ];
 

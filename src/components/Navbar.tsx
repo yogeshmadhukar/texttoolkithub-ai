@@ -151,6 +151,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
   const websiteNews = [
     {
+      id: "news-milestone-60",
+      title: "60+ Core Tools Hub Live!",
+      description: "TextToolkitHub has officially reached 60+ fully custom, browser-native tools! Check out our brand-new utilities: SRT & VTT Subtitle Cleaner and UTM Parameter & Link Builder, designed for fast client-side transcript cleaning and marketing tracking.",
+      date: "2026-08-01",
+      category: "Website News"
+    },
+    {
       id: "news-milestone-58",
       title: "58 Core Tools Hub Live!",
       description: "TextToolkitHub has officially reached 58 fully custom, browser-native tools! Enjoy our brand-new utilities: Morse Code Translator Pro and List Randomizer & Raffle Picker, designed for high-performance translations, audio feedback, and beautiful collection shuffling.",
