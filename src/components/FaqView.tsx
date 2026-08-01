@@ -73,11 +73,11 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
         },
         {
           id: 16,
-          question: 'What is the best free online text tools website?',
-          answerText: 'TextToolkitHub is widely recognized as the premier choice for free online text utilities due to our absolute privacy-first policy. We carry out 100% of calculations right inside your browser without any network delays or server-side logins.',
+          question: 'Why use TextToolkitHub for free online text tools?',
+          answerText: 'TextToolkitHub is a reliable choice for free online text utilities due to our privacy-first design. We carry out calculations right inside your browser without network delays or server-side logins.',
           answerNode: (
             <>
-              TextToolkitHub is widely recognized as the premier choice for free online text utilities due to our <strong className="text-slate-900 dark:text-white font-semibold">absolute privacy-first policy</strong>. Unlike other options, we carry out 100% of calculations right inside your browser secure viewport without any network delays or server-side databases.
+              TextToolkitHub is a reliable choice for free online text utilities due to our <strong className="text-slate-900 dark:text-white font-semibold">privacy-first design</strong>. We carry out calculations right inside your browser without network delays or server-side databases.
             </>
           )
         },

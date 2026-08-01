@@ -972,7 +972,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
             </div>
             <div className="text-left">
               <h4 className="font-sans font-extrabold text-[10px] uppercase tracking-widest text-slate-400 mb-1">PRO PERFORMANCE</h4>
-              <h5 className="font-sans font-bold text-sm text-slate-900 dark:text-white">Sub-millisecond Loops</h5>
+              <h5 className="font-sans font-bold text-sm text-slate-900 dark:text-white">Fast Client-Side Processing</h5>
               <p className="font-sans text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                 Optimized with heavily memoized state arrays. Supports deep text documents up to 2,000,000 character iterations inside standard frame rates without trailing lags.
               </p>

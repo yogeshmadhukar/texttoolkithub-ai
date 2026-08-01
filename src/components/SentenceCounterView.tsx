@@ -56,7 +56,7 @@ export default function SentenceCounterView({ onNavigateToTool, onNavigateHome }
     {
       id: 4,
       question: "Is this Sentence Counter free to use?",
-      answer: "Yes! Like all utilities in the TextToolkitHub suite, the Sentence Counter is entirely free, requires no signup, is free from annoying popups, and operates with sub-millisecond local latency."
+      answer: "Yes! Like all utilities in the TextToolkitHub suite, the Sentence Counter is free, requires no signup, and operates with fast local performance."
     }
   ];
 

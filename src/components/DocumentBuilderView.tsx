@@ -140,11 +140,11 @@ export default function DocumentBuilderView({ onNavigateToTool, onNavigateHome }
       headerOn: true,
       headerText: 'TEXTTOOLKITHUB OFFICE REQUISITE',
       footerOn: true,
-      footerText: 'Confidentiality Guaranteed | Client-Side Security',
+      footerText: 'Local Privacy | Client-Side Security',
       pageNumbersOn: true,
       indentParagraphs: false,
       title: 'Commercial Draft Design',
-      defaultText: `Executive Concept Overview\n\nThis workflow optimizes unstructured documents into print-ready typeset formats completely inside your sandboxed web browser. Utilizing high-fidelity client-side alignment mathematics, elements compute with real-time feedback corresponding perfectly to physical paper spacing.\n\nAll modifications respect safety and absolute local parameters. No data packets traverse remote connections, keeping confidential copy protected and integrated safely. Use this clean layout for letters, quick drafts, and corporate documentation layouts.`
+      defaultText: `Executive Concept Overview\n\nThis workflow optimizes unstructured documents into print-ready typeset formats completely inside your sandboxed web browser. Utilizing client-side alignment calculations, elements compute with real-time feedback corresponding to physical paper spacing.\n\nAll modifications respect safety and local parameters. No data packets traverse remote connections, keeping confidential copy protected and integrated safely. Use this clean layout for letters, quick drafts, and corporate documentation layouts.`
     },
     {
       id: 'book',
@@ -224,7 +224,7 @@ export default function DocumentBuilderView({ onNavigateToTool, onNavigateHome }
       pageNumbersOn: true,
       indentParagraphs: false,
       title: 'TextToolkitHub Developer Sync Meeting',
-      defaultText: `DATE: June 8, 2026\nFACILITATOR: Senior Architect\nPARTICIPANTS: Engineering Team, Product, SEO Specialist\n\nAGENDA ITEMS:\n1. Release of Document Builder Premium Tool\n2. Validation of Offline PDF Generation Engines\n3. Search Optimization Verification\n\nDISCUSSION DIGEST:\n- The Document Builder is successfully running client-side with jsPDF integrations. Lines split dynamically depending on font family and margin pt dimensions.\n- Live preview is executing with sub-millisecond lag, ensuring editing is highly fluid.\n\nACTION ASSIGNMENTS:\n[TASK 01] Launch Document Builder to tools/document-builder URL path. (Dev - Complete)\n[TASK 02] Verify canonical tags, JSON-LD faq integration, and robots indexing. (SEO - Complete)\n[TASK 03] Audit and run lint validation to confirm zero viewport errors. (QA - Complete)`
+      defaultText: `DATE: June 8, 2026\nFACILITATOR: Senior Architect\nPARTICIPANTS: Engineering Team, Product, SEO Specialist\n\nAGENDA ITEMS:\n1. Release of Document Builder Premium Tool\n2. Validation of Offline PDF Generation Engines\n3. Search Optimization Verification\n\nDISCUSSION DIGEST:\n- The Document Builder is successfully running client-side with jsPDF integrations. Lines split dynamically depending on font family and margin pt dimensions.\n- Live preview is executing with minimal latency, ensuring editing is highly fluid.\n\nACTION ASSIGNMENTS:\n[TASK 01] Launch Document Builder to tools/document-builder URL path. (Dev - Complete)\n[TASK 02] Verify canonical tags, JSON-LD faq integration, and robots indexing. (SEO - Complete)\n[TASK 03] Audit and run lint validation to confirm zero viewport errors. (QA - Complete)`
     }
   ];
 

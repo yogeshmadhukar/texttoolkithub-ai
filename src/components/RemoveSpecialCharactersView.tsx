@@ -68,7 +68,7 @@ export default function RemoveSpecialCharactersView({ onNavigateToTool, onNaviga
     {
       id: 4,
       question: "Is this safe for cleaning high-security database strings or code?",
-      answer: "Absolutely. Absolute sandboxed security is guaranteed since 100% of the string manipulation executes directly inside your browser's virtual memory context. No backend logs, API servers, or diagnostic scripts inspect or store your text data."
+      answer: "Yes. Sandboxed privacy is maintained because string manipulation executes directly inside your browser's virtual memory context. No backend logs, API servers, or diagnostic scripts inspect or store your text data."
     },
     {
       id: 5,

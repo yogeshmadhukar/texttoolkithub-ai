@@ -1175,7 +1175,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                       <span className={`text-[10px] font-mono tracking-wider font-bold px-2 py-0.5 rounded-lg ${info?.pill}`}>
                         ★ Featured
                       </span>
-                      <Award className="w-5 h-5 text-indigo-500 dark:text-indigo-400 group-hover:rotate-12 transition-transform" />
+                      <Sparkles className="w-5 h-5 text-indigo-500 dark:text-indigo-400 group-hover:rotate-12 transition-transform" />
                     </div>
 
                     <h3 className="font-sans font-bold text-lg text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-450 transition-colors">
@@ -1496,9 +1496,9 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
               <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-455 rounded-xl w-fit border border-indigo-100 dark:border-indigo-900/30">
                 <Cpu className="w-5.5 h-5.5" />
               </div>
-              <h4 className="font-sans font-bold text-base text-slate-900 dark:text-white">Sub-Millisecond Speed</h4>
+              <h4 className="font-sans font-bold text-base text-slate-900 dark:text-white">Real-Time Client-Side Speed</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                By compiling all computation modules inside your sandboxed iframe, we bypass traditional internet latency. Feel metrics update live inside 5ms!
+                By compiling all computation modules inside your browser memory, we bypass network latency. Calculations update live as you type.
               </p>
             </div>
 

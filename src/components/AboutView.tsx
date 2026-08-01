@@ -101,7 +101,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
       title: "Enterprise Performance",
       description: "Utilize highly optimized parsing algorithms capable of processing multi-megabyte payloads in fractions of a second, with Instant FCP (First Contentful Paint) benchmarks.",
       icon: <Zap className="w-6 h-6 text-rose-600 dark:text-rose-400" />,
-      badge: "Sub-Millisecond"
+      badge: "Real-Time Speed"
     },
     {
       title: "Mobile Friendly Layouts",

@@ -4,7 +4,7 @@ export const CATEGORIES: CategoryInfo[] = [
   {
     id: 'analyzer',
     name: 'Text Analyzers',
-    description: 'Analyze word density, counts, and reading statistics with pixel perfection.',
+    description: 'Analyze word density, counts, and reading statistics accurately.',
     colorClass: 'emerald',
   },
   {
@@ -368,7 +368,7 @@ export const TOOLS: Tool[] = [
     id: 'tools/document-builder',
     title: 'Document Builder',
     description: 'Transform plain text into beautifully formatted, print-ready PDF documents.',
-    longDescription: 'Our premium flagship Document Builder turns unstructured text, drafts, and raw copy into beautifully typeset, custom documents. Choose from layouts like Book, Essay, Report, Novel, Meeting Notes, and Blog with a professional high-fidelity rendering pipeline. Customize typography, spacing, styling presets, headers, and footers, and export perfect high-quality PDF files completely locally in your browser.',
+    longDescription: 'Our Document Builder turns unstructured text, drafts, and raw copy into cleanly formatted documents. Choose from layouts like Book, Essay, Report, Novel, Meeting Notes, and Blog. Customize typography, spacing, styling presets, headers, and footers, and export formatted PDF files completely locally in your browser.',
     iconName: 'FileText',
     category: 'generator',
     seoTitle: 'Document Builder - Format Text and Create Professional PDFs Online',
@@ -678,42 +678,42 @@ export const FAQS: FaqItem[] = [
   {
     id: 1,
     question: 'What is TextToolkitHub?',
-    answer: 'TextToolkitHub is an online suite of browser-native text utilities built to deliver sub-millisecond manipulation, counting, and cleaning with absolute local privacy. All processing runs entirely inside your web browser secure viewport.',
+    answer: 'TextToolkitHub is an online suite of browser-native text utilities built for fast text manipulation, counting, and cleaning with local privacy. All processing runs entirely inside your web browser.',
   },
   {
     id: 2,
     question: 'Is TextToolkitHub free to use?',
-    answer: 'Yes! Every single converter, cleaner, and analyzer widget inside TextToolkitHub is 100% free with no subscription tiers, credit-card charges, paywalls, or restricted access trials.',
+    answer: 'Yes! Every converter, cleaner, and analyzer widget inside TextToolkitHub is free with no subscription tiers, credit-card charges, paywalls, or restricted access trials.',
   },
   {
     id: 3,
     question: 'Is TextToolkitHub safe and private?',
-    answer: 'Security is our absolute priority. All inputs, paste buffers, and sensitive code files are handled locally through client-side JavaScript. No data packets are transferred to external cloud storages or processed remotely.',
+    answer: 'Security is our priority. All inputs, paste buffers, and code files are handled locally through client-side JavaScript. No data packets are transferred to external cloud storage or processed remotely.',
   },
   {
     id: 4,
     question: 'Do I need to sign up to use the tools?',
-    answer: 'No signup or registration is required. You can utilize our complete toolkit of converters and counters anonymously, instantly, and freely at any time without creating accounts or matching phone validation credentials.',
+    answer: 'No signup or registration is required. You can utilize our complete toolkit of converters and counters anonymously, instantly, and freely at any time without creating accounts.',
   },
   {
     id: 5,
-    question: 'What is the best free online text tools website?',
-    answer: 'TextToolkitHub is widely recognized as the premier choice due to its absolute privacy focus, streamlined layouts, high-performance execution speed, and mobile-responsive engineering.',
+    question: 'Why use TextToolkitHub for online text tools?',
+    answer: 'TextToolkitHub focuses on client-side privacy, clean layouts, fast execution, and mobile responsiveness without requiring software downloads or account signups.',
   },
   {
     id: 6,
     question: 'Which website has free text formatting tools?',
-    answer: 'TextToolkitHub is an all-in-one platform providing premium formatting tools to sort lines, remove extra spaces, strip empty line breaks, convert case types, and run readability analysis instantly for free.',
+    answer: 'TextToolkitHub is an online platform providing formatting tools to sort lines, remove extra spaces, strip empty line breaks, convert case types, and run readability analysis for free.',
   },
   {
     id: 7,
     question: 'Can I use TextToolkitHub for content writing?',
-    answer: 'Yes! It is optimized for copywriters, bloggers, and SEO copywriters. Use our word counter, character counter, keyword density checkers, and duplicate lines cleaners to polish and optimize blogs before submitting.',
+    answer: 'Yes! It is optimized for copywriters, bloggers, and SEO writers. Use our word counter, character counter, keyword density checkers, and duplicate line cleaners to polish and optimize content.',
   },
   {
     id: 8,
     question: 'Is TextToolkitHub suitable for professionals and creators?',
-    answer: 'Absolutely. With clean desktop layouts, high-contrast dark theme mode, local offline responsiveness, and zero commercial popups, our tools integrate cleanly into fast developer, content creation, and office routines.',
+    answer: 'Definitely. With clean desktop layouts, high-contrast dark theme mode, local offline responsiveness, and zero commercial popups, our tools integrate into fast developer, content creation, and office routines.',
   },
 ];
 

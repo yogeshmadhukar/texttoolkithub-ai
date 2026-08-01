@@ -255,10 +255,10 @@ TextToolkitHub delivers immediate compilation of GFM structures with absolute of
 
 | Metric Class | Client Output | Speed Rating | Secure |
 | :--- | :---: | :---: | :---: |
-| Latency | Sub-milliseconds | Maximum | 100% |
-| API Dependency | None | Independent | 100% |
+| Latency | Near-Instant | High | Client-Side |
+| API Dependency | None | Independent | Client-Side |
 
-> "This is a premium, lightweight tool to convert drafts easily without typical server transit leaks."
+> "This is a lightweight tool to convert drafts easily without typical server transit risks."
 
 Enjoy converting text structures locally with zero data leakages!
 `;

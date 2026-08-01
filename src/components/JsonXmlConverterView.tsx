@@ -27,7 +27,7 @@ type Mode = 'json-to-xml' | 'xml-to-json';
 
 export default function JsonXmlConverterView({ onNavigateToTool, onNavigateHome }: JsonXmlConverterViewProps) {
   const [mode, setMode] = useState<Mode>('json-to-xml');
-  const [inputText, setInputText] = useState('{\n  "root": {\n    "platform": "TextToolkitHub",\n    "year": 2026,\n    "features": [\n      "Privacy First",\n      "Sub-millisecond Calculations",\n      "Elegant Design"\n    ]\n  }\n}');
+  const [inputText, setInputText] = useState('{\n  "root": {\n    "platform": "TextToolkitHub",\n    "year": 2026,\n    "features": [\n      "Privacy First",\n      "Fast Client-Side Processing",\n      "Elegant Design"\n    ]\n  }\n}');
   const [outputText, setOutputText] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);

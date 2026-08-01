@@ -334,7 +334,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
       case 'pdf':
         return <Scissors className={`${className} text-indigo-500`} />;
       case 'readability':
-        return <Award className={`${className} text-indigo-500`} />;
+        return <BookOpen className={`${className} text-indigo-500`} />;
       case 'security':
         return <Unlock className={`${className} text-indigo-500`} />;
       case 'developer':

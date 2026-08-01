@@ -408,9 +408,9 @@ export default function RemoveEmojisView({ onNavigateToTool, onNavigateHome }: R
           <div className="flex items-start gap-3 bg-emerald-50/30 dark:bg-slate-950/30 border border-emerald-100/30 dark:border-slate-805 rounded-2xl p-4 mb-8">
             <Info className="w-5 h-5 text-emerald-600 dark:text-emerald-405 mt-0.5 shrink-0" />
             <div>
-              <h4 className="text-xs font-extrabold text-slate-800 dark:text-slate-200">Local Sandbox Execution Guaranteed</h4>
+              <h4 className="text-xs font-extrabold text-slate-800 dark:text-slate-200">Local Sandbox Execution</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                We respect your personal files and writings. High-speed, browser-native string cleaning guarantees 100% processing security so that no texts or paragraphs leave your computer.
+                We respect your personal files and writings. High-speed, browser-native string cleaning ensures processing security so that no texts or paragraphs leave your computer.
               </p>
             </div>
           </div>
