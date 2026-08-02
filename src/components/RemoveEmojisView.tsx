@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TOOLS } from '../data.ts';
 import { motion, AnimatePresence } from 'motion/react';
+import AdPlacement from './AdPlacement.tsx';
 import { 
   Smile, 
   Download, 
@@ -659,15 +660,7 @@ export default function RemoveEmojisView({ onNavigateToTool, onNavigateHome }: R
 
           {/* ADVERTISEMENT PLACEHOLDER */}
           <div className="mb-12">
-            <div className="flex flex-col sm:flex-row items-center gap-2 border border-slate-200 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-950/20 p-4 rounded-3xl">
-              <Globe className="w-5 h-5 text-indigo-500 shrink-0" />
-              <div className="text-center sm:text-left">
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-205">Automatic Ad Placement Container</span>
-                <p className="text-[11px] text-slate-500 dark:text-slate-450 leading-relaxed mt-0.5">
-                  Preallocated responsive banner area ensures seamless automatic Google AdSense compliance with absolutely zero Cumulative Layout Shift (CLS).
-                </p>
-              </div>
-            </div>
+            <AdPlacement slot="leaderboard" id="remove-emojis-ad" />
           </div>
 
           {/* FREQUENTLY ASKED QUESTIONS SECTION */}
