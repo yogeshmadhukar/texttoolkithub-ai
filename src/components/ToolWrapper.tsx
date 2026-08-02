@@ -3,6 +3,7 @@ import { TOOLS } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
+import AdPlacement from './AdPlacement.tsx';
 
 import { 
   FileText, 
@@ -1011,6 +1012,11 @@ Writing blog drafts or corporate press articles can be stressful when characters
 
           </div>
 
+        </div>
+
+        {/* IN-CONTENT ADSTERRA AD PLACEMENT FOR ALL TOOLWRAPPER UTILITIES */}
+        <div className="my-8">
+          <AdPlacement slot="leaderboard" id={`tool-wrapper-ad-${tool.id}`} />
         </div>
 
         {/* RELATED TOOLS SECTION */}
