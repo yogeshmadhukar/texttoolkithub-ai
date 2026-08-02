@@ -662,7 +662,7 @@ export default function RemoveSpecialCharactersView({ onNavigateToTool, onNaviga
             </div>
           </div>
 
-          {/* ADSENSE & ADSTERRA INTEGRATION AD PLACEMENT PLACEHOLDER */}
+          {/* ADVERTISEMENT PLACEHOLDER */}
           <div className="mb-12">
             <AdPlacement slot="leaderboard" id="remove-special-chars-ad" />
           </div>

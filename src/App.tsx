@@ -3,7 +3,6 @@ import Navbar from './components/Navbar.tsx';
 import Footer from './components/Footer.tsx';
 import HomeView from './components/HomeView.tsx';
 import ToolWrapper from './components/ToolWrapper.tsx';
-import AdPlacement from './components/AdPlacement.tsx';
 
 // Resilient dynamic lazy loader to handle stale chunck loads / module script errors in deployment
 const lazyWithRetry = <T extends React.ComponentType<any>>(

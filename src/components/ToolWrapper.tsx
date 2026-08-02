@@ -1014,7 +1014,7 @@ Writing blog drafts or corporate press articles can be stressful when characters
 
         </div>
 
-        {/* IN-CONTENT ADSTERRA AD PLACEMENT FOR ALL TOOLWRAPPER UTILITIES */}
+        {/* IN-CONTENT PROGRAMMATIC AD PLACEMENT FOR ALL TOOLWRAPPER UTILITIES */}
         <div className="my-8">
           <AdPlacement slot="leaderboard" id={`tool-wrapper-ad-${tool.id}`} />
         </div>
