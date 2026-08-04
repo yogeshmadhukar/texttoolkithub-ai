@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Navbar from './components/Navbar.tsx';
 import Footer from './components/Footer.tsx';
+import MobileBottomNav from './components/MobileBottomNav.tsx';
 import HomeView from './components/HomeView.tsx';
 import ToolWrapper from './components/ToolWrapper.tsx';
 
@@ -1808,7 +1809,7 @@ export default function App() {
   };
 
   return (
-    <div className={`flex flex-col min-h-screen bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200 ${darkMode ? 'dark' : ''} bg-grid-pattern relative overflow-hidden`}>
+    <div className={`flex flex-col min-h-screen bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200 ${darkMode ? 'dark' : ''} bg-grid-pattern relative overflow-hidden pb-16 md:pb-0`}>
       
       {/* Premium Ambient Top Glow */}
       <div className="ambient-glow-top" aria-hidden="true" />
@@ -1848,6 +1849,14 @@ export default function App() {
 
       {/* Universal footer brand segments */}
       <Footer onNavigate={handlePageNavigation} />
+
+      {/* Persistent mobile bottom navigation bar */}
+      <MobileBottomNav 
+        activePage={activePage}
+        onNavigate={handlePageNavigation}
+        darkMode={darkMode}
+        onToggleDarkMode={handleToggleTheme}
+      />
 
       {/* Dynamic Cookie Preference & Analytics GDPR Consent Overlay Banner */}
       <AnalyticsConsentBanner onConsentChange={(status) => {
