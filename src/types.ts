@@ -39,3 +39,13 @@ export function isDevSession(): boolean {
     ))
   );
 }
+
+export function getCleanPath(page: string): string {
+  if (!page || page === 'home') return '/';
+  if (page === 'privacy') return '/privacy-policy';
+  if (page.startsWith('tools/')) {
+    return `/${page.substring(6)}`;
+  }
+  return `/${page}`;
+}
+

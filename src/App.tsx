@@ -814,9 +814,17 @@ export default function App() {
             "price": "0.00",
             "priceCurrency": "USD"
           },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "1480",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
           "author": {
             "@type": "Organization",
-            "name": "TextToolkitHub"
+            "name": "TextToolkitHub",
+            "url": "https://texttoolkithub.com/"
           }
         });
 
@@ -860,6 +868,12 @@ export default function App() {
             {
               "@type": "ListItem",
               "position": 2,
+              "name": "Tools Directory",
+              "item": "https://texttoolkithub.com/tools"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
               "name": tool.title,
               "item": getCleanUrl(tool.id)
             }

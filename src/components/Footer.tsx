@@ -1,5 +1,6 @@
 import React from 'react';
 import { TOOLS } from '../data.ts';
+import { getCleanPath } from '../types.ts';
 import { Wrench, Github, Scale, HelpCircle, Shield, FileText, Linkedin } from 'lucide-react';
 import HubLogo from './HubLogo.tsx';
 
@@ -10,6 +11,13 @@ interface FooterProps {
 export default function Footer({ onNavigate }: FooterProps) {
   const currentYear = 2026; // Set exactly based on agent metadata context
 
+  const handleLinkClick = (e: React.MouseEvent, page: string) => {
+    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+      e.preventDefault();
+      onNavigate(page);
+    }
+  };
+
   return (
     <footer className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-900 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -19,20 +27,19 @@ export default function Footer({ onNavigate }: FooterProps) {
           
           {/* Column 1: Brand Pitch */}
           <div className="flex flex-col gap-4">
-            <div 
-              className="flex items-center gap-2"
+            <a 
+              href={getCleanPath('home')}
+              onClick={(e) => handleLinkClick(e, 'home')}
+              className="flex items-center gap-2 group focus:outline-none"
               id="footer-logo-link"
             >
-              <div className="hover:scale-105 transition-transform duration-200 shrink-0">
+              <div className="group-hover:scale-105 transition-transform duration-200 shrink-0">
                 <HubLogo size="md" editable={false} />
               </div>
-              <span 
-                onClick={() => onNavigate('home')} 
-                className="font-sans font-extrabold text-lg tracking-tight text-slate-950 dark:text-white cursor-pointer hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-              >
+              <span className="font-sans font-extrabold text-lg tracking-tight text-slate-950 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                 Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
               </span>
-            </div>
+            </a>
             <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
               Free online text tools for writers, developers, students, and professionals. Fast, accurate, and privacy-focused.
             </p>
@@ -74,13 +81,14 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
               {TOOLS.slice(0, 6).map((tool) => (
                 <li key={tool.id}>
-                  <button 
-                    onClick={() => onNavigate(tool.id)}
-                    className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors"
+                  <a 
+                    href={getCleanPath(tool.id)}
+                    onClick={(e) => handleLinkClick(e, tool.id)}
+                    className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors inline-block"
                     id={`footer-tool-${tool.id}`}
                   >
                     {tool.title}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -93,29 +101,54 @@ export default function Footer({ onNavigate }: FooterProps) {
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
-                <button onClick={() => onNavigate('tools')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors" id="footer-link-tools">
+                <a 
+                  href={getCleanPath('tools')} 
+                  onClick={(e) => handleLinkClick(e, 'tools')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors inline-block" 
+                  id="footer-link-tools"
+                >
                   Tools Directory
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('guides')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors" id="footer-link-guides">
+                <a 
+                  href={getCleanPath('guides')} 
+                  onClick={(e) => handleLinkClick(e, 'guides')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors inline-block" 
+                  id="footer-link-guides"
+                >
                   Educational Guides
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('about')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors" id="footer-link-about">
+                <a 
+                  href={getCleanPath('about')} 
+                  onClick={(e) => handleLinkClick(e, 'about')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors inline-block" 
+                  id="footer-link-about"
+                >
                   About Our Platform
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('contact')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-contact">
+                <a 
+                  href={getCleanPath('contact')} 
+                  onClick={(e) => handleLinkClick(e, 'contact')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-contact"
+                >
                   Talk to Support
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('faq')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-faqs">
+                <a 
+                  href={getCleanPath('faq')} 
+                  onClick={(e) => handleLinkClick(e, 'faq')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-faqs"
+                >
                   Frequently Asked Questions
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -127,29 +160,54 @@ export default function Footer({ onNavigate }: FooterProps) {
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-slate-600 dark:text-slate-400">
               <li>
-                <button onClick={() => onNavigate('privacy')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-privacy">
+                <a 
+                  href={getCleanPath('privacy')} 
+                  onClick={(e) => handleLinkClick(e, 'privacy')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-privacy"
+                >
                   Privacy Policy
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('cookie-policy')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-cookie-policy">
+                <a 
+                  href={getCleanPath('cookie-policy')} 
+                  onClick={(e) => handleLinkClick(e, 'cookie-policy')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-cookie-policy"
+                >
                   Cookie Policy
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('dmca')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-dmca">
+                <a 
+                  href={getCleanPath('dmca')} 
+                  onClick={(e) => handleLinkClick(e, 'dmca')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-dmca"
+                >
                   DMCA Policy
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('terms')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-terms">
+                <a 
+                  href={getCleanPath('terms')} 
+                  onClick={(e) => handleLinkClick(e, 'terms')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-terms"
+                >
                   Terms & Conditions
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigate('disclaimer')} className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors" id="footer-link-disclaimer">
+                <a 
+                  href={getCleanPath('disclaimer')} 
+                  onClick={(e) => handleLinkClick(e, 'disclaimer')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-disclaimer"
+                >
                   Disclaimer
-                </button>
+                </a>
               </li>
               <li className="text-xs mt-1 text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20 px-2 py-1 rounded inline-block w-fit">
                 ✓ Local Client Mode Active
