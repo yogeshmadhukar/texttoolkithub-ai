@@ -1,6 +1,6 @@
+import '../polyfills.ts';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import * as XLSX from 'xlsx';
-import * as pdfjsLib from 'pdfjs-dist';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   FileSpreadsheet, 
@@ -31,11 +31,45 @@ import {
   Database
 } from 'lucide-react';
 import AdPlacement from './AdPlacement.tsx';
-import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
-// Configure pdfjs worker locally via Vite asset URL
-if (typeof window !== 'undefined' && pdfjsLib.GlobalWorkerOptions) {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
+let cachedPdfJs: any = null;
+
+async function getPdfJsLibrary() {
+  if (cachedPdfJs) return cachedPdfJs;
+
+  try {
+    const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    if (pdfjs && pdfjs.GlobalWorkerOptions) {
+      try {
+        const workerUrl = (await import('pdfjs-dist/legacy/build/pdf.worker.min.mjs?url')).default;
+        pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
+      } catch {
+        pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version || '6.2.108'}/legacy/build/pdf.worker.min.mjs`;
+      }
+      cachedPdfJs = pdfjs;
+      return pdfjs;
+    }
+  } catch (err) {
+    console.warn('Legacy pdfjs import failed, trying standard build:', err);
+  }
+
+  try {
+    const pdfjs = await import('pdfjs-dist');
+    if (pdfjs && pdfjs.GlobalWorkerOptions) {
+      try {
+        const workerUrl = (await import('pdfjs-dist/build/pdf.worker.min.mjs?url')).default;
+        pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
+      } catch {
+        pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version || '6.2.108'}/build/pdf.worker.min.mjs`;
+      }
+      cachedPdfJs = pdfjs;
+      return pdfjs;
+    }
+  } catch (err) {
+    console.warn('Standard pdfjs import failed:', err);
+  }
+
+  throw new Error('Failed to load PDF engine. Please ensure your browser supports modern JavaScript or refresh the page.');
 }
 
 interface PdfToExcelViewProps {
@@ -60,6 +94,41 @@ export interface ExtractedSheet {
   totalRows: number;
   totalCols: number;
 }
+
+// Helper to test if a string represents a long numeric ID/code (Aadhaar, UDISE, Phone, Account No, etc.)
+const isLongNumericId = (str: string): boolean => {
+  if (!str) return false;
+  const trimmed = str.trim();
+  const clean = trimmed.replace(/[\s\-_]/g, '');
+  
+  // Leading zeros with length >= 2 (e.g., "09123456789", "00123", "01")
+  if (/^0\d+$/.test(trimmed) && trimmed.length > 1) return true;
+
+  // Aadhaar format (12 digits, often written as 1234 5678 9012)
+  if (/^\d{4}\s?\d{4}\s?\d{4}$/.test(trimmed)) return true;
+
+  // Mobile or Phone number (10 to 13 digits, optional + or 0)
+  if (/^(\+?\d{1,3})?[6-9]\d{9}$/.test(clean)) return true;
+
+  // UDISE code or School ID (11 digits, often starts with 0)
+  if (/^\d{11}$/.test(clean)) return true;
+
+  // Any digit-only string with length >= 10 (Account numbers, Roll numbers, IDs)
+  if (/^\d{10,}$/.test(clean)) return true;
+
+  // IFSC code format (e.g., SBIN0001234)
+  if (/^[A-Za-z]{4}0[A-Za-z0-9]{6}$/.test(trimmed)) return true;
+
+  return false;
+};
+
+// Helper to determine if a string is a standard number (amount, count, decimal)
+const isStandardNumber = (str: string): boolean => {
+  if (!str) return false;
+  if (isLongNumericId(str)) return false;
+  // Standard floating point or integer number (up to 9 digits)
+  return /^-?\d{1,9}(\.\d+)?$/.test(str.trim());
+};
 
 export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: PdfToExcelViewProps) {
   // File & State
@@ -87,6 +156,36 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dragCounter = useRef<number>(0);
 
+  // Task & resource management refs for memory safety and race condition prevention
+  const activeLoadingTaskRef = useRef<any>(null);
+  const activePdfDocRef = useRef<any>(null);
+  const isMountedRef = useRef<boolean>(true);
+  const parseTaskIdRef = useRef<number>(0);
+
+  // Cleanup PDF resources on component unmount
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+      if (activeLoadingTaskRef.current) {
+        try {
+          activeLoadingTaskRef.current.destroy();
+        } catch {
+          // ignore cleanup errors
+        }
+        activeLoadingTaskRef.current = null;
+      }
+      if (activePdfDocRef.current) {
+        try {
+          activePdfDocRef.current.destroy();
+        } catch {
+          // ignore cleanup errors
+        }
+        activePdfDocRef.current = null;
+      }
+    };
+  }, []);
+
   // Parse PDF and convert to table rows & columns
   const parsePdfToTables = useCallback(async (
     pdfFile: File,
@@ -95,32 +194,68 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
     useFirstRowHeader: boolean,
     doTrim: boolean
   ) => {
+    // Abort and destroy previous pdf parsing task if currently active
+    if (activeLoadingTaskRef.current) {
+      try {
+        activeLoadingTaskRef.current.destroy();
+      } catch {
+        // ignore
+      }
+      activeLoadingTaskRef.current = null;
+    }
+    if (activePdfDocRef.current) {
+      try {
+        await activePdfDocRef.current.destroy();
+      } catch {
+        // ignore
+      }
+      activePdfDocRef.current = null;
+    }
+
+    const taskId = ++parseTaskIdRef.current;
+
     setIsParsing(true);
     setErrorMessage(null);
     setIsScannedWarning(false);
     setCurrentParsingPage(0);
     setTotalPages(0);
 
+    let pdfDoc: any = null;
+
     try {
+      const pdfjsLib = await getPdfJsLibrary();
+      if (!isMountedRef.current || taskId !== parseTaskIdRef.current) return;
+
       const arrayBuffer = await pdfFile.arrayBuffer();
+      if (!isMountedRef.current || taskId !== parseTaskIdRef.current) return;
       
-      // Load PDF document
+      // Load PDF document safely with character maps for non-English/Unicode text
       const loadingTask = pdfjsLib.getDocument({
         data: arrayBuffer,
         cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || '6.2.108'}/cmaps/`,
         cMapPacked: true,
       });
 
-      const pdf = await loadingTask.promise;
-      const numPages = pdf.numPages;
+      activeLoadingTaskRef.current = loadingTask;
+      pdfDoc = await loadingTask.promise;
+      activePdfDocRef.current = pdfDoc;
+
+      if (!isMountedRef.current || taskId !== parseTaskIdRef.current) {
+        if (pdfDoc) pdfDoc.destroy();
+        return;
+      }
+
+      const numPages = pdfDoc.numPages;
       setTotalPages(numPages);
 
       let totalCharCount = 0;
       const pageResults: { pageNum: number; rows: string[][] }[] = [];
 
       for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+        if (!isMountedRef.current || taskId !== parseTaskIdRef.current) break;
+
         setCurrentParsingPage(pageNum);
-        const page = await pdf.getPage(pageNum);
+        const page = await pdfDoc.getPage(pageNum);
         const textContent = await page.getTextContent();
 
         // Extract raw items with position
@@ -128,7 +263,8 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
 
         for (const item of textContent.items as any[]) {
           if (!item.str) continue;
-          const strVal = doTrim ? item.str.trim() : item.str;
+          const normalizedStr = item.str.normalize('NFC');
+          const strVal = doTrim ? normalizedStr.trim() : normalizedStr;
           if (!strVal) continue;
 
           totalCharCount += strVal.length;
@@ -152,7 +288,7 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
         items.sort((a, b) => b.y - a.y);
 
         // Group items into rows using yTolerance
-        const rawRows: ExtractedTextItem[][] = [];
+        const rawRowsItems: ExtractedTextItem[][] = [];
         let currentRow: ExtractedTextItem[] = [];
         let currentY = items[0].y;
 
@@ -161,9 +297,8 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
             currentRow.push(item);
           } else {
             if (currentRow.length > 0) {
-              // Sort items in current row by X ascending (left to right)
               currentRow.sort((a, b) => a.x - b.x);
-              rawRows.push(currentRow);
+              rawRowsItems.push(currentRow);
             }
             currentRow = [item];
             currentY = item.y;
@@ -171,17 +306,49 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
         }
         if (currentRow.length > 0) {
           currentRow.sort((a, b) => a.x - b.x);
-          rawRows.push(currentRow);
+          rawRowsItems.push(currentRow);
         }
 
-        // Collect column X boundaries across rows to construct aligned grid
+        // Merge adjacent text fragments within each row if gap is small (<= 10pt)
+        const mergedRowsItems: ExtractedTextItem[][] = [];
+        rawRowsItems.forEach(rowItems => {
+          const mergedRow: ExtractedTextItem[] = [];
+          let currentCell: ExtractedTextItem | null = null;
+
+          rowItems.forEach(item => {
+            if (!currentCell) {
+              currentCell = { ...item };
+            } else {
+              const prevRight = currentCell.x + (currentCell.width || 0);
+              const gap = item.x - prevRight;
+              // If gap between fragments is small (<= 10pt), merge into single cell
+              if (gap <= 10) {
+                currentCell.str += (gap > 1.5 ? ' ' : '') + item.str;
+                if (item.x + item.width > currentCell.x + currentCell.width) {
+                  currentCell.width = (item.x + item.width) - currentCell.x;
+                }
+              } else {
+                mergedRow.push(currentCell);
+                currentCell = { ...item };
+              }
+            }
+          });
+          if (currentCell) {
+            mergedRow.push(currentCell);
+          }
+          if (mergedRow.length > 0) {
+            mergedRowsItems.push(mergedRow);
+          }
+        });
+
+        // Collect column X boundaries across merged rows to construct aligned grid
         const allXCoords: number[] = [];
-        rawRows.forEach(row => {
+        mergedRowsItems.forEach(row => {
           row.forEach(item => allXCoords.push(item.x));
         });
         allXCoords.sort((a, b) => a - b);
 
-        // Cluster X coords into distinct columns (xTolerance ~ 12px)
+        // Cluster X coords into distinct columns (xTolerance ~ 12pt)
         const colClusters: number[] = [];
         const xTolerance = 12;
         for (const x of allXCoords) {
@@ -195,11 +362,13 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
           }
         }
 
-        // Map row items into column slots
+        // Map merged row items into column slots without merging different columns in same row
         const stringRows: string[][] = [];
 
-        rawRows.forEach(row => {
+        mergedRowsItems.forEach(row => {
           const rowCells = new Array(Math.max(1, colClusters.length)).fill('');
+          let lastAssignedCol = -1;
+
           row.forEach(item => {
             // Find closest column index
             let bestColIdx = 0;
@@ -212,15 +381,25 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
               }
             }
 
+            // Enforce strict column order: cells in the same row must NEVER share the same column slot
+            if (bestColIdx <= lastAssignedCol) {
+              bestColIdx = lastAssignedCol + 1;
+            }
+
+            while (bestColIdx >= rowCells.length) {
+              rowCells.push('');
+            }
+
             if (rowCells[bestColIdx]) {
               rowCells[bestColIdx] += ' ' + item.str;
             } else {
               rowCells[bestColIdx] = item.str;
             }
+            lastAssignedCol = bestColIdx;
           });
 
           // Trim cell values
-          const cleanRow = rowCells.map(c => c.trim());
+          const cleanRow = rowCells.map(c => (doTrim ? c.trim() : c));
           // Only add row if not completely empty
           if (cleanRow.some(c => c !== '')) {
             stringRows.push(cleanRow);
@@ -229,6 +408,8 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
 
         pageResults.push({ pageNum, rows: stringRows });
       }
+
+      if (!isMountedRef.current || taskId !== parseTaskIdRef.current) return;
 
       // Check if text count is extremely low (scanned image PDF)
       if (totalCharCount < 15) {
@@ -308,19 +489,38 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
         });
       }
 
-      setExtractedSheets(sheetsList);
-      setSelectedSheetIndex(0);
+      if (isMountedRef.current && taskId === parseTaskIdRef.current) {
+        setExtractedSheets(sheetsList);
+        setSelectedSheetIndex(0);
+      }
 
     } catch (err: any) {
+      if (!isMountedRef.current || taskId !== parseTaskIdRef.current) return;
+
       console.error('PDF parsing error:', err);
-      if (err.name === 'PasswordException' || err.message?.includes('password')) {
+      const errName = err?.name || '';
+      const errMsg = err instanceof Error ? err.message : String(err || '');
+
+      if (errName === 'PasswordException' || errMsg.toLowerCase().includes('password')) {
         setErrorMessage('This PDF document is password-protected or encrypted. Please remove the password protection and try again.');
       } else {
-        setErrorMessage(err.message || 'Failed to parse PDF document. Ensure the file is a valid PDF.');
+        setErrorMessage(errMsg || 'Failed to parse PDF document. Ensure the file is a valid PDF.');
       }
       setExtractedSheets([]);
     } finally {
-      setIsParsing(false);
+      if (pdfDoc) {
+        try {
+          pdfDoc.destroy();
+        } catch {
+          // ignore
+        }
+        activePdfDocRef.current = null;
+      }
+      activeLoadingTaskRef.current = null;
+
+      if (isMountedRef.current && taskId === parseTaskIdRef.current) {
+        setIsParsing(false);
+      }
     }
   }, []);
 
@@ -355,7 +555,8 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
     e.preventDefault();
     e.stopPropagation();
     dragCounter.current -= 1;
-    if (dragCounter.current === 0) {
+    if (dragCounter.current <= 0) {
+      dragCounter.current = 0;
       setIsDragging(false);
     }
   };
@@ -378,48 +579,121 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
 
   // Reset tool
   const handleReset = () => {
+    if (activeLoadingTaskRef.current) {
+      try {
+        activeLoadingTaskRef.current.destroy();
+      } catch {
+        // ignore
+      }
+      activeLoadingTaskRef.current = null;
+    }
+    if (activePdfDocRef.current) {
+      try {
+        activePdfDocRef.current.destroy();
+      } catch {
+        // ignore
+      }
+      activePdfDocRef.current = null;
+    }
     setFile(null);
     setExtractedSheets([]);
     setSelectedSheetIndex(0);
     setErrorMessage(null);
     setIsScannedWarning(false);
+    dragCounter.current = 0;
+    setIsDragging(false);
   };
 
-  // Download Excel (.xlsx)
+  // Download Excel (.xlsx) with explicit long-numeric text formatting and column auto-fit
   const handleDownloadExcel = () => {
     if (extractedSheets.length === 0 || !file) return;
 
-    const wb = XLSX.utils.book_new();
+    try {
+      const wb = XLSX.utils.book_new();
 
-    extractedSheets.forEach((sheet) => {
-      const fullAoa = [sheet.headers, ...sheet.rows];
-      const ws = XLSX.utils.aoa_to_sheet(fullAoa);
-      XLSX.utils.book_append_sheet(wb, ws, sheet.name.substring(0, 31)); // 31 char max limit in Excel
-    });
+      extractedSheets.forEach((sheet) => {
+        const fullAoa = [sheet.headers || [], ...(sheet.rows || [])];
+        const ws = XLSX.utils.aoa_to_sheet(fullAoa);
 
-    const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9_-]/g, '_');
-    XLSX.writeFile(wb, `${cleanName}_extracted.xlsx`);
+        const colWidths: number[] = [];
+
+        fullAoa.forEach((row, rIdx) => {
+          row.forEach((cellVal, cIdx) => {
+            const rawStr = String(cellVal ?? '').trim();
+            const strLen = rawStr.length;
+            colWidths[cIdx] = Math.max(colWidths[cIdx] || 10, strLen + 4);
+
+            const cellRef = XLSX.utils.encode_cell({ r: rIdx, c: cIdx });
+            if (ws[cellRef]) {
+              if (rIdx === 0) {
+                ws[cellRef].t = 's';
+                ws[cellRef].v = rawStr;
+              } else if (isLongNumericId(rawStr)) {
+                // Ensure long numbers like Aadhaar, UDISE, Mobile, Account No, ZIP, Roll No are saved as TEXT
+                ws[cellRef].t = 's';
+                ws[cellRef].v = rawStr;
+                ws[cellRef].z = '@';
+              } else if (isStandardNumber(rawStr)) {
+                const num = Number(rawStr);
+                if (!isNaN(num)) {
+                  ws[cellRef].t = 'n';
+                  ws[cellRef].v = num;
+                }
+              } else {
+                ws[cellRef].t = 's';
+                ws[cellRef].v = rawStr;
+              }
+            }
+          });
+        });
+
+        // Set column widths in worksheet
+        ws['!cols'] = colWidths.map(w => ({ wch: Math.min(Math.max(w, 10), 65) }));
+
+        XLSX.utils.book_append_sheet(wb, ws, (sheet.name || 'Sheet').substring(0, 31));
+      });
+
+      const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9_-]/g, '_') || 'extracted_data';
+      XLSX.writeFile(wb, `${cleanName}_extracted.xlsx`);
+    } catch (err: any) {
+      console.error('Excel Export Error:', err);
+      const errMsg = err instanceof Error ? err.message : String(err || '');
+      setErrorMessage(`Failed to generate Excel file: ${errMsg || 'Unknown error'}`);
+    }
   };
 
-  // Download CSV (.csv)
+  // Download CSV (.csv) with UTF-8 BOM (\uFEFF) for native Hindi/Devanagari rendering in Excel
   const handleDownloadCsv = () => {
     if (extractedSheets.length === 0 || !file) return;
 
-    const currentSheet = extractedSheets[selectedSheetIndex] || extractedSheets[0];
-    const fullAoa = [currentSheet.headers, ...currentSheet.rows];
-    const ws = XLSX.utils.aoa_to_sheet(fullAoa);
-    const csvContent = XLSX.utils.sheet_to_csv(ws);
+    try {
+      const currentSheet = extractedSheets[selectedSheetIndex] || extractedSheets[0];
+      const fullAoa = [currentSheet.headers || [], ...(currentSheet.rows || [])];
+      const ws = XLSX.utils.aoa_to_sheet(fullAoa);
+      const csvContent = XLSX.utils.sheet_to_csv(ws);
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9_-]/g, '_');
-    link.href = url;
-    link.setAttribute('download', `${cleanName}_${currentSheet.name}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+      // Prepend UTF-8 BOM (\uFEFF) so Excel opens Hindi, Devanagari, and non-ASCII Unicode natively
+      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[^a-zA-Z0-9_-]/g, '_') || 'extracted_data';
+      const cleanSheetName = (currentSheet.name || 'sheet').replace(/[^a-zA-Z0-9_-]/g, '_');
+      
+      link.href = url;
+      link.setAttribute('download', `${cleanName}_${cleanSheetName}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Delay object URL revocation so Safari and iOS WebViews can complete file save asynchronously
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 10000);
+    } catch (err: any) {
+      console.error('CSV Export Error:', err);
+      const errMsg = err instanceof Error ? err.message : String(err || '');
+      setErrorMessage(`Failed to generate CSV file: ${errMsg || 'Unknown error'}`);
+    }
   };
 
   const activeSheet = extractedSheets[selectedSheetIndex] || extractedSheets[0];
