@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Navbar from './components/Navbar.tsx';
 import Footer from './components/Footer.tsx';
-import MobileBottomNav from './components/MobileBottomNav.tsx';
 import HomeView from './components/HomeView.tsx';
 import ToolWrapper from './components/ToolWrapper.tsx';
 
@@ -125,6 +124,7 @@ const SubtitleCleanerView = lazyWithRetry(() => import('./components/SubtitleCle
 const UtmBuilderView = lazyWithRetry(() => import('./components/UtmBuilderView.tsx'));
 const PdfMergerView = lazyWithRetry(() => import('./components/PdfMergerView.tsx'));
 const PdfSplitterView = lazyWithRetry(() => import('./components/PdfSplitterView.tsx'));
+const ImageToPdfView = lazyWithRetry(() => import('./components/ImageToPdfView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -196,6 +196,7 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/utm-builder': () => import('./components/UtmBuilderView.tsx'),
   'tools/pdf-merger': () => import('./components/PdfMergerView.tsx'),
   'tools/pdf-splitter': () => import('./components/PdfSplitterView.tsx'),
+  'tools/image-to-pdf': () => import('./components/ImageToPdfView.tsx'),
   'about': () => import('./components/AboutView.tsx'),
   'faq': () => import('./components/FaqView.tsx'),
   'security-faq': () => import('./components/SecurityFaqView.tsx'),
@@ -1771,6 +1772,15 @@ export default function App() {
       );
     }
 
+    if (activePage === 'tools/image-to-pdf' || activePage === 'image-to-pdf') {
+      return (
+        <ImageToPdfView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
     // If layout view matches specific tools IDs, load the tool wrapper 
     if (TOOLS.some(t => t.id === activePage)) {
       return (
@@ -1871,14 +1881,6 @@ export default function App() {
 
       {/* Universal footer brand segments */}
       <Footer onNavigate={handlePageNavigation} />
-
-      {/* Persistent mobile bottom navigation bar */}
-      <MobileBottomNav 
-        activePage={activePage}
-        onNavigate={handlePageNavigation}
-        darkMode={darkMode}
-        onToggleDarkMode={handleToggleTheme}
-      />
 
       {/* Dynamic Cookie Preference & Analytics GDPR Consent Overlay Banner */}
       <AnalyticsConsentBanner onConsentChange={(status) => {

@@ -15,6 +15,7 @@ import {
   Eye,
   RefreshCw
 } from 'lucide-react';
+import SEO from './SEO.tsx';
 
 interface DmcaViewProps {
   onNavigateHome: () => void;
@@ -33,6 +34,11 @@ export default function DmcaView({ onNavigateHome, onNavigateToTool }: DmcaViewP
 
   return (
     <div className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200">
+      <SEO 
+        title="DMCA Copyright Policy | TextToolkitHub"
+        description="DMCA Copyright Policy and takedown notification procedures for TextToolkitHub."
+        canonicalUrl="/dmca"
+      />
       
       {/* Premium Ambient Aura */}
       <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-indigo-200/10 dark:bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />

@@ -35,6 +35,17 @@ export const CATEGORIES: CategoryInfo[] = [
 
 export const TOOLS: Tool[] = [
   {
+    id: 'tools/image-to-pdf',
+    title: 'Image to PDF Converter',
+    description: 'Convert JPG, PNG, and WebP images into a single clean PDF document. 100% private browser processing.',
+    longDescription: 'Turn your photos, scanned documents, and image files into a single, professional PDF file inside your browser memory. Adjust page layout, orientation, and margins, reorder photos, and download your compiled PDF instantly with zero server uploads.',
+    iconName: 'Image',
+    category: 'converter',
+    seoTitle: 'Free Image to PDF Converter Online | Convert JPG, PNG to PDF Locally',
+    seoDescription: 'Convert JPG, PNG, and WebP images to PDF online for free with our 100% client-side converter. Reorder images, customize page size, and compile PDFs instantly with zero server uploads.',
+    keywords: ['image to pdf', 'jpg to pdf', 'png to pdf', 'webp to pdf', 'convert photo to pdf', 'convert image to pdf online', 'local image to pdf', 'client side image to pdf'],
+  },
+  {
     id: 'tools/pdf-splitter',
     title: 'PDF Splitter',
     description: 'Split PDF files, extract page ranges, or separate pages into individual documents. 100% private client-side processing.',

@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { TOOLS, CATEGORIES, searchTools } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
 import { motion, AnimatePresence } from 'motion/react';
+import SEO from './SEO.tsx';
 import { 
   BookOpen, 
   SpellCheck, 
@@ -344,6 +345,11 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
 
   return (
     <div className="relative min-h-screen bg-slate-50/45 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-hidden pb-24 font-sans">
+      <SEO 
+        title="All Text & PDF Utilities Directory | TextToolkitHub"
+        description="Browse all 60+ free online text, developer, generator, and PDF utilities available on TextToolkitHub."
+        canonicalUrl="/tools"
+      />
       {/* Search structured markup index */}
       <script type="application/ld+json">
         {JSON.stringify(schemaMarkup)}

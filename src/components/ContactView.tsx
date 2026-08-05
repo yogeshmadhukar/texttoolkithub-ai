@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import SEO from './SEO.tsx';
 import { 
   Mail, 
   MessageSquare, 
@@ -290,6 +291,11 @@ export default function ContactView() {
 
   return (
     <div className="relative min-h-screen bg-[#fafbfe] dark:bg-[#070a13] text-slate-800 dark:text-slate-200 overflow-hidden transition-colors duration-300 pb-20">
+      <SEO 
+        title="Contact Us | TextToolkitHub"
+        description="Contact the TextToolkitHub team for support, feature requests, bug reports, and feedback regarding our free online text and PDF utilities."
+        canonicalUrl="/contact"
+      />
       
       {/* Decorative Brand Gradient Background Blur Orbs */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-500/10 dark:bg-indigo-500/5 blur-[120px] pointer-events-none" />

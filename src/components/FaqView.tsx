@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
+import SEO from './SEO.tsx';
 import { 
   HelpCircle, 
   ChevronDown, 
@@ -603,59 +604,8 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
     }
   ], []);
 
-  // SEO setup and JSON-LD schema FAQPage injection
-  useEffect(() => {
-    const previousTitle = document.title;
-    const seoTitle = 'Frequently Asked Questions (FAQ) - TextToolkitHub';
-    const seoDescription = 'Find answers regarding TextToolkitHub text converter tools, word count calculations, browser-native client privacy, offline capabilities, and contact support.';
-    
-    document.title = seoTitle;
-
-    let metaDescription = document.querySelector('meta[name="description"]');
-    const previousDescription = metaDescription?.getAttribute('content') || "";
-    
-    if (!metaDescription) {
-      metaDescription = document.createElement('meta');
-      metaDescription.setAttribute('name', 'description');
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.setAttribute('content', seoDescription);
-
-    // Schema FAQ Content Injection (Full 50 QA set)
-    const allItems = categories.flatMap(cat => cat.items);
-    const schemaContent = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": allItems.map(faq => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answerText
-        }
-      }))
-    };
-
-    const scriptId = "faq-view-json-ld";
-    let scriptTag = document.getElementById(scriptId);
-    if (!scriptTag) {
-      scriptTag = document.createElement('script');
-      scriptTag.id = scriptId;
-      scriptTag.setAttribute('type', 'application/ld+json');
-      document.head.appendChild(scriptTag);
-    }
-    scriptTag.innerHTML = JSON.stringify(schemaContent);
-
-    return () => {
-      document.title = previousTitle;
-      if (metaDescription) {
-        metaDescription.setAttribute('content', previousDescription);
-      }
-      const existingScript = document.getElementById(scriptId);
-      if (existingScript) {
-        existingScript.remove();
-      }
-    };
+  const allFaqsForSchema = useMemo(() => {
+    return categories.flatMap(cat => cat.items.map(item => ({ question: item.question, answer: item.answerText })));
   }, [categories]);
 
   const toggleFaq = (id: number) => {
@@ -714,6 +664,12 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
 
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-200">
+      <SEO 
+        title="Frequently Asked Questions (FAQ) | TextToolkitHub"
+        description="Find answers regarding TextToolkitHub text converter tools, word count calculations, browser-native client privacy, offline capabilities, and contact support."
+        canonicalUrl="/faq"
+        faqs={allFaqsForSchema}
+      />
       
       {/* Background Accent Gradients */}
       <div className="glow-accent top-12 left-10"></div>

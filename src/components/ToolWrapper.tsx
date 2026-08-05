@@ -4,6 +4,7 @@ import { Tool, ToolCategory } from '../types.ts';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
 import AdPlacement from './AdPlacement.tsx';
+import SEO from './SEO.tsx';
 
 import { 
   FileText, 
@@ -384,8 +385,31 @@ Writing blog drafts or corporate press articles can be stressful when characters
   // Character counter metrics computation
   const charMetrics = getCharacterCounterMetrics();
 
+  const cleanToolPath = tool.id.replace(/^tools\//, '');
+  const toolFaqs = [
+    {
+      question: `Is ${tool.title} free to use?`,
+      answer: `Yes, ${tool.title} is 100% free with no hidden fees, subscriptions, or account creation required.`
+    },
+    {
+      question: `Does ${tool.title} upload my text or data to any server?`,
+      answer: `No. All calculations in ${tool.title} execute 100% locally in your web browser memory for absolute privacy.`
+    },
+    {
+      question: `Can I use ${tool.title} offline?`,
+      answer: `Yes, once loaded, ${tool.title} runs offline using client-side JavaScript.`
+    }
+  ];
+
   return (
     <div className="relative min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200" id={`tool-wrapper-${tool.id}`}>
+      <SEO 
+        title={tool.title}
+        description={tool.description}
+        canonicalUrl={`/${cleanToolPath}`}
+        category={tool.category}
+        faqs={toolFaqs}
+      />
       
       {/* Decorative Glow background */}
       <div className="glow-accent top-10 right-20"></div>

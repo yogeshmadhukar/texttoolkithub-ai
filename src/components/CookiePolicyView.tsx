@@ -17,6 +17,7 @@ import {
   HeartHandshake
 } from 'lucide-react';
 import { getSavedConsentStatus, setAnalyticsConsent, GA_MEASUREMENT_ID } from '../lib/analytics.ts';
+import SEO from './SEO.tsx';
 
 interface CookiePolicyViewProps {
   onNavigateHome: () => void;
@@ -49,6 +50,11 @@ export default function CookiePolicyView({ onNavigateHome, onNavigateToTool }: C
 
   return (
     <div className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200">
+      <SEO 
+        title="Cookie Policy | TextToolkitHub"
+        description="Cookie Policy for TextToolkitHub detailing cookie usage, local storage mechanisms, and analytics consent preferences."
+        canonicalUrl="/cookie-policy"
+      />
       
       {/* Premium Ambient Aura */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-200/10 dark:bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />

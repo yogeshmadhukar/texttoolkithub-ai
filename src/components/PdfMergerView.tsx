@@ -700,78 +700,6 @@ export default function PdfMergerView({ onNavigateToTool, onNavigateHome }: PdfM
               </div>
             )}
 
-            {/* In-Content Programmatic Ad Placement */}
-            <AdPlacement slot="leaderboard" id="pdf-merger-mid-ad" />
-
-            {/* How It Works & Educational Section */}
-            <div className="bg-white/80 dark:bg-slate-900/80 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 md:p-8 space-y-6 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                How to Merge PDF Files Online
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-3">
-                    1
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Upload Documents</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                    Select or drag-and-drop two or more PDF files directly from your computer, tablet, or smartphone.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-3">
-                    2
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Organize & Rotate</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                    Use arrow controls to reorder files, set custom page ranges (e.g. 1-5), or rotate pages as needed.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-3">
-                    3
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Merge & Download</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                    Click "Merge PDFs Now" to construct your consolidated document instantly in local memory and save.
-                  </p>
-                </div>
-              </div>
-
-              {/* FAQ Accordion Section */}
-              <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
-                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
-                  Frequently Asked Questions
-                </h3>
-                <div className="space-y-3">
-                  {faqs.map((faq, i) => (
-                    <div 
-                      key={i}
-                      className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden bg-slate-50/50 dark:bg-slate-950/40"
-                    >
-                      <button
-                        onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
-                        className="w-full p-4 text-left font-semibold text-slate-900 dark:text-slate-100 text-sm flex items-center justify-between gap-4"
-                      >
-                        <span>{faq.q}</span>
-                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${expandedFaq === i ? 'rotate-180' : ''}`} />
-                      </button>
-                      {expandedFaq === i && (
-                        <div className="px-4 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
-                          {faq.a}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
           </div>
 
           {/* Right Column: Sticky Action Control Panel & Output Summary */}
@@ -902,6 +830,81 @@ export default function PdfMergerView({ onNavigateToTool, onNavigateHome }: PdfM
 
           </div>
 
+        </div>
+
+        {/* Educational SEO & Guide Section at bottom */}
+        <div className="space-y-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+          {/* In-Content Programmatic Ad Placement */}
+          <AdPlacement slot="leaderboard" id="pdf-merger-mid-ad" />
+
+          {/* How It Works & Educational Section */}
+          <div className="bg-white/80 dark:bg-slate-900/80 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 md:p-8 space-y-6 shadow-sm">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              How to Merge PDF Files Online
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60">
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-3">
+                  1
+                </div>
+                <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Upload Documents</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                  Select or drag-and-drop two or more PDF files directly from your computer, tablet, or smartphone.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60">
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-3">
+                  2
+                </div>
+                <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Organize & Rotate</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                  Use arrow controls to reorder files, set custom page ranges (e.g. 1-5), or rotate pages as needed.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60">
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold text-sm flex items-center justify-center mb-3">
+                  3
+                </div>
+                <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Merge & Download</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                  Click "Merge PDFs Now" to construct your consolidated document instantly in local memory and save.
+                </p>
+              </div>
+            </div>
+
+            {/* FAQ Accordion Section */}
+            <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4">
+                Frequently Asked Questions
+              </h3>
+              <div className="space-y-3">
+                {faqs.map((faq, i) => (
+                  <div 
+                    key={i}
+                    className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden bg-slate-50/50 dark:bg-slate-950/40"
+                  >
+                    <button
+                      onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
+                      className="w-full p-4 text-left font-semibold text-slate-900 dark:text-slate-100 text-sm flex items-center justify-between gap-4"
+                    >
+                      <span>{faq.q}</span>
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${expandedFaq === i ? 'rotate-180' : ''}`} />
+                    </button>
+                    {expandedFaq === i && (
+                      <div className="px-4 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>

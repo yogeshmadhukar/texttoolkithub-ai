@@ -12,11 +12,16 @@ function generateSitemap() {
 
   const staticPages = [
     { loc: '/', changefreq: 'daily', priority: '1.0' },
+    { loc: '/tools', changefreq: 'daily', priority: '0.9' },
     { loc: '/about', changefreq: 'monthly', priority: '0.8' },
-    { loc: '/faq', changefreq: 'monthly', priority: '0.7' },
-    { loc: '/contact', changefreq: 'monthly', priority: '0.5' },
-    { loc: '/privacy-policy', changefreq: 'monthly', priority: '0.3' },
-    { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
+    { loc: '/faq', changefreq: 'weekly', priority: '0.8' },
+    { loc: '/security-faq', changefreq: 'monthly', priority: '0.8' },
+    { loc: '/contact', changefreq: 'monthly', priority: '0.6' },
+    { loc: '/privacy', changefreq: 'monthly', priority: '0.4' },
+    { loc: '/terms', changefreq: 'monthly', priority: '0.4' },
+    { loc: '/cookie-policy', changefreq: 'monthly', priority: '0.4' },
+    { loc: '/dmca', changefreq: 'monthly', priority: '0.4' },
+    { loc: '/disclaimer', changefreq: 'monthly', priority: '0.4' },
   ];
 
   const toolPages = TOOLS.map((tool) => {

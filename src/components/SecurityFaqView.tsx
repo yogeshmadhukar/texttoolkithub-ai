@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import SEO from './SEO.tsx';
 import { 
   ShieldCheck, 
   Lock, 
@@ -198,6 +199,11 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200 selection:bg-indigo-500/20 py-12 md:py-20">
+      <SEO 
+        title="Security & Privacy FAQ | TextToolkitHub"
+        description="Detailed answers regarding TextToolkitHub zero-knowledge privacy architecture, local browser memory security, and GDPR compliance."
+        canonicalUrl="/security-faq"
+      />
       
       {/* Decorative Orbs */}
       <div className="absolute top-10 left-12 w-80 h-80 bg-indigo-200/30 dark:bg-indigo-900/10 rounded-full blur-3xl pointer-events-none" />

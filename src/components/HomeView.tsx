@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
 import AdPlacement from './AdPlacement.tsx';
 import HostingerNewsletter from './HostingerNewsletter.tsx';
+import SEO from './SEO.tsx';
 import { 
   FileText, 
   Hash, 
@@ -395,6 +396,12 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
 
   return (
     <div className="relative min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 overflow-x-hidden">
+      <SEO 
+        title="TextToolkitHub | Free Online Text & PDF Utilities"
+        description="TextToolkitHub provides 60+ free, browser-native developer, text, and PDF utilities with 100% client-side privacy. Convert, edit, format, and analyze text and documents instantly."
+        canonicalUrl="/"
+        faqs={FAQS}
+      />
       
       {/* Premium Ambient Floating Gradient Orbs Background */}
       <div className="absolute top-0 inset-x-0 h-[650px] overflow-hidden pointer-events-none z-0 mt-[-64px]">

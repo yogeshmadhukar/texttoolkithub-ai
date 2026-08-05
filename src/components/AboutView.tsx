@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import SEO from './SEO.tsx';
 import { 
   Shield, 
   Cpu, 
@@ -205,6 +206,12 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
 
   return (
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200 selection:bg-indigo-500/20">
+      <SEO 
+        title="About Us | TextToolkitHub"
+        description="Learn about TextToolkitHub - the privacy-shielded web utility workspace offering 60+ free online text and PDF utilities with 100% client-side browser execution."
+        canonicalUrl="/about"
+        faqs={techFaqs.map(f => ({ question: f.question, answer: f.answer }))}
+      />
       
       {/* Absolute Decorative Glow Orbs */}
       <div className="absolute top-12 left-10 w-96 h-96 bg-indigo-200/40 dark:bg-indigo-900/10 rounded-full blur-3xl pointer-events-none" />

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShieldCheck, Scale, FileText, Check, AlertCircle } from 'lucide-react';
+import SEO from './SEO.tsx';
 
 interface LegalViewProps {
   mode: 'privacy' | 'terms' | 'disclaimer';
@@ -8,8 +9,34 @@ interface LegalViewProps {
 export default function LegalView({ mode }: LegalViewProps) {
   const currentYear = 2026;
 
+  const getSeoDetails = () => {
+    switch (mode) {
+      case 'privacy':
+        return {
+          title: 'Privacy Policy | TextToolkitHub',
+          description: 'Read TextToolkitHub Privacy Policy. Zero data collection, 100% client-side text processing, GDPR and CCPA compliant.',
+          url: '/privacy'
+        };
+      case 'terms':
+        return {
+          title: 'Terms of Service | TextToolkitHub',
+          description: 'Terms of Service for TextToolkitHub - free online text and PDF processing utilities.',
+          url: '/terms'
+        };
+      case 'disclaimer':
+        return {
+          title: 'Disclaimer | TextToolkitHub',
+          description: 'Disclaimer and limitation of liability for TextToolkitHub online developer utilities.',
+          url: '/disclaimer'
+        };
+    }
+  };
+
+  const seo = getSeoDetails();
+
   return (
     <div className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200">
+      <SEO title={seo.title} description={seo.description} canonicalUrl={seo.url} />
       
       {/* Decorative Glow elements */}
       <div className="glow-accent top-12 left-10"></div>
