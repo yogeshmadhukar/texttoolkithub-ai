@@ -126,6 +126,8 @@ const PdfMergerView = lazyWithRetry(() => import('./components/PdfMergerView.tsx
 const PdfSplitterView = lazyWithRetry(() => import('./components/PdfSplitterView.tsx'));
 const ImageToPdfView = lazyWithRetry(() => import('./components/ImageToPdfView.tsx'));
 const ImageCompressorView = lazyWithRetry(() => import('./components/ImageCompressorView.tsx'));
+const ExcelToPdfView = lazyWithRetry(() => import('./components/ExcelToPdfView.tsx'));
+const PdfToExcelView = lazyWithRetry(() => import('./components/PdfToExcelView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -199,6 +201,8 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/pdf-splitter': () => import('./components/PdfSplitterView.tsx'),
   'tools/image-to-pdf': () => import('./components/ImageToPdfView.tsx'),
   'tools/image-compressor': () => import('./components/ImageCompressorView.tsx'),
+  'tools/excel-to-pdf': () => import('./components/ExcelToPdfView.tsx'),
+  'tools/pdf-to-excel': () => import('./components/PdfToExcelView.tsx'),
   'about': () => import('./components/AboutView.tsx'),
   'faq': () => import('./components/FaqView.tsx'),
   'security-faq': () => import('./components/SecurityFaqView.tsx'),
@@ -1786,6 +1790,24 @@ export default function App() {
     if (activePage === 'tools/image-compressor' || activePage === 'image-compressor') {
       return (
         <ImageCompressorView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/excel-to-pdf' || activePage === 'excel-to-pdf') {
+      return (
+        <ExcelToPdfView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/pdf-to-excel' || activePage === 'pdf-to-excel') {
+      return (
+        <PdfToExcelView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />

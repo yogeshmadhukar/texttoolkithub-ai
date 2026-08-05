@@ -1,5 +1,29 @@
 [
   {
+    "id": "update-pdf-to-excel",
+    "title": "PDF to Excel Converter Launched",
+    "description": "Extract structured data tables from PDF documents directly into editable Excel (.xlsx) and CSV spreadsheets. Features 2D spatial alignment, multi-sheet options, and 100% client-side browser privacy.",
+    "category": "New Tool",
+    "date": "2026-08-05",
+    "toolId": "tools/pdf-to-excel"
+  },
+  {
+    "id": "update-excel-to-pdf",
+    "title": "Excel to PDF Converter Launched",
+    "description": "Convert Excel (.xlsx, .xls) and CSV spreadsheets into formatted PDF documents. Customize table styling, font sizes, margins, orientation, and headers completely locally in your browser.",
+    "category": "New Tool",
+    "date": "2026-08-05",
+    "toolId": "tools/excel-to-pdf"
+  },
+  {
+    "id": "update-image-compressor",
+    "title": "Image Compressor & Optimizer",
+    "description": "Compress JPG, PNG, and WebP images locally with customizable target quality and max dimension limits. Reduce file sizes significantly without uploading photos to external servers.",
+    "category": "New Tool",
+    "date": "2026-08-05",
+    "toolId": "tools/image-compressor"
+  },
+  {
     "id": "update-milestone-pdf-tools",
     "title": "New Local PDF Processing Suite Live!",
     "description": "TextToolkitHub now features a powerful local PDF suite! Convert images to PDF, split PDF pages, or merge multiple PDFs into one document — 100% locally in your browser with zero server uploads.",

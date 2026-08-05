@@ -239,7 +239,12 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
   const hasUnread = unreadCount > 0;
 
   const handleToggleNotifications = () => {
-    setIsNotifOpen(!isNotifOpen);
+    const nextState = !isNotifOpen;
+    setIsNotifOpen(nextState);
+    if (nextState) {
+      setMobileMenuOpen(false);
+      setIsSearchFocused(false);
+    }
   };
 
   const handleMarkAllRead = (e: React.MouseEvent) => {
@@ -248,6 +253,22 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
     setReadNotifIds(allIds);
     try {
       localStorage.setItem('texttoolkit_read_notifs', JSON.stringify(allIds));
+    } catch (err) {
+      console.warn('LocalStorage save error:', err);
+    }
+  };
+
+  const handleToggleSingleRead = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    let updatedRead: string[];
+    if (readNotifIds.includes(id)) {
+      updatedRead = readNotifIds.filter(itemId => itemId !== id);
+    } else {
+      updatedRead = [...readNotifIds, id];
+    }
+    setReadNotifIds(updatedRead);
+    try {
+      localStorage.setItem('texttoolkit_read_notifs', JSON.stringify(updatedRead));
     } catch (err) {
       console.warn('LocalStorage save error:', err);
     }
@@ -269,6 +290,8 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       setIsNotifOpen(false);
       setMobileMenuOpen(false);
       analytics.trackToolOpened(update.toolId);
+    } else {
+      setIsNotifOpen(false);
     }
   };
 
@@ -346,7 +369,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
 
   // Close search/notification dropdown on click outside or Escape
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    function handleClickOutside(event: Event) {
       if (searchDropdownRef.current && !searchDropdownRef.current.contains(event.target as Node)) {
         setIsSearchFocused(false);
       }
@@ -363,9 +386,11 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
     }
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
@@ -762,9 +787,18 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                               >
                                 <div className="flex items-center justify-between gap-2">
                                   <div className="flex items-center gap-1.5">
-                                    {isUnread && (
-                                      <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse shrink-0" title="Unread" />
-                                    )}
+                                    <button
+                                      onClick={(e) => handleToggleSingleRead(e, update.id)}
+                                      className="p-0.5 rounded text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer focus:outline-none"
+                                      title={isUnread ? "Mark as read" : "Mark as unread"}
+                                      aria-label={isUnread ? "Mark notification as read" : "Mark notification as unread"}
+                                    >
+                                      {isUnread ? (
+                                        <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse block" />
+                                      ) : (
+                                        <CheckCheck className="w-3.5 h-3.5 text-slate-400 opacity-60 group-hover:opacity-100" />
+                                      )}
+                                    </button>
                                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[8.5px] font-extrabold uppercase tracking-wider select-none ${
                                       update.category === 'New Tool' 
                                         ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/40'
