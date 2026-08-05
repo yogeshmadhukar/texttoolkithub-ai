@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { TOOLS, CATEGORIES, searchTools } from '../data.ts';
+import { TOOLS, CATEGORIES, searchTools, FUNCTIONAL_CATEGORIES, getToolsForFunctionalCategory } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
 import { motion, AnimatePresence } from 'motion/react';
 import SEO from './SEO.tsx';
@@ -95,6 +95,41 @@ const getToolIcon = (name: string, className: string = 'w-5 h-5') => {
 };
 
 const CATEGORIES_COLOR_MAP: Record<ToolCategory, { text: string; bg: string; border: string; glow: string; accent: string }> = {
+  'pdf-utilities': {
+    text: 'text-red-600 dark:text-red-400',
+    bg: 'bg-red-500/10 dark:bg-red-500/15',
+    border: 'border-red-500/20 dark:border-red-500/10',
+    accent: 'bg-red-500',
+    glow: 'from-red-500/5 to-transparent dark:from-red-950/10',
+  },
+  'image-media': {
+    text: 'text-cyan-600 dark:text-cyan-400',
+    bg: 'bg-cyan-500/10 dark:bg-cyan-500/15',
+    border: 'border-cyan-500/20 dark:border-cyan-500/10',
+    accent: 'bg-cyan-500',
+    glow: 'from-cyan-500/5 to-transparent dark:from-cyan-950/10',
+  },
+  'text-writing': {
+    text: 'text-emerald-600 dark:text-emerald-400',
+    bg: 'bg-emerald-500/10 dark:bg-emerald-500/15',
+    border: 'border-emerald-500/20 dark:border-emerald-500/10',
+    accent: 'bg-emerald-500',
+    glow: 'from-emerald-500/5 to-transparent dark:from-emerald-950/10',
+  },
+  'developer-encoding': {
+    text: 'text-violet-600 dark:text-violet-400',
+    bg: 'bg-violet-500/10 dark:bg-violet-500/15',
+    border: 'border-violet-500/20 dark:border-violet-500/10',
+    accent: 'bg-violet-600',
+    glow: 'from-violet-500/5 to-transparent dark:from-violet-950/10',
+  },
+  'generators': {
+    text: 'text-amber-600 dark:text-amber-400',
+    bg: 'bg-amber-500/10 dark:bg-amber-500/15',
+    border: 'border-amber-500/20 dark:border-amber-500/10',
+    accent: 'bg-amber-500',
+    glow: 'from-amber-500/5 to-transparent dark:from-amber-950/10',
+  },
   analyzer: {
     text: 'text-emerald-600 dark:text-emerald-400',
     bg: 'bg-emerald-500/10 dark:bg-emerald-500/15',
@@ -262,6 +297,11 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
   const categoryCounts = useMemo(() => {
     const counts: Record<ToolCategory | 'all', number> = {
       all: TOOLS.length,
+      'pdf-utilities': 0,
+      'image-media': 0,
+      'text-writing': 0,
+      'developer-encoding': 0,
+      'generators': 0,
       analyzer: 0,
       cleaner: 0,
       converter: 0,
@@ -269,6 +309,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
       generator: 0
     };
     TOOLS.forEach(t => {
+      const catTools = getToolsForFunctionalCategory(t.category as any, [t]);
       if (counts[t.category] !== undefined) {
         counts[t.category]++;
       }
@@ -772,8 +813,8 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
             <AnimatePresence mode="popLayout">
               {viewMode === 'grouped' ? (
                 // Grouped Card view
-                CATEGORIES.map(cat => {
-                  const matchesThisCategory = filteredTools.filter(t => t.category === cat.id);
+                FUNCTIONAL_CATEGORIES.map(cat => {
+                  const matchesThisCategory = getToolsForFunctionalCategory(cat.id, filteredTools);
                   const isCollapsed = !!collapsedCategories[cat.id];
                   
                   // Hide section if exclusive category filter or search misses
@@ -781,7 +822,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                     return null;
                   }
 
-                  const col = CATEGORIES_COLOR_MAP[cat.id];
+                  const col = CATEGORIES_COLOR_MAP[cat.id as ToolCategory] || CATEGORIES_COLOR_MAP['text-writing'];
 
                   return (
                     <motion.div
@@ -790,32 +831,33 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -15 }}
                       transition={{ duration: 0.35 }}
-                      className="space-y-4 bg-white dark:bg-slate-900/25 p-6 rounded-3xl border border-slate-200/50 dark:border-slate-850/40"
+                      className="space-y-4 bg-white dark:bg-slate-900/25 p-6 sm:p-8 rounded-3xl border border-slate-200/50 dark:border-slate-850/40"
                       id={`category-section-${cat.id}`}
                     >
                       {/* Section header containing title descriptive elements and expand triggers */}
                       <div 
                         onClick={() => toggleCategory(cat.id)}
-                        className="flex items-center justify-between border-b border-slate-100 dark:border-slate-850 pb-3 gap-4 cursor-pointer select-none group"
+                        className="flex items-center justify-between border-b border-slate-100 dark:border-slate-850 pb-4 gap-4 cursor-pointer select-none group"
                       >
                         <div className="space-y-1 text-left">
                           <div className="flex items-center gap-2.5">
-                            <h2 className="text-lg sm:text-xl font-bold font-display text-slate-900 dark:text-white tracking-tight">
+                            <span className="text-xl sm:text-2xl" role="img" aria-label={cat.name}>{cat.emoji}</span>
+                            <h2 className="text-lg sm:text-2xl font-bold font-sans text-slate-900 dark:text-white tracking-tight">
                               {cat.name}
                             </h2>
-                            <span className={`text-[9px] px-2 py-0.5 font-sans font-bold uppercase tracking-wider rounded-md ${col.bg} ${col.text} border ${col.border}`}>
-                              {matchesThisCategory.length} {matchesThisCategory.length === 1 ? 'Task' : 'Tasks'}
+                            <span className={`text-[10px] sm:text-xs px-2.5 py-0.5 font-sans font-bold uppercase tracking-wider rounded-full ${cat.badgeColor}`}>
+                              {matchesThisCategory.length} {matchesThisCategory.length === 1 ? 'Utility' : 'Utilities'}
                             </span>
                           </div>
-                          <p className="text-[11px] text-slate-400 dark:text-slate-450">
-                            {cat.description}
+                          <p className="text-xs text-slate-500 dark:text-slate-400">
+                            {cat.subtitle}
                           </p>
                         </div>
                         <button 
-                          className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-350 transition-colors"
+                          className="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-350 transition-colors"
                           title={isCollapsed ? "Expand Category" : "Collapse Category"}
                         >
-                          {isCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+                          {isCollapsed ? <ChevronDown className="w-5 h-5" /> : <ChevronUp className="w-5 h-5" />}
                         </button>
                       </div>
 
@@ -834,7 +876,6 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                               <div className={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-br ${col.glow} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none filter blur-lg`} />
 
                               <div className="text-left">
-                                {/* Glassmorphism themed logo frames instead of harsh dark bounds */}
                                 <div className="flex items-center justify-between gap-3 mb-4">
                                   <div className={`p-2 rounded-xl bg-slate-50 border border-slate-200/50 dark:border-slate-800 dark:bg-slate-900/60 group-hover:bg-white dark:group-hover:bg-slate-800 transition shadow-inner`}>
                                     {getToolIcon(tool.iconName, "w-4.5 h-4.5")}

@@ -2,38 +2,49 @@ import { Tool, CategoryInfo, FaqItem } from './types.ts';
 
 export const CATEGORIES: CategoryInfo[] = [
   {
-    id: 'analyzer',
-    name: 'Text Analyzers',
-    description: 'Analyze word density, counts, and reading statistics accurately.',
+    id: 'pdf-utilities',
+    name: 'PDF Utilities',
+    description: 'Split, merge, compile, and convert PDF files 100% locally in browser memory.',
+    colorClass: 'red',
+  },
+  {
+    id: 'image-media',
+    name: 'Image & Media Tools',
+    description: 'Process images, graphics, text-to-speech audio, and signal translators locally.',
+    colorClass: 'cyan',
+  },
+  {
+    id: 'text-writing',
+    name: 'Text & Writing Tools',
+    description: 'Word counter, readability checker, grammar guard, case converters, and cleaners.',
     colorClass: 'emerald',
   },
   {
-    id: 'cleaner',
-    name: 'Formatting Cleaners',
-    description: 'Purge noisy characters, duplicate white spaces, and broken layout wraps instantly.',
-    colorClass: 'indigo',
-  },
-  {
-    id: 'converter',
-    name: 'Text Converters',
-    description: 'Shift text between standard casing guidelines, camelCase, snake_case, and more.',
-    colorClass: 'amber',
-  },
-  {
-    id: 'encoding',
-    name: 'Encoding & Developer Tools',
-    description: 'Encode, decode, and escape strings, HTML entities, and cryptographically safe Base64 formats.',
+    id: 'developer-encoding',
+    name: 'Developer & Encoding',
+    description: 'JSON formatters, JWT decoders, hash calculations, Base64, and regex testing.',
     colorClass: 'violet',
   },
   {
-    id: 'generator',
+    id: 'generators',
     name: 'Generators',
-    description: 'Draft custom, high-fidelity English marketing content, Latin placeholders, or stylish Unicode fonts.',
-    colorClass: 'rose',
+    description: 'QR codes, UUIDs, Cron schedules, Lorem Ipsum, meta tags, and list randomizers.',
+    colorClass: 'amber',
   },
 ];
 
 export const TOOLS: Tool[] = [
+  {
+    id: 'tools/image-compressor',
+    title: 'Image Compressor (MB to KB)',
+    description: 'Compress JPG, PNG, and WebP images from MB to KB with custom quality controls. 100% private browser processing.',
+    longDescription: 'Reduce image file sizes from megabytes to kilobytes in seconds right inside your browser memory. Adjust compression quality, convert formats, scale dimensions, and download optimized images with zero server uploads.',
+    iconName: 'Image',
+    category: 'image-media',
+    seoTitle: 'Free Image Compressor Online (MB to KB) | Compress JPG, PNG, WebP Locally',
+    seoDescription: 'Compress image files online for free from MB to KB with 100% client-side privacy. Adjust quality slider, batch compress photos, and reduce image sizes instantly.',
+    keywords: ['image compressor', 'compress image mb to kb', 'jpg compressor', 'png compressor', 'webp compressor', 'reduce image size', 'photo compressor', 'client side image compressor'],
+  },
   {
     id: 'tools/image-to-pdf',
     title: 'Image to PDF Converter',
@@ -870,3 +881,163 @@ export function searchTools(query: string): Tool[] {
     .sort((a, b) => b.score - a.score)
     .map(item => item.tool);
 }
+
+export interface FunctionalCategory {
+  id: string;
+  name: string;
+  emoji: string;
+  subtitle: string;
+  description: string;
+  iconName: string;
+  badgeColor: string;
+  accentBorder: string;
+  headerBg: string;
+  sectionBg: string;
+  toolIds: string[];
+}
+
+export const FUNCTIONAL_CATEGORIES: FunctionalCategory[] = [
+  {
+    id: 'pdf-utilities',
+    name: 'PDF Utilities',
+    emoji: '📄',
+    subtitle: 'Fast, browser-based PDF splitting, merging, image-to-PDF, and document compiling with zero remote data collection.',
+    description: 'Fast, browser-based PDF splitting, merging, image-to-PDF, and document compiling with zero remote data collection.',
+    iconName: 'FileText',
+    badgeColor: 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-400 border border-red-200/60 dark:border-red-900/40',
+    accentBorder: 'border-t-red-500 dark:border-t-red-400',
+    headerBg: 'bg-gradient-to-r from-red-50/60 via-red-50/20 to-transparent dark:from-red-950/30 dark:via-red-950/10 dark:to-transparent',
+    sectionBg: 'bg-red-50/20 dark:bg-red-950/10',
+    toolIds: [
+      'tools/pdf-splitter',
+      'tools/pdf-merger',
+      'tools/image-to-pdf',
+      'tools/document-builder'
+    ]
+  },
+  {
+    id: 'image-media',
+    name: 'Image & Media Tools',
+    emoji: '🖼️',
+    subtitle: 'Process visual images, convert graphics, synthesize voice audio, and decode audio signals 100% locally.',
+    description: 'Process visual images, convert graphics, synthesize voice audio, and decode audio signals 100% locally.',
+    iconName: 'Image',
+    badgeColor: 'bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-400 border border-cyan-200/60 dark:border-cyan-900/40',
+    accentBorder: 'border-t-cyan-500 dark:border-t-cyan-400',
+    headerBg: 'bg-gradient-to-r from-cyan-50/60 via-cyan-50/20 to-transparent dark:from-cyan-950/30 dark:via-cyan-950/10 dark:to-transparent',
+    sectionBg: 'bg-cyan-50/20 dark:bg-cyan-950/10',
+    toolIds: [
+      'tools/image-compressor',
+      'tools/image-to-pdf',
+      'tools/text-to-speech',
+      'tools/morse-code-translator',
+      'tools/contrast-checker'
+    ]
+  },
+  {
+    id: 'text-writing',
+    name: 'Text & Writing Tools',
+    emoji: '✍️',
+    subtitle: 'Comprehensive tools for word counts, readability checking, grammar, case formatting, and text cleaning.',
+    description: 'Comprehensive tools for word counts, readability checking, grammar, case formatting, and text cleaning.',
+    iconName: 'SpellCheck',
+    badgeColor: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/40',
+    accentBorder: 'border-t-emerald-500 dark:border-t-emerald-400',
+    headerBg: 'bg-gradient-to-r from-emerald-50/60 via-emerald-50/20 to-transparent dark:from-emerald-950/30 dark:via-emerald-950/10 dark:to-transparent',
+    sectionBg: 'bg-emerald-50/20 dark:bg-emerald-950/10',
+    toolIds: [
+      'tools/word-counter',
+      'tools/character-counter',
+      'tools/sentence-counter',
+      'tools/readability-checker',
+      'tools/grammar-checker',
+      'tools/keyword-density-checker',
+      'tools/text-compare',
+      'tools/case-converter',
+      'tools/case-converter-pro',
+      'tools/text-sorter',
+      'tools/text-reverser',
+      'tools/text-repeater',
+      'tools/paragraph-formatter',
+      'tools/bullet-point-generator',
+      'tools/remove-line-breaks',
+      'tools/remove-extra-spaces',
+      'tools/remove-duplicate-lines',
+      'tools/remove-empty-lines',
+      'tools/remove-special-characters',
+      'tools/remove-emojis',
+      'tools/subtitle-cleaner'
+    ]
+  },
+  {
+    id: 'developer-encoding',
+    name: 'Developer & Encoding',
+    emoji: '👨‍💻',
+    subtitle: 'Developer tools for JSON, JWTs, cryptographic hashing, Base64, URL encoding, and pattern testing.',
+    description: 'Developer tools for JSON, JWTs, cryptographic hashing, Base64, URL encoding, and pattern testing.',
+    iconName: 'Code',
+    badgeColor: 'bg-violet-50 dark:bg-violet-950/40 text-violet-700 dark:text-violet-400 border border-violet-200/60 dark:border-violet-900/40',
+    accentBorder: 'border-t-violet-500 dark:border-t-violet-400',
+    headerBg: 'bg-gradient-to-r from-violet-50/60 via-violet-50/20 to-transparent dark:from-violet-950/30 dark:via-violet-950/10 dark:to-transparent',
+    sectionBg: 'bg-violet-50/20 dark:bg-violet-950/10',
+    toolIds: [
+      'tools/json-formatter',
+      'tools/json-minifier',
+      'tools/jwt-decoder',
+      'tools/base64-encoder',
+      'tools/base64-decoder',
+      'tools/url-encoder',
+      'tools/url-decoder',
+      'tools/slug-generator',
+      'tools/html-encoder',
+      'tools/html-decoder',
+      'tools/html-formatter',
+      'tools/css-formatter',
+      'tools/markdown-to-html',
+      'tools/html-to-markdown',
+      'tools/csv-formatter',
+      'tools/json-xml-converter',
+      'tools/yaml-json-converter',
+      'tools/typedef-converter',
+      'tools/string-escaper',
+      'tools/hash-generator',
+      'tools/regex-tester',
+      'tools/number-base-converter',
+      'tools/text-to-binary',
+      'tools/ua-parser'
+    ]
+  },
+  {
+    id: 'generators',
+    name: 'Generators',
+    emoji: '⚙️',
+    subtitle: 'Instant generators for QR codes, UUIDs, Cron schedules, meta tags, placeholder copy, and random lists.',
+    description: 'Instant generators for QR codes, UUIDs, Cron schedules, meta tags, placeholder copy, and random lists.',
+    iconName: 'Sparkles',
+    badgeColor: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200/60 dark:border-amber-900/40',
+    accentBorder: 'border-t-amber-500 dark:border-t-amber-400',
+    headerBg: 'bg-gradient-to-r from-amber-50/60 via-amber-50/20 to-transparent dark:from-amber-950/30 dark:via-amber-950/10 dark:to-transparent',
+    sectionBg: 'bg-amber-50/20 dark:bg-amber-950/10',
+    toolIds: [
+      'tools/qr-generator',
+      'tools/lorem-ipsum-generator',
+      'tools/random-text-generator',
+      'tools/fancy-text-generator',
+      'tools/uuid-generator',
+      'tools/cron-builder',
+      'tools/meta-generator',
+      'tools/unix-timestamp-converter',
+      'tools/markdown-table-generator',
+      'tools/list-randomizer',
+      'tools/utm-builder'
+    ]
+  }
+];
+
+export function getToolsForFunctionalCategory(catId: string, availableTools: Tool[] = TOOLS): Tool[] {
+  const fCat = FUNCTIONAL_CATEGORIES.find(c => c.id === catId);
+  if (!fCat) return [];
+  const idSet = new Set(fCat.toolIds);
+  return availableTools.filter(t => idSet.has(t.id));
+}
+

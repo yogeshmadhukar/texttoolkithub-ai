@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { TOOLS, CATEGORIES, FAQS, searchTools } from '../data.ts';
+import { TOOLS, CATEGORIES, FAQS, searchTools, FUNCTIONAL_CATEGORIES, getToolsForFunctionalCategory } from '../data.ts';
 import { Tool, ToolCategory } from '../types.ts';
 import HubLogo from './HubLogo.tsx';
 import { motion } from 'motion/react';
@@ -9,6 +9,7 @@ import HostingerNewsletter from './HostingerNewsletter.tsx';
 import SEO from './SEO.tsx';
 import { 
   FileText, 
+  Image,
   Hash, 
   AlignLeft, 
   Eraser, 
@@ -238,8 +239,9 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
   // Map icon strings to React components safely
   const getToolIcon = (name: string, sizeClass = "w-5 h-5") => {
     switch (name) {
-      case 'FileText': return <FileText className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
-      case 'SpellCheck': return <SpellCheck className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'FileText': return <FileText className={`${sizeClass} text-red-500 dark:text-red-400`} />;
+      case 'Image': return <Image className={`${sizeClass} text-cyan-500 dark:text-cyan-400`} />;
+      case 'SpellCheck': return <SpellCheck className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'BookOpen': return <BookOpen className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'TrendingUp': return <TrendingUp className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
       case 'Hash': return <Hash className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
@@ -252,31 +254,81 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
       case 'Link2': return <Link2 className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'Globe': return <Globe className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'Unlock': return <Unlock className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
-      case 'Sparkles': return <Sparkles className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Sparkles': return <Sparkles className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'ArrowUpDown': return <ArrowUpDown className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'ArrowLeftRight': return <ArrowLeftRight className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'Repeat': return <Repeat className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'Scissors': return <Scissors className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'FileCode': return <FileCode className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
-      case 'Sparkle': return <Sparkle className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Sparkle': return <Sparkle className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'Pilcrow': return <Pilcrow className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'Smile': return <Smile className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'List': return <List className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'FileSpreadsheet': return <FileSpreadsheet className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
-      case 'Code': return <Code className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Code': return <Code className={`${sizeClass} text-violet-500 dark:text-violet-400`} />;
       case 'Clock': return <Clock className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       case 'QrCode': return <QrCode className={`${sizeClass} text-rose-500 dark:text-rose-400`} />;
-      case 'FileJson': return <FileJson className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'FileJson': return <FileJson className={`${sizeClass} text-violet-500 dark:text-violet-400`} />;
       case 'ArrowDownWideNarrow': return <ArrowDownWideNarrow className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
       case 'ShieldCheck': return <ShieldCheck className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
-      case 'Volume2': return <Volume2 className={`${sizeClass} text-emerald-500 dark:text-emerald-400`} />;
-      case 'Dice5': return <Dice5 className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
+      case 'Volume2': return <Volume2 className={`${sizeClass} text-cyan-500 dark:text-cyan-400`} />;
+      case 'Dice5': return <Dice5 className={`${sizeClass} text-amber-500 dark:text-amber-400`} />;
       default: return <FileText className={`${sizeClass} text-indigo-500 dark:text-indigo-400`} />;
     }
   };
 
   const getCategoryDetails = (cat: ToolCategory) => {
     switch (cat) {
+      case 'pdf-utilities':
+        return {
+          icon: <FileText className="w-5 h-5 text-red-600 dark:text-red-400" />,
+          bgColor: 'bg-red-50/50 dark:bg-red-950/20 border-red-100 dark:border-red-900/40 text-red-700 dark:text-red-350',
+          hoverColor: 'group-hover:border-red-300 dark:group-hover:border-red-850',
+          pill: 'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-350',
+          borderAccent: 'border-t-[3px] border-t-red-500/80 dark:border-t-red-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(239,68,68,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(239,68,68,0.15)]',
+          hoverBorder: 'hover:border-red-500/60 dark:hover:border-red-400/50'
+        };
+      case 'image-media':
+        return {
+          icon: <Image className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />,
+          bgColor: 'bg-cyan-50/50 dark:bg-cyan-950/20 border-cyan-100 dark:border-cyan-900/40 text-cyan-700 dark:text-cyan-350',
+          hoverColor: 'group-hover:border-cyan-300 dark:group-hover:border-cyan-850',
+          pill: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-950/60 dark:text-cyan-350',
+          borderAccent: 'border-t-[3px] border-t-cyan-500/80 dark:border-t-cyan-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(6,182,212,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(6,182,212,0.15)]',
+          hoverBorder: 'hover:border-cyan-500/60 dark:hover:border-cyan-400/50'
+        };
+      case 'text-writing':
+        return {
+          icon: <SpellCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
+          bgColor: 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-100 dark:border-emerald-900/40 text-emerald-700 dark:text-emerald-350',
+          hoverColor: 'group-hover:border-emerald-300 dark:group-hover:border-emerald-850',
+          pill: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-350',
+          borderAccent: 'border-t-[3px] border-t-emerald-500/80 dark:border-t-emerald-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(16,185,129,0.15)]',
+          hoverBorder: 'hover:border-emerald-500/60 dark:hover:border-emerald-400/50'
+        };
+      case 'developer-encoding':
+        return {
+          icon: <Code className="w-5 h-5 text-violet-600 dark:text-violet-400" />,
+          bgColor: 'bg-violet-50/50 dark:bg-violet-950/20 border-violet-100 dark:border-violet-900/40 text-violet-700 dark:text-violet-350',
+          hoverColor: 'group-hover:border-violet-300 dark:group-hover:border-violet-850',
+          pill: 'bg-violet-100 text-violet-800 dark:bg-violet-950/60 dark:text-violet-350',
+          borderAccent: 'border-t-[3px] border-t-violet-500/80 dark:border-t-violet-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(139,92,246,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(139,92,246,0.15)]',
+          hoverBorder: 'hover:border-violet-500/60 dark:hover:border-violet-400/50'
+        };
+      case 'generators':
+        return {
+          icon: <Sparkles className="w-5 h-5 text-amber-600 dark:text-amber-400" />,
+          bgColor: 'bg-amber-50/50 dark:bg-amber-950/20 border-amber-100 dark:border-amber-900/40 text-amber-700 dark:text-amber-350',
+          hoverColor: 'group-hover:border-amber-300 dark:group-hover:border-amber-850',
+          pill: 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-350',
+          borderAccent: 'border-t-[3px] border-t-amber-500/80 dark:border-t-amber-400/80',
+          glowColor: 'hover:shadow-[0_15px_30px_-5px_rgba(245,158,11,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(245,158,11,0.15)]',
+          hoverBorder: 'hover:border-amber-500/60 dark:hover:border-amber-400/50'
+        };
       case 'analyzer': 
         return {
           icon: <Activity className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
@@ -1022,8 +1074,8 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-12" 
             id="categories-cards-grid"
           >
-            {CATEGORIES.map((cat) => {
-              const details = getCategoryDetails(cat.id);
+            {FUNCTIONAL_CATEGORIES.map((cat) => {
+              const details = getCategoryDetails(cat.id as ToolCategory);
               const isSelected = selectedCategory === cat.id;
 
               return (
@@ -1038,7 +1090,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                   } : {}}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   onClick={() => {
-                    setSelectedCategory(cat.id);
+                    setSelectedCategory(cat.id as ToolCategory);
                     const el = document.getElementById('catalog-grid-header');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
@@ -1099,41 +1151,83 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
 
           {/* Catalog grid */}
           {filteredTools.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="complete-tools-render-grid">
-              {filteredTools.map((tool, idx) => {
-                const spec = getCategoryDetails(tool.category);
+            <div className="space-y-12" id="complete-tools-render-grid">
+              {FUNCTIONAL_CATEGORIES.map((fCat) => {
+                const catTools = getToolsForFunctionalCategory(fCat.id, filteredTools);
+                
+                // Hide section if exclusive category filter or search misses
+                if (catTools.length === 0) return null;
+                if (selectedCategory !== 'all' && selectedCategory !== fCat.id) return null;
+
+                const spec = getCategoryDetails(fCat.id as ToolCategory);
+
                 return (
                   <motion.div
-                    initial={{ opacity: 0, y: 15 }}
+                    key={fCat.id}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: Math.min(0.2, idx * 0.03) }}
-                    key={tool.id}
-                    onClick={() => onNavigateToTool(tool.id)}
-                    onMouseEnter={() => onPrefetchTool?.(tool.id)}
-                    className={`group bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-850/80 p-6 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 ${spec?.borderAccent || ''} ${spec?.hoverBorder || 'hover:border-indigo-500'} ${spec?.glowColor || 'hover:shadow-lg'}`}
-                    id={`catalog-tool-${tool.id}`}
+                    transition={{ duration: 0.4 }}
+                    className={`p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 space-y-6 ${fCat.sectionBg}`}
+                    id={`section-${fCat.id}`}
                   >
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/20 transition-colors">
-                          {getToolIcon(tool.iconName)}
+                    {/* Dedicated Section Header (H2) */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/60 dark:border-slate-800/60 pb-5">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-2xl" role="img" aria-label={fCat.name}>{fCat.emoji}</span>
+                          <h2 className="font-sans font-bold text-2xl text-slate-900 dark:text-white tracking-tight">
+                            {fCat.name}
+                          </h2>
+                          <span className={`text-xs px-2.5 py-0.5 font-bold uppercase tracking-wider rounded-full ${fCat.badgeColor}`}>
+                            {catTools.length} {catTools.length === 1 ? 'Utility' : 'Utilities'}
+                          </span>
                         </div>
-                        <span className={`text-[9px] uppercase font-bold tracking-widest px-2 py-0.5 rounded ${spec?.pill}`}>
-                          {tool.category}
-                        </span>
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                          {fCat.subtitle}
+                        </p>
                       </div>
-
-                      <h4 className="font-sans font-bold text-base text-slate-900 dark:text-white group-hover:text-indigo-605 dark:group-hover:text-indigo-405 transition-colors">
-                        {tool.title}
-                      </h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2 line-clamp-2">
-                        {tool.description}
-                      </p>
                     </div>
 
-                    <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider mt-4 block group-hover:translate-x-1.5 transition-transform duration-200">
-                      Access Utility &rarr;
-                    </span>
+                    {/* Responsive Grid for Tools in this Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {catTools.map((tool, idx) => {
+                        const toolSpec = getCategoryDetails(tool.category) || spec;
+                        return (
+                          <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3, delay: Math.min(0.2, idx * 0.03) }}
+                            key={tool.id}
+                            onClick={() => onNavigateToTool(tool.id)}
+                            onMouseEnter={() => onPrefetchTool?.(tool.id)}
+                            className={`group bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-850/80 p-6 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 ${toolSpec?.borderAccent || ''} ${toolSpec?.hoverBorder || 'hover:border-indigo-500'} ${toolSpec?.glowColor || 'hover:shadow-lg'}`}
+                            id={`catalog-tool-${tool.id.replace('tools/', '')}`}
+                          >
+                            <div>
+                              <div className="flex items-center justify-between mb-4">
+                                <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-xl group-hover:bg-indigo-50 dark:group-hover:bg-indigo-950/20 transition-colors">
+                                  {getToolIcon(tool.iconName)}
+                                </div>
+                                <span className={`text-[9px] uppercase font-bold tracking-widest px-2 py-0.5 rounded ${fCat.badgeColor}`}>
+                                  {fCat.name}
+                                </span>
+                              </div>
+
+                              <h4 className="font-sans font-bold text-base text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                {tool.title}
+                              </h4>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2 line-clamp-2">
+                                {tool.description}
+                              </p>
+                            </div>
+
+                            <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider mt-4 block group-hover:translate-x-1.5 transition-transform duration-200">
+                              Access Utility &rarr;
+                            </span>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
                   </motion.div>
                 );
               })}

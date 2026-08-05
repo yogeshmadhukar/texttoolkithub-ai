@@ -125,6 +125,7 @@ const UtmBuilderView = lazyWithRetry(() => import('./components/UtmBuilderView.t
 const PdfMergerView = lazyWithRetry(() => import('./components/PdfMergerView.tsx'));
 const PdfSplitterView = lazyWithRetry(() => import('./components/PdfSplitterView.tsx'));
 const ImageToPdfView = lazyWithRetry(() => import('./components/ImageToPdfView.tsx'));
+const ImageCompressorView = lazyWithRetry(() => import('./components/ImageCompressorView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -197,6 +198,7 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/pdf-merger': () => import('./components/PdfMergerView.tsx'),
   'tools/pdf-splitter': () => import('./components/PdfSplitterView.tsx'),
   'tools/image-to-pdf': () => import('./components/ImageToPdfView.tsx'),
+  'tools/image-compressor': () => import('./components/ImageCompressorView.tsx'),
   'about': () => import('./components/AboutView.tsx'),
   'faq': () => import('./components/FaqView.tsx'),
   'security-faq': () => import('./components/SecurityFaqView.tsx'),
@@ -1775,6 +1777,15 @@ export default function App() {
     if (activePage === 'tools/image-to-pdf' || activePage === 'image-to-pdf') {
       return (
         <ImageToPdfView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/image-compressor' || activePage === 'image-compressor') {
+      return (
+        <ImageCompressorView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />
