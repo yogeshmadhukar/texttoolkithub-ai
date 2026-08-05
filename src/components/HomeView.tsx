@@ -398,7 +398,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
     <div className="relative min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 overflow-x-hidden">
       <SEO 
         title="TextToolkitHub | Free Online Text & PDF Utilities"
-        description="TextToolkitHub provides 60+ free, browser-native developer, text, and PDF utilities with 100% client-side privacy. Convert, edit, format, and analyze text and documents instantly."
+        description="TextToolkitHub provides 63 free, browser-native developer, text, and PDF utilities with 100% client-side privacy. Convert, edit, format, and analyze text and documents instantly."
         canonicalUrl="/"
         faqs={FAQS}
       />

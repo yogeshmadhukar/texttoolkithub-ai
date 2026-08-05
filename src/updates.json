@@ -31,11 +31,11 @@
     "toolId": "tools/pdf-merger"
   },
   {
-    "id": "update-milestone-60-tools",
-    "title": "Major Milestone: 60+ Professional Developer & Content Tools!",
-    "description": "We have reached a major milestone with 60+ custom, browser-native developer and content utilities! Check out our SRT & VTT Subtitle Cleaner and UTM Parameter & Link Builder.",
+    "id": "update-milestone-63-tools",
+    "title": "Major Milestone: 63 Professional Developer & Content Tools!",
+    "description": "We have reached a major milestone with 63 custom, browser-native developer and content utilities! Check out our SRT & VTT Subtitle Cleaner and UTM Parameter & Link Builder.",
     "category": "Feature Update",
-    "date": "2026-08-01"
+    "date": "2026-08-05"
   },
   {
     "id": "update-subtitle-cleaner",

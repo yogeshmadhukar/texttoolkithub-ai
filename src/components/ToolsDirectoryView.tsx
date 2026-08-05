@@ -347,7 +347,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
     <div className="relative min-h-screen bg-slate-50/45 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-hidden pb-24 font-sans">
       <SEO 
         title="All Text & PDF Utilities Directory | TextToolkitHub"
-        description="Browse all 60+ free online text, developer, generator, and PDF utilities available on TextToolkitHub."
+        description="Browse all 63 free online text, developer, generator, and PDF utilities available on TextToolkitHub."
         canonicalUrl="/tools"
       />
       {/* Search structured markup index */}
@@ -999,7 +999,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                 Mastering Daily Text & Document Workflows with TextToolkitHub
               </h2>
               <p className="mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-350 leading-relaxed">
-                In today's data-driven digital ecosystem, text manipulation, data cleanup, and document reformatting occupy hours of routine developer, editorial, and administrative time. TextToolkitHub was engineered from the ground up to eliminate repetitive string formatting friction by providing a unified, lightning-fast suite of over 60 browser-native text, string, developer, and PDF utilities. Whether you need to recase raw API outputs, strip messy line breaks from scanned PDF transcripts, calculate word density metrics, or convert batch image files into standardized PDF documents, our platform delivers instant, reliable results without requiring software installations, user account registrations, or external server round-trips.
+                In today's data-driven digital ecosystem, text manipulation, data cleanup, and document reformatting occupy hours of routine developer, editorial, and administrative time. TextToolkitHub was engineered from the ground up to eliminate repetitive string formatting friction by providing a unified, lightning-fast suite of 63 browser-native text, string, developer, and PDF utilities. Whether you need to recase raw API outputs, strip messy line breaks from scanned PDF transcripts, calculate word density metrics, or convert batch image files into standardized PDF documents, our platform delivers instant, reliable results without requiring software installations, user account registrations, or external server round-trips.
               </p>
             </div>
 

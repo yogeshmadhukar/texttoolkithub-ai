@@ -238,7 +238,7 @@ export default function MobileBottomNav({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search 60+ text utilities (e.g. Word Counter, JSON)..."
+                  placeholder="Search 63 text utilities (e.g. Word Counter, JSON)..."
                   className="w-full pl-10 pr-10 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                   id="mobile-search-input"
                 />
@@ -321,7 +321,7 @@ export default function MobileBottomNav({
                   onClick={(e) => handleLinkClick(e, 'tools')}
                   className="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-sm transition-colors"
                 >
-                  Browse All 60+ Text Tools
+                  Browse All 63 Text Tools
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>

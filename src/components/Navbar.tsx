@@ -164,10 +164,10 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       category: "Website News"
     },
     {
-      id: "news-milestone-60",
-      title: "60+ Core Tools Hub Live!",
-      description: "TextToolkitHub has officially reached 60+ fully custom, browser-native tools! Check out our brand-new utilities: SRT & VTT Subtitle Cleaner and UTM Parameter & Link Builder, designed for fast client-side transcript cleaning and marketing tracking.",
-      date: "2026-08-01",
+      id: "news-milestone-63",
+      title: "63 Core Tools Hub Live!",
+      description: "TextToolkitHub has officially reached 63 fully custom, browser-native tools! Check out our brand-new utilities: SRT & VTT Subtitle Cleaner and UTM Parameter & Link Builder, designed for fast client-side transcript cleaning and marketing tracking.",
+      date: "2026-08-05",
       category: "Website News"
     },
     {

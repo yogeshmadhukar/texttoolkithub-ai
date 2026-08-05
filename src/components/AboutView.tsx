@@ -208,9 +208,9 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
     <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200 selection:bg-indigo-500/20">
       <SEO 
         title="About Us | TextToolkitHub"
-        description="Learn about TextToolkitHub - the privacy-shielded web utility workspace offering 60+ free online text and PDF utilities with 100% client-side browser execution."
+        description="Learn about TextToolkitHub - the privacy-shielded web utility workspace offering 63 free online text and PDF utilities with 100% client-side browser execution."
         canonicalUrl="/about"
-        faqs={techFaqs.map(f => ({ question: f.question, answer: f.answer }))}
+        faqs={faqData.map(f => ({ question: f.question, answer: f.answer }))}
       />
       
       {/* Absolute Decorative Glow Orbs */}
