@@ -35,6 +35,28 @@ export const CATEGORIES: CategoryInfo[] = [
 
 export const TOOLS: Tool[] = [
   {
+    id: 'tools/pdf-splitter',
+    title: 'PDF Splitter',
+    description: 'Split PDF files, extract page ranges, or separate pages into individual documents. 100% private client-side processing.',
+    longDescription: 'Separate pages from your PDF file effortlessly inside your browser memory. Extract specific page ranges, split every page, or choose pages visually to download as individual PDFs or a single ZIP archive with zero server uploads.',
+    iconName: 'Scissors',
+    category: 'converter',
+    seoTitle: 'Free PDF Splitter Online | Extract & Separate PDF Pages Locally',
+    seoDescription: 'Split PDF files online for free with our 100% client-side PDF Splitter. Extract custom page ranges, separate pages into individual PDFs or ZIP archives instantly with zero server uploads.',
+    keywords: ['pdf splitter', 'split pdf', 'extract pdf pages', 'separate pdf pages', 'split pdf online free', 'cut pdf', 'local pdf split', 'client side pdf splitter'],
+  },
+  {
+    id: 'tools/pdf-merger',
+    title: 'PDF Merger',
+    description: 'Merge multiple PDF files into one single document. 100% private client-side processing with reordering, page rotation, and range extraction.',
+    longDescription: 'Combine multiple PDF documents effortlessly inside your browser memory. Reorder PDF files, rotate page orientations, extract specific page ranges, and download a single consolidated PDF file with zero server uploads.',
+    iconName: 'Layers',
+    category: 'converter',
+    seoTitle: 'Free PDF Merger Online | Combine PDF Files Locally',
+    seoDescription: 'Merge PDF files online for free with our 100% client-side PDF Merger. Combine multiple PDFs, reorder pages, rotate layouts, and download instantly with zero server uploads.',
+    keywords: ['pdf merger', 'merge pdf', 'combine pdf files', 'pdf joiner', 'merge pdf online free', 'combine multiple pdfs', 'local pdf merge', 'client side pdf merger'],
+  },
+  {
     id: 'tools/readability-checker',
     title: 'Readability Checker',
     description: 'Analyze reading difficulty, readability score, and text clarity with our free Readability Checker.',

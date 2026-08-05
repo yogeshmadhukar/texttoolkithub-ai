@@ -123,6 +123,8 @@ const MorseCodeTranslatorView = lazyWithRetry(() => import('./components/MorseCo
 const ListRandomizerView = lazyWithRetry(() => import('./components/ListRandomizerView.tsx'));
 const SubtitleCleanerView = lazyWithRetry(() => import('./components/SubtitleCleanerView.tsx'));
 const UtmBuilderView = lazyWithRetry(() => import('./components/UtmBuilderView.tsx'));
+const PdfMergerView = lazyWithRetry(() => import('./components/PdfMergerView.tsx'));
+const PdfSplitterView = lazyWithRetry(() => import('./components/PdfSplitterView.tsx'));
 
 import { ActivePage } from './types.ts';
 import { TOOLS, FAQS } from './data.ts';
@@ -192,6 +194,8 @@ const PREFETCH_MAP: Record<string, () => Promise<any>> = {
   'tools/list-randomizer': () => import('./components/ListRandomizerView.tsx'),
   'tools/subtitle-cleaner': () => import('./components/SubtitleCleanerView.tsx'),
   'tools/utm-builder': () => import('./components/UtmBuilderView.tsx'),
+  'tools/pdf-merger': () => import('./components/PdfMergerView.tsx'),
+  'tools/pdf-splitter': () => import('./components/PdfSplitterView.tsx'),
   'about': () => import('./components/AboutView.tsx'),
   'faq': () => import('./components/FaqView.tsx'),
   'security-faq': () => import('./components/SecurityFaqView.tsx'),
@@ -1743,6 +1747,24 @@ export default function App() {
     if (activePage === 'tools/utm-builder' || activePage === 'utm-builder') {
       return (
         <UtmBuilderView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/pdf-merger' || activePage === 'pdf-merger') {
+      return (
+        <PdfMergerView 
+          onNavigateToTool={(id) => handlePageNavigation(id)}
+          onNavigateHome={() => handlePageNavigation('home')}
+        />
+      );
+    }
+
+    if (activePage === 'tools/pdf-splitter' || activePage === 'pdf-splitter') {
+      return (
+        <PdfSplitterView 
           onNavigateToTool={(id) => handlePageNavigation(id)}
           onNavigateHome={() => handlePageNavigation('home')}
         />
