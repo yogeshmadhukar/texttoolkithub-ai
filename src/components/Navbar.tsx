@@ -544,7 +544,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
           </nav>
 
           {/* Premium Desktop Search Input */}
-          <div className="relative hidden md:block md:w-36 lg:w-56 xl:w-72" ref={searchDropdownRef}>
+          <div className="relative hidden md:block md:w-44 lg:w-60 xl:w-72" ref={searchDropdownRef}>
             <div className="relative">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
               <input
@@ -580,7 +580,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             {/* Premium Floating Search suggestions list */}
             {isSearchFocused && searchQuery.trim() !== '' && (
               <div 
-                className="absolute top-full right-0 mt-2 w-[280px] sm:w-[360px] md:w-[440px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1 duration-150"
+                className="absolute top-full right-0 mt-2 w-[320px] sm:w-[380px] md:w-[420px] min-w-[300px] sm:min-w-[360px] md:min-w-[400px] max-w-[calc(100vw-1.5rem)] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-100 dark:divide-slate-800 animate-in fade-in slide-in-from-top-1 duration-150"
                 id="desktop-search-suggestions"
               >
                 <div className="p-3 bg-slate-50/50 dark:bg-slate-900/30 flex justify-between items-center text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
@@ -589,7 +589,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                     Use ↑↓ and Enter
                   </span>
                 </div>
-                <div className="p-2 max-h-[300px] overflow-y-auto space-y-1">
+                <div className="p-2 max-h-[320px] overflow-y-auto space-y-1">
                   {filteredTools.length > 0 ? (
                     filteredTools.slice(0, 5).map((tool, index) => {
                       const isActive = index === activeSearchIndex;
@@ -598,21 +598,21 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                           key={tool.id}
                           onMouseEnter={() => setActiveSearchIndex(index)}
                           onClick={() => handleToolSelect(tool.id)}
-                          className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-colors duration-155 ${
+                          className={`flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-colors duration-155 w-full min-w-0 ${
                             isActive 
                               ? 'bg-indigo-50/80 dark:bg-slate-800/85 text-indigo-600 dark:text-indigo-300' 
                               : 'hover:bg-slate-50 dark:hover:bg-slate-800/30 text-slate-700 dark:text-slate-350'
                           }`}
                         >
-                          <div className="flex items-center gap-3">
-                            <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0">
+                          <div className="flex items-center gap-3 w-full min-w-0">
+                            <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 flex items-center justify-center">
                               {getToolIcon(tool.iconName)}
                             </div>
-                            <div className="text-left min-w-0">
-                              <span className={`text-xs font-bold block ${isActive ? 'text-indigo-600 dark:text-indigo-300' : 'text-slate-800 dark:text-slate-100'}`}>
+                            <div className="text-left min-w-0 flex-1">
+                              <span className={`text-xs font-bold block truncate ${isActive ? 'text-indigo-600 dark:text-indigo-300' : 'text-slate-800 dark:text-slate-100'}`}>
                                 <HighlightText text={tool.title} highlight={searchQuery} />
                               </span>
-                              <span className="text-[10px] text-slate-400 dark:text-slate-500 block line-clamp-1 mt-0.5">
+                              <span className="text-[10px] text-slate-400 dark:text-slate-500 block truncate mt-0.5">
                                 <HighlightText text={tool.description} highlight={searchQuery} />
                               </span>
                             </div>
