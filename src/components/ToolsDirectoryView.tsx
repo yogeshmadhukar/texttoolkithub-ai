@@ -986,6 +986,159 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
           </div>
         </div>
 
+        {/* SEO Guide Section: Educational & Technical Deep Dive */}
+        <section className="mt-16 pt-12 border-t border-slate-200/80 dark:border-slate-800 text-left" id="directory-seo-guide" aria-label="Comprehensive Guide to Text and PDF Utilities">
+          <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm">
+            
+            {/* 1. H2 Introduction */}
+            <div className="mb-8">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest bg-indigo-50 text-indigo-600 dark:bg-indigo-950/60 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-900/40 mb-3">
+                Comprehensive Technical Guide
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-sans tracking-tight">
+                Mastering Daily Text & Document Workflows with TextToolkitHub
+              </h2>
+              <p className="mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-350 leading-relaxed">
+                In today's data-driven digital ecosystem, text manipulation, data cleanup, and document reformatting occupy hours of routine developer, editorial, and administrative time. TextToolkitHub was engineered from the ground up to eliminate repetitive string formatting friction by providing a unified, lightning-fast suite of over 60 browser-native text, string, developer, and PDF utilities. Whether you need to recase raw API outputs, strip messy line breaks from scanned PDF transcripts, calculate word density metrics, or convert batch image files into standardized PDF documents, our platform delivers instant, reliable results without requiring software installations, user account registrations, or external server round-trips.
+              </p>
+            </div>
+
+            {/* 2. Step-by-Step Guide */}
+            <div className="mb-10 pt-8 border-t border-slate-100 dark:border-slate-850">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                <span className="w-2 h-6 bg-indigo-600 rounded-full inline-block" />
+                How to Use Any Tool on TextToolkitHub: A Step-by-Step Walkthrough
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                Every module inside TextToolkitHub is designed with a standardized, frictionless user interface that prioritizes speed and predictability. Follow these five straightforward steps to process your text or document files:
+              </p>
+              <ol className="space-y-4 text-sm text-slate-700 dark:text-slate-300 list-none pl-0">
+                <li className="flex items-start gap-3 p-3.5 bg-slate-50 dark:bg-slate-850/40 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-indigo-600 text-white font-extrabold text-xs shrink-0 mt-0.5">1</span>
+                  <div>
+                    <strong className="text-slate-900 dark:text-white font-semibold">Select Your Desired Utility:</strong>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Browse our organized category tabs above or press <kbd className="px-1.5 py-0.5 text-[10px] bg-slate-200 dark:bg-slate-700 rounded font-mono">⌘K</kbd> to launch the instant command search bar and locate your required tool in seconds.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3 p-3.5 bg-slate-50 dark:bg-slate-850/40 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-indigo-600 text-white font-extrabold text-xs shrink-0 mt-0.5">2</span>
+                  <div>
+                    <strong className="text-slate-900 dark:text-white font-semibold">Input Your Raw Content:</strong>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Paste your target text directly into the interactive editor workspace, type in live content, or drag-and-drop source files (PDFs, images, or code documents) straight into the dropzone.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3 p-3.5 bg-slate-50 dark:bg-slate-850/40 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-indigo-600 text-white font-extrabold text-xs shrink-0 mt-0.5">3</span>
+                  <div>
+                    <strong className="text-slate-900 dark:text-white font-semibold">Configure Processing Parameters:</strong>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Customize transformation flags, such as selecting Title Case vs. camelCase, setting custom delimiters, adjusting PDF page ranges, or enabling whitespace trim rules.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3 p-3.5 bg-slate-50 dark:bg-slate-850/40 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-indigo-600 text-white font-extrabold text-xs shrink-0 mt-0.5">4</span>
+                  <div>
+                    <strong className="text-slate-900 dark:text-white font-semibold">Review Real-Time Metrics & Preview:</strong>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Observe real-time metric updates including live character counts, word density, reading duration, line counts, and instant visual previews of modified output.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3 p-3.5 bg-slate-50 dark:bg-slate-850/40 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-indigo-600 text-white font-extrabold text-xs shrink-0 mt-0.5">5</span>
+                  <div>
+                    <strong className="text-slate-900 dark:text-white font-semibold">Export or Copy Output Instantly:</strong>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Click the primary action button to copy sanitized text directly to your system clipboard or trigger a client-side file download for PDF, TXT, or JSON assets.</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            {/* 3. Real-World Use Cases */}
+            <div className="mb-10 pt-8 border-t border-slate-100 dark:border-slate-850">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                Practical Use Cases Across Key Professional Domains
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                TextToolkitHub serves a diverse audience of digital professionals who require precise, reliable string and document processing in their daily workflows.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="p-5 bg-slate-50/80 dark:bg-slate-850/30 rounded-2xl border border-slate-200/60 dark:border-slate-800 text-left">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <span className="text-indigo-600 dark:text-indigo-400">⚡</span>
+                    Software Engineers & DevOps
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Developers rely on TextToolkitHub to reformat unformatted JSON payloads, escape quotes in SQL strings, generate URL-safe slugs for API endpoints, compare code diffs, and strip extraneous whitespace from environmental variables. Because processing occurs entirely within the local browser tab, engineers can manipulate sensitive internal configuration keys and private API payloads without triggering data governance flags or exposing source code to external servers.
+                  </p>
+                </div>
+
+                <div className="p-5 bg-slate-50/80 dark:bg-slate-850/30 rounded-2xl border border-slate-200/60 dark:border-slate-800 text-left">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <span className="text-indigo-600 dark:text-indigo-400">✍️</span>
+                    Content Writers & Copywriters
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Editorial teams utilize our suite to enforce consistent headline casing rules, verify word count thresholds for ad campaigns, calculate reading time metrics for blog articles, and clean up broken line breaks copied from external draft documents. Real-time metric feedback ensures content satisfies social media character constraints and SEO meta title lengths before publishing.
+                  </p>
+                </div>
+
+                <div className="p-5 bg-slate-50/80 dark:bg-slate-850/30 rounded-2xl border border-slate-200/60 dark:border-slate-800 text-left">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <span className="text-indigo-600 dark:text-indigo-400">🎓</span>
+                    Students & Academic Researchers
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Academics use TextToolkitHub to clean up excerpts copied from digital library PDFs, reformat bibliography citations, remove hyphenated line splits from journal articles, and audit paragraph counts against strict academic submission criteria. Our zero-login architecture allows students to work seamlessly across campus library devices and personal laptops.
+                  </p>
+                </div>
+
+                <div className="p-5 bg-slate-50/80 dark:bg-slate-850/30 rounded-2xl border border-slate-200/60 dark:border-slate-800 text-left">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                    <span className="text-indigo-600 dark:text-indigo-400">💼</span>
+                    Legal, Finance & Corporate Teams
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Business professionals handle confidential contracts, financial statements, and client records that strictly prohibit third-party cloud uploads. Using our client-side PDF utilities—such as PDF Splitting, Image-to-PDF compilation, and document merging—corporate users complete necessary document preparation locally while remaining 100% compliant with enterprise data protection policies.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Platform USP & Security Guarantee */}
+            <div className="pt-8 border-t border-slate-100 dark:border-slate-850 bg-gradient-to-br from-indigo-50/50 via-slate-50 to-purple-50/30 dark:from-indigo-950/20 dark:via-slate-900/40 dark:to-purple-950/10 p-6 sm:p-8 rounded-2xl border border-indigo-100 dark:border-indigo-900/40">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                <span className="text-emerald-600 dark:text-emerald-400">🛡️</span>
+                Why TextToolkitHub? 100% On-Device Client-Side Privacy Architecture
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-350 leading-relaxed mb-4">
+                Traditional online text converters and PDF tools quietly transmit your uploaded files and pasted text strings to remote backend cloud servers for processing. This exposes your confidential proprietary code, personal documents, and sensitive corporate data to server logs, third-party analytics trackers, and unintended cloud storage retainment.
+              </p>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-350 leading-relaxed mb-4">
+                TextToolkitHub operates on a fundamentally different paradigm. Built using modern HTML5 WebWorkers, WebAssembly, and optimized browser JavaScript engines, <strong>100% of all calculations, conversions, and document renderings occur strictly inside your local web browser's isolated memory heap</strong>.
+              </p>
+              
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700 dark:text-slate-300 font-medium list-none pl-0">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                  <span><strong>Zero Cloud Server Uploads:</strong> Text and files never leave your device.</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                  <span><strong>Offline Capability:</strong> Works continuously even without an internet connection.</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                  <span><strong>Zero Latency Performance:</strong> Instant processing without network wait times.</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                  <span><strong>GDPR & CCPA Compliant:</strong> No personal data retention or database storage.</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
       </div>
     </div>
   );

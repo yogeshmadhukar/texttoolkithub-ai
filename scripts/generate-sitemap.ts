@@ -13,6 +13,8 @@ function generateSitemap() {
   const staticPages = [
     { loc: '/', changefreq: 'daily', priority: '1.0' },
     { loc: '/tools', changefreq: 'daily', priority: '0.9' },
+    { loc: '/guides', changefreq: 'weekly', priority: '0.8' },
+    { loc: '/guides/guide-client-side-pdf-privacy', changefreq: 'monthly', priority: '0.8' },
     { loc: '/about', changefreq: 'monthly', priority: '0.8' },
     { loc: '/faq', changefreq: 'weekly', priority: '0.8' },
     { loc: '/security-faq', changefreq: 'monthly', priority: '0.8' },

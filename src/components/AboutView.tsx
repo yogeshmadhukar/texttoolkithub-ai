@@ -322,38 +322,35 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
           </div>
         </section>
 
-        {/* SECTION 2: PLATFORM OVERVIEW & VALUE PROPOSITION */}
-        <section className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        {/* SECTION 2: OUR CORE MISSION */}
+        <section className="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center" id="core-mission">
           <div className="lg:col-span-7">
-            <span className="text-xs font-bold font-sans uppercase tracking-widest text-indigo-600 dark:text-indigo-400">01 / Comprehensive Directory</span>
+            <span className="text-xs font-bold font-sans uppercase tracking-widest text-indigo-600 dark:text-indigo-400">01 / E-E-A-T Certified Purpose</span>
             <h2 className="text-3xl font-bold text-slate-900 dark:text-white mt-2 mb-6 font-sans">
-              Revisiting the Paradigm of Internet Tools
+              Our Core Mission
             </h2>
-            <div className="space-y-4 text-slate-600 dark:text-slate-350 leading-relaxed">
+            <div className="space-y-4 text-slate-600 dark:text-slate-350 leading-relaxed text-sm sm:text-base">
               <p>
-                In the modern developer ecosystem, simple formatting tasks—such as prettifying a JSON tree, converting YAML columns, extracting strings, calculating Unix durations, or decoding Base64 keys—should not require risking confidential customer data across public networks. 
+                At <strong>TextToolkitHub</strong>, operated as a premier digital utility project under <strong>Madhukar &amp; Sons</strong>, our core mission is simple yet resolute: to provide fast, highly accurate, and completely free online text, string, developer, and PDF tools for writers, software engineers, content creators, and business professionals worldwide.
               </p>
               <p>
-                TextToolkitHub provides immediate, high-fidelity browser-based alternatives. Built upon a unified sandboxed pipeline and modern memory isolation hooks, every formatting action remains 100% inside your current browser context. 
-              </p>
-              <p>
-                We remove unnecessary corporate telemetry, endless loading headers, cookie consent fields, and distracting paywalls. What you get is an elite workspace designed to process raw material with zero delay and deep privacy assurance.
+                In an era dominated by bloated web applications, intrusive paywalls, and aggressive data tracking, we believe that fundamental productivity utilities should remain instantly accessible, lightweight, and completely transparent. Whether you are reformatting a complex JSON payload, validating an RSA key, stripping messy line breaks from a manuscript, or converting batch images into standardized PDF documents, TextToolkitHub delivers pristine, reliable results in milliseconds.
               </p>
             </div>
             
-            <div className="grid grid-cols-2 gap-6 mt-8">
-              <div className="flex items-start gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+              <div className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800">
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-white text-sm">Lightweight Execution</h4>
-                  <p className="text-xs text-slate-500 mt-1">Pre-cached modules load in milliseconds with pristine visual smoothness.</p>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">For Writers &amp; Editors</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Real-time word density, readability formulas, case converters, and clean markdown generators.</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2.5">
+              <div className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800">
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-white text-sm">WCAG 2.1 Compliant</h4>
-                  <p className="text-xs text-slate-500 mt-1">Sufficient contrasts, clear focus indicators, structured aria configurations.</p>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">For Developers &amp; DevOps</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">JWT decoders, Cron builders, SQL escapers, JSON minifiers, Base64 converters, and regex testers.</p>
                 </div>
               </div>
             </div>
@@ -368,7 +365,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
             
             <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400 space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-850 overflow-x-auto text-left">
               <div><span className="text-indigo-400">const</span> pipeline = TextToolkitHub.initSession();</div>
-              <div><span className="text-emerald-400">// Secure isolated process:</span></div>
+              <div><span className="text-emerald-400">// Secure isolated process under Madhukar &amp; Sons:</span></div>
               <div>pipeline.setSecurityPolicy(<span className="text-amber-300">"isolate-client-memory"</span>);</div>
               <div>pipeline.setNetworkConfig(<span className="text-amber-300">"zero-data-transfer"</span>);</div>
               <div className="text-slate-600">// Process paste buffer:</div>
@@ -382,36 +379,94 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
           </div>
         </section>
 
-        {/* SECTION 3: VISION */}
-        <section className="mb-24 bg-indigo-900 text-white rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-xl shadow-indigo-900/10">
+        {/* SECTION 3: THE FOUNDER'S VISION */}
+        <section className="mb-24 bg-indigo-900 text-white rounded-3xl p-8 md:p-12 relative overflow-hidden shadow-xl shadow-indigo-900/10" id="founders-vision">
           <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-800/60 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-10 left-10 w-60 h-60 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
           
-          <div className="relative z-10 max-w-3xl">
-            <span className="text-xs font-bold tracking-widest uppercase text-indigo-300">02 / Scaling Future Horizons</span>
+          <div className="relative z-10 max-w-4xl">
+            <span className="text-xs font-bold tracking-widest uppercase text-indigo-300">02 / Leadership &amp; Direction</span>
             <h2 className="text-3xl md:text-4xl font-extrabold font-sans mt-2 mb-6 tracking-tight">
-              Our Vision: Building a 200+ Private Tool Ecosystem
+              The Founder's Vision: Workflow First, Zero Compromise
             </h2>
-            <p className="text-indigo-100 text-base leading-relaxed mb-6">
-              Our vision is simple yet vastly ambitious: we are actively building the world's most stable, reliable, and privacy-shielded web-utility resource. We started with essential text formatting, but are expanding dynamically week-by-week.
-            </p>
-            <p className="text-indigo-200 text-sm leading-relaxed mb-8">
-              Whether you are a developer formatting raw schema, a writer counting detailed character densities, a marketer building SEO slugs, an accountant translating Base64 formats, or a student compiling complex logs, TextToolkitHub guarantees a consistent, baseline utility structure. No barriers, no corporate collection—just raw utility.
-            </p>
+            <div className="space-y-4 text-indigo-100 text-sm md:text-base leading-relaxed mb-8">
+              <p>
+                Founded by independent software developer and editorial director <strong>Yogesh Kumar Madhukar</strong> under <strong>Madhukar &amp; Sons</strong>, TextToolkitHub was born out of frustration with existing web tools that require account creation, impose artificial file size limits, or stealthily transmit confidential documents to third-party servers.
+              </p>
+              <p>
+                The founder&apos;s vision focuses on an uncompromised commitment to the end user&apos;s daily workflow. Software should adapt to human needs—delivering instant utility without friction, unnecessary ads, or security hazards. Under the umbrella of Madhukar &amp; Sons, our platform is engineered to remain 100% free, fast, and secure for professionals who handle sensitive corporate data and intellectual property daily.
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-indigo-800">
               <div>
-                <span className="block text-2xl font-bold text-emerald-400">Developers</span>
-                <span className="block text-xs text-indigo-200 mt-1">Audit tokens, reformat JSON tables, map JSON objects.</span>
+                <h3 className="text-lg font-bold text-emerald-400 mb-1">Empowered Writers</h3>
+                <p className="text-xs text-indigo-200">Instant word density analysis, readability scores, and clean line management without distraction.</p>
               </div>
               <div>
-                <span className="block text-2xl font-bold text-amber-300">Writers & Editors</span>
-                <span className="block text-xs text-indigo-200 mt-1">Count syllables, evaluate readability formulas, clear double blank rows.</span>
+                <h3 className="text-lg font-bold text-amber-300 mb-1">Agile Engineers</h3>
+                <p className="text-xs text-indigo-200">Inspect tokens, format JSON schemas, and test regular expressions in a local sandbox.</p>
               </div>
               <div>
-                <span className="block text-2xl font-bold text-cyan-300">Businesses</span>
-                <span className="block text-xs text-indigo-200 mt-1">Format localized raw documents safely under data compliance standards.</span>
+                <h3 className="text-lg font-bold text-cyan-300 mb-1">Privacy Compliance</h3>
+                <p className="text-xs text-indigo-200">Safely process confidential legal, financial, and client files under strict GDPR standards.</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 4: OUR TECHNOLOGY GUARANTEE */}
+        <section className="mb-24 border border-slate-200 dark:border-slate-800 bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 rounded-3xl p-8 md:p-12 relative overflow-hidden" id="technology-guarantee">
+          <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 to-indigo-600" />
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8">
+              <span className="text-xs font-bold font-sans uppercase tracking-widest text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                <Shield className="w-4 h-4 text-emerald-500" /> Zero-Knowledge Security Policy
+              </span>
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white mt-2 mb-6 font-sans">
+                Our Technology Guarantee: 100% Local In-Browser Processing
+              </h2>
+              <div className="space-y-4 text-xs md:text-sm text-slate-600 dark:text-slate-350 leading-relaxed">
+                <p>
+                  We guarantee that <strong>100% of all calculations, text transformations, and PDF manipulations happen directly inside your web browser&apos;s local memory heap</strong>. 
+                </p>
+                <p>
+                  Unlike conventional cloud converters, <strong>no files, text strings, code payloads, or document data ever leave your device</strong>. TextToolkitHub uses cutting-edge HTML5 Web Workers, WebAssembly (Wasm), and local JavaScript parsing engines to process your material completely on-device.
+                </p>
+                <p>
+                  When you close or refresh your browser tab, all temporary memory allocations are instantly wiped by your browser environment. We maintain zero backend databases for user content, zero remote tracking logs, and zero third-party data sharing.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                <div className="p-3.5 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-xs mb-1">✓ 100% On-Device</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">All logic runs locally in CPU memory.</p>
+                </div>
+                <div className="p-3.5 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-xs mb-1">✓ Zero Cloud Storage</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">No server files, database, or backups.</p>
+                </div>
+                <div className="p-3.5 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-xs mb-1">✓ Offline Functionality</h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Works seamlessly even without internet.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center relative flex flex-col justify-center items-center">
+              <div className="w-16 h-16 bg-emerald-950/40 border border-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mb-4">
+                <Shield className="w-8 h-8" />
+              </div>
+              <h3 className="text-white font-bold text-base font-sans">100% Sealed Sandbox</h3>
+              <p className="text-[11px] text-slate-400 mt-2 leading-relaxed">
+                Your data stays strictly on your computer or phone. Zero cloud leaks, zero remote tracking.
+              </p>
+              <span className="mt-4 text-[9px] uppercase tracking-wider font-bold py-1 px-2.5 bg-emerald-950 text-emerald-400 border border-emerald-900 rounded-full">
+                Madhukar &amp; Sons Certified Security
+              </span>
             </div>
           </div>
         </section>
