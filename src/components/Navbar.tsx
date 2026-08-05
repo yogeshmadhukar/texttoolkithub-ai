@@ -666,7 +666,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               {/* Glassmorphic Notification Dropdown Menu */}
               {isNotifOpen && (
                 <div 
-                  className="fixed top-16 left-3 right-3 md:absolute md:top-full md:right-0 md:left-auto mt-2 w-auto md:w-[420px] bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-2xl shadow-slate-300/30 dark:shadow-none overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150 flex flex-col"
+                  className="fixed top-16 left-3 sm:left-auto right-3 sm:right-6 md:right-8 lg:right-12 mt-2 w-auto sm:w-[420px] max-w-[calc(100vw-1.5rem)] max-h-[calc(100vh-5rem)] bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-2xl shadow-slate-300/30 dark:shadow-none overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150 flex flex-col"
                   id="notifications-dropdown-menu"
                 >
                   {/* Header */}
