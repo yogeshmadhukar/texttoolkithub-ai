@@ -35,17 +35,20 @@ interface NotFoundViewProps {
 export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFoundViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Update Page SEO Metadata for 404 Node State
+  // Update Page SEO Metadata and log 404 broken URL warning
   useEffect(() => {
+    // 404 Event Logging as requested for tracking broken/unassigned URLs
+    console.warn(`[404 Error] User landed on broken or missing URL: ${window.location.pathname}`);
+
     // Save previous document title
     const prevTitle = document.title;
     document.title = "404 - Page Not Found | TextToolkitHub";
 
-    // Inject temporary secure meta tag for testing
+    // Inject temporary meta tag
     const metaDesc = document.querySelector('meta[name="description"]');
     const originalDesc = metaDesc ? metaDesc.getAttribute('content') : '';
     if (metaDesc) {
-      metaDesc.setAttribute('content', "The page you are looking for could not be found. Browse TextToolkitHub's collection of free text utilities.");
+      metaDesc.setAttribute('content', "Oops! We couldn't find this text utility or guide on TextToolkitHub.");
     }
 
     return () => {
@@ -168,7 +171,7 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
             className="text-3xl sm:text-4xl md:text-5xl font-light font-display tracking-tight text-slate-900 dark:text-white leading-tight max-w-2xl mb-4"
             id="notfound-heading"
           >
-            404 – The Page You're Looking For Doesn't Exist
+            Oops! We couldn't find this text utility or guide.
           </motion.h1>
 
           {/* Paragraph explanation */}
@@ -179,30 +182,48 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
             className="text-slate-550 dark:text-slate-400 text-sm sm:text-base max-w-lg leading-relaxed mb-8"
             id="notfound-description"
           >
-            The page may have been moved, renamed, or deleted. Let's get you back to the tools you need.
+            The page or tool you are looking for may have been moved, renamed, or deleted. Use the quick navigation buttons below or search our complete collection of free online text utilities.
           </motion.p>
 
-          {/* SaaS-Style Dual CTAs triggers */}
+          {/* Dual/Multi CTAs triggers for instant navigation */}
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto"
+            className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto"
             id="notfound-cta-actions-row"
           >
             {/* Navigation back home */}
             <button
               onClick={onNavigateHome}
-              className="px-6 py-3 bg-indigo-600 hover:bg-slate-900 dark:hover:bg-slate-100 hover:text-white dark:hover:text-slate-950 text-white text-xs font-sans font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-1.5 shadow-md shadow-indigo-500/10 active:scale-[0.98] cursor-pointer"
+              className="px-5 py-2.5 bg-indigo-600 hover:bg-slate-900 dark:hover:bg-slate-100 hover:text-white dark:hover:text-slate-950 text-white text-xs font-sans font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-1.5 shadow-md shadow-indigo-500/10 active:scale-[0.98] cursor-pointer"
               id="notfound-gohome-btn"
             >
-              <Home className="w-4 h-4" /> Go to Homepage
+              <Home className="w-4 h-4" /> Go to Home
             </button>
 
-            {/* Scroll down to search engine */}
+            {/* Quick Word Counter */}
+            <button
+              onClick={() => onNavigateToTool('tools/word-counter')}
+              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-sans font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/10 active:scale-[0.98] cursor-pointer"
+              id="notfound-wordcounter-btn"
+            >
+              <FileText className="w-4 h-4" /> Word Counter
+            </button>
+
+            {/* Quick Case Converter */}
+            <button
+              onClick={() => onNavigateToTool('tools/case-converter')}
+              className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-sans font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/10 active:scale-[0.98] cursor-pointer"
+              id="notfound-caseconverter-btn"
+            >
+              <Type className="w-4 h-4" /> Case Converter
+            </button>
+
+            {/* Scroll down to search catalog */}
             <button
               onClick={handleBrowseCatalog}
-              className="px-6 py-3 border border-slate-250 dark:border-slate-800 hover:bg-slate-100/50 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 text-xs font-sans font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-1.5 active:scale-[0.98] cursor-pointer"
+              className="px-5 py-2.5 border border-slate-250 dark:border-slate-800 hover:bg-slate-100/50 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 text-xs font-sans font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-1.5 active:scale-[0.98] cursor-pointer"
               id="notfound-browse-all-btn"
             >
               <Compass className="w-4 h-4 text-slate-400" /> Browse All Tools

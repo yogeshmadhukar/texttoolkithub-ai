@@ -2101,7 +2101,7 @@ const articles: Article[] = [
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Case Converter', id: 'tools/case-converter' },
-      { title: 'Title Case Converter', id: 'tools/title-case' }
+      { title: 'Case Converter Pro', id: 'tools/case-converter-pro' }
     ],
     headings: [
       { id: 'case-intro', text: 'Introduction to String Casing' },
@@ -2225,8 +2225,8 @@ const articles: Article[] = [
     authorRole: 'Principal Algorithm Researchers',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
-      { title: 'Text Diff Finder', id: 'tools/diff-finder' },
-      { title: 'Plagiarism Checker', id: 'tools/plagiarism-checker' }
+      { title: 'Text Compare & Diff', id: 'tools/text-compare' },
+      { title: 'Keyword Density Checker', id: 'tools/keyword-density-checker' }
     ],
     headings: [
       { id: 'diff-intro', text: 'The Evolution of Diff Tools' },
@@ -2415,8 +2415,8 @@ const articles: Article[] = [
     authorRole: 'Cryptographic Security Advisory',
     authorAvatar: regeneratedImage1782725917619,
     relatedTools: [
-      { title: 'Text Encryptor / Decryptor', id: 'tools/text-encryptor' },
-      { title: 'Password Generator', id: 'tools/password-generator' }
+      { title: 'Hash & Checksum Generator', id: 'tools/hash-generator' },
+      { title: 'UUID & GUID Generator', id: 'tools/uuid-generator' }
     ],
     headings: [
       { id: 'crypto-intro', text: 'The Basics of Symmetric Cryptography' },
@@ -2499,7 +2499,7 @@ const articles: Article[] = [
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Regex Tester', id: 'tools/regex-tester' },
-      { title: 'Email & Phone Extractor', id: 'tools/contact-extractor' }
+      { title: 'Remove Special Characters', id: 'tools/remove-special-characters' }
     ],
     headings: [
       { id: 'regex-intro', text: 'Decoding the Syntax of Regular Expressions' },
