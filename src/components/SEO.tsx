@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
+import {
+  DEFAULT_DOMAIN,
+  FAQItem,
+  HowToStep,
+  BreadcrumbItem,
+  getOrganizationSchema,
+  getAuthorPersonSchema,
+  getWebApplicationSchema,
+  getFAQSchema,
+  getHowToSchema,
+  getBreadcrumbSchema,
+} from '../utils/schemaGenerator.ts';
 
-export interface FAQItem {
-  question: string;
-  answer: string;
-}
-
-export interface BreadcrumbItem {
-  name: string;
-  url: string;
-}
+export type { FAQItem, HowToStep, BreadcrumbItem };
 
 export interface SEOProps {
   title: string;
@@ -20,11 +24,13 @@ export interface SEOProps {
   ratingValue?: number;
   ratingCount?: number;
   faqs?: FAQItem[];
+  howToSteps?: HowToStep[];
   breadcrumbs?: BreadcrumbItem[];
+  featureList?: string[];
+  lastUpdatedDate?: string;
   noindex?: boolean;
 }
 
-const DEFAULT_DOMAIN = 'https://texttoolkithub.com';
 const DEFAULT_IMAGE = `${DEFAULT_DOMAIN}/og-image.png`;
 const SITE_NAME = 'TextToolkitHub';
 
@@ -38,7 +44,10 @@ export const SEO: React.FC<SEOProps> = ({
   ratingValue = 4.9,
   ratingCount = 1250,
   faqs = [],
+  howToSteps = [],
   breadcrumbs = [],
+  featureList,
+  lastUpdatedDate = 'August 2026',
   noindex = false,
 }) => {
   // Format Title: Ensure "Tool Name | TextToolkitHub"
@@ -75,8 +84,12 @@ export const SEO: React.FC<SEOProps> = ({
     };
 
     // Helper to inject/update JSON-LD script tags
-    const setJsonLdScript = (id: string, jsonObject: object) => {
+    const setJsonLdScript = (id: string, jsonObject: object | null) => {
       let script = document.head.querySelector(`script#${id}`) as HTMLScriptElement | null;
+      if (!jsonObject) {
+        if (script) script.remove();
+        return;
+      }
       if (!script) {
         script = document.createElement('script');
         script.id = id;
@@ -90,6 +103,8 @@ export const SEO: React.FC<SEOProps> = ({
     setMetaTag('name', 'description', description);
     setMetaTag('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
     setMetaTag('name', 'theme-color', '#4f46e5');
+    setMetaTag('name', 'author', 'Yogesh Kumar Madhukar');
+    setMetaTag('name', 'publisher', 'Madhukar & Sons Digital');
 
     // 3. Set Open Graph Tags
     setMetaTag('property', 'og:site_name', SITE_NAME);
@@ -110,105 +125,69 @@ export const SEO: React.FC<SEOProps> = ({
     // 5. Set Canonical URL
     setLinkTag('canonical', fullCanonical);
 
-    // 6. Inject JSON-LD Structured Data
-    // A) Website / Organization Schema (Global)
-    const websiteSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      'name': SITE_NAME,
-      'url': DEFAULT_DOMAIN,
-      'description': 'Free, browser-native developer, text, and PDF utilities with 100% client-side privacy.',
-      'potentialAction': {
-        '@type': 'SearchAction',
-        'target': `${DEFAULT_DOMAIN}/?q={search_term_string}`,
-        'query-input': 'required name=search_term_string'
-      }
-    };
-    setJsonLdScript('seo-website-schema', websiteSchema);
+    // 6. Inject E-E-A-T Structured Data Schemas
+    // A) Global Organization Schema (Madhukar & Sons Digital)
+    setJsonLdScript('seo-organization-schema', getOrganizationSchema());
 
-    // B) SoftwareApplication / WebApplication Schema for Tools
+    // B) Global Person / Author Schema (Yogesh Kumar Madhukar)
+    setJsonLdScript('seo-author-schema', getAuthorPersonSchema());
+
+    // C) SoftwareApplication / WebApplication Schema for Tools
     if (fullCanonical !== DEFAULT_DOMAIN) {
-      const toolName = title.replace(` | ${SITE_NAME}`, '');
-      const appSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'WebApplication',
-        'name': toolName,
-        'url': fullCanonical,
-        'description': description,
-        'applicationCategory': 'UtilityApplication',
-        'operatingSystem': 'All modern web browsers (Windows, macOS, Linux, iOS, Android)',
-        'browserRequirements': 'Requires JavaScript. 100% browser-based with zero server file uploads.',
-        'offers': {
-          '@type': 'Offer',
-          'price': '0',
-          'priceCurrency': 'USD'
-        },
-        'aggregateRating': {
-          '@type': 'AggregateRating',
-          'ratingValue': ratingValue.toFixed(1),
-          'ratingCount': ratingCount.toString(),
-          'bestRating': '5',
-          'worstRating': '1'
-        },
-        'publisher': {
-          '@type': 'Organization',
-          'name': SITE_NAME,
-          'url': DEFAULT_DOMAIN,
-          'logo': `${DEFAULT_DOMAIN}/logo.png`
-        }
-      };
+      const appSchema = getWebApplicationSchema({
+        title: formattedTitle,
+        description,
+        canonicalUrl: fullCanonical,
+        category,
+        ratingValue,
+        ratingCount,
+        featureList,
+        lastUpdatedDate,
+      });
       setJsonLdScript('seo-app-schema', appSchema);
     } else {
-      const existingAppScript = document.head.querySelector('script#seo-app-schema');
-      if (existingAppScript) existingAppScript.remove();
+      setJsonLdScript('seo-app-schema', null);
     }
 
-    // C) FAQPage Schema if FAQs exist
-    if (faqs && faqs.length > 0) {
-      const faqSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        'mainEntity': faqs.map(faq => ({
-          '@type': 'Question',
-          'name': faq.question,
-          'acceptedAnswer': {
-            '@type': 'Answer',
-            'text': faq.answer
-          }
-        }))
-      };
-      setJsonLdScript('seo-faq-schema', faqSchema);
+    // D) FAQPage Schema if FAQs exist
+    const faqSchema = getFAQSchema(faqs);
+    setJsonLdScript('seo-faq-schema', faqSchema);
+
+    // E) HowTo Schema if howToSteps exist
+    if (howToSteps && howToSteps.length > 0) {
+      const howToSchema = getHowToSchema(title, description, howToSteps, fullCanonical);
+      setJsonLdScript('seo-howto-schema', howToSchema);
     } else {
-      const existingFaqScript = document.head.querySelector('script#seo-faq-schema');
-      if (existingFaqScript) existingFaqScript.remove();
+      setJsonLdScript('seo-howto-schema', null);
     }
 
-    // D) BreadcrumbList Schema
+    // F) BreadcrumbList Schema
     const breadcrumbList = breadcrumbs.length > 0 
       ? breadcrumbs 
       : [
           { name: 'Home', url: DEFAULT_DOMAIN },
-          ...(fullCanonical !== DEFAULT_DOMAIN ? [{ name: category, url: `${DEFAULT_DOMAIN}/` }, { name: title.replace(` | ${SITE_NAME}`, ''), url: fullCanonical }] : [])
+          ...(fullCanonical !== DEFAULT_DOMAIN ? [{ name: category, url: `${DEFAULT_DOMAIN}/tools` }, { name: title.replace(` | ${SITE_NAME}`, ''), url: fullCanonical }] : [])
         ];
 
-    if (breadcrumbList.length > 1) {
-      const breadcrumbSchema = {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        'itemListElement': breadcrumbList.map((crumb, idx) => ({
-          '@type': 'ListItem',
-          'position': idx + 1,
-          'name': crumb.name,
-          'item': crumb.url.startsWith('http') ? crumb.url : `${DEFAULT_DOMAIN}${crumb.url.startsWith('/') ? crumb.url : '/' + crumb.url}`
-        }))
-      };
-      setJsonLdScript('seo-breadcrumb-schema', breadcrumbSchema);
-    } else {
-      const existingBcScript = document.head.querySelector('script#seo-breadcrumb-schema');
-      if (existingBcScript) existingBcScript.remove();
-    }
+    const breadcrumbSchema = getBreadcrumbSchema(breadcrumbList);
+    setJsonLdScript('seo-breadcrumb-schema', breadcrumbSchema);
 
-  }, [formattedTitle, description, fullCanonical, ogType, ogImage, category, ratingValue, ratingCount, faqs, breadcrumbs, noindex]);
+  }, [
+    formattedTitle,
+    description,
+    fullCanonical,
+    ogType,
+    ogImage,
+    category,
+    ratingValue,
+    ratingCount,
+    faqs,
+    howToSteps,
+    breadcrumbs,
+    featureList,
+    lastUpdatedDate,
+    noindex,
+  ]);
 
   return null;
 };

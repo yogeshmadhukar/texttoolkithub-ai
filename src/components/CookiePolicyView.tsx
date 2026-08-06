@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { getSavedConsentStatus, setAnalyticsConsent, GA_MEASUREMENT_ID } from '../lib/analytics.ts';
 import SEO from './SEO.tsx';
+import LegalFooter from './LegalFooter.tsx';
+import { SUPPORT_EMAIL } from '../utils/schemaGenerator.ts';
 
 interface CookiePolicyViewProps {
   onNavigateHome: () => void;
@@ -402,10 +404,10 @@ export default function CookiePolicyView({ onNavigateHome, onNavigateToTool }: C
                 <div className="p-4 bg-slate-50 dark:bg-slate-900/30 rounded-xl border border-slate-150 dark:border-slate-850 inline-block">
                   <span className="text-xs text-slate-400 block mb-0.5">Primary Support Address</span>
                   <a 
-                    href="mailto:texttoolkithub@gmail.com" 
+                    href={`mailto:${SUPPORT_EMAIL}`} 
                     className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline text-sm"
                   >
-                    texttoolkithub@gmail.com
+                    {SUPPORT_EMAIL}
                   </a>
                 </div>
               </section>
@@ -430,6 +432,9 @@ export default function CookiePolicyView({ onNavigateHome, onNavigateToTool }: C
             </div>
 
           </article>
+
+          {/* Unified Legal Document Footer */}
+          <LegalFooter />
 
         </div>
 

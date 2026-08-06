@@ -15,6 +15,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { analytics } from '../lib/analytics.ts';
+import { SUPPORT_EMAIL, GENERAL_EMAIL } from '../utils/schemaGenerator.ts';
 
 
 interface FAQItem {
@@ -161,7 +162,7 @@ export default function ContactView() {
         "Subject Category": subject
       };
 
-      const response = await fetch("https://formsubmit.co/ajax/texttoolkithub@gmail.com", {
+      const response = await fetch(`https://formsubmit.co/ajax/${SUPPORT_EMAIL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -217,7 +218,7 @@ export default function ContactView() {
         // Build a temporary form to submit via standard form post targeting the hidden iframe
         const tempForm = document.createElement('form');
         tempForm.method = 'POST';
-        tempForm.action = 'https://formsubmit.co/texttoolkithub@gmail.com';
+        tempForm.action = `https://formsubmit.co/${SUPPORT_EMAIL}`;
         tempForm.target = 'hidden_support_iframe';
         tempForm.style.display = 'none';
 
@@ -279,7 +280,7 @@ export default function ContactView() {
       }
 
       console.error("Support form transmission failure:", err);
-      setFormError(err?.message || "An unexpected error occurred while transmitting your request. Please try again or contact us directly at texttoolkithub@gmail.com");
+      setFormError(err?.message || `An unexpected error occurred while transmitting your request. Please try again or contact us directly at ${SUPPORT_EMAIL}`);
     } finally {
       setLoading(false);
     }
@@ -397,11 +398,17 @@ export default function ContactView() {
                 </span>
               </div>
               
-              <div className="space-y-2 border-t border-slate-100 dark:border-slate-900 pt-3">
+              <div className="space-y-3 border-t border-slate-100 dark:border-slate-900 pt-3">
                 <div>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-medium">Support &amp; Editorial Inbox</span>
-                  <a href="mailto:texttoolkithub@gmail.com" className="text-xs sm:text-sm font-semibold text-indigo-650 dark:text-indigo-400 hover:underline flex items-center gap-1.5 mt-0.5">
-                    <Mail className="w-3.5 h-3.5" /> texttoolkithub@gmail.com
+                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">Technical Support, Bug Reports & Legal</span>
+                  <a href={`mailto:${SUPPORT_EMAIL}`} className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1.5 mt-0.5">
+                    <Mail className="w-3.5 h-3.5" /> {SUPPORT_EMAIL}
+                  </a>
+                </div>
+                <div>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">General Inquiries, Media & Partnerships</span>
+                  <a href={`mailto:${GENERAL_EMAIL}`} className="text-xs sm:text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5 mt-0.5">
+                    <Mail className="w-3.5 h-3.5" /> {GENERAL_EMAIL}
                   </a>
                 </div>
               </div>

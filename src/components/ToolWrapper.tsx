@@ -5,6 +5,9 @@ import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
 import AdPlacement from './AdPlacement.tsx';
 import SEO from './SEO.tsx';
+import TrustBadges from './TrustBadges.tsx';
+import TechnicalExplanation from './TechnicalExplanation.tsx';
+import AuthorBioCard from './AuthorBioCard.tsx';
 
 import { 
   FileText, 
@@ -449,6 +452,7 @@ Writing blog drafts or corporate press articles can be stressful when characters
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
               {tool.description}
             </p>
+            <TrustBadges variant="compact" className="mt-3" />
           </div>
 
           {/* Simulated SEO Tags Dropdown Trigger Button */}
@@ -858,6 +862,9 @@ Writing blog drafts or corporate press articles can be stressful when characters
               </p>
             </div>
 
+            {/* Transparent Technical Architecture Explanation */}
+            <TechnicalExplanation toolTitle={tool.title} />
+
           </div>
 
           {/* RIGHT PANEL: Live Results & Counters (4 Cols) */}
@@ -1037,6 +1044,9 @@ Writing blog drafts or corporate press articles can be stressful when characters
           </div>
 
         </div>
+
+        {/* AUTHOR & PUBLISHER TRANSPARENCY CARD (E-E-A-T) */}
+        <AuthorBioCard toolName={tool.title} onNavigate={(p) => onNavigateToTool(p)} />
 
         {/* IN-CONTENT PROGRAMMATIC AD PLACEMENT FOR ALL TOOLWRAPPER UTILITIES */}
         <div className="my-8">

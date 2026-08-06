@@ -31,6 +31,10 @@ import {
   Database
 } from 'lucide-react';
 import AdPlacement from './AdPlacement.tsx';
+import SEO from './SEO.tsx';
+import TrustBadges from './TrustBadges.tsx';
+import TechnicalExplanation from './TechnicalExplanation.tsx';
+import AuthorBioCard from './AuthorBioCard.tsx';
 
 let cachedPdfJs: any = null;
 
@@ -698,8 +702,62 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
 
   const activeSheet = extractedSheets[selectedSheetIndex] || extractedSheets[0];
 
+  const pdfFaqs = [
+    {
+      question: "Are my sensitive PDF bank statements uploaded to any server?",
+      answer: "No! All PDF parsing and coordinate extraction runs 100% inside your local browser memory using PDF.js and SheetJS. Your files are never uploaded to any cloud server."
+    },
+    {
+      question: "Does this tool support scanned PDFs or photo documents?",
+      answer: "This tool is optimized for native, text-based PDFs (e.g. digital invoices, generated bank statements, exported reports). Scanned photos or flattened image PDFs require Optical Character Recognition (OCR), which is not included in this client-side local version."
+    },
+    {
+      question: "What if the extracted columns look slightly misaligned?",
+      answer: "You can adjust the 'Row Alignment Tolerance' slider in the Extraction Settings bar to tweak how strictly text elements on the same horizontal line are grouped together."
+    },
+    {
+      question: "Can I export to both Excel (.xlsx) and CSV?",
+      answer: "Yes! You can choose to download as an Excel workbook (.xlsx) or export the active worksheet as a clean CSV file."
+    }
+  ];
+
+  const pdfHowToSteps = [
+    {
+      name: "Select or Drag & Drop PDF",
+      text: "Click 'Upload PDF Document' or drop your table PDF directly onto the secure workspace."
+    },
+    {
+      name: "Configure Row & Sheet Extraction Settings",
+      text: "Toggle multi-page layout rules (Combined vs. Separate Worksheets) and row alignment tolerance as needed."
+    },
+    {
+      name: "Preview & Verify Extracted Tables",
+      text: "Inspect extracted rows and columns in the live interactive data grid preview."
+    },
+    {
+      name: "Export to Excel (.xlsx)",
+      text: "Click 'Download Excel Workbook (.xlsx)' to save your perfectly formatted spreadsheet instantly."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 pb-16">
+      
+      <SEO 
+        title="Free PDF to Excel Converter - On-Device Table Extraction"
+        description="Convert PDF tables to Excel spreadsheets (.xlsx) and CSV instantly in your browser. 100% private, on-device processing with zero server uploads."
+        canonicalUrl="/pdf-to-excel"
+        category="Converters"
+        faqs={pdfFaqs}
+        howToSteps={pdfHowToSteps}
+        featureList={[
+          '100% In-Browser Client Processing',
+          'Exact Table Layout Preservation',
+          'Preserves Long Numbers (Aadhaar, UDISE, Phone) as Text',
+          'Supports Multi-Page PDFs & Excel (.xlsx) / CSV Exports',
+          'Zero Remote Data Server Uploads'
+        ]}
+      />
       
       {/* Top Header & Breadcrumb Container */}
       <div className="bg-white dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800/80 pt-6 pb-8 px-4 sm:px-6 lg:px-8">
@@ -1226,6 +1284,18 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
             </div>
 
           </div>
+
+          {/* Transparent Engineering Architecture Explanation */}
+          <TechnicalExplanation 
+            toolTitle="PDF to Excel Converter" 
+            technologyUsed="PDF.js Coordinate Parsing & SheetJS Data Engine" 
+          />
+
+          {/* Author & Publisher E-E-A-T Transparency Box */}
+          <AuthorBioCard 
+            toolName="PDF to Excel Converter" 
+            onNavigate={(page) => onNavigateToTool(page)} 
+          />
 
           {/* Interactive FAQ Accordion */}
           <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 p-6 sm:p-8 space-y-6">

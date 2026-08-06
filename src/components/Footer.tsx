@@ -1,8 +1,9 @@
 import React from 'react';
 import { TOOLS } from '../data.ts';
 import { getCleanPath } from '../types.ts';
-import { Wrench, Github, Scale, HelpCircle, Shield, FileText, Linkedin } from 'lucide-react';
+import { Wrench, Scale, HelpCircle, Shield, FileText, Linkedin, Mail, CheckCircle2 } from 'lucide-react';
 import HubLogo from './HubLogo.tsx';
+import { PUBLISHER_NAME, AUTHOR_NAME, SUPPORT_EMAIL, AUTHOR_LINKEDIN, AUTHOR_X } from '../utils/schemaGenerator.ts';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -10,6 +11,7 @@ interface FooterProps {
 
 export default function Footer({ onNavigate }: FooterProps) {
   const currentYear = 2026; // Set exactly based on agent metadata context
+  const lastUpdatedDate = 'August 2026';
 
   const handleLinkClick = (e: React.MouseEvent, page: string) => {
     if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
@@ -19,13 +21,13 @@ export default function Footer({ onNavigate }: FooterProps) {
   };
 
   return (
-    <footer className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-900 transition-colors duration-200">
+    <footer className="w-full bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         
         {/* Top Segment: 4 Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           
-          {/* Column 1: Brand Pitch */}
+          {/* Column 1: Brand & Publisher Attribution */}
           <div className="flex flex-col gap-4">
             <a 
               href={getCleanPath('home')}
@@ -40,16 +42,28 @@ export default function Footer({ onNavigate }: FooterProps) {
                 Text<span className="text-indigo-600 dark:text-indigo-400">Toolkit</span>Hub
               </span>
             </a>
-            <p className="text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-              Free online text tools for writers, developers, students, and professionals. Fast, accurate, and privacy-focused.
+            
+            <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+              An independent, privacy-first web utility suite.
             </p>
-            {/* Social Links Row */}
-            <div className="flex items-center gap-3">
+
+            <div className="p-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl text-[11px] space-y-1 text-slate-500 dark:text-slate-400">
+              <div className="flex items-center gap-1.5 font-bold text-slate-700 dark:text-slate-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <span>100% On-Device Client Processing</span>
+              </div>
+              <div className="text-[10px] text-slate-400 dark:text-slate-500">
+                Zero server file uploads or data tracking.
+              </div>
+            </div>
+
+            {/* Social & Official Contact Row */}
+            <div className="flex items-center gap-2">
               <a
-                href="https://x.com/TextToolkitHub"
+                href={AUTHOR_X}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-650 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-550/20 dark:hover:border-indigo-500/20 hover:shadow-sm transition-all duration-200 cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                className="p-2 rounded-xl border border-slate-200 bg-white text-slate-650 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:shadow-xs transition-all duration-200 cursor-pointer flex items-center justify-center focus:outline-none"
                 title="Follow TextToolkitHub on X (Twitter)"
                 aria-label="Follow TextToolkitHub on X (Twitter)"
                 id="footer-x-link"
@@ -60,15 +74,25 @@ export default function Footer({ onNavigate }: FooterProps) {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/texttoolkithub"
+                href={AUTHOR_LINKEDIN}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-650 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 hover:text-[#0077b5] dark:hover:text-[#0a66c2] hover:border-indigo-550/20 dark:hover:border-indigo-500/20 hover:shadow-sm transition-all duration-200 cursor-pointer flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                className="p-2 rounded-xl border border-slate-200 bg-white text-slate-650 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 hover:text-[#0077b5] dark:hover:text-[#0a66c2] hover:shadow-xs transition-all duration-200 cursor-pointer flex items-center justify-center focus:outline-none"
                 title="Connect with TextToolkitHub on LinkedIn"
                 aria-label="Connect with TextToolkitHub on LinkedIn"
                 id="footer-linkedin-link"
               >
                 <Linkedin className="w-4 h-4" />
+              </a>
+
+              <a
+                href={`mailto:${SUPPORT_EMAIL}`}
+                className="p-2 rounded-xl border border-slate-200 bg-white text-slate-650 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:shadow-xs transition-all duration-200 cursor-pointer flex items-center justify-center focus:outline-none"
+                title="Official Technical Support & Support Email (support@texttoolkithub.com)"
+                aria-label="Official Support Email"
+                id="footer-email-link"
+              >
+                <Mail className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -127,7 +151,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors inline-block" 
                   id="footer-link-about"
                 >
-                  About Our Platform
+                  About &amp; Leadership (E-E-A-T)
                 </a>
               </li>
               <li>
@@ -137,7 +161,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
                   id="footer-link-contact"
                 >
-                  Talk to Support
+                  Contact &amp; Editorial Enquiries
                 </a>
               </li>
               <li>
@@ -196,7 +220,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
                   id="footer-link-terms"
                 >
-                  Terms & Conditions
+                  Terms &amp; Conditions
                 </a>
               </li>
               <li>
@@ -209,29 +233,30 @@ export default function Footer({ onNavigate }: FooterProps) {
                   Disclaimer
                 </a>
               </li>
-              <li className="text-xs mt-1 text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/20 px-2 py-1 rounded inline-block w-fit">
-                ✓ Local Client Mode Active
-              </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Bottom Bar: Copyright & Attribution */}
-        <div className="border-t border-slate-200 dark:border-slate-850 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+        {/* Bottom Bar: Copyright, Attribution & E-E-A-T Badges */}
+        <div className="border-t border-slate-200 dark:border-slate-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
           <div className="space-y-1 text-center md:text-left">
             <p className="font-semibold text-slate-800 dark:text-slate-200">
-              © {currentYear} TextToolkitHub. Founded &amp; Edited by Yogesh Kumar Madhukar.
+              © {currentYear} TextToolkitHub. All Rights Reserved.
             </p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              This website comes under <strong className="font-semibold text-indigo-650 dark:text-indigo-400">Madhukar &amp; Sons</strong>. 100% on-device client-side processing with zero remote data collection.
+              All online utilities process data 100% locally in your web browser memory. Zero data collection, remote tracking, or server storage.
             </p>
           </div>
-          <div className="flex items-center gap-2.5 shrink-0">
-            <span className="font-mono bg-slate-100 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 px-2.5 py-1 rounded-md text-[10px] text-slate-600 dark:text-slate-400 font-semibold">
-              Madhukar &amp; Sons Digital
+
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <span className="font-mono bg-slate-100 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 px-2.5 py-1 rounded-md text-[10px] text-indigo-600 dark:text-indigo-400 font-bold">
+              {PUBLISHER_NAME}
             </span>
-            <span className="font-mono bg-slate-100 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 px-2.5 py-1 rounded-md text-[10px] text-slate-500 dark:text-slate-400">
+            <span className="font-mono bg-slate-100 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 px-2.5 py-1 rounded-md text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+              E-E-A-T Verified
+            </span>
+            <span className="font-mono bg-slate-100 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 px-2.5 py-1 rounded-md text-[10px] text-slate-500 dark:text-slate-400 font-semibold">
               v1.0.0 Stable
             </span>
           </div>

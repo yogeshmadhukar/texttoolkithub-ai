@@ -16,6 +16,8 @@ import {
   RefreshCw
 } from 'lucide-react';
 import SEO from './SEO.tsx';
+import LegalFooter from './LegalFooter.tsx';
+import { SUPPORT_EMAIL } from '../utils/schemaGenerator.ts';
 
 interface DmcaViewProps {
   onNavigateHome: () => void;
@@ -27,7 +29,7 @@ export default function DmcaView({ onNavigateHome, onNavigateToTool }: DmcaViewP
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('texttoolkithub@gmail.com');
+    navigator.clipboard.writeText(SUPPORT_EMAIL);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 3000);
   };
@@ -233,7 +235,7 @@ export default function DmcaView({ onNavigateHome, onNavigateToTool }: DmcaViewP
                   <div className="p-4 bg-slate-50 dark:bg-slate-900/30 rounded-xl border border-slate-150 dark:border-slate-850 flex-grow">
                     <span className="text-xs text-slate-400 block mb-0.5">Primary Compliance Desk</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200 text-sm">
-                      texttoolkithub@gmail.com
+                      {SUPPORT_EMAIL}
                     </span>
                   </div>
                   <button 
@@ -269,6 +271,9 @@ export default function DmcaView({ onNavigateHome, onNavigateToTool }: DmcaViewP
             </div>
 
           </article>
+
+          {/* Unified Legal Document Footer */}
+          <LegalFooter />
 
         </div>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { ShieldCheck, Scale, FileText, Check, AlertCircle } from 'lucide-react';
 import SEO from './SEO.tsx';
+import LegalFooter from './LegalFooter.tsx';
+import { SUPPORT_EMAIL } from '../utils/schemaGenerator.ts';
 
 interface LegalViewProps {
   mode: 'privacy' | 'terms' | 'disclaimer';
@@ -103,7 +105,7 @@ export default function LegalView({ mode }: LegalViewProps) {
                   </div>
                 </div>
                 <p className="mt-2">
-                  To exercise any of these rights, or raise specific regulatory questions, contact us directly at <strong className="text-slate-800 dark:text-slate-200"><a href="mailto:texttoolkithub@gmail.com" className="hover:underline text-indigo-600 dark:text-indigo-400">texttoolkithub@gmail.com</a></strong>.
+                  To exercise any of these rights, or raise specific regulatory questions, contact us directly at <strong className="text-slate-800 dark:text-slate-200"><a href={`mailto:${SUPPORT_EMAIL}`} className="hover:underline text-indigo-600 dark:text-indigo-400">{SUPPORT_EMAIL}</a></strong>.
                 </p>
 
                 <h2 className="text-lg font-light font-display text-slate-900 dark:text-white pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center gap-2">
@@ -268,7 +270,7 @@ export default function LegalView({ mode }: LegalViewProps) {
                   We reserve the right, at our sole discretion, to modify or replace these Terms at any time by updating this online address. Your continued interaction with the utility systems following such modifications constitutes binding agreement to the revised terms.
                 </p>
                 <p>
-                  If you have any questions or require legal clearance for academic or professional applications, please contact our support desk at <strong className="text-slate-800 dark:text-slate-200"><a href="mailto:texttoolkithub@gmail.com" className="hover:underline text-indigo-600 dark:text-indigo-400">texttoolkithub@gmail.com</a></strong>.
+                  If you have any questions or require legal clearance for academic or professional applications, please contact our support desk at <strong className="text-slate-800 dark:text-slate-200"><a href={`mailto:${SUPPORT_EMAIL}`} className="hover:underline text-indigo-600 dark:text-indigo-400">{SUPPORT_EMAIL}</a></strong>.
                 </p>
 
               </div>
@@ -385,13 +387,16 @@ export default function LegalView({ mode }: LegalViewProps) {
                   If you have any questions, regulatory feedback, or legal inquiries regarding this Disclaimer or our operations, please feel free to reach out to us directly at our dedicated support address: 
                 </p>
                 <p className="font-semibold text-slate-800 dark:text-slate-200 pb-4">
-                  <a href="mailto:texttoolkithub@gmail.com" className="hover:underline text-indigo-600 dark:text-indigo-400">texttoolkithub@gmail.com</a>
+                  <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:underline text-indigo-600 dark:text-indigo-400">{SUPPORT_EMAIL}</a>
                 </p>
 
               </div>
 
             </article>
           )}
+
+          {/* Unified Legal Document Footer */}
+          <LegalFooter />
 
         </div>
 

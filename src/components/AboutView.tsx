@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import SEO from './SEO.tsx';
+import { SUPPORT_EMAIL, GENERAL_EMAIL } from '../utils/schemaGenerator.ts';
 import { 
   Shield, 
   Cpu, 
@@ -787,9 +788,9 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
                 {/* Social Connect buttons */}
                 <div className="flex items-center justify-center md:justify-start gap-2 mt-2 sm:mt-0">
                   <a
-                    href="mailto:texttoolkithub@gmail.com"
+                    href={`mailto:${GENERAL_EMAIL}`}
                     className="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
-                    title="Contact Yogesh Kumar Madhukar"
+                    title="Contact Yogesh Kumar Madhukar (hello@texttoolkithub.com)"
                     aria-label="Contact Yogesh Kumar Madhukar"
                   >
                     <Mail className="w-4 h-4" />
@@ -907,7 +908,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
                   </li>
                   <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
                     <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500 shrink-0 mt-0.5" />
-                    <span><strong>Reader Correction channel:</strong> If our readers detect an outdated specification or code bug, they can reach the Chief Editor directly at <a href="mailto:texttoolkithub@gmail.com" className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">texttoolkithub@gmail.com</a> for immediate auditing.</span>
+                    <span><strong>Reader Correction channel:</strong> If our readers detect an outdated specification or code bug, they can reach the Chief Editor directly at <a href={`mailto:${SUPPORT_EMAIL}`} className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">{SUPPORT_EMAIL}</a> for immediate auditing.</span>
                   </li>
                 </ul>
               </div>
