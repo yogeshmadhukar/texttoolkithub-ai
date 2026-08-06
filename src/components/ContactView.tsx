@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import SEO from './SEO.tsx';
 import { 
@@ -60,6 +60,75 @@ export default function ContactView() {
 
   // State to manage clean, non-blocking on-screen clear logs confirmation
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+  // Cloudflare Turnstile integration state & refs
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetIdRef = useRef<any>(null);
+  const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
+
+  useEffect(() => {
+    if (!siteKey) return;
+
+    // Set callback on window before loading the script
+    (window as any).onloadTurnstileCallback = () => {
+      if ((window as any).turnstile && turnstileContainerRef.current) {
+        try {
+          // If already rendered, remove it first to avoid duplicates
+          if (turnstileWidgetIdRef.current !== null) {
+            (window as any).turnstile.remove(turnstileWidgetIdRef.current);
+          }
+
+          const widgetId = (window as any).turnstile.render(turnstileContainerRef.current, {
+            sitekey: siteKey,
+            callback: (token: string) => {
+              setTurnstileToken(token);
+              setFormError(null);
+            },
+            'error-callback': () => {
+              setFormError("Cloudflare Turnstile security verification failed. Please try reloading the page.");
+            },
+            'expired-callback': () => {
+              setTurnstileToken('');
+              setFormError("Security verification token expired. Please verify again.");
+            }
+          });
+          turnstileWidgetIdRef.current = widgetId;
+        } catch (e) {
+          console.error("Cloudflare Turnstile render error:", e);
+        }
+      }
+    };
+
+    // Load Turnstile script dynamically
+    const scriptId = 'cloudflare-turnstile-script';
+    let script = document.getElementById(scriptId) as HTMLScriptElement;
+    if (!script) {
+      script = document.createElement('script');
+      script.id = scriptId;
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback';
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    } else if ((window as any).turnstile) {
+      // Script is already loaded, render immediately
+      (window as any).onloadTurnstileCallback();
+    }
+
+    return () => {
+      // Clean up global callback
+      delete (window as any).onloadTurnstileCallback;
+      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
+        try {
+          (window as any).turnstile.remove(turnstileWidgetIdRef.current);
+          turnstileWidgetIdRef.current = null;
+        } catch (e) {
+          // Ignore removal errors on component unmount
+        }
+      }
+      setTurnstileToken('');
+    };
+  }, [siteKey]);
 
   const faqs: FAQItem[] = [
     {
@@ -132,6 +201,12 @@ export default function ContactView() {
       return;
     }
 
+    // Ensure Cloudflare Turnstile verification is completed if siteKey is configured
+    if (siteKey && !turnstileToken) {
+      setFormError("Please complete the Cloudflare Turnstile security verification before sending.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -141,7 +216,8 @@ export default function ContactView() {
         email: email.trim(),
         category: subject,
         message: message.trim(),
-        honeypot: honeypot.trim()
+        honeypot: honeypot.trim(),
+        captchaToken: turnstileToken
       };
 
       const response = await fetch('/api/contact', {
@@ -191,6 +267,16 @@ export default function ContactView() {
       setEmail('');
       setMessage('');
       setHoneypot('');
+      setTurnstileToken('');
+
+      // Reset Cloudflare Turnstile widget
+      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
+        try {
+          (window as any).turnstile.reset(turnstileWidgetIdRef.current);
+        } catch (e) {
+          console.warn("Turnstile reset error:", e);
+        }
+      }
 
     } catch (err: any) {
       console.error("Support form transmission error:", err);
@@ -534,6 +620,20 @@ export default function ContactView() {
                         <strong>Privacy Consent:</strong> We collect only the sender details above to correspond regarding your request. In strict accordance with our <a href="/privacy-policy" className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500">Privacy Policy</a>, we employ no third-party telemetry, sell no database entries, and delete inactive tickets securely.
                       </p>
                     </div>
+
+                    {/* Cloudflare Turnstile Challenge Widget */}
+                    {siteKey && (
+                      <div className="flex flex-col gap-2 items-end my-1">
+                        <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                          Security Verification *
+                        </span>
+                        <div 
+                          ref={turnstileContainerRef} 
+                          id="turnstile-container"
+                          className="min-h-[65px] flex items-center justify-end animate-fade-in"
+                        />
+                      </div>
+                    )}
 
                     {/* Submit Button Block */}
                     <button

@@ -36,53 +36,37 @@ function sanitizeHeader(text: string): string {
   return String(text).replace(/[\r\n\t]/g, ' ').trim();
 }
 
-// Verify Turnstile or reCAPTCHA token if secret key is present
+// Verify Turnstile token if secret key is present
 async function verifyCaptcha(token: string, ip: string): Promise<boolean> {
-  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
-  const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
 
-  if (turnstileSecret) {
-    try {
-      const formData = new URLSearchParams();
-      formData.append('secret', turnstileSecret);
-      formData.append('response', token);
-      formData.append('remoteip', ip);
-
-      const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
-      });
-      const data = await res.json();
-      return !!data.success;
-    } catch (err) {
-      console.error('[Captcha Verification Error - Turnstile]:', err);
-      return false;
-    }
+  // If no secret key is configured, pass validation
+  if (!turnstileSecret) {
+    return true;
   }
 
-  if (recaptchaSecret) {
-    try {
-      const formData = new URLSearchParams();
-      formData.append('secret', recaptchaSecret);
-      formData.append('response', token);
-      formData.append('remoteip', ip);
-
-      const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
-      });
-      const data = await res.json();
-      return !!data.success;
-    } catch (err) {
-      console.error('[Captcha Verification Error - reCAPTCHA]:', err);
-      return false;
-    }
+  // If secret key is set but no token was provided by the client, fail validation
+  if (!token || !token.trim()) {
+    return false;
   }
 
-  // If no secret key is configured, pass validation (handled by honeypot + rate limit)
-  return true;
+  try {
+    const formData = new URLSearchParams();
+    formData.append('secret', turnstileSecret);
+    formData.append('response', token.trim());
+    formData.append('remoteip', ip);
+
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    });
+    const data = await res.json();
+    return !!data.success;
+  } catch (err) {
+    console.error('[Captcha Verification Error - Turnstile]:', err);
+    return false;
+  }
 }
 
 export async function handleContactRequest(req: any, res: any) {
@@ -168,13 +152,15 @@ export async function handleContactRequest(req: any, res: any) {
       return;
     }
 
-    // Verify reCAPTCHA or Turnstile token if configured
-    if (captchaToken || process.env.TURNSTILE_SECRET_KEY || process.env.RECAPTCHA_SECRET_KEY) {
+    // Verify Cloudflare Turnstile token if secret key is configured
+    const hasTurnstileSecret = Boolean(process.env.TURNSTILE_SECRET_KEY?.trim());
+
+    if (hasTurnstileSecret || captchaToken) {
       const isValidCaptcha = await verifyCaptcha(captchaToken || '', ipAddress);
       if (!isValidCaptcha) {
         res.statusCode = 400;
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ error: 'Security Verification Failed: Captcha token was invalid or expired.' }));
+        res.end(JSON.stringify({ error: 'Security Verification Failed: Turnstile token was invalid or expired.' }));
         return;
       }
     }
