@@ -287,14 +287,74 @@ export async function handleContactRequest(req: any, res: any) {
 </html>
 `;
 
-    // Send Admin Email
-    await transporter.sendMail({
-      from: `"TextToolkitHub System" <${smtpUser}>`,
-      to: 'support@texttoolkithub.com',
-      replyTo: `"${sanitizeHeader(cleanName)}" <${cleanEmail}>`,
-      subject: `New Contact Form Submission – TextToolkitHub`,
-      html: adminEmailHtml,
-    });
+    // --- SMTP AUDIT & TRANSMISSION ---
+    console.log('================== SMTP AUDIT START ==================');
+    console.log(`[SMTP Audit] SMTP Host: "${smtpHost}"`);
+    console.log(`[SMTP Audit] SMTP Port: ${smtpPort}`);
+    console.log(`[SMTP Audit] SSL/TLS (Secure): ${smtpSecure}`);
+    console.log(`[SMTP Audit] Auth Username (User): "${smtpUser}"`);
+    console.log(`[SMTP Audit] Auth Password defined: ${smtpPass ? `YES (length: ${smtpPass.length} chars)` : 'NO'}`);
+    console.log(`[SMTP Audit] Admin Recipient (To): "support@texttoolkithub.com"`);
+    console.log(`[SMTP Audit] User Recipient (To): "${cleanEmail}"`);
+    console.log('======================================================');
+
+    // 1. Verifying SMTP Connection / Configuration
+    console.log('[SMTP Audit] Step 1: Performing transporter.verify() connection and auth handshake...');
+    try {
+      await transporter.verify();
+      console.log('[SMTP Audit] Step 1 SUCCESS: SMTP connection and credentials handshake verified successfully.');
+    } catch (verifyErr: any) {
+      console.error('[SMTP Audit Error] Step 1 FAILURE: SMTP connection/auth handshake failed:', verifyErr);
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ 
+        error: `SMTP Configuration / Connection Verification Failed: ${verifyErr.message || 'Unknown verification error'}` +
+               (verifyErr.code ? ` (Code: ${verifyErr.code})` : '') +
+               (verifyErr.response ? ` (Response: ${verifyErr.response})` : '') +
+               (verifyErr.responseCode ? ` (Response Code: ${verifyErr.responseCode})` : '') +
+               (verifyErr.command ? ` (Command: ${verifyErr.command})` : '')
+      }));
+      return;
+    }
+
+    // 2. Send Admin Notification Email
+    console.log('[SMTP Audit] Step 2: Sending Admin Notification Email...');
+    let adminEmailInfo;
+    try {
+      adminEmailInfo = await transporter.sendMail({
+        from: `"TextToolkitHub System" <${smtpUser}>`,
+        to: 'support@texttoolkithub.com',
+        replyTo: `"${sanitizeHeader(cleanName)}" <${cleanEmail}>`,
+        subject: `New Contact Form Submission – TextToolkitHub`,
+        html: adminEmailHtml,
+      });
+
+      console.log('[SMTP Audit] Step 2 SUCCESS: Admin Notification Email was transmitted.');
+      console.log('[SMTP Audit] Message ID:', adminEmailInfo.messageId);
+      console.log('[SMTP Audit] Envelope:', JSON.stringify(adminEmailInfo.envelope));
+      console.log('[SMTP Audit] Accepted Recipients:', JSON.stringify(adminEmailInfo.accepted));
+      console.log('[SMTP Audit] Rejected Recipients:', JSON.stringify(adminEmailInfo.rejected));
+      console.log('[SMTP Audit] SMTP Server Response:', adminEmailInfo.response);
+
+      // Verify recipient was accepted
+      const adminAccepted = (adminEmailInfo.accepted || []).map((e: string) => e.toLowerCase());
+      const isAdminAccepted = adminAccepted.includes('support@texttoolkithub.com');
+      if (!isAdminAccepted) {
+        throw new Error(`Recipient support@texttoolkithub.com was NOT accepted by SMTP server. Rejected: ${JSON.stringify(adminEmailInfo.rejected)}`);
+      }
+    } catch (sendErr: any) {
+      console.error('[SMTP Audit Error] Step 2 FAILURE: Admin email transmission failed:', sendErr);
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({
+        error: `SMTP Error: Admin email transmission failed: ${sendErr.message || 'Unknown sending error'}` +
+               (sendErr.code ? ` (Code: ${sendErr.code})` : '') +
+               (sendErr.response ? ` (Response: ${sendErr.response})` : '') +
+               (sendErr.responseCode ? ` (Response Code: ${sendErr.responseCode})` : '') +
+               (sendErr.command ? ` (Command: ${sendErr.command})` : '')
+      }));
+      return;
+    }
 
     // Prepare HTML template for Automatic Acknowledgement Email to Sender
     const ackEmailHtml = `
@@ -346,18 +406,46 @@ export async function handleContactRequest(req: any, res: any) {
 </html>
 `;
 
-    // Send Automatic Acknowledgement Email to User
+    // 3. Send Automatic Acknowledgement Email to User
+    console.log('[SMTP Audit] Step 3: Sending Automatic Acknowledgement Email to User...');
+    let ackEmailInfo;
     try {
-      await transporter.sendMail({
+      ackEmailInfo = await transporter.sendMail({
         from: `"TextToolkitHub Support" <${smtpUser}>`,
         to: `"${sanitizeHeader(cleanName)}" <${cleanEmail}>`,
         subject: `We've received your message – TextToolkitHub Support`,
         html: ackEmailHtml,
       });
-    } catch (ackErr) {
-      console.error('[SMTP Warning]: Automated acknowledgement email to sender failed:', ackErr);
-      // We do not fail the request if user acknowledgement fails as long as admin notification succeeded
+
+      console.log('[SMTP Audit] Step 3 SUCCESS: Acknowledgement Email was transmitted.');
+      console.log('[SMTP Audit] Message ID (Ack):', ackEmailInfo.messageId);
+      console.log('[SMTP Audit] Envelope (Ack):', JSON.stringify(ackEmailInfo.envelope));
+      console.log('[SMTP Audit] Accepted Recipients (Ack):', JSON.stringify(ackEmailInfo.accepted));
+      console.log('[SMTP Audit] Rejected Recipients (Ack):', JSON.stringify(ackEmailInfo.rejected));
+      console.log('[SMTP Audit] SMTP Server Response (Ack):', ackEmailInfo.response);
+
+      // Verify recipient was accepted
+      const ackAccepted = (ackEmailInfo.accepted || []).map((e: string) => e.toLowerCase());
+      const isAckAccepted = ackAccepted.includes(cleanEmail.toLowerCase());
+      if (!isAckAccepted) {
+        throw new Error(`Recipient ${cleanEmail} was NOT accepted by SMTP server. Rejected: ${JSON.stringify(ackEmailInfo.rejected)}`);
+      }
+    } catch (ackErr: any) {
+      console.error('[SMTP Audit Error] Step 3 FAILURE: Acknowledgement email transmission failed:', ackErr);
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({
+        error: `SMTP Error: Automated acknowledgement email to sender failed: ${ackErr.message || 'Unknown sending error'}` +
+               (ackErr.code ? ` (Code: ${ackErr.code})` : '') +
+               (ackErr.response ? ` (Response: ${ackErr.response})` : '') +
+               (ackErr.responseCode ? ` (Response Code: ${ackErr.responseCode})` : '') +
+               (ackErr.command ? ` (Command: ${ackErr.command})` : '')
+      }));
+      return;
     }
+
+    console.log('[SMTP Audit] ALL STAGES COMPLETED SUCCESSFULY. Transmitting positive API response.');
+    console.log('=================== SMTP AUDIT END ===================');
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
@@ -368,11 +456,11 @@ export async function handleContactRequest(req: any, res: any) {
     }));
 
   } catch (err: any) {
-    console.error('[SMTP Server Error]: Email transmission failed:', err);
+    console.error('[SMTP Server Error]: Global email transmission handler failed:', err);
     res.statusCode = 500;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ 
-      error: 'Failed to send email. Please verify Hostinger SMTP credentials on the server or try again later.' 
+      error: `Failed to send email. General Handler Exception: ${err.message || 'Unknown Error'}` 
     }));
   }
 }
