@@ -1,0 +1,77 @@
+# TextToolkitHub Complete Documentation
+
+> Privacy-first, browser-based web utilities for text, formatting, conversion, and file management. All processing is executed client-side on your device for absolute data privacy and security.
+
+This file contains the complete high-level documentation of TextToolkitHub, including features, guides, security models, and frequently asked questions for LLMs and developer agents.
+
+---
+
+## 1. About TextToolkitHub
+
+TextToolkitHub was built with a single mission: to provide developers, content creators, and casual users with high-quality, professional-grade utilities that are fast, accessible, and completely private.
+
+Unlike traditional online tool websites that upload your documents, API tokens, JSON strings, or text inputs to their servers for processing, TextToolkitHub executes 100% of its core features in your browser using modern client-side technologies (such as WebAssembly, JavaScript APIs, and local CSS engines).
+
+### Core Benefits
+*   **Absolute Privacy**: Your text, passwords, JWT tokens, files, and images never leave your local machine.
+*   **Blazing Fast Execution**: Processing occurs directly in your local hardware memory, bypassing any network roundtrip latency.
+*   **Offline Capability**: Once loaded, most tools can be used completely offline without an internet connection.
+*   **Zero Installation**: Standard web standards that run in any modern web browser across mobile, tablet, and desktop.
+
+---
+
+## 2. Core Tool Catalog & Details
+
+### PDF & Document Tools
+*   **Image to PDF**: Converts any image files (PNG, JPG, WebP) into highly optimized PDF pages. It supports customizing margins, paper size (A4, Letter), orientation, and compression quality.
+*   **PDF Splitter**: Seamlessly extracts specific pages or custom ranges (e.g., `1-3, 5, 8-12`) from an uploaded PDF. All files are split directly inside the browser using Javascript.
+*   **PDF Merger**: Joins multiple PDF files into a single consolidated PDF document. You can drag and drop to re-order the pages before final download.
+
+### Text Analysis & Formatting
+*   **Word Counter**: A highly precise analysis tool reporting real-time character counts, word counts, sentence counts, paragraph counts, and estimated reading/speaking times. Also features top keyword frequency distribution.
+*   **Grammar Checker**: Provides real-time proofreading powered by optimized local checks and optional advanced spelling, stylistic, and tone suggestions.
+*   **Readability Checker**: Computes readability scores based on industry-standard formulas, including:
+    *   *Flesch Reading Ease*
+    *   *Flesch-Kincaid Grade Level*
+    *   *Gunning Fog Index*
+    *   *Coleman-Liau Index*
+    *   *Automated Readability Index (ARI)*
+    *   *SMOG Index*
+*   **Case Converter**: Quickly transforms text between:
+    *   `UPPERCASE`
+    *   `lowercase`
+    *   `Sentence case`
+    *   `Title Case`
+    *   `camelCase`, `snake_case`, `PascalCase`
+*   **Text Compare / Visual Diff**: A visual text diffing tool to highlight additions, deletions, and updates between two text strings side-by-side or inline.
+
+### Developer & Conversion Utilities
+*   **Regex Tester**: A sandbox for regular expressions featuring live match highlighting, matching group captures, replacement utilities, and automated code-snippet generation in JavaScript, Python, Go, and Ruby.
+*   **Base64 Encoder & Decoder**: Safe base64 converter. Perfect for sensitive configurations, API keys, or binary text conversions since it runs 100% client-side.
+*   **JSON Formatter & Minifier**: Inspect, clean, validate, and beautify massive JSON payloads using an interactive tree-view explorer. It can compress payloads to a single line for production use.
+*   **JWT Decoder**: Decodes JSON Web Token (JWT) headers and payloads, and verifies their signatures completely client-side. There is zero risk of exposing authorization tokens to a third-party server.
+*   **Cron Builder**: A friendly visual editor for cron expressions, providing automatic explanations of what each asterisk means in human-readable terms.
+*   **QR Generator**: Generates SVG and PNG QR codes with customizable sizes, error correction levels, foreground/background colors, and branding options.
+
+---
+
+## 3. Data Security & Privacy Guarantee
+
+Because we do not use servers to parse your inputs, we offer a unique zero-trust security model:
+
+1.  **No Server Uploads**: The input text boxes, file upload drag-and-drop targets, and converter forms do not send POST or GET requests with your payload to any remote server.
+2.  **No Data Storage**: There is no database or caching layer storing your files. Closing the tab immediately destroys the current sandbox session state.
+3.  **Local-First Verification**: You can verify our data isolation by checking your browser's Developer Tools Network Tab. No network requests are made when you convert JSON, check text, encode base64, or merge PDFs.
+
+---
+
+## 4. Frequently Asked Questions (FAQ)
+
+#### Q: Are my files and data safe on TextToolkitHub?
+**A**: Absolutely. All tools on TextToolkitHub process data strictly on your local machine using client-side JavaScript. Your PDFs, text, keys, and images are never uploaded to any remote server.
+
+#### Q: Can I use these tools offline?
+**A**: Yes! Once you have loaded TextToolkitHub in your browser, the vast majority of our conversion, text formatting, and developer tools will work seamlessly without any active internet connection.
+
+#### Q: Is there any size limit for files or text?
+**A**: Size limits are dictated entirely by your device's browser memory (RAM) and CPU limits rather than our servers, which means you can process large payloads that would typically be blocked by upload size limits on other sites.

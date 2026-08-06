@@ -53,9 +53,16 @@ function generateSitemap() {
 
   xml += '\n</urlset>\n';
 
-  const outputPath = path.resolve(__dirname, '../public/sitemap.xml');
-  fs.writeFileSync(outputPath, xml, 'utf8');
-  console.log(`\x1b[32m✔ Dynamic sitemap.xml generated successfully in /public at ${currentDate}!\x1b[0m`);
+  const publicOutputPath = path.resolve(__dirname, '../public/sitemap.xml');
+  fs.writeFileSync(publicOutputPath, xml, 'utf8');
+
+  const distDir = path.resolve(__dirname, '../dist');
+  if (fs.existsSync(distDir)) {
+    const distOutputPath = path.resolve(distDir, 'sitemap.xml');
+    fs.writeFileSync(distOutputPath, xml, 'utf8');
+  }
+
+  console.log(`\x1b[32m✔ Dynamic sitemap.xml generated successfully in /public and /dist at ${currentDate}!\x1b[0m`);
 }
 
 generateSitemap();

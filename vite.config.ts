@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import fs from 'fs';
 import {defineConfig} from 'vite';
-import sharp from 'sharp';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import { handleContactRequest } from './api/contact.ts';
@@ -61,6 +60,8 @@ export default defineConfig(() => {
 
                   ensureBackup();
 
+                  const sharpModule = await import('sharp');
+                  const sharp = sharpModule.default;
                   const base64Data = base64.replace(/^data:image\/\w+;base64,/, "");
                   let buffer = Buffer.from(base64Data, 'base64');
                   

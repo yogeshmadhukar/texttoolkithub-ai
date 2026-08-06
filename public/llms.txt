@@ -1,0 +1,62 @@
+# TextToolkitHub
+
+> Privacy-first, browser-based web utilities for text, formatting, conversion, and file management. All processing is executed client-side on your device for absolute data privacy and security. For full-site documentation, see [llms-full.txt](https://texttoolkithub.com/llms-full.txt)
+
+## Core Services
+
+- [TextToolkitHub Home](https://texttoolkithub.com/): The main hub for all utilities, with dynamic search and quick tool filtering.
+- [Tools Directory](https://texttoolkithub.com/tools): A full index of over 50 online developer and content creation utilities.
+- [Guides](https://texttoolkithub.com/guides): Full lists of tutorial guides, technical references, and developer documentation.
+
+## PDF & Document Tools
+
+- [Image to PDF](https://texttoolkithub.com/image-to-pdf): Convert PNG, JPG, and WebP images to highly optimized PDFs locally.
+- [PDF Splitter](https://texttoolkithub.com/pdf-splitter): Extract pages or ranges from PDF files locally.
+- [PDF Merger](https://texttoolkithub.com/pdf-merger): Combine multiple PDF documents securely inside your browser.
+
+## Text Analysis & Formatting
+
+- [Word Counter](https://texttoolkithub.com/word-counter): Real-time analysis of words, characters, sentences, paragraphs, and reading times.
+- [Grammar Checker](https://texttoolkithub.com/grammar-checker): AI-assisted proofreading for grammar, spelling, style, and tone correction.
+- [Readability Checker](https://texttoolkithub.com/readability-checker): Calculate Flesch-Kincaid, Gunning Fog, and other readability scores.
+- [Case Converter](https://texttoolkithub.com/case-converter): Multi-format case transformer supporting uppercase, lowercase, sentence, and title cases.
+- [Case Converter Pro](https://texttoolkithub.com/case-converter-pro): Advanced case conversions including camelCase, snake_case, PascalCase, and custom separators.
+- [Keyword Density Checker](https://texttoolkithub.com/keyword-density-checker): Analyze keyword distribution and optimize content for SEO.
+- [Paragraph Formatter](https://texttoolkithub.com/paragraph-formatter): Clean and format raw text, aligning margins, adjusting line lengths, and optimizing paragraphs.
+- [Text Compare](https://texttoolkithub.com/text-compare): Side-by-side or inline text comparison and visual diffing.
+
+## Developer & Conversion Utilities
+
+- [Regex Tester](https://texttoolkithub.com/regex-tester): Interactive regular expression testing with matching highlighting and group captures.
+- [Base64 Encoder](https://texttoolkithub.com/base64-encoder): Safe binary-to-text base64 encoding processed client-side.
+- [Base64 Decoder](https://texttoolkithub.com/base64-decoder): Decode base64 strings securely in your local environment.
+- [JSON Formatter](https://texttoolkithub.com/json-formatter): Validate, beautify, and inspect JSON structures with dynamic tree views.
+- [JSON Minifier](https://texttoolkithub.com/json-minifier): Remove whitespace and optimize JSON strings for production.
+- [JWT Decoder](https://texttoolkithub.com/jwt-decoder): Parse and inspect JSON Web Tokens locally without sending keys to any server.
+- [Cron Builder](https://texttoolkithub.com/cron-builder): Create and explain cron schedule expressions interactively.
+- [QR Generator](https://texttoolkithub.com/qr-generator): Create high-resolution custom QR codes for URLs, text, Wi-Fi, and contacts.
+- [Unix Timestamp Converter](https://texttoolkithub.com/unix-timestamp-converter): Seamlessly translate dates into epoch timestamps and vice versa.
+- [Number Base Converter](https://texttoolkithub.com/number-base-converter): Convert numbers between binary, octal, decimal, hexadecimal, and custom bases.
+- [Type Definition Converter](https://texttoolkithub.com/typedef-converter): Convert JSON data into TypeScript interfaces, JSDoc, or SQL schemas.
+- [YAML JSON Converter](https://texttoolkithub.com/yaml-json-converter): Swap schemas between YAML and JSON formats locally.
+
+## Content Optimization & Formatting
+
+- [HTML Encoder](https://texttoolkithub.com/html-encoder): Convert special characters to HTML entities.
+- [HTML Decoder](https://texttoolkithub.com/html-decoder): Convert HTML entities back to their original characters.
+- [Markdown to HTML](https://texttoolkithub.com/markdown-to-html): Transform rich markdown text into standard HTML blocks.
+- [HTML to Markdown](https://texttoolkithub.com/html-to-markdown): Extract clean markdown content from standard HTML structure.
+- [String Escaper](https://texttoolkithub.com/string-escaper): Escape or unescape strings for Java, JavaScript, JSON, SQL, and HTML.
+- [CSV Formatter](https://texttoolkithub.com/csv-formatter): Beautify, convert, and format comma-separated values inside the browser.
+- [Hash Generator](https://texttoolkithub.com/hash-generator): Generate secure SHA-256, MD5, and SHA-512 hashes locally.
+- [UUID Generator](https://texttoolkithub.com/uuid-generator): Generate RFC 4122 compliant version 4 UUIDs instantly.
+- [Contrast Checker](https://texttoolkithub.com/contrast-checker): Validate color contrast ratios using WCAG guidelines.
+
+## Info & Policies
+
+- [About Us](https://texttoolkithub.com/about): The background story, technology stack, and vision of TextToolkitHub.
+- [FAQ](https://texttoolkithub.com/faq): Answers to frequently asked questions about features and browser support.
+- [Security FAQ](https://texttoolkithub.com/security-faq): Information on how TextToolkitHub runs fully in the browser to protect privacy.
+- [Contact](https://texttoolkithub.com/contact): Direct email addresses and forms to send comments or request support.
+- [Privacy Policy](https://texttoolkithub.com/privacy): Detailed information on our strict zero-tracking, zero-data collection policy.
+- [Terms of Service](https://texttoolkithub.com/terms): Rules and conditions for using the TextToolkitHub website.
