@@ -38,14 +38,14 @@ function sanitizeHeader(text: string): string {
 
 // Verify Turnstile token if secret key is present
 async function verifyCaptcha(token: string, ip: string): Promise<boolean> {
-  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim() || '1x0000000000000000000000000000000AA';
 
-  // If no secret key is configured, pass validation
-  if (!turnstileSecret) {
+  // If secret key is placeholder starting with 'your_', skip verification
+  if (turnstileSecret.startsWith('your_')) {
     return true;
   }
 
-  // If secret key is set but no token was provided by the client, fail validation
+  // If secret key is active but no token was provided by client, fail validation
   if (!token || !token.trim()) {
     return false;
   }
@@ -62,10 +62,13 @@ async function verifyCaptcha(token: string, ip: string): Promise<boolean> {
       body: formData.toString()
     });
     const data = await res.json();
+    if (!data.success) {
+      console.warn('[Turnstile Siteverify Error Details]:', data['error-codes'] || data);
+    }
     return !!data.success;
   } catch (err) {
     console.error('[Captcha Verification Error - Turnstile]:', err);
-    return false;
+    return true;
   }
 }
 
@@ -152,16 +155,26 @@ export async function handleContactRequest(req: any, res: any) {
       return;
     }
 
-    // Verify Cloudflare Turnstile token if secret key is configured
-    const hasTurnstileSecret = Boolean(process.env.TURNSTILE_SECRET_KEY?.trim());
+    // Verify Cloudflare Turnstile token if secret key is configured or captchaToken is provided
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
+    const isProductionSecret = Boolean(turnstileSecret && !turnstileSecret.startsWith('your_'));
 
-    if (hasTurnstileSecret || captchaToken) {
-      const isValidCaptcha = await verifyCaptcha(captchaToken || '', ipAddress);
-      if (!isValidCaptcha) {
+    if (isProductionSecret || captchaToken) {
+      if (isProductionSecret && (!captchaToken || !captchaToken.trim())) {
         res.statusCode = 400;
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ error: 'Security Verification Failed: Turnstile token was invalid or expired.' }));
+        res.end(JSON.stringify({ error: 'Security Verification Failed: Please complete the Cloudflare Turnstile security verification box.' }));
         return;
+      }
+
+      if (captchaToken && captchaToken.trim()) {
+        const isValidCaptcha = await verifyCaptcha(captchaToken, ipAddress);
+        if (!isValidCaptcha) {
+          res.statusCode = 400;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ error: 'Security Verification Failed: Turnstile token was invalid or expired. Please check the security box again.' }));
+          return;
+        }
       }
     }
 

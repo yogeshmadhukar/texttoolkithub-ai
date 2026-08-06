@@ -63,34 +63,61 @@ export default function ContactView() {
 
   // Cloudflare Turnstile integration state & refs
   const [turnstileToken, setTurnstileToken] = useState<string>('');
+  const [turnstileScriptFailed, setTurnstileScriptFailed] = useState<boolean>(false);
   const turnstileContainerRef = useRef<HTMLDivElement>(null);
   const turnstileWidgetIdRef = useRef<any>(null);
+  
   const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
+  const isSiteKeyMissing = !siteKey;
+  const effectiveSiteKey = siteKey || '1x00000000000000000000AA';
 
   useEffect(() => {
-    if (!siteKey) return;
+    let active = true;
+    let retryTimeout: any = null;
+    let pollInterval: any = null;
 
-    // Set callback on window before loading the script
-    (window as any).onloadTurnstileCallback = () => {
+    const cleanUpExistingScripts = () => {
+      const scripts = document.querySelectorAll('script');
+      scripts.forEach(s => {
+        if (s.id === 'cloudflare-turnstile-script' || (s.src && s.src.includes('challenges.cloudflare.com/turnstile/v0/api.js'))) {
+          s.remove();
+        }
+      });
+    };
+
+    const renderWidget = () => {
+      if (!active) return;
       if ((window as any).turnstile && turnstileContainerRef.current) {
         try {
-          // If already rendered, remove it first to avoid duplicates
+          // If already rendered, remove first
           if (turnstileWidgetIdRef.current !== null) {
-            (window as any).turnstile.remove(turnstileWidgetIdRef.current);
+            try {
+              (window as any).turnstile.remove(turnstileWidgetIdRef.current);
+            } catch (err) {
+              // ignore removal errors
+            }
+            turnstileWidgetIdRef.current = null;
           }
 
           const widgetId = (window as any).turnstile.render(turnstileContainerRef.current, {
-            sitekey: siteKey,
+            sitekey: effectiveSiteKey,
             callback: (token: string) => {
-              setTurnstileToken(token);
-              setFormError(null);
+              if (active) {
+                setTurnstileToken(token);
+                setFormError(null);
+              }
             },
             'error-callback': () => {
-              setFormError("Cloudflare Turnstile security verification failed. Please try reloading the page.");
+              console.warn("Turnstile widget error callback triggered.");
+              if (active) {
+                setTurnstileToken('');
+              }
             },
             'expired-callback': () => {
-              setTurnstileToken('');
-              setFormError("Security verification token expired. Please verify again.");
+              if (active) {
+                setTurnstileToken('');
+                setFormError("Security verification token expired. Please check the box again.");
+              }
             }
           });
           turnstileWidgetIdRef.current = widgetId;
@@ -100,35 +127,84 @@ export default function ContactView() {
       }
     };
 
-    // Load Turnstile script dynamically
-    const scriptId = 'cloudflare-turnstile-script';
-    let script = document.getElementById(scriptId) as HTMLScriptElement;
-    if (!script) {
-      script = document.createElement('script');
-      script.id = scriptId;
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback';
+    const loadScript = () => {
+      if (!active) return;
+
+      // Remove any duplicates first
+      cleanUpExistingScripts();
+
+      // Check if window.turnstile is already available globally
+      if ((window as any).turnstile) {
+        setTurnstileScriptFailed(false);
+        // Wait a short delay to ensure DOM is ready and ref is populated
+        const timer = setTimeout(() => {
+          if (active) renderWidget();
+        }, 150);
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.id = 'cloudflare-turnstile-script';
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
       script.async = true;
       script.defer = true;
+
+      script.onload = () => {
+        if (!active) return;
+        console.log("Cloudflare Turnstile script loaded successfully.");
+        setTurnstileScriptFailed(false);
+
+        // Polling to ensure turnstile is fully initialized in the window object before rendering
+        let attempts = 0;
+        if (pollInterval) clearInterval(pollInterval);
+        pollInterval = setInterval(() => {
+          attempts++;
+          if ((window as any).turnstile) {
+            renderWidget();
+            clearInterval(pollInterval);
+            pollInterval = null;
+          } else if (attempts > 50) {
+            clearInterval(pollInterval);
+            pollInterval = null;
+          }
+        }, 50);
+      };
+
+      script.onerror = () => {
+        if (!active) return;
+        console.warn("Cloudflare Turnstile script failed to load. Retrying in 3 seconds...");
+        setTurnstileScriptFailed(true);
+        script.remove();
+
+        // Retry automatically after 3 seconds
+        if (retryTimeout) clearTimeout(retryTimeout);
+        retryTimeout = setTimeout(() => {
+          if (active) {
+            setTurnstileScriptFailed(false);
+            loadScript();
+          }
+        }, 3000);
+      };
+
       document.body.appendChild(script);
-    } else if ((window as any).turnstile) {
-      // Script is already loaded, render immediately
-      (window as any).onloadTurnstileCallback();
-    }
+    };
+
+    loadScript();
 
     return () => {
-      // Clean up global callback
-      delete (window as any).onloadTurnstileCallback;
+      active = false;
+      if (retryTimeout) clearTimeout(retryTimeout);
+      if (pollInterval) clearInterval(pollInterval);
+      
       if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
         try {
           (window as any).turnstile.remove(turnstileWidgetIdRef.current);
-          turnstileWidgetIdRef.current = null;
-        } catch (e) {
-          // Ignore removal errors on component unmount
-        }
+        } catch (e) {}
+        turnstileWidgetIdRef.current = null;
       }
       setTurnstileToken('');
     };
-  }, [siteKey]);
+  }, [effectiveSiteKey]);
 
   const faqs: FAQItem[] = [
     {
@@ -201,9 +277,16 @@ export default function ContactView() {
       return;
     }
 
-    // Ensure Cloudflare Turnstile verification is completed if siteKey is configured
-    if (siteKey && !turnstileToken) {
-      setFormError("Please complete the Cloudflare Turnstile security verification before sending.");
+    // Ensure Cloudflare Turnstile verification is completed successfully
+    if (!turnstileToken) {
+      if (turnstileScriptFailed) {
+        setFormError("Cannot transmit message: Security verification script failed to load. Please reload the page or check your internet connection.");
+      } else {
+        setFormError("Please complete the Cloudflare Turnstile security verification box below before sending.");
+        if (turnstileContainerRef.current) {
+          turnstileContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
       return;
     }
 
@@ -217,7 +300,8 @@ export default function ContactView() {
         category: subject,
         message: message.trim(),
         honeypot: honeypot.trim(),
-        captchaToken: turnstileToken
+        captchaToken: turnstileToken,
+        siteKey: effectiveSiteKey
       };
 
       const response = await fetch('/api/contact', {
@@ -281,6 +365,16 @@ export default function ContactView() {
     } catch (err: any) {
       console.error("Support form transmission error:", err);
       setFormError(err?.message || `An error occurred while sending your email via Hostinger SMTP. Please verify server SMTP configuration or contact ${SUPPORT_EMAIL}`);
+      
+      // Reset Turnstile token & widget on error so user can re-verify immediately
+      setTurnstileToken('');
+      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
+        try {
+          (window as any).turnstile.reset(turnstileWidgetIdRef.current);
+        } catch (e) {
+          console.warn("Turnstile reset error on catch:", e);
+        }
+      }
     } finally {
       setLoading(false);
     }
@@ -622,15 +716,47 @@ export default function ContactView() {
                     </div>
 
                     {/* Cloudflare Turnstile Challenge Widget */}
-                    {siteKey && (
-                      <div className="flex flex-col gap-2 items-end my-1">
-                        <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-                          Security Verification *
-                        </span>
+                    {isSiteKeyMissing ? (
+                      <div className="flex flex-col gap-2.5 items-start my-1 w-full p-3.5 rounded-xl border border-rose-200 dark:border-rose-950 bg-rose-50/50 dark:bg-rose-950/20">
+                        <div className="flex items-center gap-1.5 text-rose-700 dark:text-rose-400 text-xs font-semibold">
+                          <AlertCircle className="w-4 h-4 text-rose-500" />
+                          Security Verification Configuration Error
+                        </div>
+                        <p className="text-[11px] text-rose-600 dark:text-rose-400 leading-relaxed">
+                          The <strong>VITE_TURNSTILE_SITE_KEY</strong> environment variable is not configured. Please supply a valid Cloudflare Turnstile site key to enable the submission challenge.
+                        </p>
+                      </div>
+                    ) : turnstileScriptFailed ? (
+                      <div className="flex flex-col gap-2.5 items-start my-1 w-full p-3.5 rounded-xl border border-rose-200 dark:border-rose-950 bg-rose-50/50 dark:bg-rose-950/20">
+                        <div className="flex items-center gap-1.5 text-rose-700 dark:text-rose-400 text-xs font-semibold">
+                          <AlertCircle className="w-4 h-4 text-rose-500" />
+                          Security Verification Script Failed
+                        </div>
+                        <p className="text-[11px] text-rose-600 dark:text-rose-400 leading-relaxed">
+                          Failed to load the Cloudflare Turnstile security library from the CDN. Please check your internet connection or reload the page.
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-2.5 items-start my-1 w-full p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40">
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                            <ShieldCheck className="w-4 h-4 text-indigo-500" />
+                            Security Verification *
+                          </span>
+                          {turnstileToken ? (
+                            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-md border border-emerald-200 dark:border-emerald-800/50">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Human Verified
+                            </span>
+                          ) : (
+                            <span className="text-[11px] font-medium text-amber-600 dark:text-amber-400">
+                              Action Required Below
+                            </span>
+                          )}
+                        </div>
                         <div 
                           ref={turnstileContainerRef} 
                           id="turnstile-container"
-                          className="min-h-[65px] flex items-center justify-end animate-fade-in"
+                          className="min-h-[65px] flex items-center justify-start animate-fade-in w-full overflow-x-auto"
                         />
                       </div>
                     )}
