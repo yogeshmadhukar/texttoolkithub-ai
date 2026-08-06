@@ -23,6 +23,7 @@ import { CronGuideContent } from './CronGuideContent';
 import { CsvGuideContent } from './CsvGuideContent';
 import { MetaSchemaGuideContent } from './MetaSchemaGuideContent';
 import { ClientSidePdfGuideContent } from './ClientSidePdfGuideContent';
+import { PerplexityAiGuideContent } from './PerplexityAiGuideContent';
 import { 
   BookOpen, 
   ArrowLeft, 
@@ -306,7 +307,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
     });
   };
 
-  const categories = ['All', 'SEO Copywriting', 'Writing & Productivity', 'Content Cleaning', 'Content Analytics', 'Developer Tools'];
+  const categories = ['All', 'Utility Insights', 'SEO Copywriting', 'Writing & Productivity', 'Content Cleaning', 'Content Analytics', 'Developer Tools'];
 
   const filteredArticles = useMemo(() => {
     return articles.filter(article => {
@@ -612,7 +613,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
               </div>
               
               <h1 className="text-3.5xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans leading-tight">
-                TextToolkitHub Utility Insights
+                TextToolkitHub Educational Guides
               </h1>
               <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 leading-relaxed font-sans max-w-2xl mx-auto">
                 Deep-dive tutorials, industry-best copywriting principles, and security breakdowns curated by experienced content and developer experts to boost your workflow efficiency.
@@ -743,6 +744,38 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
 }
 
 const articles: Article[] = [
+  {
+    id: 'guide-perplexity-ai-research',
+    title: 'Beyond Search Engines: How Perplexity AI Is Redefining Modern Research Utilities',
+    category: 'Utility Insights',
+    iconName: 'seo',
+    excerpt: 'Discover how Perplexity AI transcends the limits of traditional search. Learn to leverage real-time indexing, direct citation frameworks, and multi-model workspaces for advanced research and writing workflows.',
+    readTime: '8 min read',
+    date: '2026-08-05',
+    author: 'TextToolkitHub Team',
+    authorRole: 'Editorial Intelligence & SEO Operations',
+    authorAvatar: regeneratedImage1782726140251,
+    relatedTools: [
+      { title: 'SEO Meta Tag Generator', id: 'tools/meta-generator' },
+      { title: 'Keyword Density Analyzer', id: 'tools/keyword-density-checker' },
+      { title: 'Readability Checker & Grader', id: 'tools/readability-checker' }
+    ],
+    headings: [
+      { id: 'introduction', text: 'Introduction' },
+      { id: 'core-features', text: 'Core Features That Make Perplexity AI Stand Out' },
+      { id: 'step-by-step', text: 'Step-by-Step Guide: How to Use Perplexity AI for Maximum Productivity' },
+      { id: 'comparison', text: 'Comparison: The Search & Research Landscape' },
+      { id: 'faqs', text: 'Frequently Asked Questions (FAQs)' },
+      { id: 'conclusion', text: 'Conclusion: Transitioning to an Answer-First Workflow' }
+    ],
+    takeaways: [
+      'Perplexity AI bridges legacy search and static conversational models with dynamic web indexing.',
+      'A strict inline citation model ensures every outputted fact can be traced back to primary sources.',
+      'Pro Search enables multi-stage analytical workflows, query refinement, and automatic source aggregation.',
+      'Spaces and local directory storage allow context-focused parsing of project assets alongside live web data.'
+    ],
+    content: <PerplexityAiGuideContent />
+  },
   {
     id: 'guide-client-side-pdf-privacy',
     title: 'Why Client-Side PDF Processing is the Safest Option in 2026',
