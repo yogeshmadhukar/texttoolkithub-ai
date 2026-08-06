@@ -117,13 +117,13 @@ export default function ContactView() {
     if (!email.trim()) {
       errors.email = "Email is a required field";
     } else if (!validateEmail(email)) {
-      errors.email = "Please enter a valid, operational email address (e.g. name@domain.com)";
+      errors.email = "Please enter a valid email address (e.g. name@domain.com)";
     }
 
     if (!message.trim()) {
       errors.message = "Message cannot be empty";
-    } else if (message.trim().length < 15) {
-      errors.message = "Message must be at least 15 characters to explain your query sufficiently";
+    } else if (message.trim().length < 10) {
+      errors.message = "Message must be at least 10 characters to explain your query sufficiently";
     }
 
     if (Object.keys(errors).length > 0) {
@@ -132,63 +132,41 @@ export default function ContactView() {
       return;
     }
 
-    // If honeypot is filled out, simulate submission to trick automatic bots
-    if (honeypot.trim()) {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        const randomId = `TK-${Math.floor(100000 + Math.random() * 900000)}`;
-        setGeneratedTicketId(randomId);
-        setSubmitted(true);
-        setName('');
-        setEmail('');
-        setMessage('');
-        setHoneypot('');
-      }, 1000);
-      return;
-    }
-
     setLoading(true);
 
-    const randomId = `TK-${Math.floor(100000 + Math.random() * 900000)}`;
-
     try {
-      // Send the actual form details directly to FormSubmit using Ajax
+      // Send the form details directly to our backend Hostinger SMTP endpoint
       const payload = {
         name: name.trim(),
         email: email.trim(),
-        _subject: `TextToolkitHub Support: [${subject}] - ${name.trim()}`,
+        category: subject,
         message: message.trim(),
-        _replyto: email.trim(),
-        _captcha: "false",
-        "Ticket Reference ID": randomId,
-        "Subject Category": subject
+        honeypot: honeypot.trim()
       };
 
-      const response = await fetch(`https://formsubmit.co/ajax/${SUPPORT_EMAIL}`, {
-        method: "POST",
+      const response = await fetch('/api/contact', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(payload)
       });
 
+      const resData = await response.json();
+
       if (!response.ok) {
-        throw new Error(`Service responded with status ${response.status}`);
+        throw new Error(resData.error || `Server responded with status ${response.status}`);
       }
 
-      const resData = await response.json();
-      if (resData.success === "false") {
-        throw new Error(resData.message || "Failed to transmit message securely.");
-      }
+      const ticketRef = resData.ticketId || `TK-${Math.floor(100000 + Math.random() * 900000)}`;
 
       // Record successful transmission timestamp for cooldown checks
       localStorage.setItem('texttoolkithub_last_submit_time', Date.now().toString());
 
-      // Save ticket in history logs
+      // Save ticket in local history logs
       const newTicket = {
-        id: randomId,
+        id: ticketRef,
         subject,
         timestamp: new Date().toISOString(),
         summary: message.trim().substring(0, 80) + (message.trim().length > 80 ? '...' : '')
@@ -198,12 +176,12 @@ export default function ContactView() {
       localStorage.setItem('texttoolkithub_support_tickets', JSON.stringify(updatedTickets));
 
       // Update submit screen state
-      setGeneratedTicketId(randomId);
+      setGeneratedTicketId(ticketRef);
       setSubmitted(true);
 
       // Track support request submission
       try {
-        analytics.trackContactSubmit(subject, randomId);
+        analytics.trackContactSubmit(subject, ticketRef);
       } catch (err) {
         console.warn("Failed tracking contact submit event:", err);
       }
@@ -215,75 +193,8 @@ export default function ContactView() {
       setHoneypot('');
 
     } catch (err: any) {
-      console.warn("Support form transmission AJAX failed, initiating robust iframe fallback...", err);
-      
-      try {
-        // Build a temporary form to submit via standard form post targeting the hidden iframe
-        const tempForm = document.createElement('form');
-        tempForm.method = 'POST';
-        tempForm.action = `https://formsubmit.co/${SUPPORT_EMAIL}`;
-        tempForm.target = 'hidden_support_iframe';
-        tempForm.style.display = 'none';
-
-        const fields: Record<string, string> = {
-          name: name.trim(),
-          email: email.trim(),
-          _subject: `TextToolkitHub Support: [${subject}] - ${name.trim()}`,
-          message: message.trim(),
-          _replyto: email.trim(),
-          _captcha: 'false',
-          'Ticket Reference ID': randomId,
-          'Subject Category': subject
-        };
-
-        for (const [key, val] of Object.entries(fields)) {
-          const hiddenInput = document.createElement('input');
-          hiddenInput.type = 'hidden';
-          hiddenInput.name = key;
-          hiddenInput.value = val;
-          tempForm.appendChild(hiddenInput);
-        }
-
-        document.body.appendChild(tempForm);
-        tempForm.submit();
-        
-        // Clean up the temporary form from DOM
-        setTimeout(() => {
-          if (tempForm.parentNode) {
-            tempForm.parentNode.removeChild(tempForm);
-          }
-        }, 1000);
-
-        // Record successful transmission timestamp for cooldown checks
-        localStorage.setItem('texttoolkithub_last_submit_time', Date.now().toString());
-
-        // Save ticket in history logs
-        const newTicket = {
-          id: randomId,
-          subject,
-          timestamp: new Date().toISOString(),
-          summary: message.trim().substring(0, 80) + (message.trim().length > 80 ? '...' : '')
-        };
-        const updatedTickets = [newTicket, ...savedTickets].slice(0, 10);
-        setSavedTickets(updatedTickets);
-        localStorage.setItem('texttoolkithub_support_tickets', JSON.stringify(updatedTickets));
-
-        // Update submit screen state
-        setGeneratedTicketId(randomId);
-        setSubmitted(true);
-
-        // Reset form variables
-        setName('');
-        setEmail('');
-        setMessage('');
-        setHoneypot('');
-        return;
-      } catch (fallbackErr) {
-        console.error("Iframe fallback submission failed:", fallbackErr);
-      }
-
-      console.error("Support form transmission failure:", err);
-      setFormError(err?.message || `An unexpected error occurred while transmitting your request. Please try again or contact us directly at ${SUPPORT_EMAIL}`);
+      console.error("Support form transmission error:", err);
+      setFormError(err?.message || `An error occurred while sending your email via Hostinger SMTP. Please verify server SMTP configuration or contact ${SUPPORT_EMAIL}`);
     } finally {
       setLoading(false);
     }
@@ -457,9 +368,9 @@ export default function ContactView() {
                   <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-emerald-100/50 dark:border-emerald-900/40">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white font-sans">Message Transmitted Successfully!</h3>
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white font-sans">Email Delivered Successfully!</h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-3 max-w-md mx-auto leading-relaxed">
-                    Thank you for reaching out. Your feedback makes our toolkit better. We have queued your request to our technical review queue.
+                    Your message has been sent directly to <strong className="text-slate-700 dark:text-slate-200">support@texttoolkithub.com</strong> via Hostinger SMTP. An automatic confirmation email has also been sent to your email inbox.
                   </p>
 
                   {/* Metadata display context */}
@@ -633,12 +544,12 @@ export default function ContactView() {
                       {loading ? (
                         <>
                           <div className="w-3.5 h-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin shrink-0" />
-                          <span>Routing ticket...</span>
+                          <span>Sending via Hostinger SMTP...</span>
                         </>
                       ) : (
                         <>
                           <Send className="w-3.5 h-3.5" /> 
-                          <span>Transmit Message</span>
+                          <span>Send Message</span>
                         </>
                       )}
                     </button>
@@ -711,14 +622,6 @@ export default function ContactView() {
                 </div>
               </div>
             )}
-
-            {/* Hidden iframe target for robust form submission backup */}
-            <iframe
-              name="hidden_support_iframe"
-              id="hidden_support_iframe"
-              style={{ display: 'none', width: 0, height: 0, border: 'none' }}
-              title="Support Delivery Verification"
-            />
 
           </div>
 

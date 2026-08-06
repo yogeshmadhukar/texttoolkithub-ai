@@ -5,6 +5,10 @@ import fs from 'fs';
 import {defineConfig} from 'vite';
 import sharp from 'sharp';
 import { GoogleGenAI } from '@google/genai';
+import dotenv from 'dotenv';
+import { handleContactRequest } from './api/contact.ts';
+
+dotenv.config();
 
 const PUBLIC_DIR = path.resolve(__dirname, 'public');
 const BACKUP_DIR = path.resolve(__dirname, 'src/assets/default-logo-backup');
@@ -358,6 +362,19 @@ ${fileDetails.join('\n\n')}
                 res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ error: err instanceof Error ? err.message : 'Internal Server Error' }));
               }
+            } else if (req.url && req.url.split('?')[0] === '/api/contact') {
+              let bodyStr = '';
+              req.on('data', (chunk: any) => { bodyStr += chunk; });
+              req.on('end', async () => {
+                try {
+                  if (bodyStr) {
+                    (req as any).body = JSON.parse(bodyStr);
+                  }
+                } catch {
+                  (req as any).body = {};
+                }
+                await handleContactRequest(req, res);
+              });
             } else {
               next();
             }
