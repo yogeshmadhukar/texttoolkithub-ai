@@ -12,10 +12,13 @@ import {
   HelpCircle, 
   AlertCircle,
   Clock,
-  ArrowRight
+  ArrowRight,
+  Linkedin,
+  Twitter,
+  Globe
 } from 'lucide-react';
 import { analytics } from '../lib/analytics.ts';
-import { SUPPORT_EMAIL, GENERAL_EMAIL } from '../utils/schemaGenerator.ts';
+import { SUPPORT_EMAIL, GENERAL_EMAIL, AUTHOR_LINKEDIN, AUTHOR_X } from '../utils/schemaGenerator.ts';
 
 
 interface FAQItem {
@@ -398,17 +401,35 @@ export default function ContactView() {
                 </span>
               </div>
               
-              <div className="space-y-3 border-t border-slate-100 dark:border-slate-900 pt-3">
+              <div className="space-y-3.5 border-t border-slate-100 dark:border-slate-900 pt-3">
                 <div>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">Technical Support, Bug Reports & Legal</span>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">Technical Support, Bug Reports &amp; Legal</span>
                   <a href={`mailto:${SUPPORT_EMAIL}`} className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1.5 mt-0.5">
                     <Mail className="w-3.5 h-3.5" /> {SUPPORT_EMAIL}
                   </a>
                 </div>
                 <div>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">General Inquiries, Media & Partnerships</span>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">General Inquiries, Media &amp; Partnerships</span>
                   <a href={`mailto:${GENERAL_EMAIL}`} className="text-xs sm:text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1.5 mt-0.5">
                     <Mail className="w-3.5 h-3.5" /> {GENERAL_EMAIL}
+                  </a>
+                </div>
+                <div>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">Professional Networking</span>
+                  <a href={AUTHOR_LINKEDIN} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1.5 mt-0.5">
+                    <Linkedin className="w-3.5 h-3.5" /> LinkedIn Profile
+                  </a>
+                </div>
+                <div>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">X / Twitter Community</span>
+                  <a href={AUTHOR_X} target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 hover:underline flex items-center gap-1.5 mt-0.5">
+                    <Twitter className="w-3.5 h-3.5" /> @TextToolkitHub
+                  </a>
+                </div>
+                <div>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-400 block font-semibold">Official Website Portal</span>
+                  <a href="https://texttoolkithub.com" target="_blank" rel="noopener noreferrer" className="text-xs sm:text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1.5 mt-0.5">
+                    <Globe className="w-3.5 h-3.5" /> https://texttoolkithub.com
                   </a>
                 </div>
               </div>
@@ -489,12 +510,7 @@ export default function ContactView() {
                       />
                     </div>
                     
-                    <div>
-                      <h3 className="font-sans font-semibold text-lg text-slate-900 dark:text-white pb-1">
-                        Submit a Support Request
-                      </h3>
-                      <p className="text-xs text-slate-400">All messages are processed securely.</p>
-                    </div>
+
 
                     {/* General Error State Alert Block (UX Requirement) */}
                     {formError && (
