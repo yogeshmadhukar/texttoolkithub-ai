@@ -141,7 +141,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer text-left transition-colors inline-block" 
                   id="footer-link-guides"
                 >
-                  Educational Guides
+                  Utility Insights
                 </a>
               </li>
               <li>

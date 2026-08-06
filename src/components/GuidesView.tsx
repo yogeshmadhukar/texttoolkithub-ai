@@ -110,12 +110,12 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
   }, [selectedArticleId]);
 
   const seoTitle = selectedArticleId && activeArticle
-    ? `${activeArticle.title} | Educational Guides`
+    ? `${activeArticle.title} | Utility Insights`
     : "Professional Writing, SEO, and Coding Guides | TextToolkitHub";
 
   const seoDescription = selectedArticleId && activeArticle
     ? activeArticle.excerpt
-    : "Deep-dive educational guides and professional tutorials on SEO copywriting, keyword density, resolving PDF carriage breaks, readability scores, and local Base64 safety.";
+    : "Deep-dive utility insights and professional tutorials on SEO copywriting, keyword density, resolving PDF carriage breaks, readability scores, and local Base64 safety.";
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -215,7 +215,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
           {
             '@type': 'ListItem',
             'position': 2,
-            'name': 'Educational Guides',
+            'name': 'Utility Insights',
             'item': 'https://texttoolkithub.com/guides'
           },
           {
@@ -390,13 +390,13 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                 className="hover:text-indigo-600 dark:hover:text-indigo-400 transition" 
                 id="guides-breadcrumbs-hub"
               >
-                Educational Guides
+                Utility Insights
               </button>
               <ChevronRight className="w-3.5 h-3.5" />
               <span className="text-slate-700 dark:text-slate-350 font-medium truncate max-w-[180px] md:max-w-[350px]">{activeArticle?.title}</span>
             </>
           ) : (
-            <span className="text-slate-700 dark:text-slate-350 font-medium">Educational Guides</span>
+            <span className="text-slate-700 dark:text-slate-350 font-medium">Utility Insights</span>
           )}
         </nav>
 
@@ -488,7 +488,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                   <h3 className="text-xs font-bold uppercase tracking-widest text-indigo-700 dark:text-indigo-400">Featured Utilities</h3>
                 </div>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-                  Put this educational guide into practice immediately using our free, offline-first client tools:
+                  Put this utility insight into practice immediately using our free, offline-first client tools:
                 </p>
                 <div className="space-y-2.5">
                   {activeArticle.relatedTools.map((tool) => (
@@ -612,7 +612,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
               </div>
               
               <h1 className="text-3.5xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans leading-tight">
-                TextToolkitHub Educational Guides
+                TextToolkitHub Utility Insights
               </h1>
               <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 leading-relaxed font-sans max-w-2xl mx-auto">
                 Deep-dive tutorials, industry-best copywriting principles, and security breakdowns curated by experienced content and developer experts to boost your workflow efficiency.

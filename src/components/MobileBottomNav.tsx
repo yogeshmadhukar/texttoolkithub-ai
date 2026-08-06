@@ -393,7 +393,7 @@ export default function MobileBottomNav({
                 {[
                   { page: 'home', label: 'Home Page' },
                   { page: 'tools', label: 'All Tools Directory' },
-                  { page: 'guides', label: 'Educational Guides' },
+                  { page: 'guides', label: 'Utility Insights' },
                   { page: 'about', label: 'About Platform' },
                   { page: 'faq', label: 'FAQ' },
                   { page: 'privacy', label: 'Privacy Policy' },

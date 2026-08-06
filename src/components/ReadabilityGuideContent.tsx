@@ -448,8 +448,8 @@ export function calculateReadability(rawText: string): ReadabilityMetrics {
         </div>
       </div>
 
-      {/* RELATED EDUCATIONAL GUIDES */}
-      <h2 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mt-10 mb-4 font-sans border-b border-slate-100 dark:border-slate-850 pb-2">Related Educational Guides</h2>
+      {/* RELATED UTILITY INSIGHTS */}
+      <h2 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mt-10 mb-4 font-sans border-b border-slate-100 dark:border-slate-850 pb-2">Related Utility Insights</h2>
       <p className="leading-relaxed text-slate-650 dark:text-slate-350 mb-6">
         Continue expanding your copywriting and technical content operations skills with our highly targeted industry briefings:
       </p>

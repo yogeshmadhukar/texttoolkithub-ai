@@ -309,7 +309,7 @@ export default function NumberBaseConverterView({ onNavigateToTool, onNavigateHo
     },
     {
       id: 10,
-      question: "Is having educational guidelines for number systems helpful for Google AdSense?",
+      question: "Is having utility guidelines for number systems helpful for Google AdSense?",
       answer: "Yes. Adding detailed step-by-step guides, math formulas, and practical examples demonstrates clear educational value to manual AdSense assessors, improving approval eligibility."
     }
   ];

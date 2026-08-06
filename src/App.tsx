@@ -680,7 +680,7 @@ export default function App() {
       pageDesc = "Get in touch with the TextToolkitHub development team. Send bug reports, submit feature recommendations, or request technical support.";
     } else if (activePage === 'guides') {
       pageTitle = "Professional Writing, SEO, and Coding Guides | TextToolkitHub";
-      pageDesc = "Deep-dive educational guides and professional tutorials on SEO copywriting, keyword density, resolving PDF carriage breaks, readability scores, and local Base64 safety.";
+      pageDesc = "Deep-dive utility insights and professional tutorials on SEO copywriting, keyword density, resolving PDF carriage breaks, readability scores, and local Base64 safety.";
     } else if (activePage === 'privacy') {
       pageTitle = "Privacy Policy | TextToolkitHub - 100% Local Browser Processing";
       pageDesc = "Review the TextToolkitHub Privacy Policy. All text conversions and analytics are securely handled locally inside your web browser secure viewport.";

@@ -537,7 +537,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           >
             Authoritative Text Utilities <br />
             <span className="relative inline-block font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-sky-500 dark:from-indigo-400 dark:via-blue-400 dark:to-sky-300 drop-shadow-[0_2px_20px_rgba(99,102,241,0.15)] dark:drop-shadow-[0_4px_30px_rgba(129,140,248,0.22)]">
-              & Educational Guides
+              &amp; Utility Insights
             </span>
           </motion.h1>
 
@@ -832,7 +832,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
         </div>
       </section>
 
-      {/* 3.6 FEATURED EDUCATIONAL GUIDES SECTION */}
+      {/* 3.6 FEATURED UTILITY INSIGHTS SECTION */}
       <section className="py-10 md:py-14 bg-slate-50/30 dark:bg-slate-950/10 border-b border-slate-205 dark:border-slate-855 z-10 relative" id="featured-guides-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -842,10 +842,10 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 <BookOpen className="w-3.5 h-3.5" /> Editorial Learning Hub
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white">
-                Featured Technical & SEO Guides
+                Featured Technical &amp; SEO Insights
               </h2>
               <p className="text-sm text-slate-500 mt-1 max-w-xl dark:text-slate-400 font-sans">
-                Rigorous, peer-reviewed educational articles detailing linguistic analysis, accessibility standards, cryptography concepts, and regular expression compiling.
+                Rigorous, peer-reviewed utility insight articles detailing linguistic analysis, accessibility standards, cryptography concepts, and regular expression compiling.
               </p>
             </div>
             
@@ -854,7 +854,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
               className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 group cursor-pointer"
               id="btn-all-guides"
             >
-              Access Complete Guides Library
+              Access Complete Utility Insights Library
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

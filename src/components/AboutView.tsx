@@ -869,7 +869,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
                   <Award className="w-5 h-5 text-indigo-500" /> Content Accuracy &amp; Sourcing
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                  The educational guides on TextToolkitHub exist to provide clear, actionable instructions on systems engineering, encoding standards, and technical writing rules. To avoid "low-value content" or inaccurate summaries, we enforce rigorous sourcing guidelines:
+                  The utility insights on TextToolkitHub exist to provide clear, actionable instructions on systems engineering, encoding standards, and technical writing rules. To avoid "low-value content" or inaccurate summaries, we enforce rigorous sourcing guidelines:
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
@@ -895,7 +895,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
                   <RefreshCw className="w-5 h-5 text-emerald-500" /> Fact-Checking &amp; Update Cadence
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
-                  Ensuring that tool descriptions and educational guidelines remain up-to-date with current browser parameters and security compliance is essential to our reputation as an expert reference platform:
+                  Ensuring that tool descriptions and utility guidelines remain up-to-date with current browser parameters and security compliance is essential to our reputation as an expert reference platform:
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
