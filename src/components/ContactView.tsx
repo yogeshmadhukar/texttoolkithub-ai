@@ -61,154 +61,7 @@ export default function ContactView() {
   // State to manage clean, non-blocking on-screen clear logs confirmation
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
-  // Cloudflare Turnstile integration state & refs
-  const [turnstileToken, setTurnstileToken] = useState<string>('');
-  const [turnstileScriptFailed, setTurnstileScriptFailed] = useState<boolean>(false);
-  const [turnstileErrorCode, setTurnstileErrorCode] = useState<string | null>(null);
-  const turnstileContainerRef = useRef<HTMLDivElement>(null);
-  const turnstileWidgetIdRef = useRef<any>(null);
-  
-  const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
-  const isSiteKeyMissing = !siteKey;
-  const effectiveSiteKey = siteKey || '1x00000000000000000000AA';
 
-  useEffect(() => {
-    let active = true;
-    let retryTimeout: any = null;
-    let pollInterval: any = null;
-
-    const cleanUpExistingScripts = () => {
-      const scripts = document.querySelectorAll('script');
-      scripts.forEach(s => {
-        if (s.id === 'cloudflare-turnstile-script' || (s.src && s.src.includes('challenges.cloudflare.com/turnstile/v0/api.js'))) {
-          s.remove();
-        }
-      });
-    };
-
-    const renderWidget = () => {
-      if (!active) return;
-      if ((window as any).turnstile && turnstileContainerRef.current) {
-        try {
-          // If already rendered, remove first
-          if (turnstileWidgetIdRef.current !== null) {
-            try {
-              (window as any).turnstile.remove(turnstileWidgetIdRef.current);
-            } catch (err) {
-              // ignore removal errors
-            }
-            turnstileWidgetIdRef.current = null;
-          }
-
-          const widgetId = (window as any).turnstile.render(turnstileContainerRef.current, {
-            sitekey: effectiveSiteKey,
-            callback: (token: string) => {
-              if (active) {
-                setTurnstileToken(token);
-                setTurnstileErrorCode(null);
-                setFormError(null);
-              }
-            },
-            'error-callback': (code?: any) => {
-              const errStr = typeof code === 'string' ? code : '110200';
-              console.warn(`Turnstile widget error callback triggered (Error ${errStr}).`);
-              if (active) {
-                setTurnstileToken('');
-                setTurnstileErrorCode(errStr);
-              }
-            },
-            'expired-callback': () => {
-              if (active) {
-                setTurnstileToken('');
-                setFormError("Security verification token expired. Please check the box again.");
-              }
-            }
-          });
-          turnstileWidgetIdRef.current = widgetId;
-        } catch (e) {
-          console.error("Cloudflare Turnstile render error:", e);
-        }
-      }
-    };
-
-    const loadScript = () => {
-      if (!active) return;
-
-      // Remove any duplicates first
-      cleanUpExistingScripts();
-
-      // Check if window.turnstile is already available globally
-      if ((window as any).turnstile) {
-        setTurnstileScriptFailed(false);
-        // Wait a short delay to ensure DOM is ready and ref is populated
-        const timer = setTimeout(() => {
-          if (active) renderWidget();
-        }, 150);
-        return;
-      }
-
-      const script = document.createElement('script');
-      script.id = 'cloudflare-turnstile-script';
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-      script.async = true;
-      script.defer = true;
-
-      script.onload = () => {
-        if (!active) return;
-        console.log("Cloudflare Turnstile script loaded successfully.");
-        setTurnstileScriptFailed(false);
-
-        // Polling to ensure turnstile is fully initialized in the window object before rendering
-        let attempts = 0;
-        if (pollInterval) clearInterval(pollInterval);
-        pollInterval = setInterval(() => {
-          attempts++;
-          if ((window as any).turnstile) {
-            renderWidget();
-            clearInterval(pollInterval);
-            pollInterval = null;
-          } else if (attempts > 50) {
-            clearInterval(pollInterval);
-            pollInterval = null;
-          }
-        }, 50);
-      };
-
-      script.onerror = () => {
-        if (!active) return;
-        console.warn("Cloudflare Turnstile script failed to load. Retrying in 3 seconds...");
-        setTurnstileScriptFailed(true);
-        script.remove();
-
-        // Retry automatically after 3 seconds
-        if (retryTimeout) clearTimeout(retryTimeout);
-        retryTimeout = setTimeout(() => {
-          if (active) {
-            setTurnstileScriptFailed(false);
-            loadScript();
-          }
-        }, 3000);
-      };
-
-      document.body.appendChild(script);
-    };
-
-    loadScript();
-
-    return () => {
-      active = false;
-      if (retryTimeout) clearTimeout(retryTimeout);
-      if (pollInterval) clearInterval(pollInterval);
-      
-      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
-        try {
-          (window as any).turnstile.remove(turnstileWidgetIdRef.current);
-        } catch (e) {}
-        turnstileWidgetIdRef.current = null;
-      }
-      setTurnstileToken('');
-    };
-  }, [effectiveSiteKey]);
 
   const faqs: FAQItem[] = [
     {
@@ -281,21 +134,6 @@ export default function ContactView() {
       return;
     }
 
-    // Ensure Cloudflare Turnstile verification is completed successfully
-    const effectiveToken = turnstileToken || (isSiteKeyMissing || turnstileErrorCode ? 'dev-bypass-token' : '');
-
-    if (!effectiveToken) {
-      if (turnstileScriptFailed) {
-        setFormError("Cannot transmit message: Security verification script failed to load. Please reload the page or check your internet connection.");
-      } else {
-        setFormError("Please complete the Cloudflare Turnstile security verification box below before sending.");
-        if (turnstileContainerRef.current) {
-          turnstileContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -305,9 +143,7 @@ export default function ContactView() {
         email: email.trim(),
         category: subject,
         message: message.trim(),
-        honeypot: honeypot.trim(),
-        captchaToken: effectiveToken,
-        siteKey: effectiveSiteKey
+        honeypot: honeypot.trim()
       };
 
       const response = await fetch('/api/contact', {
@@ -357,30 +193,10 @@ export default function ContactView() {
       setEmail('');
       setMessage('');
       setHoneypot('');
-      setTurnstileToken('');
-
-      // Reset Cloudflare Turnstile widget
-      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
-        try {
-          (window as any).turnstile.reset(turnstileWidgetIdRef.current);
-        } catch (e) {
-          console.warn("Turnstile reset error:", e);
-        }
-      }
 
     } catch (err: any) {
       console.error("Support form transmission error:", err);
       setFormError(err?.message || `An error occurred while sending your email via Hostinger SMTP. Please verify server SMTP configuration or contact ${SUPPORT_EMAIL}`);
-      
-      // Reset Turnstile token & widget on error so user can re-verify immediately
-      setTurnstileToken('');
-      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
-        try {
-          (window as any).turnstile.reset(turnstileWidgetIdRef.current);
-        } catch (e) {
-          console.warn("Turnstile reset error on catch:", e);
-        }
-      }
     } finally {
       setLoading(false);
     }
@@ -721,68 +537,7 @@ export default function ContactView() {
                       </p>
                     </div>
 
-                    {/* Cloudflare Turnstile Challenge Widget */}
-                    {isSiteKeyMissing ? (
-                      <div className="flex flex-col gap-2.5 items-start my-1 w-full p-3.5 rounded-xl border border-rose-200 dark:border-rose-950 bg-rose-50/50 dark:bg-rose-950/20">
-                        <div className="flex items-center gap-1.5 text-rose-700 dark:text-rose-400 text-xs font-semibold">
-                          <AlertCircle className="w-4 h-4 text-rose-500" />
-                          Security Verification Configuration Notice
-                        </div>
-                        <p className="text-[11px] text-rose-600 dark:text-rose-400 leading-relaxed">
-                          The <strong>VITE_TURNSTILE_SITE_KEY</strong> environment variable is not configured. Please supply a valid Cloudflare Turnstile site key in your environment settings to enable live challenge verification.
-                        </p>
-                      </div>
-                    ) : turnstileScriptFailed ? (
-                      <div className="flex flex-col gap-2.5 items-start my-1 w-full p-3.5 rounded-xl border border-rose-200 dark:border-rose-950 bg-rose-50/50 dark:bg-rose-950/20">
-                        <div className="flex items-center gap-1.5 text-rose-700 dark:text-rose-400 text-xs font-semibold">
-                          <AlertCircle className="w-4 h-4 text-rose-500" />
-                          Security Verification Script Failed
-                        </div>
-                        <p className="text-[11px] text-rose-600 dark:text-rose-400 leading-relaxed">
-                          Failed to load the Cloudflare Turnstile security library from the CDN. Please check your internet connection or reload the page.
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col gap-2.5 items-start my-1 w-full p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40">
-                        <div className="flex items-center justify-between w-full">
-                          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                            <ShieldCheck className="w-4 h-4 text-indigo-500" />
-                            Security Verification *
-                          </span>
-                          {turnstileToken ? (
-                            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-md border border-emerald-200 dark:border-emerald-800/50">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Human Verified
-                            </span>
-                          ) : turnstileErrorCode ? (
-                            <span className="text-[11px] font-medium text-amber-600 dark:text-amber-400">
-                              Error {turnstileErrorCode} Detected
-                            </span>
-                          ) : (
-                            <span className="text-[11px] font-medium text-amber-600 dark:text-amber-400">
-                              Action Required Below
-                            </span>
-                          )}
-                        </div>
 
-                        {turnstileErrorCode ? (
-                          <div className="flex flex-col gap-1.5 text-xs text-amber-700 dark:text-amber-300 p-3 rounded-lg bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 w-full mt-1">
-                            <div className="font-semibold flex items-center gap-1.5 text-amber-800 dark:text-amber-200 text-xs">
-                              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
-                              Domain Verification Mismatch (Cloudflare Error {turnstileErrorCode})
-                            </div>
-                            <p className="text-[11px] leading-relaxed text-amber-700/90 dark:text-amber-300/90">
-                              Cloudflare rejected the site key for current domain <code className="px-1 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 font-mono text-[10px]">{typeof window !== 'undefined' ? window.location.hostname : 'preview-domain'}</code>. To resolve this in production, add this domain to your Cloudflare Turnstile Widget settings.
-                            </p>
-                          </div>
-                        ) : (
-                          <div 
-                            ref={turnstileContainerRef} 
-                            id="turnstile-container"
-                            className="min-h-[65px] flex items-center justify-start animate-fade-in w-full overflow-x-auto"
-                          />
-                        )}
-                      </div>
-                    )}
 
                     {/* Submit Button Block */}
                     <button
