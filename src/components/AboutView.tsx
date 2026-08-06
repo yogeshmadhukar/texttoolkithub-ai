@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import SEO from './SEO.tsx';
+import founderImage from '../assets/images/regenerated_image_1786048550988.jpg';
 import { SUPPORT_EMAIL, GENERAL_EMAIL } from '../utils/schemaGenerator.ts';
 import { 
   Shield, 
@@ -764,11 +765,17 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
 
           <div className="max-w-4xl mx-auto border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-10 shadow-xs flex flex-col md:flex-row gap-8 items-center md:items-start transition duration-200 hover:border-slate-300 dark:hover:border-slate-700">
             {/* Visual Avatar Card */}
-            <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-indigo-550 to-indigo-600 flex flex-col items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-500/10 border-4 border-white dark:border-slate-900 relative group overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent)]" />
-              <User className="w-12 h-12 sm:w-16 sm:h-16 text-indigo-100 group-hover:scale-105 transition-transform duration-200" />
+            <div className="w-[156px] h-[205.96875px] rounded-2xl bg-slate-100 dark:bg-slate-900 shrink-0 shadow-lg shadow-indigo-500/5 border-4 border-white dark:border-slate-800 relative group overflow-hidden">
+              <img
+                src={founderImage}
+                alt="Yogesh Kumar Madhukar"
+                className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                referrerPolicy="no-referrer"
+                style={{ width: '156px', height: '205.96875px' }}
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-slate-950/50 via-transparent to-transparent opacity-60 pointer-events-none" />
               <div className="absolute bottom-2 left-0 right-0 text-center">
-                <span className="font-mono text-[9px] uppercase tracking-wider font-extrabold bg-slate-950/40 px-2 py-0.5 rounded-full text-indigo-100 backdrop-blur-xs">
+                <span className="font-mono text-[9px] uppercase tracking-wider font-extrabold bg-indigo-650/90 px-2 py-0.5 rounded-full text-white backdrop-blur-xs shadow-sm">
                   FOUNDER
                 </span>
               </div>

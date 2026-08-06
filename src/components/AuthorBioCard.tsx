@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Linkedin, ShieldCheck, CheckCircle2, User, Award, Calendar, Lock } from 'lucide-react';
+import founderImage from '../assets/images/regenerated_image_1786048550988.jpg';
 import { AUTHOR_NAME, AUTHOR_JOB_TITLE, PUBLISHER_NAME, GENERAL_EMAIL, AUTHOR_LINKEDIN, AUTHOR_X } from '../utils/schemaGenerator.ts';
 
 interface AuthorBioCardProps {
@@ -46,10 +47,16 @@ export default function AuthorBioCard({
       <div className="flex flex-col md:flex-row gap-6 items-start">
         
         {/* Author Avatar Badge */}
-        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-700 flex flex-col items-center justify-center text-white shrink-0 shadow-md shadow-indigo-500/10 border-2 border-white dark:border-slate-900 relative overflow-hidden">
-          <User className="w-10 h-10 text-indigo-100" />
+        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-slate-100 dark:bg-slate-900 shrink-0 shadow-md border-2 border-white dark:border-slate-850 relative overflow-hidden group">
+          <img
+            src={founderImage}
+            alt={AUTHOR_NAME}
+            className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-slate-950/45 via-transparent to-transparent opacity-60 pointer-events-none" />
           <div className="absolute bottom-1 left-0 right-0 text-center">
-            <span className="font-mono text-[8px] uppercase tracking-wider font-extrabold bg-slate-950/50 px-1.5 py-0.5 rounded-full text-indigo-100 backdrop-blur-xs">
+            <span className="font-mono text-[8px] uppercase tracking-wider font-extrabold bg-indigo-650/95 px-1.5 py-0.5 rounded-full text-white backdrop-blur-xs">
               AUTHOR
             </span>
           </div>
