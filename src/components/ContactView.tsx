@@ -410,6 +410,11 @@ export default function ContactView() {
                     className="border border-slate-200/60 dark:border-slate-850 rounded-3xl p-6 sm:p-8 bg-white dark:bg-[#0c111d] shadow-sm flex flex-col gap-5 relative"
                   >
                     
+                    <div>
+                      <h3 className="text-base font-semibold text-slate-900 dark:text-white">Send Us a Message</h3>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Fill out the form below to get in touch with our team.</p>
+                    </div>
+
                     {/* Anti-spam Honeypot field (hidden from screen readers & users, but attractive to scrapers) */}
                     <div className="absolute opacity-0 pointer-events-none w-0 h-0 overflow-hidden" aria-hidden="true">
                       <label htmlFor="form_username_verification">Leave this field blank</label>
