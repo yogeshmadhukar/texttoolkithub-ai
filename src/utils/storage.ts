@@ -27,20 +27,91 @@ class MemoryStorage implements Storage {
   }
 }
 
-function getStorage(type: 'localStorage' | 'sessionStorage'): Storage {
-  try {
-    const storage = window[type];
-    if (!storage) {
-      return new MemoryStorage();
+class SafeStorage implements Storage {
+  private primary: Storage | null = null;
+  private fallback: MemoryStorage;
+
+  constructor(type: 'localStorage' | 'sessionStorage') {
+    this.fallback = new MemoryStorage();
+    try {
+      if (typeof window !== 'undefined' && window[type]) {
+        const testKey = '__storage_test__';
+        window[type].setItem(testKey, testKey);
+        window[type].removeItem(testKey);
+        this.primary = window[type];
+      }
+    } catch {
+      this.primary = null;
     }
-    const x = '__storage_test__';
-    storage.setItem(x, x);
-    storage.removeItem(x);
-    return storage;
-  } catch (e) {
-    return new MemoryStorage();
+  }
+
+  get length(): number {
+    if (this.primary) {
+      try {
+        return this.primary.length;
+      } catch {
+        // Fallback
+      }
+    }
+    return this.fallback.length;
+  }
+
+  clear(): void {
+    if (this.primary) {
+      try {
+        this.primary.clear();
+      } catch {
+        // Fallback
+      }
+    }
+    this.fallback.clear();
+  }
+
+  getItem(key: string): string | null {
+    if (this.primary) {
+      try {
+        return this.primary.getItem(key);
+      } catch {
+        // Fallback
+      }
+    }
+    return this.fallback.getItem(key);
+  }
+
+  key(index: number): string | null {
+    if (this.primary) {
+      try {
+        return this.primary.key(index);
+      } catch {
+        // Fallback
+      }
+    }
+    return this.fallback.key(index);
+  }
+
+  removeItem(key: string): void {
+    if (this.primary) {
+      try {
+        this.primary.removeItem(key);
+      } catch {
+        // Fallback
+      }
+    }
+    this.fallback.removeItem(key);
+  }
+
+  setItem(key: string, value: string): void {
+    if (this.primary) {
+      try {
+        this.primary.setItem(key, value);
+      } catch {
+        // Fallback
+      }
+    }
+    this.fallback.setItem(key, value);
   }
 }
 
-export const safeLocalStorage = getStorage('localStorage');
-export const safeSessionStorage = getStorage('sessionStorage');
+export const safeLocalStorage = new SafeStorage('localStorage');
+export const safeSessionStorage = new SafeStorage('sessionStorage');
+

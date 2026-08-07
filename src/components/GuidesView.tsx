@@ -292,7 +292,11 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
     setSelectedArticleId(articleId);
     const targetPath = articleId ? `/guides/${articleId}` : '/guides';
     if (window.location.pathname !== targetPath) {
-      window.history.pushState({}, '', targetPath);
+      try {
+        window.history.pushState({}, '', targetPath);
+      } catch (e) {
+        console.warn('History pushState blocked:', e);
+      }
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
@@ -491,7 +495,11 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                         const element = document.getElementById(heading.id);
                         if (element) {
                           element.scrollIntoView({ behavior: 'smooth' });
-                          window.history.pushState(null, '', `#${heading.id}`);
+                          try {
+                            window.history.pushState(null, '', `#${heading.id}`);
+                          } catch (e) {
+                            console.warn('History pushState blocked:', e);
+                          }
                         }
                       }}
                       className="block py-1.5 px-2.5 rounded-lg text-xs font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-slate-850 truncate cursor-pointer transition duration-150"

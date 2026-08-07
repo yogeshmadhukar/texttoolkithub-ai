@@ -64,7 +64,13 @@ export function setAnalyticsConsent(consent: boolean) {
  * Fully compatible with direct script loads inside index.html head.
  */
 export function initializeAnalytics() {
-  const hostname = window.location.hostname;
+  let hostname = '';
+  try {
+    hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+  } catch (e) {
+    console.log("[Analytics] Unable to read window.location.hostname:", e);
+    return;
+  }
   const isProd = hostname === 'texttoolkithub.com' || hostname === 'www.texttoolkithub.com';
   if (!isProd) {
     console.log("[Analytics] Skipping Google Analytics initialization in non-production/sandboxed environment.");
@@ -279,30 +285,3 @@ export const analytics = {
   }
 };
 
-// Auto-intercept clipboard copies globally for "Tool Copied Result" analytics tracking
-try {
-  if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
-    const originalWriteText = navigator.clipboard.writeText;
-    navigator.clipboard.writeText = function (text: string) {
-      try {
-        const hash = window.location.hash;
-        let toolId = '';
-        if (hash.includes('#/tools/')) {
-          toolId = hash.substring(hash.indexOf('#/tools/') + 8).split('?')[0];
-        } else if (hash.includes('#/')) {
-          toolId = hash.substring(hash.indexOf('#/') + 2).split('?')[0];
-        }
-        
-        // Ensure we only track actual toolkit routes
-        if (toolId && toolId !== 'home' && toolId !== 'about' && toolId !== 'faq' && toolId !== 'contact' && toolId !== 'privacy' && toolId !== 'terms') {
-          analytics.trackToolCopiedResult(toolId, text.length);
-        }
-      } catch (innerErr) {
-        console.warn('[Analytics] Intercept writeText error:', innerErr);
-      }
-      return originalWriteText.apply(this, [text]);
-    };
-  }
-} catch (outerErr) {
-  console.warn('[Analytics] Clipboard intercept injection failed:', outerErr);
-}

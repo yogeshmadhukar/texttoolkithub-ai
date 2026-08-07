@@ -250,41 +250,16 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
         if (innerMsg.includes('idbdatabase') || innerMsg.includes('database connection is closing') || innerMsg.includes('transaction')) {
           console.warn('PDF.js encountered IndexedDB worker error. Retrying with disableWorker: true...', innerErr);
           
-          // Temporarily disable IndexedDB in the main window context if it is present
-          const originalIDB = (window as any).indexedDB;
-          try {
-            Object.defineProperty(window, 'indexedDB', {
-              value: undefined,
-              writable: true,
-              configurable: true
-            });
-          } catch (e) {
-            console.warn('Failed to define window.indexedDB property:', e);
-          }
+          loadingTask = pdfjsLib.getDocument({
+            data: arrayBuffer,
+            cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || '6.2.108'}/cmaps/`,
+            cMapPacked: true,
+            disableWorker: true,
+          });
 
-          try {
-            loadingTask = pdfjsLib.getDocument({
-              data: arrayBuffer,
-              cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || '6.2.108'}/cmaps/`,
-              cMapPacked: true,
-              disableWorker: true,
-            });
-
-            activeLoadingTaskRef.current = loadingTask;
-            pdfDoc = await loadingTask.promise;
-            activePdfDocRef.current = pdfDoc;
-          } finally {
-            // Safely restore original window.indexedDB
-            try {
-              Object.defineProperty(window, 'indexedDB', {
-                value: originalIDB,
-                writable: true,
-                configurable: true
-              });
-            } catch (e) {
-              // ignore
-            }
-          }
+          activeLoadingTaskRef.current = loadingTask;
+          pdfDoc = await loadingTask.promise;
+          activePdfDocRef.current = pdfDoc;
         } else {
           throw innerErr;
         }

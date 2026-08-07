@@ -36,10 +36,13 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
         console.warn("Transient dynamic import error detected (MIME/chunk load). Initiating self-healing cache bypass reload...", errorMsg);
         safeSessionStorage.setItem(hasReloadedKey, 'true');
         
-        // Use cache-busting timestamp on reload to force browser to bypass edge caches
-        const searchParams = new URLSearchParams(window.location.search);
-        searchParams.set('hrc', Date.now().toString());
-        window.location.href = window.location.pathname + '?' + searchParams.toString() + window.location.hash;
+        try {
+          const searchParams = new URLSearchParams(window.location.search);
+          searchParams.set('hrc', Date.now().toString());
+          window.location.href = window.location.pathname + '?' + searchParams.toString() + window.location.hash;
+        } catch (e) {
+          console.warn("Unable to perform location reload:", e);
+        }
         
         return new Promise(() => {}); // Retain pending state to prevent rendering a crashed layout block
       }
@@ -557,9 +560,16 @@ export default function App() {
   // Browser pathname and popstate listener for clean client-side routing
   useEffect(() => {
     const parseNavigationState = () => {
-      const hash = window.location.hash.trim();
-      const pathname = window.location.pathname.trim();
-      const search = window.location.search; // preserve query strings
+      let hash = '';
+      let pathname = '/';
+      let search = '';
+      try {
+        hash = window.location.hash ? window.location.hash.trim() : '';
+        pathname = window.location.pathname ? window.location.pathname.trim() : '/';
+        search = window.location.search || '';
+      } catch (e) {
+        console.warn('Unable to read location properties:', e);
+      }
 
       // Scenario A: Backward-compatible support for legacy Hash-based URLs (e.g. /#/word-counter)
       if (hash.startsWith('#')) {
@@ -579,7 +589,11 @@ export default function App() {
         }
 
         // Redirect old hash URL to clean path in address bar
-        window.history.replaceState({}, '', targetPathname + search);
+        try {
+          window.history.replaceState({}, '', targetPathname + search);
+        } catch (err) {
+          console.warn('History replaceState blocked:', err);
+        }
         setActivePage(normalized);
         
         // Ensure visual viewport resets to the top
@@ -607,7 +621,11 @@ export default function App() {
 
       // If they land on a nested path (like /tools/word-counter) or alternative spelling, rewrite it silently
       if (pathname !== correctPathname) {
-        window.history.replaceState({}, '', correctPathname + search);
+        try {
+          window.history.replaceState({}, '', correctPathname + search);
+        } catch (err) {
+          console.warn('History replaceState blocked:', err);
+        }
       }
 
       setActivePage(normalized);
@@ -1027,8 +1045,12 @@ export default function App() {
 
         const rawHref = anchor.getAttribute('href') || '';
         try {
-          const url = new URL(anchor.href, window.location.origin);
-          if (url.origin === window.location.origin) {
+          let currentOrigin = '';
+          try {
+            currentOrigin = window.location.origin;
+          } catch (e) {}
+          const url = new URL(anchor.href, currentOrigin || undefined);
+          if (currentOrigin && url.origin === currentOrigin) {
             // Anchor target on the same page (e.g. #contact-title) - let browser handle local anchor jump naturally
             const isLocalAnchor = rawHref.startsWith('#') && !rawHref.startsWith('#/');
             const isStaticAsset = /\.(txt|xml|json|png|ico|webmanifest|svg)$/i.test(url.pathname);
@@ -1156,7 +1178,12 @@ export default function App() {
       }
     }
 
-    const currentPath = window.location.pathname;
+    let currentPath = '/';
+    try {
+      currentPath = window.location.pathname;
+    } catch (e) {
+      console.warn("Unable to read window.location.pathname:", e);
+    }
 
     // Immediate user feedback: Scroll to top of the page on route mutation
     window.scrollTo(0, 0);
@@ -1166,7 +1193,11 @@ export default function App() {
       // If navigating to the same page - smoothly scroll up
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      window.history.pushState({}, "", nextPath);
+      try {
+        window.history.pushState({}, "", nextPath);
+      } catch (err) {
+        console.warn('History pushState blocked:', err);
+      }
       setActivePage(normalized);
     }
   };

@@ -109,7 +109,10 @@
 
     <script>
       (function() {
-        var hostname = window.location.hostname;
+        var hostname = '';
+        try {
+          hostname = window.location.hostname;
+        } catch (e) {}
         var isProd = hostname === 'texttoolkithub.com' || hostname === 'www.texttoolkithub.com';
         
         if (isProd) {

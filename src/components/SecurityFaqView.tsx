@@ -259,7 +259,17 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
         {/* Back Link */}
         <div className="mb-8">
           <button 
-            onClick={() => onNavigateHome ? onNavigateHome() : window.history.back()}
+            onClick={() => {
+              if (onNavigateHome) {
+                onNavigateHome();
+              } else {
+                try {
+                  window.history.back();
+                } catch {
+                  // Fallback
+                }
+              }
+            }}
             className="inline-flex items-center gap-2 text-xs font-bold font-sans uppercase tracking-wider text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition cursor-pointer"
             id="back-to-home-security"
           >

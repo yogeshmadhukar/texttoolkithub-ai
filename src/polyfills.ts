@@ -55,19 +55,33 @@ if (typeof window !== 'undefined' && typeof (window.Promise as any)?.withResolve
   (window.Promise as any).withResolvers = (Promise as any).withResolvers;
 }
 
-// Global interceptors for benign IndexedDB/IDBDatabase connection closing errors
+// Global interceptors for benign IndexedDB/IDBDatabase connection closing errors and iframe SecurityError/insecure context errors
 if (typeof window !== 'undefined') {
-  const isIdbError = (err: any): boolean => {
+  const isBenignError = (err: any): boolean => {
     if (!err) return false;
-    const msg = String(err.message || err.reason || err || '').toLowerCase();
+    const name = err?.name || '';
+    const code = err?.code || 0;
+    const securityCode = typeof DOMException !== 'undefined' ? DOMException.SECURITY_ERR : 18;
+    if (name === 'SecurityError' || code === 18 || code === securityCode) {
+      return true;
+    }
+    const msg = String(err?.message || err?.reason || err || '').toLowerCase();
     return msg.includes('idbdatabase') || 
            msg.includes('database connection is closing') || 
-           msg.includes('failed to execute \'transaction\'');
+           msg.includes('failed to execute \'transaction\'') ||
+           msg.includes('is insecure') ||
+           msg.includes('securityerror') ||
+           msg.includes('security error') ||
+           msg.includes('access is denied') ||
+           msg.includes('operation is insecure') ||
+           msg.includes('insecure context') ||
+           msg.includes('localstorage') ||
+           msg.includes('sessionstorage');
   };
 
   window.addEventListener('unhandledrejection', (event) => {
-    if (isIdbError(event.reason)) {
-      console.warn('Muted benign IndexedDB/IDBDatabase unhandled rejection:', event.reason);
+    if (isBenignError(event.reason)) {
+      console.warn('Muted benign error/rejection in sandboxed context:', event.reason);
       try {
         event.preventDefault();
         event.stopPropagation();
@@ -79,8 +93,8 @@ if (typeof window !== 'undefined') {
   }, true);
 
   window.addEventListener('error', (event) => {
-    if (isIdbError(event.error) || isIdbError(event.message)) {
-      console.warn('Muted benign IndexedDB/IDBDatabase error:', event.error || event.message);
+    if (isBenignError(event.error) || isBenignError(event.message)) {
+      console.warn('Muted benign error in sandboxed context:', event.error || event.message);
       try {
         event.preventDefault();
         event.stopPropagation();
@@ -90,46 +104,6 @@ if (typeof window !== 'undefined') {
       }
     }
   }, true);
-
-  // Patch window.Worker to intercept worker errors
-  if (window.Worker) {
-    const OriginalWorker = window.Worker;
-    const PatchedWorker = function (this: any, stringUrl: string | URL, options?: WorkerOptions) {
-      const worker = new OriginalWorker(stringUrl, options);
-      
-      worker.addEventListener('error', (event: ErrorEvent) => {
-        const msg = String(event.message || event.error?.message || '').toLowerCase();
-        if (msg.includes('idbdatabase') || 
-            msg.includes('database connection is closing') || 
-            msg.includes('failed to execute \'transaction\'')) {
-          console.warn('Muted benign IndexedDB/IDBDatabase error in Web Worker:', event.message || event.error);
-          try {
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-          } catch (e) {
-            // ignore
-          }
-        }
-      });
-
-      return worker;
-    } as any;
-
-    PatchedWorker.prototype = OriginalWorker.prototype;
-    
-    Object.getOwnPropertyNames(OriginalWorker).forEach((prop) => {
-      if (!(prop in PatchedWorker)) {
-        try {
-          Object.defineProperty(PatchedWorker, prop, Object.getOwnPropertyDescriptor(OriginalWorker, prop)!);
-        } catch (e) {
-          // ignore read-only fields
-        }
-      }
-    });
-
-    window.Worker = PatchedWorker;
-  }
 }
 
 export {};
