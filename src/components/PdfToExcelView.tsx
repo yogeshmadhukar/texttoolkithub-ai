@@ -234,15 +234,61 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
       if (!isMountedRef.current || taskId !== parseTaskIdRef.current) return;
       
       // Load PDF document safely with character maps for non-English/Unicode text
-      const loadingTask = pdfjsLib.getDocument({
-        data: arrayBuffer,
-        cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || '6.2.108'}/cmaps/`,
-        cMapPacked: true,
-      });
+      let loadingTask: any = null;
+      try {
+        loadingTask = pdfjsLib.getDocument({
+          data: arrayBuffer,
+          cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || '6.2.108'}/cmaps/`,
+          cMapPacked: true,
+        });
 
-      activeLoadingTaskRef.current = loadingTask;
-      pdfDoc = await loadingTask.promise;
-      activePdfDocRef.current = pdfDoc;
+        activeLoadingTaskRef.current = loadingTask;
+        pdfDoc = await loadingTask.promise;
+        activePdfDocRef.current = pdfDoc;
+      } catch (innerErr: any) {
+        const innerMsg = String(innerErr?.message || innerErr || '').toLowerCase();
+        if (innerMsg.includes('idbdatabase') || innerMsg.includes('database connection is closing') || innerMsg.includes('transaction')) {
+          console.warn('PDF.js encountered IndexedDB worker error. Retrying with disableWorker: true...', innerErr);
+          
+          // Temporarily disable IndexedDB in the main window context if it is present
+          const originalIDB = (window as any).indexedDB;
+          try {
+            Object.defineProperty(window, 'indexedDB', {
+              value: undefined,
+              writable: true,
+              configurable: true
+            });
+          } catch (e) {
+            console.warn('Failed to define window.indexedDB property:', e);
+          }
+
+          try {
+            loadingTask = pdfjsLib.getDocument({
+              data: arrayBuffer,
+              cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || '6.2.108'}/cmaps/`,
+              cMapPacked: true,
+              disableWorker: true,
+            });
+
+            activeLoadingTaskRef.current = loadingTask;
+            pdfDoc = await loadingTask.promise;
+            activePdfDocRef.current = pdfDoc;
+          } finally {
+            // Safely restore original window.indexedDB
+            try {
+              Object.defineProperty(window, 'indexedDB', {
+                value: originalIDB,
+                writable: true,
+                configurable: true
+              });
+            } catch (e) {
+              // ignore
+            }
+          }
+        } else {
+          throw innerErr;
+        }
+      }
 
       if (!isMountedRef.current || taskId !== parseTaskIdRef.current) {
         if (pdfDoc) pdfDoc.destroy();
@@ -1305,6 +1351,10 @@ export default function PdfToExcelView({ onNavigateToTool, onNavigateHome }: Pdf
 
             <div className="space-y-4">
               {[
+                {
+                  q: "Is there a file size or page limit for local PDF to Excel conversion?",
+                  a: "Since all processing runs entirely within your browser memory (client-side RAM), there is no strict server-side file size limit! However, for the fastest extraction performance without freezing your browser tab, we recommend converting PDF files under 50MB or 100 pages at a time."
+                },
                 {
                   q: "Are my sensitive PDF bank statements uploaded to any server?",
                   a: "No! All PDF parsing and coordinate extraction runs 100% inside your local browser memory using PDF.js and SheetJS. Your files are never uploaded to any cloud server."

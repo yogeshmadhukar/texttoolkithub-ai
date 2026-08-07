@@ -53,6 +53,16 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
       icon: <HelpCircle className="w-5 h-5 text-indigo-500" />,
       items: [
         {
+          id: 0,
+          question: 'Is there a file size limit for local processing of large files?',
+          answerText: 'Since TextToolkitHub runs 100% locally on your own device, there is no arbitrary server-imposed limit on file uploads! However, extremely large files (e.g. PDFs over 50MB) may consume significant local memory (RAM) and CPU resources, so we recommend processing massive documents in smaller batches for the smoothest experience.',
+          answerNode: (
+            <>
+              Since TextToolkitHub runs <strong className="text-slate-900 dark:text-white font-semibold">100% locally on your own device</strong>, there is no arbitrary server-imposed limit on file uploads! However, extremely large files (e.g. PDFs over 50MB) may consume significant local memory (RAM) and CPU resources, so we recommend processing massive documents in smaller batches for the smoothest experience.
+            </>
+          )
+        },
+        {
           id: 1,
           question: 'What is TextToolkitHub?',
           answerText: 'TextToolkitHub is an engineered suite of browser-native text utilities built to deliver sub-millisecond manipulation, counting, and cleaning with absolute local privacy. All data stays client-side, making your workflow completely secure.',
@@ -849,8 +859,8 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
                         onClick={() => toggleFaq(item.id)}
                         className={`group border rounded-2xl p-5 cursor-pointer select-none text-left transition-all duration-300 ${
                           isExpanded 
-                            ? 'bg-indigo-50/10 border-indigo-500/30 dark:bg-indigo-950/5 dark:border-indigo-500/25 shadow-sm' 
-                            : 'bg-white border-slate-200 hover:border-indigo-400 hover:bg-slate-50/40 dark:bg-slate-950 dark:border-slate-800 dark:hover:border-slate-700/80'
+                            ? 'bg-slate-50/50 border-indigo-500/30 dark:bg-slate-900/40 dark:border-indigo-500/30 shadow-[0_4px_20px_-4px_rgba(99,102,241,0.06)]' 
+                            : 'bg-white border-slate-200/80 hover:border-indigo-500/40 hover:bg-slate-50/20 dark:bg-slate-950 dark:border-slate-800/80 dark:hover:border-slate-700 shadow-xs'
                         }`}
                         id={`faq-accordion-item-${item.id}`}
                       >
