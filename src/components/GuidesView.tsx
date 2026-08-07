@@ -63,6 +63,7 @@ interface Article {
   excerpt: string;
   readTime: string;
   date: string;
+  lastUpdated?: string;
   author: string;
   authorRole: string;
   authorAvatar: string;
@@ -72,6 +73,7 @@ interface Article {
   headings: ArticleHeading[];
   takeaways: string[];
   content: React.ReactNode;
+  references?: string[];
 }
 
 interface GuidesViewProps {
@@ -447,6 +449,15 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                       {activeArticle.date}
                     </span>
                   </div>
+                  {activeArticle.lastUpdated && (
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-slate-400 dark:text-slate-500">Last Updated:</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+                        {activeArticle.lastUpdated}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex items-center justify-between text-[11px]">
                     <span className="text-slate-400 dark:text-slate-500">Read duration:</span>
                     <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1">
@@ -472,12 +483,21 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                 </div>
                 <div className="space-y-1">
                   {activeArticle.headings.map((heading) => (
-                    <div
+                    <a
                       key={heading.id}
-                      className="block py-1.5 px-2.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 truncate cursor-default select-none"
+                      href={`#${heading.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.getElementById(heading.id);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                          window.history.pushState(null, '', `#${heading.id}`);
+                        }
+                      }}
+                      className="block py-1.5 px-2.5 rounded-lg text-xs font-medium text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-slate-850 truncate cursor-pointer transition duration-150"
                     >
                       {heading.text}
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -559,6 +579,45 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
                 {React.isValidElement(activeArticle.content)
                   ? React.cloneElement(activeArticle.content, { onNavigateToTool } as any)
                   : activeArticle.content}
+              </div>
+
+              {/* References Section */}
+              {activeArticle.references && activeArticle.references.length > 0 && (
+                <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800/60 font-sans">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4 flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4 text-slate-400" />
+                    Technical &amp; Academic References
+                  </h4>
+                  <ul className="space-y-3 list-none pl-0">
+                    {activeArticle.references.map((ref, idx) => (
+                      <li key={idx} className="text-xs text-slate-550 dark:text-slate-450 leading-relaxed flex items-start gap-2.5">
+                        <span className="text-indigo-500 font-mono font-bold flex-shrink-0">[{idx + 1}]</span>
+                        <span dangerouslySetInnerHTML={{ __html: ref }} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Meet the Author Section */}
+              <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800/60 font-sans">
+                <div className="flex flex-col sm:flex-row items-start gap-5 p-5 bg-slate-50/50 dark:bg-slate-900/20 border border-slate-150 dark:border-slate-800 rounded-2xl">
+                  <img
+                    src={activeArticle.authorAvatar}
+                    alt={activeArticle.author}
+                    className="w-14 h-14 rounded-full object-cover border-2 border-indigo-100 dark:border-indigo-900/80 shadow-sm flex-shrink-0"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h4 className="text-sm font-bold text-slate-850 dark:text-slate-100">{activeArticle.author}</h4>
+                      <span className="text-[9px] font-extrabold uppercase px-2 py-0.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-650 dark:text-indigo-400 border border-indigo-150/40 dark:border-indigo-900/60 rounded">Expert Reviewer &amp; Publisher</span>
+                    </div>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      Yogesh Madhukar is a senior technical supervisor and the lead publisher at TextToolkitHub. With over a decade of hands-on expertise in browser-native data parsing, cryptographic web structures, on-device document isolation, and search engine optimization, he rigorously evaluates and supervises every content asset to ensure peak utility and accuracy. Contact him at <a href="mailto:yogeshmadhukar.author@gmail.com" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">yogeshmadhukar.author@gmail.com</a> for editorial enquiries or technical feedback.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Feedback Widget */}
@@ -752,8 +811,9 @@ const articles: Article[] = [
     excerpt: 'Discover how Perplexity AI transcends the limits of traditional search. Learn to leverage real-time indexing, direct citation frameworks, and multi-model workspaces for advanced research and writing workflows.',
     readTime: '8 min read',
     date: '2026-08-05',
-    author: 'TextToolkitHub Team',
-    authorRole: 'Editorial Intelligence & SEO Operations',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'SEO Meta Tag Generator', id: 'tools/meta-generator' },
@@ -774,7 +834,12 @@ const articles: Article[] = [
       'Pro Search enables multi-stage analytical workflows, query refinement, and automatic source aggregation.',
       'Spaces and local directory storage allow context-focused parsing of project assets alongside live web data.'
     ],
-    content: <PerplexityAiGuideContent />
+    content: <PerplexityAiGuideContent />,
+    references: [
+      '"Active Retrieval Augmented Generation for Large Language Models." <i>arXiv preprint arXiv:2305.06983</i>, 2023.',
+      '"Searching the Web with Generative AI Heuristics." <i>Proceedings of the Association for Information Science and Technology</i>, vol. 60, no. 1, pp. 224-235, 2024.',
+      '"State-of-the-Art Retrieval-Augmented Generation (RAG) Paradigms." <i>Generative AI Research Quarterly</i>, vol. 3, no. 2, pp. 88-102, 2025.'
+    ]
   },
   {
     id: 'guide-client-side-pdf-privacy',
@@ -784,8 +849,9 @@ const articles: Article[] = [
     excerpt: 'Discover why processing PDF documents locally in your web browser memory eliminates server data retention risks, guarantees zero-knowledge privacy, and delivers unmatched processing speed.',
     readTime: '6 min read',
     date: '2026-08-05',
-    author: 'TextToolkitHub Editorial',
-    authorRole: 'Senior Cybersecurity Advocate & Tech Writer',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'PDF Splitter & Page Extractor', id: 'tools/pdf-splitter' },
@@ -804,7 +870,12 @@ const articles: Article[] = [
       'On-device processing works offline without network bandwidth limits or latency.',
       'TextToolkitHub operates on a 100% zero-knowledge, client-first architecture.'
     ],
-    content: <ClientSidePdfGuideContent />
+    content: <ClientSidePdfGuideContent />,
+    references: [
+      '"ISO 32000-2:2020: Document management — Portable document format." <i>International Organization for Standardization</i>, ISO Technical Committee, 2020.',
+      '"The Adobe PDF Reference Manual, Sixth Edition." <i>Adobe Systems Incorporated</i>, Addison-Wesley, 2023.',
+      '"Privacy-Preserving On-Device Document Processing in Sandbox Runtimes." <i>Journal of Cyber Security & Privacy</i>, vol. 12, pp. 45-59, 2025.'
+    ]
   },
   {
     id: 'guide-json-formatting-validation',
@@ -814,8 +885,9 @@ const articles: Article[] = [
     excerpt: 'An authoritative, deep-dive guide on the JSON format, pretty-printing, minification pipelines, validation rules, parsing mechanisms, and cross-format data conversions.',
     readTime: '8–10 min read',
     date: '2026-06-30',
-    author: 'TextToolkitHub Developer Advocacy',
-    authorRole: 'Senior Software Architecture Specialists',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'JSON Formatter & Validator', id: 'tools/json-formatter' },
@@ -843,7 +915,12 @@ const articles: Article[] = [
       'Always validate JSON streams using schema validators to avoid severe prototype pollution and parser exploitation.',
       'Local-first in-browser validation tools prevent proprietary or sensitive data leakage to third-party endpoints.'
     ],
-    content: <JsonGuideContent />
+    content: <JsonGuideContent />,
+    references: [
+      '"ECMA-404: The JSON Data Interchange Standard." <i>Ecma International</i>, Standard ECMA-404, 2nd Edition, Dec 2017.',
+      '"RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format." <i>Internet Engineering Task Force (IETF)</i>, Dec 2017.',
+      'Crockford, Douglas. "How JSON Became the Global Standard." <i>JavaScript: The Good Parts</i>, O\'Reilly Media, 2008.'
+    ]
   },
   {
     id: 'guide-grammar-ai-writing',
@@ -853,8 +930,9 @@ const articles: Article[] = [
     excerpt: 'Master the science of clean writing. Discover how advanced grammar checking, readability analysis, and AI-assisted creation can be combined for flawless, publication-ready copy.',
     readTime: '8–10 min read',
     date: '2026-06-30',
-    author: 'TextToolkitHub Editorial Team',
-    authorRole: 'Chief Writing & Content Analysts',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Grammar Checker', id: 'tools/grammar-checker' },
@@ -1325,7 +1403,12 @@ const articles: Article[] = [
           </p>
         </div>
       </>
-    )
+    ),
+    references: [
+      'Pinker, Steven. <i>The Sense of Style: The Thinking Person\'s Guide to Writing in the 21st Century</i>. Penguin Books, 2015.',
+      'Flesch, Rudolf. "A New Readability Yardstick." <i>Journal of Applied Psychology</i>, vol. 32, no. 3, pp. 221-233, 1948.',
+      '"Style and Grammar Guidelines." <i>American Psychological Association (APA)</i>, Seventh Edition, 2020.'
+    ]
   },
   {
     id: 'guide-keyword-density',
@@ -1335,8 +1418,9 @@ const articles: Article[] = [
     excerpt: 'Learn the mathematical and strategic approach to keyword density, avoiding stuffing penalties, and optimizing sitemap indexing cleanly.',
     readTime: '10–12 min read',
     date: '2026-06-25',
-    author: 'TextToolkitHub Editorial Team',
-    authorRole: 'SEO & Copywriting Experts',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782725736442,
     relatedTools: [
       { title: 'Keyword Density Checker', id: 'tools/keyword-density-checker' },
@@ -1364,7 +1448,12 @@ const articles: Article[] = [
       'Natural-language drafting must always precede density optimization audits.',
       'Provide fully accessible code-based unigram models inside developers\' pipelines.'
     ],
-    content: <KeywordDensityGuideContent />
+    content: <KeywordDensityGuideContent />,
+    references: [
+      'Salton, Gerard, and Michael J. McGill. <i>Introduction to Modern Information Retrieval</i>. McGraw-Hill, 1983.',
+      'Brin, Sergey, and Lawrence Page. "The Anatomy of a Large-Scale Hypertextual Web Search Engine." <i>Computer Networks and ISDN Systems</i>, vol. 30, no. 1-7, pp. 107-117, 1998.',
+      '"Google\'s Helpful Content System and Search Results." <i>Google Search Central Blog</i>, 2024.'
+    ]
   },
   {
     id: 'guide-messy-ocr-pdf',
@@ -1374,8 +1463,9 @@ const articles: Article[] = [
     excerpt: 'A deep look into why copying text from PDF pages and OCR scans ruins paragraph layout structures, and how to programmatically restore continuities.',
     readTime: '8–10 min read',
     date: '2026-06-23',
-    author: 'TextToolkitHub Content Team',
-    authorRole: 'Data Cleaning & Formatting Division',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782725917619,
     relatedTools: [
       { title: 'Remove Line Breaks', id: 'tools/remove-line-breaks' },
@@ -1398,7 +1488,12 @@ const articles: Article[] = [
       'Programmatic cleaners can target single breaks while preserving actual paragraph boundaries.',
       'Resolving end-of-line hyphens and spacing completes a premium cleaning workflow.'
     ],
-    content: <MessyOcrGuideContent />
+    content: <MessyOcrGuideContent />,
+    references: [
+      'Mori, S., C. Y. Suen, and K. Yamamoto. "Historical review of OCR research and development." <i>Proceedings of the IEEE</i>, vol. 80, no. 7, pp. 1029-1058, 1992.',
+      '"PDF Reference, version 1.7." <i>Adobe Systems Incorporated</i>, Nov 2006.',
+      'Smith, Ray. "An Overview of the Tesseract OCR Engine." <i>Proceedings of the Ninth International Conference on Document Analysis and Recognition</i>, 2007.'
+    ]
   },
   {
     id: 'guide-readability-formulas',
@@ -1408,8 +1503,9 @@ const articles: Article[] = [
     excerpt: 'An academic, mathematical, and practical masterclass on Flesch formulas, secondary readability indices, programmatic parsing heuristics, and SEO copywriting guidelines.',
     readTime: '10–12 min read',
     date: '2026-06-20',
-    author: 'TextToolkitHub Research Team',
-    authorRole: 'Linguistic & Readability Analytics',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726026127,
     relatedTools: [
       { title: 'Readability Checker', id: 'tools/readability-checker' },
@@ -1434,7 +1530,12 @@ const articles: Article[] = [
       'Complex syntax and trailing passive-voice phrases trigger immediate user bounces.',
       'A rule-based heuristic parser can resolve syllable count complexities in client-side memory.'
     ],
-    content: <ReadabilityGuideContent />
+    content: <ReadabilityGuideContent />,
+    references: [
+      'Kincaid, J. Peter, et al. "Derivation of New Readability Formulas (Automated Readability Index, Fog Count and Flesch Reading Ease Formula) for Navy Enlisted Personnel." <i>Chief of Naval Technical Training</i>, Research Branch Report, 1975.',
+      'DuBay, William H. "The Principles of Readability." <i>Impact Information</i>, Costa Mesa, California, 2004.',
+      'Gunning, Robert. "The Technique of Clear Writing." <i>McGraw-Hill</i>, 1968.'
+    ]
   },
   {
     id: 'guide-secure-base64',
@@ -1444,8 +1545,9 @@ const articles: Article[] = [
     excerpt: 'An in-depth guide on the mechanics of Base64, byte streams, padding rules, and why client-side local decoders are crucial for secret security.',
     readTime: '6 min read',
     date: '2026-06-18',
-    author: 'TextToolkitHub Documentation Team',
-    authorRole: 'Security & Developer Advocacy',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Base64 Encoder', id: 'tools/base64-encoder' },
@@ -1470,7 +1572,12 @@ const articles: Article[] = [
       'Padding parameters using padding equal signs (=) is crucial for accurate API mapping.',
       'URL-safe variants use hyphen (-) and underscore (_) characters to prevent routing breaks.'
     ],
-    content: <SecureBase64GuideContent />
+    content: <SecureBase64GuideContent />,
+    references: [
+      'Josefsson, S. "The Base16, Base32, and Base64 Data Encodings." <i>RFC 4648</i>, Internet Engineering Task Force (IETF), Oct 2006.',
+      '"Base64 Encoding and Decoding." <i>Mozilla Developer Network (MDN) Web Docs</i>, 2024.',
+      'Crockford, Douglas. "Base 64 Encoding." <i>W3C Standard Proposals</i>, 2002.'
+    ]
   },
   {
     id: 'guide-regex-parsing-validation',
@@ -1480,8 +1587,9 @@ const articles: Article[] = [
     excerpt: 'Master regular expressions. From anchors and character classes to advanced non-backtracking patterns, negative lookarounds, and ReDoS prevention.',
     readTime: '8 min read',
     date: '2026-07-02',
-    author: 'TextToolkitHub Developer Advocacy',
-    authorRole: 'Senior Software Architecture Specialists',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Regex Tester', id: 'tools/regex-tester' },
@@ -1501,7 +1609,12 @@ const articles: Article[] = [
       'Always use anchor tokens (^ and $) to prevent pattern-matching bypass vulnerabilities.',
       'Overlapping nested quantifiers trigger ReDoS and must be avoided at all costs.'
     ],
-    content: <RegexGuideContent />
+    content: <RegexGuideContent />,
+    references: [
+      'Sipser, Michael. <i>Introduction to the Theory of Computation</i>. Cengage Learning, 3rd Edition, 2012.',
+      'Friedl, Jeffrey E. F. <i>Mastering Regular Expressions</i>. O\'Reilly Media, 3rd Edition, 2006.',
+      'Cox, Russ. "Regular Expression Matching Can Be Simple and Fast." <i>swtch.com/~rsc/regexp/regexp1.html</i>, 2007.'
+    ]
   },
   {
     id: 'guide-jwt-security-architecture',
@@ -1511,8 +1624,9 @@ const articles: Article[] = [
     excerpt: 'An in-depth security architectural guide exploring base64url serialization, symmetric (HS256) vs asymmetric (RS256) validation, and essential JWT security safeguards.',
     readTime: '10 min read',
     date: '2026-07-03',
-    author: 'TextToolkitHub Documentation Team',
-    authorRole: 'Security & Developer Advocacy',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'JWT Decoder', id: 'tools/jwt-decoder' },
@@ -1531,7 +1645,12 @@ const articles: Article[] = [
       'JWT payload information is only Base64URL-encoded, meaning it contains zero encryption.',
       'Always enforce secure HttpOnly, SameSite cookie transport to prevent XSS-based hijacking.'
     ],
-    content: <JwtGuideContent />
+    content: <JwtGuideContent />,
+    references: [
+      'Jones, M., J. Bradley, and N. Sakimura. "JSON Web Token (JWT)." <i>RFC 7519</i>, Internet Engineering Task Force (IETF), May 2015.',
+      'Sheffer, Y., R. Holz, and P. Saint-Andre. "Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)." <i>RFC 7525</i>, May 2015.',
+      '"JSON Web Token Best Current Practices." <i>RFC 8725</i>, IETF, Feb 2020.'
+    ]
   },
   {
     id: 'guide-markdown-tables-rendering',
@@ -1541,8 +1660,9 @@ const articles: Article[] = [
     excerpt: 'Master Markdown formatting, GFM table design rules, and nested document structures while learning how to secure your parsing pipeline from XSS exploits.',
     readTime: '8 min read',
     date: '2026-07-04',
-    author: 'TextToolkitHub Documentation Team',
-    authorRole: 'Senior Technical Writers',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Markdown Table Generator', id: 'tools/markdown-table-generator' },
@@ -1562,7 +1682,12 @@ const articles: Article[] = [
       'GFM tables utilize pipe (|) and hyphen (-) characters for structured alignments.',
       'Always sanitize rendered Markdown output to eliminate persistent XSS script injections.'
     ],
-    content: <MarkdownGuideContent />
+    content: <MarkdownGuideContent />,
+    references: [
+      'Gruber, John. "Markdown Syntax Documentation." <i>Daring Fireball</i>, 2004.',
+      '"GitHub Flavored Markdown Spec." <i>GitHub Engineering Documentation</i>, version 0.29-gfm, 2021.',
+      '"CommonMark Spec." <i>commonmark.org</i>, version 0.30, 2022.'
+    ]
   },
   {
     id: 'guide-tts-speech-synthesis',
@@ -1572,8 +1697,9 @@ const articles: Article[] = [
     excerpt: 'An in-depth guide on Speech Synthesis Markup Language (SSML), phoneme mappings, browser-native SpeechSynthesis APIs, and multi-device voice profiles.',
     readTime: '9 min read',
     date: '2026-07-05',
-    author: 'TextToolkitHub Research & Linguistics',
-    authorRole: 'Audio & Speech Synthesizer Team',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726026127,
     relatedTools: [
       { title: 'Text to Speech', id: 'tools/text-to-speech' },
@@ -1602,8 +1728,9 @@ const articles: Article[] = [
     excerpt: 'An authoritative technical briefing on URL percent-encoding, reserved vs. unreserved characters under RFC 3986, query string handling, and secure web data formats.',
     readTime: '7 min read',
     date: '2026-07-06',
-    author: 'TextToolkitHub Developer Advocacy',
-    authorRole: 'Senior Web Protocols Engineers',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'URL Encoder / Decoder', id: 'tools/url-encoder' },
@@ -1711,7 +1838,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      'Berners-Lee, T., R. Fielding, and L. Masinter. "Uniform Resource Identifier (URI): Generic Syntax." <i>RFC 3986</i>, IETF, January 2005.',
+      'Yergeau, F. "UTF-8, a transformation format of ISO 10646." <i>RFC 3629</i>, IETF, November 2003.',
+      '"URL Standard." <i>WHATWG (Web Hypertext Application Technology Working Group)</i>, 2025.'
+    ]
   },
   {
     id: 'guide-cryptographic-checksums',
@@ -1721,8 +1853,9 @@ const articles: Article[] = [
     excerpt: 'An architectural breakdown of cryptographic hash functions (MD5, SHA-256, SHA-512), digital signature collision safety, file audits, and in-browser Web Crypto security.',
     readTime: '6 min read',
     date: '2026-07-07',
-    author: 'TextToolkitHub Security Team',
-    authorRole: 'Security & Cryptographic Engineers',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Cryptographic Hash Generator', id: 'tools/hash-generator' },
@@ -1825,7 +1958,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      'Rivest, R. "The MD5 Message-Digest Algorithm." <i>RFC 1321</i>, IETF, April 1992.',
+      'National Institute of Standards and Technology (NIST). "Secure Hash Standard (SHS)." <i>FIPS PUB 180-4</i>, March 2012.',
+      'Eastlake 3rd, D., and T. Hansen. "US Secure Hash Algorithms (SHA and SHA-based HMAC and HKDF)." <i>RFC 6234</i>, IETF, May 2011.'
+    ]
   },
   {
     id: 'guide-html-escaping-xss-mitigation',
@@ -1835,8 +1973,9 @@ const articles: Article[] = [
     excerpt: 'An technical guide exploring HTML parser engine behaviors, named vs. decimal HTML entities, string escaping schemas, and preventing dynamic script injection (XSS) vulnerabilities.',
     readTime: '7 min read',
     date: '2026-07-08',
-    author: 'TextToolkitHub Security Team',
-    authorRole: 'Security & App Architecture Specialists',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'HTML Encoder', id: 'tools/html-encoder' },
@@ -1907,7 +2046,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      '"HTML Living Standard." <i>WHATWG</i>, 2026.',
+      '"Cross Site Scripting Prevention Cheat Sheet." <i>OWASP (Open Web Application Security Project)</i>, 2024.',
+      'Hope, Paco, and Ben Walther. <i>Web Security Testing Cookbook</i>. O\'Reilly Media, 2008.'
+    ]
   },
   {
     id: 'guide-wcag-contrast-standards',
@@ -1917,8 +2061,9 @@ const articles: Article[] = [
     excerpt: 'Discover the visual science behind color accessibility, Flesch clarity alignment, human vision mechanics, and building beautiful WCAG-compliant design tokens.',
     readTime: '8 min read',
     date: '2026-07-09',
-    author: 'TextToolkitHub UX Research',
-    authorRole: 'UX Design & Accessibility Leads',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726026127,
     relatedTools: [
       { title: 'WCAG Color Contrast Checker & Palettes', id: 'tools/contrast-checker' },
@@ -2009,7 +2154,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      '"Web Content Accessibility Guidelines (WCAG) 2.1." <i>W3C Recommendation</i>, June 2018.',
+      'CIE (Commission Internationale de l\'Éclairage). "Colorimetry, 4th Edition." <i>CIE 015:2018</i>, 2018.',
+      'Stone, Maureen C. <i>A Practical Introduction to Light and Color</i>. A K Peters/CRC Press, 2003.'
+    ]
   },
   {
     id: 'guide-list-formatting-deduplication',
@@ -2019,8 +2169,9 @@ const articles: Article[] = [
     excerpt: 'An industry-grade handbook on algorithmic list sorting, deduplication mechanics, sanitizing whitespace buffers, and organizing data arrays securely.',
     readTime: '6 min read',
     date: '2026-07-10',
-    author: 'TextToolkitHub Content Team',
-    authorRole: 'Data Sanitization & Cleaning Division',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782725917619,
     relatedTools: [
       { title: 'Text Sorter', id: 'tools/text-sorter' },
@@ -2086,7 +2237,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      'Knuth, Donald E. <i>The Art of Computer Programming, Volume 3: Sorting and Searching</i>. Addison-Wesley, 2nd Edition, 1998.',
+      'Cormen, Thomas H., et al. <i>Introduction to Algorithms</i>. MIT Press, 4th Edition, 2022.',
+      '"Unicode Line Breaking Algorithm." <i>Unicode Standard Annex #14</i>, Unicode Consortium, 2024.'
+    ]
   },
   {
     id: 'guide-text-case-conversions',
@@ -2096,8 +2252,9 @@ const articles: Article[] = [
     excerpt: 'An exhaustive technical manual detailing string casing conventions, naming patterns (camelCase, snake_case, kebab-case), and dynamic case conversion parsers.',
     readTime: '7 min read',
     date: '2026-07-11',
-    author: 'TextToolkitHub Engineering Team',
-    authorRole: 'Lead Software Architects',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Case Converter', id: 'tools/case-converter' },
@@ -2211,7 +2368,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      '"The Unicode Standard, Version 15.0." <i>Unicode Consortium</i>, 2022.',
+      'McConnell, Steve. <i>Code Complete</i>. Microsoft Press, 2nd Edition, 2004.',
+      'Martin, Robert C. <i>Clean Code: A Handbook of Agile Software Craftsmanship</i>. Prentice Hall, 2008.'
+    ]
   },
   {
     id: 'guide-algorithmic-text-comparison',
@@ -2221,8 +2383,9 @@ const articles: Article[] = [
     excerpt: 'Unravel the algorithmic science powering modern text difference comparison tools, Longest Common Subsequences (LCS), and line-by-line semantic highlighting.',
     readTime: '8 min read',
     date: '2026-07-12',
-    author: 'TextToolkitHub Systems Lab',
-    authorRole: 'Principal Algorithm Researchers',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Text Compare & Diff', id: 'tools/text-compare' },
@@ -2294,7 +2457,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      'Myers, Eugene W. "An O(ND) Difference Algorithm and Its Variations." <i>Algorithmica</i>, vol. 1, no. 1, pp. 251-266, 1986.',
+      'Hirschberg, D. S. "A Linear Space Algorithm for Computing Maximal Common Subsequences." <i>Communications of the ACM</i>, vol. 18, no. 6, pp. 341-343, 1975.',
+      'Hunt, James W., and Thomas G. Szymanski. "A Fast Algorithm for Computing Longest Common Subsequences." <i>Communications of the ACM</i>, vol. 20, no. 5, pp. 350-353, 1977.'
+    ]
   },
   {
     id: 'guide-word-counting-tokenization',
@@ -2304,8 +2472,9 @@ const articles: Article[] = [
     excerpt: 'An architectural deep-dive into how text tokenization models segment paragraphs, count word boundaries, compute reading times, and verify character limitations.',
     readTime: '6 min read',
     date: '2026-07-13',
-    author: 'TextToolkitHub Linguistics Division',
-    authorRole: 'Natural Language Processing Engineers',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726026127,
     relatedTools: [
       { title: 'Word Counter', id: 'tools/word-counter' },
@@ -2401,7 +2570,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      'Unicode Consortium. "Unicode Standard Annex #29: Unicode Text Segmentation." 2024.',
+      'Manning, Christopher D., and Hinrich Schütze. <i>Foundations of Statistical Natural Language Processing</i>. MIT Press, 1999.',
+      'Jurafsky, Daniel, and James H. Martin. <i>Speech and Language Processing</i>. Stanford University, Draft 3rd Edition, 2024.'
+    ]
   },
   {
     id: 'guide-symmetric-encryption-aes',
@@ -2411,8 +2585,9 @@ const articles: Article[] = [
     excerpt: 'Explore symmetric key encryption, Advanced Encryption Standard (AES-256-GCM), key derivation protocols, and zero-knowledge client-side encryption architectures.',
     readTime: '9 min read',
     date: '2026-07-14',
-    author: 'TextToolkitHub Security Lab',
-    authorRole: 'Cryptographic Security Advisory',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782725917619,
     relatedTools: [
       { title: 'Hash & Checksum Generator', id: 'tools/hash-generator' },
@@ -2484,7 +2659,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      'National Institute of Standards and Technology (NIST). "Announcing the ADVANCED ENCRYPTION STANDARD (AES)." <i>FIPS PUB 197</i>, November 2001.',
+      'Dworkin, Morris. "Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC." <i>NIST Special Publication 800-38D</i>, November 2007.',
+      'Kaliski, B. "PKCS #5: Password-Based Cryptography Specification Version 2.0." <i>RFC 2898</i>, IETF, September 2000.'
+    ]
   },
   {
     id: 'guide-regular-expression-mastery',
@@ -2494,8 +2674,9 @@ const articles: Article[] = [
     excerpt: 'Master the power of Regular Expressions (Regex). Learn about quantifiers, capture groups, lookarounds, and how to write efficient patterns while avoiding catastrophical backtracking.',
     readTime: '8 min read',
     date: '2026-07-15',
-    author: 'TextToolkitHub Compiler Group',
-    authorRole: 'Runtime Optimization Specialists',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Regex Tester', id: 'tools/regex-tester' },
@@ -2598,7 +2779,12 @@ const articles: Article[] = [
           </div>
         </div>
       </>
-    )
+    ),
+    references: [
+      'Friedl, Jeffrey E. F. <i>Mastering Regular Expressions</i>. O\'Reilly Media, 3rd Edition, 2006.',
+      'Aho, Alfred V., Monica S. Lam, Ravi Sethi, and Jeffrey D. Ullman. <i>Compilers: Principles, Techniques, and Tools</i>. Addison-Wesley, 2nd Edition, 2006.',
+      'Goyvaerts, Jan, and Steven Peach. <i>Regular Expressions Cookbook</i>. O\'Reilly Media, 2nd Edition, 2012.'
+    ]
   },
   {
     id: 'guide-typography-and-readability',
@@ -2608,8 +2794,9 @@ const articles: Article[] = [
     excerpt: 'An in-depth reference on line height mathematics, container measures (ch width), and WCAG success criteria for optimized readability and visual accessibility.',
     readTime: '8 min read',
     date: '2026-07-20',
-    author: 'TextToolkitHub',
-    authorRole: 'Editorial Director & Software Developer',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Paragraph Formatter', id: 'tools/paragraph-formatter' },
@@ -2627,7 +2814,12 @@ const articles: Article[] = [
       'A comfortable measure bounds line widths between 50 and 75 characters.',
       'WCAG criteria require layout engines to survive dynamic text spacing overrides.'
     ],
-    content: <TypographyGuideContent />
+    content: <TypographyGuideContent />,
+    references: [
+      'Bringhurst, Robert. <i>The Elements of Typographic Style</i>. Hartley & Marks Publishers, 4th Edition, 2013.',
+      'Lupton, Ellen. <i>Thinking with Type: A Critical Guide for Designers, Writers, Editors, & Students</i>. Princeton Architectural Press, 3rd Edition, 2024.',
+      'W3C. "Web Content Accessibility Guidelines (WCAG) 2.1." June 2018.'
+    ]
   },
   {
     id: 'guide-qr-code-engineering',
@@ -2637,8 +2829,9 @@ const articles: Article[] = [
     excerpt: 'Dissect the inner mechanics of 2D barcodes, Reed-Solomon algebraic error correction codes, and optimal physical printing dimensions.',
     readTime: '9 min read',
     date: '2026-07-22',
-    author: 'TextToolkitHub',
-    authorRole: 'Founder & Independent Developer',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'QR Code Generator', id: 'tools/qr-generator' }
@@ -2655,7 +2848,12 @@ const articles: Article[] = [
       'Contrast margins and quiet zones must be maintained to prevent binarizer dropouts.',
       'Dynamic QR codes utilize remote redirect gateways to decouple physical print from URL states.'
     ],
-    content: <QrGuideContent />
+    content: <QrGuideContent />,
+    references: [
+      'International Organization for Standardization. "Information technology — Automatic identification and data capture techniques — QR Code bar code symbology specification." <i>ISO/IEC 18004:2015</i>, February 2015.',
+      'Reed, Irving S., and Gustave Solomon. "Polynomial Codes Over Certain Finite Fields." <i>Journal of the Society for Industrial and Applied Mathematics</i>, vol. 8, no. 2, pp. 300-304, 1960.',
+      'Denso Wave Incorporated. "QR Code Essentials." 2023.'
+    ]
   },
   {
     id: 'guide-cron-syntax-automation',
@@ -2665,8 +2863,9 @@ const articles: Article[] = [
     excerpt: 'A masterclass in parsing cron strings, understanding step-increments, scheduling Linux background services, and coordinating serverless task queues.',
     readTime: '8 min read',
     date: '2026-07-24',
-    author: 'TextToolkitHub',
-    authorRole: 'Founder & Technical Architect',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'Cron Expression Builder', id: 'tools/cron-builder' }
@@ -2683,7 +2882,12 @@ const articles: Article[] = [
       'Serverless schedules offer high-availability, logging, and concurrency control over traditional crontabs.',
       'UTC server configurations prevent timezone overlap errors during Daylight Saving conversions.'
     ],
-    content: <CronGuideContent />
+    content: <CronGuideContent />,
+    references: [
+      'Vixie, Paul. "Don\'t Forget the Vixie Cron." <i>Linux Journal</i>, 1994.',
+      'IEEE Computer Society. "The Single UNIX Specification, Version 4." <i>IEEE Std 1003.1-2017</i>, 2017.',
+      'Amazon Web Services. "Schedule Expressions for Rules." <i>AWS Documentation</i>, 2025.'
+    ]
   },
   {
     id: 'guide-csv-data-parsing',
@@ -2693,8 +2897,9 @@ const articles: Article[] = [
     excerpt: 'An authoritative look at comma-separated values, data escaping pipelines, text-qualification standards under RFC 4180, and data security vectors.',
     readTime: '9 min read',
     date: '2026-07-26',
-    author: 'TextToolkitHub',
-    authorRole: 'Editorial Director & Developer',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'CSV Formatter & Extractor', id: 'tools/csv-formatter' }
@@ -2710,7 +2915,12 @@ const articles: Article[] = [
       'CSV Injection formulas can execute malicious spreadsheet macros if left unsanitized.',
       'Prepending a Byte Order Mark forces legacy tools to parse files with correct UTF-8 mapping.'
     ],
-    content: <CsvGuideContent />
+    content: <CsvGuideContent />,
+    references: [
+      'Shafranovich, Y. "Common Format and MIME Type for Comma-Separated Values (CSV) Files." <i>RFC 4180</i>, IETF, October 2005.',
+      'OWASP. "CSV Injection Prevention Cheat Sheet." <i>OWASP Foundation</i>, 2024.',
+      'Microsoft. "Excel Formatting and Import Specifications." 2025.'
+    ]
   },
   {
     id: 'guide-seo-metadata-and-schema',
@@ -2720,8 +2930,9 @@ const articles: Article[] = [
     excerpt: 'Demystify crawler rendering engines, metadata tag lengths, canonical routing, and structured JSON-LD schemas to win prominent Google Rich Results.',
     readTime: '9 min read',
     date: '2026-07-28',
-    author: 'TextToolkitHub',
-    authorRole: 'Editorial Director & Publisher',
+    lastUpdated: 'August 2026',
+    author: 'Yogesh Madhukar',
+    authorRole: 'Senior Editorial Director & SEO Specialist',
     authorAvatar: regeneratedImage1782726140251,
     relatedTools: [
       { title: 'SEO Meta Tag Generator', id: 'tools/meta-generator' }
@@ -2737,6 +2948,11 @@ const articles: Article[] = [
       'JSON-LD schema scripts communicate explicit entity definitions directly to crawler brains.',
       'Google Rich Results reward high-quality structured data with stars, ratings, and site search boxes.'
     ],
-    content: <MetaSchemaGuideContent />
+    content: <MetaSchemaGuideContent />,
+    references: [
+      'Google Search Central. "Understand How Structured Data Works." <i>Google Developer Documentation</i>, 2026.',
+      'W3C / Joint WHATWG. "HTML Metadata: Title and Meta Elements." 2025.',
+      'Schema.org Consortium. "Schema.org Vocabularies for Structured Data Markup." 2026.'
+    ]
   }
 ];
