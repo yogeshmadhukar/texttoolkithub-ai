@@ -158,9 +158,9 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
           <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
             What is the <span className="text-indigo-650 dark:text-indigo-400">{tool.title}</span>?
           </h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
-            {profile.whatIsThis}
-          </p>
+          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans space-y-3 whitespace-pre-line">
+            {overview}
+          </div>
         </div>
 
         {/* Right Column: How it works */}
@@ -177,47 +177,100 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
         </div>
       </section>
 
-      {/* SECTION 2: Interactive Practical Example (Step-by-Step) */}
-      <section className="p-6 md:p-8 bg-slate-50/30 dark:bg-slate-950/10 border border-slate-150 dark:border-slate-850 rounded-3xl space-y-6" id="practical-examples">
+      {/* SECTION 2: Step-by-Step Guide & Interactive Practical Example */}
+      <section className="p-6 md:p-8 bg-slate-50/30 dark:bg-slate-950/10 border border-slate-150 dark:border-slate-850 rounded-3xl space-y-8" id="practical-examples">
         <div className="space-y-1.5">
           <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold uppercase tracking-wider rounded-full border border-indigo-100/30 dark:border-indigo-900/30">
-            <Play className="w-3.5 h-3.5" /> Step-by-Step Demonstration
+            <Play className="w-3.5 h-3.5 text-indigo-500" /> Step-by-Step Guide
           </span>
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-            Step-by-Step Practical Example
+            How to Use the {tool.title}
           </h3>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-sans max-w-2xl leading-relaxed">
-            Review this concrete demonstration displaying raw input transitions into fully processed layouts inside our browser workspace.
+            Follow this clear, sequential instruction manual to process, clean, or format your data accurately with 100% security.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
-          {/* Sample Input */}
-          <div className="flex flex-col gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
-              <Terminal className="w-3.5 h-3.5 text-slate-400" /> Sample Workspace Input
-            </span>
-            <div className="bg-slate-100/75 dark:bg-[#0c101b] border border-slate-200 dark:border-slate-900 p-4 rounded-2xl font-mono text-xs sm:text-sm text-slate-600 dark:text-slate-300 min-h-[100px] whitespace-pre-wrap select-all hover:bg-slate-150/40 dark:hover:bg-[#080b13] transition-colors">
-              {profile.exampleInput}
+        {/* Numbered Steps list */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+          {steps.map((step, idx) => (
+            <div key={idx} className="flex gap-4 p-4 bg-white/65 dark:bg-slate-950/40 border border-slate-150 dark:border-slate-900 rounded-2xl items-start">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-650 dark:text-indigo-400 font-bold text-xs shrink-0 border border-indigo-100/30">
+                {idx + 1}
+              </span>
+              <p className="text-xs sm:text-sm text-slate-650 dark:text-slate-350 leading-relaxed font-sans pt-0.5">
+                {step}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Interactive Practical Demo */}
+        <div className="border-t border-slate-200/50 dark:border-slate-800/50 pt-6 space-y-4">
+          <h4 className="text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            Interactive Practical Demonstration
+          </h4>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Sample Input */}
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+                <Terminal className="w-3.5 h-3.5 text-slate-400" /> Sample Workspace Input
+              </span>
+              <div className="bg-slate-100/75 dark:bg-[#0c101b] border border-slate-200 dark:border-slate-900 p-4 rounded-2xl font-mono text-xs sm:text-sm text-slate-600 dark:text-slate-300 min-h-[100px] whitespace-pre-wrap select-all hover:bg-slate-150/40 dark:hover:bg-[#080b13] transition-colors">
+                {profile.exampleInput}
+              </div>
+            </div>
+
+            {/* Sample Output */}
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5">
+                <CheckCircle className="w-3.5 h-3.5 text-emerald-500" /> Processed Output Results
+              </span>
+              <div className="bg-emerald-50/20 dark:bg-emerald-950/10 border border-emerald-100/30 dark:border-emerald-900/20 p-4 rounded-2xl font-mono text-xs sm:text-sm text-emerald-700 dark:text-emerald-400 min-h-[100px] whitespace-pre-wrap select-all">
+                {profile.exampleOutput}
+              </div>
             </div>
           </div>
 
-          {/* Sample Output */}
-          <div className="flex flex-col gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5">
-              <CheckCircle className="w-3.5 h-3.5 text-emerald-500" /> Processed Output Results
-            </span>
-            <div className="bg-emerald-50/20 dark:bg-emerald-950/10 border border-emerald-100/30 dark:border-emerald-900/20 p-4 rounded-2xl font-mono text-xs sm:text-sm text-emerald-700 dark:text-emerald-400 min-h-[100px] whitespace-pre-wrap select-all">
-              {profile.exampleOutput}
+          <div className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-2xl text-xs sm:text-sm text-slate-600 dark:text-slate-350 leading-relaxed font-sans flex items-start gap-3">
+            <Sparkles className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
+            <div>
+              <strong className="font-bold text-slate-900 dark:text-white">Example Analysis:</strong> {profile.exampleExplanation}
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-2xl text-xs sm:text-sm text-slate-600 dark:text-slate-350 leading-relaxed font-sans flex items-start gap-3">
-          <Sparkles className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
-          <div>
-            <strong className="font-bold text-slate-900 dark:text-white">Example Analysis:</strong> {profile.exampleExplanation}
-          </div>
+      {/* SECTION 3: Key Features */}
+      <section className="p-6 md:p-8 bg-slate-50/40 dark:bg-slate-950/20 border border-slate-150 dark:border-slate-850 rounded-3xl space-y-6" id="tool-features-showcase">
+        <div className="space-y-1.5">
+          <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold uppercase tracking-wider rounded-full border border-indigo-100/30 dark:border-indigo-900/30">
+            <Award className="w-3.5 h-3.5 text-indigo-500" /> Key Features
+          </span>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+            Key Features of the {tool.title}
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-sans max-w-2xl leading-relaxed">
+            Discover the powerful features built into this browser utility, engineered for absolute precision, zero network queues, and elite usability.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+          {features.map((feat, idx) => (
+            <div key={idx} className="p-4 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded-2xl space-y-2 hover:border-slate-200 dark:hover:border-slate-700 transition-colors">
+              <div className="flex items-center gap-2">
+                <span className="p-1 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-650 dark:text-indigo-400 font-extrabold text-[10px]">
+                  F.{idx + 1}
+                </span>
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white tracking-tight">
+                  {feat.name}
+                </h4>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+                {feat.desc}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
