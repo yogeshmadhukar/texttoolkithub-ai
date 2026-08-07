@@ -1,13 +1,40 @@
+# TextToolkitHub Robots Specification
+# Allow all web crawlers and search engines
+
 User-agent: *
 Allow: /
+Disallow:
 
 User-agent: Googlebot
 Allow: /
+Disallow:
 
 User-agent: Mediapartners-Google
 Allow: /
+Disallow:
+
+User-agent: AdsBot-Google
+Allow: /
+Disallow:
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+Disallow:
 
 User-agent: Google-Extended
 Allow: /
+Disallow:
+
+User-agent: Googlebot-Image
+Allow: /
+Disallow:
+
+User-agent: Googlebot-News
+Allow: /
+Disallow:
+
+User-agent: Bingbot
+Allow: /
+Disallow:
 
 Sitemap: https://texttoolkithub.com/sitemap.xml
