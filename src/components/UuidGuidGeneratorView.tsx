@@ -538,6 +538,44 @@ export default function UuidGuidGeneratorView({ onNavigateToTool, onNavigateHome
 
       </section>
 
+      {/* Comprehensive Architectural Deep Dive & Integration Guide */}
+      <div className="border-t border-slate-100 dark:border-slate-800 pt-10 mt-12 space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <span className="text-[11px] font-mono font-bold tracking-widest text-indigo-500 uppercase bg-indigo-50 dark:bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-900">
+            Developer Reference &amp; Specifications
+          </span>
+          <h3 className="text-2xl font-bold font-display text-slate-900 dark:text-white">
+            Comprehensive RFC 4122 UUID v4 Integration Standards
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-sans leading-relaxed">
+            Learn how Universally Unique Identifiers (UUID) and Globally Unique Identifiers (GUID) work under the hood, how entropy prevents collisions, and best practices for integrating primary keys into production application databases.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-5 rounded-2xl space-y-2">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white">1. Entropy and Bit Allocation</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+              Out of the 128 bits in a Version 4 UUID, 122 bits are reserved purely for pseudo-random entropy, 4 bits specify the version number (binary 0100 for Version 4), and 2 bits specify the variant (binary 10 for RFC 4122). This produces 2^122 (over 5.3 x 10^36) unique values.
+            </p>
+          </div>
+
+          <div className="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-5 rounded-2xl space-y-2">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white">2. Microservice Autonomy</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+              In distributed systems, microservices can generate primary keys locally without querying a centralized database auto-increment sequence or lock coordinator. This removes network bottlenecks and eliminates database single-points-of-failure during high-volume data ingestion.
+            </p>
+          </div>
+
+          <div className="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-5 rounded-2xl space-y-2">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white">3. Offline Mobile Sync</h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+              Mobile and Progressive Web Applications operating offline can instantiate new records with UUID keys directly on client devices. When connection is restored, records merge seamlessly into centralized data warehouses without key collision conflicts.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Guide FAQ sections */}
       <div className="border-t border-slate-100 dark:border-slate-800 pt-8 mt-12">
         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 font-sans flex items-center gap-2">

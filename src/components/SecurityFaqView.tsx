@@ -105,6 +105,51 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
     {
       id: 'sec-4',
       category: 'architecture',
+      question: "How does TextToolkitHub ensure that third-party JavaScript libraries or analytics do not inspect my input text?",
+      answer: (
+        <div className="space-y-3">
+          <p>
+            We maintain strict content isolation boundaries inside our front-end web app architecture. All user inputs (textarea elements, file drops, uploaded files) are isolated within strictly scoped React state hooks.
+          </p>
+          <p>
+            No user input state is ever bound to window global variables or external analytics hooks. Furthermore, our Content Security Policy (CSP) headers block unauthorized cross-origin requests, preventing third-party DOM inspection scripts from harvesting raw input buffers.
+          </p>
+        </div>
+      )
+    },
+    {
+      id: 'sec-5',
+      category: 'privacy',
+      question: "Can I use TextToolkitHub offline or inside air-gapped corporate environments?",
+      answer: (
+        <div className="space-y-3">
+          <p>
+            <strong>Yes, absolutely.</strong> Because TextToolkitHub utilizes progressive web application (PWA) caching and local JavaScript bundling, all core formatting, conversion, and parsing engines are loaded directly into browser cache.
+          </p>
+          <p>
+            Once loaded, you can disconnect Wi-Fi, enable airplane mode, or deploy the static build files inside an air-gapped internal enterprise intranet network. The tools will perform 100% of their operations offline without any degradation in performance or feature availability.
+          </p>
+        </div>
+      )
+    },
+    {
+      id: 'sec-6',
+      category: 'architecture',
+      question: "What is the cryptographic threat model for browser-based hash generation and key utilities?",
+      answer: (
+        <div className="space-y-3">
+          <p>
+            For utilities requiring cryptographic operations (such as MD5, SHA-256 hash generation, Base64 encoding, or UUID generation), TextToolkitHub relies exclusively on the browser's native, hardware-accelerated <code>window.crypto.subtle</code> Web Crypto API.
+          </p>
+          <p>
+            This ensures cryptographically secure random number generation (CSPRNG) and high-speed cryptographic hashing executed directly at the native C++ web engine level, bypassing JavaScript execution overhead and eliminating timing attack vulnerabilities.
+          </p>
+        </div>
+      )
+    },
+    {
+      id: 'sec-7',
+      category: 'architecture',
       question: "Why should my company trust TextToolkitHub over standard server-side APIs?",
       answer: (
         <div className="space-y-3.5">
@@ -135,7 +180,7 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
       )
     },
     {
-      id: 'sec-5',
+      id: 'sec-8',
       category: 'privacy',
       question: "Do you deploy intrusive advertisement cookies, server trackers, or commercial logs?",
       answer: (
@@ -150,7 +195,7 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
       )
     },
     {
-      id: 'sec-6',
+      id: 'sec-9',
       category: 'architecture',
       question: "Does TextToolkitHub support complete offline support?",
       answer: (
@@ -160,7 +205,7 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
       )
     },
     {
-      id: 'sec-7',
+      id: 'sec-10',
       category: 'compliance',
       question: "Are underlying libraries and parsing engines audited?",
       answer: (
@@ -170,7 +215,7 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
       )
     },
     {
-      id: 'sec-8',
+      id: 'sec-11',
       category: 'privacy',
       question: "How can I permanently delete or clear the data inside my browser tab?",
       answer: (

@@ -631,6 +631,130 @@ export default function ContactView() {
 
         </div>
 
+        {/* Detailed Comprehensive Support Guide & FAQ Section */}
+        <div className="mt-16 border-t border-slate-200/60 dark:border-slate-850 pt-12 space-y-12">
+          
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest rounded-full border border-indigo-100/60 dark:border-indigo-950/50">
+              Support Standards &amp; Operational Protocols
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white">
+              Everything You Need to Know About Contacting TextToolkitHub Support
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+              Learn about our response standards, bug submission guidelines, privacy practices, and how our software development team handles user feedback and custom tool requests.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 rounded-2xl p-6 space-y-3 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">
+                01
+              </div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                Service Level Agreements &amp; Response ETAs
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                Our support desk is operated directly by core software engineers. General user feedback, feature proposals, and non-urgent inquiries receive responses within 12 to 24 business hours. Critical system anomalies or broken utility reports are prioritized immediately with emergency patches deployed directly to our global edge distribution networks within hours.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 rounded-2xl p-6 space-y-3 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
+                02
+              </div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                Bug Reporting &amp; Diagnostic Best Practices
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                When submitting a system anomaly report, please include details about your browser version (e.g. Chrome, Firefox, Safari), operating system, and a brief snippet of the sample text or input schema that triggered the issue. Because our tools execute 100% locally on your device, providing specific sample inputs helps our team reproduce edge cases locally and ship accurate updates rapidly.
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 rounded-2xl p-6 space-y-3 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-sm">
+                03
+              </div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                Custom Tool Proposals &amp; Enterprise Requests
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                Do you need a custom text transformer, specialized encoding utility, or custom JSON converter tailored to your organization's internal schema? Select "Developer Integration Consultation" or "Feature Proposal" in the subject dropdown above. Our engineering team routinely builds and adds free client-side tools requested by our global user community.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-indigo-50/50 via-slate-50/50 to-blue-50/50 dark:from-indigo-950/20 dark:via-slate-950/20 dark:to-blue-950/20 border border-slate-200/60 dark:border-slate-850 rounded-3xl p-8 space-y-6">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Privacy, Data Security, and Anti-Spam Commitments
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+              TextToolkitHub is built on a foundation of absolute user privacy. When you send us a message via our support form, your email address and name are utilized exclusively to respond to your ticket. We do not sell user data, maintain advertising profiles, or share support communications with any third-party marketing brokers. Furthermore, all ticket history logs stored in your browser's local storage stay entirely on your physical device and can be erased at any time using the "Clear Logs" control above.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2 text-xs">
+              <div className="p-3.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                <strong className="block text-slate-900 dark:text-white font-semibold mb-1">Direct SMTP Delivery</strong>
+                <span className="text-slate-500 dark:text-slate-400">Sent directly to official hostinger email boxes.</span>
+              </div>
+              <div className="p-3.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                <strong className="block text-slate-900 dark:text-white font-semibold mb-1">Zero Third-Party Tracking</strong>
+                <span className="text-slate-500 dark:text-slate-400">No external trackers or telemetry scripts embedded.</span>
+              </div>
+              <div className="p-3.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                <strong className="block text-slate-900 dark:text-white font-semibold mb-1">Local History Security</strong>
+                <span className="text-slate-500 dark:text-slate-400">Your ticket references stay inside your browser storage.</span>
+              </div>
+              <div className="p-3.5 bg-white/80 dark:bg-slate-900/80 rounded-xl border border-slate-200/50 dark:border-slate-800">
+                <strong className="block text-slate-900 dark:text-white font-semibold mb-1">100% Free Service</strong>
+                <span className="text-slate-500 dark:text-slate-400">Free, professional support for all tool users worldwide.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Frequently Asked Support Questions */}
+          <div className="space-y-6 pt-4">
+            <div className="text-center space-y-2">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                Frequently Asked Support Questions
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-sans">
+                Quick answers regarding ticket submission, response timelines, and custom engineering support.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              <div className="bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 p-5 rounded-2xl space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">How do I track the status of my support ticket?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  When you submit a message using the contact form, a unique Ticket Reference ID (e.g., TKT-123456) is generated and saved automatically to your browser's local storage. You can view all past submissions and their submission dates under the "Ticket History" panel at the top of this page.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 p-5 rounded-2xl space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">Are support inquiries free for all users?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Yes, 100% free! TextToolkitHub is a free community utility site. We provide direct technical support, bug investigation, and feature consideration for all users without subscription paywalls or premium support tiers.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 p-5 rounded-2xl space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">How do I report a security vulnerability responsibly?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  If you discover a potential security flaw, missing CSP directive, or dependency vulnerability, please select "Security Disclosure" in the category dropdown above. Our security engineering team prioritizes vulnerability disclosures immediately and patches issues within 12 hours.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-[#0c111d] border border-slate-200/60 dark:border-slate-850 p-5 rounded-2xl space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">Can I integrate these text utilities into internal corporate tools?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  All TextToolkitHub tools run client-side under standard web licenses. If your organization requires custom offline desktop builds or air-gapped intranet deployments, contact us using the form above for developer integration consultation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   );

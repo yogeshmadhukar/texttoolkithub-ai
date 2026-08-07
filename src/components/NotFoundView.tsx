@@ -336,6 +336,122 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
           </div>
         </div>
 
+        {/* COMPREHENSIVE 404 NAVIGATION & CATEGORY DIRECTORY GUIDE */}
+        <div className="mt-16 border-t border-slate-200 dark:border-slate-900 pt-12 space-y-12">
+          
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest rounded-full border border-indigo-100 dark:border-indigo-900">
+              Navigation Assistance &amp; Directory Guide
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-slate-900 dark:text-white">
+              Navigating TextToolkitHub's Free Online Tool Collection
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+              If you followed a bookmarked link or external search result that led to this missing page, here is everything you need to know about navigating our offline-first text utilities.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-2xl p-6 space-y-3 shadow-sm">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <FileText className="w-4 h-4 text-emerald-500" /> Text Analysis &amp; Word Metrics
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                Analyze your articles, blog posts, essays, and manuscripts with precision. Our analysis suite includes our flagship Word Counter, Character Counter, Sentence Counter, Readability Checker (Flesch-Kincaid Grade level formulas), and Keyword Density Checker. All analysis utilities execute locally in your browser RAM with zero external network requests.
+              </p>
+              <div className="pt-2 flex flex-wrap gap-2 text-xs">
+                <button onClick={() => onNavigateToTool('tools/word-counter')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Word Counter</button>
+                <button onClick={() => onNavigateToTool('tools/character-counter')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Character Counter</button>
+                <button onClick={() => onNavigateToTool('tools/readability-checker')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Readability Checker</button>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-2xl p-6 space-y-3 shadow-sm">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Eraser className="w-4 h-4 text-indigo-500" /> Text Sanitation &amp; Cleanup Utilities
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                Clean up scrambled PDF copy, OCR text scans, duplicate rows, and messy dataset dumps. Use our Remove Extra Spaces tool, Remove Line Breaks utility, Remove Duplicate Lines tool, Remove Empty Lines transformer, and Remove Special Characters utility to format your paragraphs and datasets effortlessly.
+              </p>
+              <div className="pt-2 flex flex-wrap gap-2 text-xs">
+                <button onClick={() => onNavigateToTool('tools/remove-line-breaks')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Remove Line Breaks</button>
+                <button onClick={() => onNavigateToTool('tools/remove-extra-spaces')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Remove Extra Spaces</button>
+                <button onClick={() => onNavigateToTool('tools/remove-duplicate-lines')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Remove Duplicate Lines</button>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-2xl p-6 space-y-3 shadow-sm">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Type className="w-4 h-4 text-amber-500" /> Casing &amp; Format Converters
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                Switch seamlessly between Title Case, UPPERCASE, lowercase, camelCase, snake_case, kebab-case, PascalCase, and Constant Case. Perfect for developers formatting database variables or content writers structuring blog post headlines.
+              </p>
+              <div className="pt-2 flex flex-wrap gap-2 text-xs">
+                <button onClick={() => onNavigateToTool('tools/case-converter')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Case Converter</button>
+                <button onClick={() => onNavigateToTool('tools/slug-generator')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Slug Generator</button>
+                <button onClick={() => onNavigateToTool('tools/yaml-json-converter')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">YAML to JSON</button>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 rounded-2xl p-6 space-y-3 shadow-sm">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-500" /> Encoding &amp; Developer Security
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                Encode, decode, escape, and parse web data safely. Includes our Base64 Encoder/Decoder, URL Encoder/Decoder, HTML Entity Encoder, JWT Decoder, UUID/GUID Generator, and Hash Generator (MD5, SHA-256).
+              </p>
+              <div className="pt-2 flex flex-wrap gap-2 text-xs">
+                <button onClick={() => onNavigateToTool('tools/base64-encoder')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">Base64 Encoder</button>
+                <button onClick={() => onNavigateToTool('tools/url-encoder')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">URL Encoder</button>
+                <button onClick={() => onNavigateToTool('tools/uuid-generator')} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 font-semibold rounded-lg">UUID Generator</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-slate-100/70 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 space-y-6">
+            <div className="text-center space-y-2">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                404 Troubleshooting &amp; Navigation Frequently Asked Questions
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto font-sans">
+                Find answers to common questions about missing tool pages, URL updates, and how to access our browser-cached suite offline.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              <div className="bg-white dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-5 space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">Why did I encounter a 404 error on TextToolkitHub?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  A 404 error occurs when a web browser requests a page or tool URL handle that does not exist in our route router. This can happen if a URL was typed incorrectly in the address bar, if an outdated link was bookmarked, or if a legacy tool path was renamed during our recent architectural migration to unified category routes.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-5 space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">How do I find a missing text tool quickly?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Use the interactive search catalog box above on this page. Simply start typing keywords like "word count", "JSON", "Base64", "case", or "PDF" to immediately see live search matches from our complete library of 66+ online text utilities. Alternatively, click "Go to Home" to view our complete tools grid.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-5 space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">Can I request a missing or new tool to be built?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Yes! If you are searching for a specific text processing utility, format converter, or developer helper that is not currently listed in our catalog, please navigate to our Contact page and select "Feature Proposal". Our core engineering team routinely builds and deploys requested client-side tools for our user community.
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-5 space-y-2">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white">Are my inputs safe if I landed on a 404 page?</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
+                  Yes, 100%. Landing on a 404 page does not expose any user data or browser state. All operations on TextToolkitHub run strictly within your browser's local sandbox memory. No text input, uploaded files, or search queries are ever logged to external servers or sold to third-party data brokers.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
     </div>

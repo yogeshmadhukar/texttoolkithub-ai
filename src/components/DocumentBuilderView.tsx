@@ -1396,7 +1396,9 @@ export default function DocumentBuilderView({ onNavigateToTool, onNavigateHome }
                                 className="w-full text-slate-900"
                                 style={{ marginBottom: toLayoutSize(28) }}
                               >
-                                <h1 
+                                <div 
+                                  role="heading"
+                                  aria-level={1}
                                   className="font-bold text-slate-900 tracking-tight"
                                   style={{
                                     fontSize: toLayoutSize(page.computedTitleSize || Math.max(16, fontSize * 1.85)),
@@ -1405,7 +1407,7 @@ export default function DocumentBuilderView({ onNavigateToTool, onNavigateHome }
                                   }}
                                 >
                                   {titleText}
-                                </h1>
+                                </div>
                                 <div 
                                   className="flex flex-col mt-1"
                                   style={{ marginTop: toLayoutSize(12) }}
