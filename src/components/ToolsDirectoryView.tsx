@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { TOOLS, CATEGORIES, searchTools, FUNCTIONAL_CATEGORIES, getToolsForFunctionalCategory } from '../data.ts';
-import { Tool, ToolCategory } from '../types.ts';
+import { Tool, ToolCategory, getCleanPath } from '../types.ts';
 import { motion, AnimatePresence } from 'motion/react';
 import SEO from './SEO.tsx';
 import { 
@@ -673,20 +673,32 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <button
-                  onClick={() => handleLaunchTool('tools/grammar-checker')}
+                <a
+                  href={getCleanPath('tools/grammar-checker')}
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                      e.preventDefault();
+                      handleLaunchTool('tools/grammar-checker');
+                    }
+                  }}
                   className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-indigo-600/10 cursor-pointer"
                 >
                   <span>Launch Checker Core</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => handleLaunchTool('tools/readability-checker')}
+                </a>
+                <a
+                  href={getCleanPath('tools/readability-checker')}
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                      e.preventDefault();
+                      handleLaunchTool('tools/readability-checker');
+                    }
+                  }}
                   className="px-4 py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-350 rounded-xl text-xs font-bold transition flex items-center gap-1 hover:text-slate-900 dark:hover:text-white cursor-pointer"
                 >
                   <span>Readability index</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-                </button>
+                </a>
               </div>
             </div>
 
@@ -712,9 +724,15 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                     recentlyUsedToolsData.map(tool => {
                       const col = CATEGORIES_COLOR_MAP[tool.category];
                       return (
-                        <div 
+                        <a 
                           key={tool.id}
-                          onClick={() => handleLaunchTool(tool.id)}
+                          href={getCleanPath(tool.id)}
+                          onClick={(e) => {
+                            if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                              e.preventDefault();
+                              handleLaunchTool(tool.id);
+                            }
+                          }}
                           className="flex items-center justify-between p-2.5 bg-slate-50 dark:bg-slate-900 hover:bg-indigo-50/40 dark:hover:bg-slate-800/50 rounded-xl cursor-pointer border border-transparent hover:border-indigo-500/10 transition-all duration-200"
                         >
                           <div className="flex items-center gap-3">
@@ -726,7 +744,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                           <span className="text-[10px] text-slate-400 flex items-center gap-0.5">
                             Open <ArrowRight className="w-3 h-3" />
                           </span>
-                        </div>
+                        </a>
                       );
                     })
                   )}
@@ -865,9 +883,15 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                       {!isCollapsed && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
                           {matchesThisCategory.map((tool) => (
-                            <div
+                            <a
                               key={tool.id}
-                              onClick={() => handleLaunchTool(tool.id)}
+                              href={getCleanPath(tool.id)}
+                              onClick={(e) => {
+                                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                                  e.preventDefault();
+                                  handleLaunchTool(tool.id);
+                                }
+                              }}
                               onMouseEnter={() => onPrefetchTool?.(tool.id)}
                               className="group relative flex flex-col justify-between bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-850 rounded-2xl cursor-pointer hover:border-indigo-500/50 dark:hover:border-indigo-400/50 transition-all duration-300 p-5 shadow-sm hover:shadow-md"
                               id={`dir-card-${tool.id.replace('tools/', '')}`}
@@ -897,7 +921,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                                 <span className={`h-1.5 w-1.5 rounded-full ${col.accent}`} />
                                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-bold text-indigo-600 dark:text-indigo-400">Launch now &rarr;</span>
                               </div>
-                            </div>
+                            </a>
                           ))}
                         </div>
                       )}
@@ -921,9 +945,15 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                     {filteredTools.map((tool) => {
                       const col = CATEGORIES_COLOR_MAP[tool.category];
                       return (
-                        <div
+                        <a
                           key={tool.id}
-                          onClick={() => handleLaunchTool(tool.id)}
+                          href={getCleanPath(tool.id)}
+                          onClick={(e) => {
+                            if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                              e.preventDefault();
+                              handleLaunchTool(tool.id);
+                            }
+                          }}
                           onMouseEnter={() => onPrefetchTool?.(tool.id)}
                           className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 hover:bg-slate-50/75 dark:hover:bg-slate-850/50 cursor-pointer transition duration-150 text-left gap-3"
                         >
@@ -949,7 +979,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
                               Open 
                             </div>
                           </div>
-                        </div>
+                        </a>
                       );
                     })}
                   </div>

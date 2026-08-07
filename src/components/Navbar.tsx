@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TOOLS, searchTools } from '../data.ts';
-import { ActivePage, Tool, isDevSession } from '../types.ts';
+import { ActivePage, Tool, isDevSession, getCleanPath } from '../types.ts';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
 import HubLogo from './HubLogo.tsx';
@@ -520,9 +520,15 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               const isActive = activePage === page;
               const labels = { home: 'Home', tools: 'Tools', guides: 'Guides', about: 'About', faq: 'FAQ', contact: 'Contact' };
               return (
-                <button
+                <a
                   key={page}
-                  onClick={() => handleLinkSelect(page)}
+                  href={getCleanPath(page)}
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                      e.preventDefault();
+                      handleLinkSelect(page);
+                    }
+                  }}
                   className={`relative md:px-2 lg:px-3 xl:px-4 py-2 md:text-xs lg:text-sm font-semibold transition-colors duration-250 rounded-full z-10 cursor-pointer ${
                     isActive 
                       ? 'text-indigo-600 dark:text-indigo-400' 
@@ -538,7 +544,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                       transition={{ type: 'spring', stiffness: 350, damping: 28 }}
                     />
                   )}
-                </button>
+                </a>
               );
             })}
           </nav>
@@ -1034,7 +1040,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
             <div className="grid grid-cols-2 gap-2">
               {[
                 { name: 'home', label: 'Home Feed' },
-                { name: 'tools', label: 'All 58 Tools' },
+                { name: 'tools', label: 'All Tools' },
                 { name: 'guides', label: 'Guides Hub' },
                 { name: 'about', label: 'Our Story' },
                 { name: 'faq', label: 'Help & FAQ' },
@@ -1042,9 +1048,15 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
               ].map((pg) => {
                 const isActive = activePage === pg.name;
                 return (
-                  <button
+                  <a
                     key={pg.name}
-                    onClick={() => handleLinkSelect(pg.name)}
+                    href={getCleanPath(pg.name)}
+                    onClick={(e) => {
+                      if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                        e.preventDefault();
+                        handleLinkSelect(pg.name);
+                      }
+                    }}
                     className={`flex items-center justify-between p-3 rounded-xl border text-left transition duration-150 ${
                       isActive 
                         ? 'bg-indigo-50/70 border-indigo-200 dark:bg-indigo-950/20 dark:border-indigo-900/50 text-indigo-600 dark:text-indigo-400 font-bold' 
@@ -1053,13 +1065,13 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                   >
                     <span className="text-xs">{pg.label}</span>
                     <ChevronRight className={`w-3.5 h-3.5 opacity-60 ${isActive ? 'text-indigo-500' : ''}`} />
-                  </button>
+                  </a>
                 );
               })}
             </div>
           </div>
 
-          {/* QUICK ACCESS: POPULAR TOOLS (The "Important Things" requested by the user) */}
+          {/* QUICK ACCESS: POPULAR TOOLS */}
           <div className="space-y-2.5">
             <h4 className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 ml-1">Popular Utilities</h4>
             <div className="grid grid-cols-2 gap-2">
@@ -1071,27 +1083,55 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
                 { id: 'tools/regex-tester', title: 'Regex Matcher', icon: <Code className="w-4 h-4 text-indigo-500" /> },
                 { id: 'tools/csv-formatter', title: 'CSV Formatter', icon: <FileSpreadsheet className="w-4 h-4 text-emerald-500" /> },
               ].map((item) => (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => handleToolSelect(item.id)}
+                  href={getCleanPath(item.id)}
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                      e.preventDefault();
+                      handleToolSelect(item.id);
+                    }
+                  }}
                   className="flex items-center gap-2.5 p-3 rounded-xl border border-slate-150 dark:border-slate-800 bg-white dark:bg-[#111622] hover:bg-slate-50 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300 transition duration-150 text-left"
                 >
                   <div className="p-1 rounded-lg bg-slate-50 dark:bg-slate-900 shrink-0 border border-slate-100 dark:border-slate-800">
                     {item.icon}
                   </div>
                   <span className="text-xs font-semibold leading-tight line-clamp-1">{item.title}</span>
-                </button>
+                </a>
               ))}
             </div>
           </div>
 
-          {/* Compact Footnote (Privacy & Terms only, NO SOCIAL MEDIA ICONS) */}
+          {/* Compact Footnote */}
           <div className="border-t border-slate-150 dark:border-slate-800/80 pt-4 mt-1 flex flex-col gap-2.5">
             <div className="flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 px-1">
               <div className="flex gap-3">
-                <button onClick={() => handleLinkSelect('privacy')} className="hover:underline hover:text-indigo-500 dark:hover:text-indigo-400">Privacy Policy</button>
+                <a 
+                  href={getCleanPath('privacy')} 
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                      e.preventDefault();
+                      handleLinkSelect('privacy');
+                    }
+                  }} 
+                  className="hover:underline hover:text-indigo-500 dark:hover:text-indigo-400"
+                >
+                  Privacy Policy
+                </a>
                 <span>•</span>
-                <button onClick={() => handleLinkSelect('terms')} className="hover:underline hover:text-indigo-500 dark:hover:text-indigo-400">Terms of Service</button>
+                <a 
+                  href={getCleanPath('terms')} 
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                      e.preventDefault();
+                      handleLinkSelect('terms');
+                    }
+                  }} 
+                  className="hover:underline hover:text-indigo-500 dark:hover:text-indigo-400"
+                >
+                  Terms of Service
+                </a>
               </div>
               <span>© 2026 Toolkit</span>
             </div>

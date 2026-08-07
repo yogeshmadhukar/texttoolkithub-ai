@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { TOOLS, CATEGORIES, FAQS, searchTools, FUNCTIONAL_CATEGORIES, getToolsForFunctionalCategory } from '../data.ts';
-import { Tool, ToolCategory } from '../types.ts';
+import { Tool, ToolCategory, getCleanPath } from '../types.ts';
 import HubLogo from './HubLogo.tsx';
 import { motion } from 'motion/react';
 import { analytics } from '../lib/analytics.ts';
@@ -1193,12 +1193,18 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                       {catTools.map((tool, idx) => {
                         const toolSpec = getCategoryDetails(tool.category) || spec;
                         return (
-                          <motion.div
+                          <motion.a
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: Math.min(0.2, idx * 0.03) }}
                             key={tool.id}
-                            onClick={() => onNavigateToTool(tool.id)}
+                            href={getCleanPath(tool.id)}
+                            onClick={(e) => {
+                              if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                                e.preventDefault();
+                                onNavigateToTool(tool.id);
+                              }
+                            }}
                             onMouseEnter={() => onPrefetchTool?.(tool.id)}
                             className={`group bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-850/80 p-6 rounded-2xl cursor-pointer transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 ${toolSpec?.borderAccent || ''} ${toolSpec?.hoverBorder || 'hover:border-indigo-500'} ${toolSpec?.glowColor || 'hover:shadow-lg'}`}
                             id={`catalog-tool-${tool.id.replace('tools/', '')}`}
@@ -1224,7 +1230,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                             <span className="text-[11px] font-bold text-indigo-500 uppercase tracking-wider mt-4 block group-hover:translate-x-1.5 transition-transform duration-200">
                               Access Utility &rarr;
                             </span>
-                          </motion.div>
+                          </motion.a>
                         );
                       })}
                     </div>
@@ -1262,9 +1268,15 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
               const info = getCategoryDetails(tool.category);
               const editorial = featuredToolEditorialMap[tool.id] || { title: tool.title, desc: tool.description };
               return (
-                <div 
+                <a 
                   key={tool.id}
-                  onClick={() => onNavigateToTool(tool.id)}
+                  href={getCleanPath(tool.id)}
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                      e.preventDefault();
+                      onNavigateToTool(tool.id);
+                    }
+                  }}
                   onMouseEnter={() => onPrefetchTool?.(tool.id)}
                   className="group bg-slate-50/40 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 hover:border-indigo-400 dark:hover:border-indigo-500/80 p-6 rounded-3xl cursor-pointer hover:shadow-[0_15px_30px_-5px_rgba(99,102,241,0.08)] dark:hover:shadow-[0_15px_30px_-5px_rgba(99,102,241,0.15)] hover:-translate-y-1 transition-all duration-300 relative overflow-hidden flex flex-col justify-between border-t-[3px] border-t-indigo-500/85 dark:border-t-indigo-400/85"
                   id={`featured-${tool.id}`}
@@ -1292,7 +1304,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                     <span className="flex items-center gap-1 font-sans">Open Professional Tool <ArrowRight className="w-3.5 h-3.5" /></span>
                     <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase group-hover:text-slate-500 font-mono">100% Free</span>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>
@@ -1314,8 +1326,14 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* New Tool 1: Text Sorter */}
-            <div 
-              onClick={() => onNavigateToTool('tools/text-sorter')}
+            <a 
+              href={getCleanPath('tools/text-sorter')}
+              onClick={(e) => {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                  e.preventDefault();
+                  onNavigateToTool('tools/text-sorter');
+                }
+              }}
               className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500 p-6 rounded-2xl cursor-pointer hover:shadow-md transition-all duration-300 relative flex items-start gap-4"
               id="recent-tool-sorter"
             >
@@ -1334,11 +1352,17 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 </p>
                 <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 group-hover:underline font-sans">Launch Sorter &rarr;</span>
               </div>
-            </div>
+            </a>
 
             {/* New Tool 2: Text Reverser */}
-            <div 
-              onClick={() => onNavigateToTool('tools/text-reverser')}
+            <a 
+              href={getCleanPath('tools/text-reverser')}
+              onClick={(e) => {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                  e.preventDefault();
+                  onNavigateToTool('tools/text-reverser');
+                }
+              }}
               className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-850 hover:border-indigo-400 dark:hover:border-indigo-500 p-6 rounded-2xl cursor-pointer hover:shadow-md transition-all duration-300 relative flex items-start gap-4"
               id="recent-tool-reverser"
             >
@@ -1357,7 +1381,7 @@ export default function HomeView({ onNavigateToTool, onPrefetchTool }: HomeViewP
                 </p>
                 <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 group-hover:underline font-sans">Launch Reverser &rarr;</span>
               </div>
-            </div>
+            </a>
 
           </div>
         </div>

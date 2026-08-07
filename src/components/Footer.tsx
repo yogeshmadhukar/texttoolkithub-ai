@@ -174,6 +174,16 @@ export default function Footer({ onNavigate }: FooterProps) {
                   Frequently Asked Questions
                 </a>
               </li>
+              <li>
+                <a 
+                  href={getCleanPath('security-faq')} 
+                  onClick={(e) => handleLinkClick(e, 'security-faq')} 
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer transition-colors inline-block" 
+                  id="footer-link-security-faq"
+                >
+                  Security &amp; Privacy FAQ
+                </a>
+              </li>
             </ul>
           </div>
 
