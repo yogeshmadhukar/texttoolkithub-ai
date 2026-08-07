@@ -356,92 +356,469 @@ export const SPECIFIC_TOOL_FAQS: Record<string, FaqItem[]> = {
 };
 
 // Category-based FAQ generators to provide contextual, relevant FAQs for any tool on the platform
-export function getFaqsForTool(toolId: string, toolTitle: string, toolDescription: string, toolCategory: string, keywords: string[]): FaqItem[] {
-  // Return the handcrafted list if it exists
-  if (SPECIFIC_TOOL_FAQS[toolId]) {
-    return SPECIFIC_TOOL_FAQS[toolId];
-  }
-
-  // Fallback to tools ID matching without "tools/" prefix
+export function getFaqsForTool(
+  toolId: string,
+  toolTitle: string,
+  toolDescription: string,
+  toolCategory: string,
+  keywords: string[]
+): FaqItem[] {
+  let faqs: FaqItem[] = [];
   const cleanedId = toolId.replace('tools/', '');
-  if (SPECIFIC_TOOL_FAQS[cleanedId]) {
-    return SPECIFIC_TOOL_FAQS[cleanedId];
+  
+  if (SPECIFIC_TOOL_FAQS[toolId]) {
+    faqs = [...SPECIFIC_TOOL_FAQS[toolId]];
+  } else if (SPECIFIC_TOOL_FAQS[cleanedId]) {
+    faqs = [...SPECIFIC_TOOL_FAQS[cleanedId]];
   }
 
-  const primeKeyword = keywords && keywords.length > 0 ? keywords[0] : toolTitle.toLowerCase();
-  const secondaryKeyword = keywords && keywords.length > 1 ? keywords[1] : 'text formatting';
+  // If we found a handcrafted list, let's append 2 more custom detailed FAQs to reach 7 FAQs!
+  if (faqs.length > 0) {
+    if (faqs.length < 7) {
+      const extraFaqs = getExtraFaqsForHandcraftedTool(toolId, toolTitle, toolCategory, keywords);
+      faqs = [...faqs, ...extraFaqs];
+    }
+    // Re-index IDs to be sequential 1-7
+    return faqs.map((faq, index) => ({
+      ...faq,
+      id: index + 1
+    }));
+  }
 
-  // Construct a beautiful category-specific list
+  // For any other tool, generate a fully unique, highly specific set of 7 FAQs dynamically!
+  return generateDynamicFaqsForTool(toolId, toolTitle, toolDescription, toolCategory, keywords);
+}
+
+function getExtraFaqsForHandcraftedTool(
+  toolId: string,
+  toolTitle: string,
+  toolCategory: string,
+  keywords: string[]
+): FaqItem[] {
+  const cleanId = toolId.replace('tools/', '');
+  
+  if (cleanId === 'word-counter') {
+    return [
+      {
+        id: 6,
+        question: 'Does the Word Counter track paragraph distributions and grammatical structures?',
+        answer: 'Yes. In addition to measuring word frequency distributions, our Word Counter tracks paragraph counts and average sentence lengths. This is valuable for writers aiming to maintain structural balance and clear readability inside their chapters or essays.'
+      },
+      {
+        id: 7,
+        question: 'Can I run this Word Counter on mobile phone browsers like Safari or Chrome?',
+        answer: 'Absolutely. The entire counter is fully responsive and optimized for mobile screens. You can paste texts, check real-time character lists, and view reading times on your iPhone, iPad, or Android device with zero layout shifting.'
+      }
+    ];
+  }
+
+  if (cleanId === 'readability-checker') {
+    return [
+      {
+        id: 6,
+        question: 'How does the Readability Checker handle headings and short paragraphs?',
+        answer: 'The checker intelligently filters out bullet lists, headings, and single-phrase titles to prevent them from skewing your readability scores. It focuses specifically on full, continuous sentence structures for mathematical accuracy.'
+      },
+      {
+        id: 7,
+        question: 'Is there an option to analyze readability for different age groups or grading systems?',
+        answer: 'Yes. The results panel translates the raw Flesch Reading Ease score into standard grade levels (e.g., 5th grade, 8th grade, college graduate) and offers actionable tips to tailor your content for your target audience.'
+      }
+    ];
+  }
+
+  if (cleanId === 'grammar-checker') {
+    return [
+      {
+        id: 6,
+        question: 'Does the Grammar Checker automatically save my editing progress?',
+        answer: 'Yes, your active editing draft is preserved in temporary browser memory so you don\'t lose progress if you accidentally refresh the page. However, we recommend copying your finalized writing to a local document for permanent storage.'
+      },
+      {
+        id: 7,
+        question: 'Can I check files containing programming code mixed with English paragraphs?',
+        answer: 'Yes. Our parser handles mixed-content files, though it might flag code structures as spelling slips. You can easily ignore these flags or focus on specific prose sections inside your document.'
+      }
+    ];
+  }
+
+  if (cleanId === 'remove-line-breaks') {
+    return [
+      {
+        id: 6,
+        question: 'Does removing line breaks affect special formatting symbols or emojis?',
+        answer: 'No. The stripping algorithm targets only carriage returns (\\r) and line feed characters (\\n). All your emojis, symbols, spaces, and custom characters are kept perfectly intact.'
+      },
+      {
+        id: 7,
+        question: 'How does the tool handle double line breaks when stripping single line endings?',
+        answer: 'When "Preserve Paragraphs" is enabled, the tool treats double line endings as intended paragraph dividers, and only flattens single, wrapped line endings, keeping your overall article structured.'
+      }
+    ];
+  }
+
+  if (cleanId === 'remove-extra-spaces') {
+    return [
+      {
+        id: 6,
+        question: 'Can the extra space sanitizer remove empty whitespace rows inside lists?',
+        answer: 'Yes. You can toggle the custom "Purge empty lines" checkbox to clean up any blank or whitespace-only rows in your list, giving you a compact, continuous text block.'
+      },
+      {
+        id: 7,
+        question: 'How does this space cleaner handle tab indentations inside code snippets?',
+        answer: 'You can choose whether to strip tabs entirely or preserve them. If you are cleaning code layouts, we recommend keeping tab spaces to preserve block indentations.'
+      }
+    ];
+  }
+
+  if (cleanId === 'case-converter' || cleanId === 'case-converter-pro') {
+    return [
+      {
+        id: 6,
+        question: 'Can the Case Converter handle international characters and special accents?',
+        answer: 'Yes! It fully supports unicode casing transitions, meaning letters with accents (like é, ö, or ç) are accurately converted to upper or lower case according to global standards.'
+      },
+      {
+        id: 7,
+        question: 'Does the Case Converter support converting list rows in bulk?',
+        answer: 'Yes, it easily converts multi-line blocks, list items, and entire code scripts, executing all capitalization transformations in milliseconds inside browser memory.'
+      }
+    ];
+  }
+
+  if (cleanId === 'text-compare') {
+    return [
+      {
+        id: 6,
+        question: 'How does the Text Compare engine align paragraphs of different lengths?',
+        answer: 'The diff engine uses a longest common subsequence (LCS) algorithm to find structural similarities and align corresponding rows, showing insertions and deletions side-by-side.'
+      },
+      {
+        id: 7,
+        question: 'Can I compare documents containing confidential commercial contracts or financial audits?',
+        answer: 'Yes, completely. Since the diff comparison is performed strictly on your local processor threads with no server interaction, your proprietary business agreements remain entirely confidential.'
+      }
+    ];
+  }
+
+  if (cleanId === 'contrast-checker') {
+    return [
+      {
+        id: 6,
+        question: 'Does the Contrast Checker support testing transparent or semi-transparent colors?',
+        answer: 'The tool is optimized for solid hexadecimal values. For transparent elements, we recommend inputting the estimated blended color against the underlying background to get an accurate ratio.'
+      },
+      {
+        id: 7,
+        question: 'Can I export my accessible color palettes to CSS stylesheet formats?',
+        answer: 'Yes, you can copy the generated hexadecimal values directly from the palette cards to paste them straight into your CSS variables or Tailwind utility configurations.'
+      }
+    ];
+  }
+
+  if (cleanId === 'yaml-json-converter') {
+    return [
+      {
+        id: 6,
+        question: 'How does the YAML bidirectional converter handle comments?',
+        answer: 'JSON specifications do not support comments, so when converting YAML to JSON, any comments are parsed out. However, converting back to YAML produces a clean, structured YAML map.'
+      },
+      {
+        id: 7,
+        question: 'Does this converter support formatting nested arrays inside YAML files?',
+        answer: 'Yes. The parser handles complex multi-nested structures, arrays, objects, and configurations smoothly, outputting standard indented YAML or beautified JSON objects.'
+      }
+    ];
+  }
+
+  if (cleanId === 'uuid-generator') {
+    return [
+      {
+        id: 6,
+        question: 'What is the structural difference between a UUID and a GUID?',
+        answer: 'Historically, GUIDs were Microsoft\'s implementation of UUIDs. Today, both terms are used interchangeably, and our generator produces standard Version 4 identifiers compliant with RFC-4122.'
+      },
+      {
+        id: 7,
+        question: 'Can I generate custom prefix or suffix strings for my bulk UUID array?',
+        answer: 'Yes, you can configure standard uppercase transformations, braces wrappers, and comma or hyphen separators to tailor the output list to fit your database loading scripts.'
+      }
+    ];
+  }
+
+  if (cleanId === 'unix-timestamp-converter') {
+    return [
+      {
+        id: 6,
+        question: 'Does the Epoch converter support handling historical or future millisecond dates?',
+        answer: 'Yes. It accurately parses and calculates Unix dates ranging from several decades in the past to many years in the future, displaying precise UTC and local time alignments.'
+      },
+      {
+        id: 7,
+        question: 'How does this Unix converter manage daylight saving time (DST) shifts?',
+        answer: 'It relies on your browser\'s local timezone settings, which automatically adjust to daylight saving transitions, ensuring your local calendar readouts are always correct.'
+      }
+    ];
+  }
+
+  if (cleanId === 'markdown-table-generator') {
+    return [
+      {
+        id: 6,
+        question: 'Can I add bold or italic styling inside the visual grid cells?',
+        answer: 'Yes. You can type standard Markdown syntax (such as **bold** or *italics*) directly inside the table cell editor, and it will render perfectly in the generated Markdown and HTML.'
+      },
+      {
+        id: 7,
+        question: 'What happens if I paste messy, unformatted tabular rows into the CSV import box?',
+        answer: 'The converter parses the text row-by-row, automatically detecting delimiters (commas or tabs) and populating the interactive grid, allowing you to clean up and re-align cells visually.'
+      }
+    ];
+  }
+
+  if (cleanId === 'regex-tester') {
+    return [
+      {
+        id: 6,
+        question: 'Can I test global search and case-insensitive regular expressions together?',
+        answer: 'Yes, you can toggle both the global (g) and case-insensitive (i) flags in the control bar to test matching and capturing across your entire text sample without casing constraints.'
+      },
+      {
+        id: 7,
+        question: 'Is there a visual guide or cheatsheet for common regular expression selectors?',
+        answer: 'Yes, the page includes handy visual indicators and status highlights to help you quickly verify standard match ranges, capturing brackets, and word boundary anchors.'
+      }
+    ];
+  }
+
+  // Fallback if no specific match
+  return [
+    {
+      id: 6,
+      question: `Is there any subscription fee or API quota limit for using this ${toolTitle}?`,
+      answer: `No. All features are completely free with zero subscription requirements, credit card processing fees, or daily execution limits.`
+    },
+    {
+      id: 7,
+      question: `Does the ${toolTitle} require a constant internet connection to function?`,
+      answer: `No. Once loaded, the browser cache handles all operations. You can disconnect your internet entirely, and the tool will continue to process your parameters smoothly.`
+    }
+  ];
+}
+
+function generateDynamicFaqsForTool(
+  toolId: string,
+  toolTitle: string,
+  toolDescription: string,
+  toolCategory: string,
+  keywords: string[]
+): FaqItem[] {
+  const cleanTitle = toolTitle.replace(/\s*\(.*\)/, '');
+  const primaryKw = keywords && keywords.length > 0 ? keywords[0] : cleanTitle.toLowerCase();
+  const secondaryKw = keywords && keywords.length > 1 ? keywords[1] : 'online utility';
+
+  // Determine the archetype based on ID and category
+  let archetype = 'text'; // fallback
+  if (
+    toolCategory === 'pdf-utilities' || 
+    toolCategory === 'converter' || 
+    toolId.includes('pdf') || 
+    toolId.includes('excel') || 
+    toolId.includes('csv') || 
+    toolId.includes('table') || 
+    toolId.includes('document-builder')
+  ) {
+    archetype = 'pdf-excel';
+  } else if (
+    toolCategory === 'image-media' || 
+    toolId.includes('image') || 
+    toolId.includes('compressor') || 
+    toolId.includes('speech') || 
+    toolId.includes('audio') || 
+    toolId.includes('morse') || 
+    toolId.includes('contrast')
+  ) {
+    archetype = 'image';
+  } else if (
+    toolCategory === 'developer-encoding' || 
+    toolCategory === 'encoding' || 
+    toolId.includes('json') || 
+    toolId.includes('jwt') || 
+    toolId.includes('regex') || 
+    toolId.includes('yaml') || 
+    toolId.includes('cron') || 
+    toolId.includes('hash') || 
+    toolId.includes('uuid') || 
+    toolId.includes('escaper') || 
+    toolId.includes('base64') || 
+    toolId.includes('url') || 
+    toolId.includes('html-encoder') || 
+    toolId.includes('html-decoder') || 
+    toolId.includes('css') || 
+    toolId.includes('ua-parser') || 
+    toolId.includes('typedef') || 
+    toolId.includes('binary')
+  ) {
+    archetype = 'developer';
+  }
+
   const faqs: FaqItem[] = [];
 
-  // Question 1: What is the tool & what does it do? (Universal & Searchable)
-  faqs.push({
-    id: 1,
-    question: `What is the ${toolTitle} tool and how does it work?`,
-    answer: `The ${toolTitle} is a high-performance, web-based text utility hosted on TextToolkitHub designed specifically to ${toolDescription.toLowerCase().replace(/\.$/, '')}. It evaluates your input text dynamically in real time, executing all logic, transformations, and calculations locally inside your browser memory using optimized JavaScript engines. Whether you are managing software projects, polishing written articles, or analyzing data structures, this tool gives you instant, accurate results without needing any complex installation or command-line scripts.`
-  });
-
-  // Question 2: Privacy (Universal & highly relevant for compliance)
-  faqs.push({
-    id: 2,
-    question: `Is my confidential text or data secure when using the online ${toolTitle}?`,
-    answer: `Yes, 100% secure. TextToolkitHub is strictly engineered around an offline-first client-side privacy model. When you paste your copy, code snippets, tokens, or documents into the ${toolTitle}, all data processing happens entirely inside your local device's memory. No text buffers, personal files, or API credentials ever leave your browser or get transmitted over external networks. You can even disconnect your internet connection entirely after loading the page, and the tool will continue to function seamlessly.`
-  });
-
-  // Question 3: How to use (Practical & Step-by-Step)
-  faqs.push({
-    id: 3,
-    question: `How do I format, analyze, or process text using this online ${toolTitle}?`,
-    answer: `Using the ${toolTitle} involves a straightforward, four-step workflow: 1. Paste, type, or load sample copy directly into the main input box. 2. Configure any optional formatting parameters, case toggles, or separator options available in the control panel. 3. Observe the output updating in real time as you type or click the action button. 4. Use the one-click copy button to save the pristine result to your clipboard, or export it as a downloadable document.`
-  });
-
-  // Question 4: Advanced Features & Performance
-  faqs.push({
-    id: 4,
-    question: `What primary features and benefits does the ${toolTitle} offer?`,
-    answer: `Key features of the ${toolTitle} include real-time client-side processing, automated error detection, responsive mobile-friendly interface controls, and zero-latency performance even with large documents. It eliminates manual formatting chores, reduces human error in data handling, and provides clean, standardized outputs that are ready for publishing, database storage, or software development pipelines.`
-  });
-
-  // Category-specific Question 5
-  if (toolCategory === 'analyzer') {
-    faqs.push({
-      id: 5,
-      question: `How accurate are the counts and calculations generated by the ${toolTitle}?`,
-      answer: `The ${toolTitle} uses industry-standard string segmentation algorithms conforming to Unicode and ECMAScript specifications. It accurately counts characters, words, sentences, lines, and custom metrics across international character sets. While optimized for SEO specialists, editors, and developers, we recommend verifying critical metrics before submitting official legal filings or academic dissertations.`
-    });
-  } else if (toolCategory === 'cleaner') {
-    faqs.push({
-      id: 5,
-      question: `Can the ${toolTitle} handle large documents and multi-thousand line files?`,
-      answer: `Yes. The underlying sanitation and formatting algorithms are optimized in-memory JavaScript routines. The ${toolTitle} effortlessly parses, cleans, and restructures datasets containing thousands of rows or long manuscript chapters in milliseconds, maintaining a smooth 60fps browser interface without freezing.`
-    });
-  } else if (toolCategory === 'converter') {
-    faqs.push({
-      id: 5,
-      question: `What syntax formats does the ${toolTitle} support and can I revert my changes?`,
-      answer: `The ${toolTitle} supports all standard developer, writer, and web publishing formats including Title Case, camelCase, snake_case, kebab-case, HTML entities, and Markdown syntax. You can instantly revert or modify any transformation using our built-in undo control or history stack.`
-    });
-  } else if (toolCategory === 'encoding') {
-    faqs.push({
-      id: 5,
-      question: `Why should I use this browser-based ${toolTitle} instead of command-line tools?`,
-      answer: `This browser-based ${toolTitle} combines the speed and security of local script execution with a friendly visual interface. It highlights syntax errors, provides interactive tree views or visual previews, and offers instant clipboard and download actions without requiring terminal setup, Python scripts, or package installations.`
-    });
+  if (archetype === 'pdf-excel') {
+    faqs.push(
+      {
+        id: 1,
+        question: `How does the ${cleanTitle} handle file parsing and vector table extractions?`,
+        answer: `The ${cleanTitle} integrates optimized JavaScript binary compilers and document parsers right inside your browser window. When you select a document, sheet, or file, our engine reads the binary byte structure directly in local RAM. It instantly extracts page layers, grid structures, alignments, or cell values, ensuring high-speed formatting and razor-sharp outputs without waiting for server queues or remote processing.`
+      },
+      {
+        id: 2,
+        question: `Is my confidential business data or PDF file secure when using the ${cleanTitle}?`,
+        answer: `Yes, completely secure. TextToolkitHub is designed with an offline-first browser sandbox model. Unlike typical converters that upload spreadsheets or PDF drafts to cloud servers, our ${cleanTitle} processes 100% of your data locally on your device. Absolutely no file data, clipboard strings, or private information ever leave your browser, making it safe for corporate financial reports, legal drafts, and sensitive database uploads.`
+      },
+      {
+        id: 3,
+        question: `What are the maximum file sizes, page limits, and layout parameters supported?`,
+        answer: `This tool supports high-volume documents and multi-tab layouts seamlessly. For optimal browser thread responsiveness, we suggest processing file bundles under 100MB. The engine accurately retains complex cell borders, multi-lingual unicode characters, and page orientations. You can tailor formatting parameters, margins, landscapes, or column selections unhindered, with zero limits or throttling.`
+      },
+      {
+        id: 4,
+        question: `Why is a browser-based ${cleanTitle} superior to remote cloud converters?`,
+        answer: `Standard cloud tools upload your documents to shared queue systems, which creates privacy vulnerabilities and delays. The ${cleanTitle} executes instantly inside your local hardware environment, saving you massive network bandwidth and avoiding queue counters or subscription advertisements. It serves as a light, premium, and private desktop-class utility.`
+      },
+      {
+        id: 5,
+        question: `What are the most common formatting errors to avoid during ${primaryKw} processing?`,
+        answer: `A frequent pitfall is uploading sheets with missing header references, corrupted cell arrays, or overlapping page range inputs (e.g. '1-3, 2-5'), which duplicate PDF pages. Before converting or split operations, ensure your cell data is organized, empty margins are cleaned, and custom page ranges are specified clearly to avoid layout shifting.`
+      },
+      {
+        id: 6,
+        question: `Can I download the processed files instantly, and are there any usage charges?`,
+        answer: `Yes, you can download your compiled PDF files or Excel tables immediately after processing with a single tap. All features of the ${cleanTitle} are 100% free for both personal and high-volume commercial use, with zero registration barriers, premium licensing requirements, or promotional branding watermarks on your files.`
+      },
+      {
+        id: 7,
+        question: `Does the ${cleanTitle} require a constant network connection to function?`,
+        answer: `No. Once the web page loads in your browser, the entire formatting, merging, splitting, or compiling logic is cached locally. You can disconnect your internet entirely, and the ${cleanTitle} will continue to parse, align, and generate files smoothly, making it ideal for offline travel or highly secure corporate environments.`
+      }
+    );
+  } else if (archetype === 'image') {
+    faqs.push(
+      {
+        id: 1,
+        question: `How does the ${cleanTitle} process visual media or system audio layouts?`,
+        answer: `The ${cleanTitle} utilizes high-performance browser-native graphics threads and local hardware APIs (such as GPU canvas contexts, Web Audio synthesis, or local speech engines) to process elements in real-time. By running computations in-memory on your device, it translates signals, scales pixels, or plays custom vocalizations with zero network lag, offering interactive controls and instant feedback.`
+      },
+      {
+        id: 2,
+        question: `How does the ${cleanTitle} ensure complete privacy for my photo or voice data?`,
+        answer: `Privacy is our absolute priority. Unlike typical media processors that transmit audio or photos to cloud servers, the ${cleanTitle} executes entirely client-side. Your images, coordinates, synthesized speech lines, or color contrast values remain strictly inside your browser sandbox. No telemetry, media logs, or confidential details are shared or saved online.`
+      },
+      {
+        id: 3,
+        question: `What formats, character guidelines, or quality boundaries are supported?`,
+        answer: `Our ${cleanTitle} is fully optimized for standard WebP, PNG, JPEG, and system voice formats. For fast on-device rendering, we recommend keeping file uploads under 50MB. All sliders, timing speeds, pitch levels, and error-correction variables can be customized in real-time, allowing you to run bulk optimizations and reach professional results with ease.`
+      },
+      {
+        id: 4,
+        question: `How does this browser-native ${cleanTitle} compare to paid design suites?`,
+        answer: `It provides a completely visual, interactive workspace with the privacy of offline processing without requiring complex installations, registration, or command-line scripts. There is no software bloat or commercial popups, giving you a streamlined, lightweight utility for rapid daily workflow optimizations.`
+      },
+      {
+        id: 5,
+        question: `What is a common pitfall when configuring parameters for ${primaryKw}?`,
+        answer: `A frequent error is repeatedly converting or compressing already-optimized visual files, which can degrade quality. For audio elements, setting timing speeds too high can scramble beeps or vocal rhythms. Always preview your outputs inside our responsive cards and adjust variables incrementally to maintain pristine visual and auditory clarity.`
+      },
+      {
+        id: 6,
+        question: `Can I export the results easily, and are there any commercial usage restrictions?`,
+        answer: `Yes, you can copy codes, download optimized WebP/PNG graphics, or export files instantly with single-click buttons. All generated files and outputs from the ${cleanTitle} are 100% free for both personal and unrestricted commercial distribution with no attribution, subscription paywalls, or fees.`
+      },
+      {
+        id: 7,
+        question: `Does the ${cleanTitle} run offline or require an API license key?`,
+        answer: `No API keys or accounts are needed. The ${cleanTitle} is completely offline-capable. Once cached in your browser, you can disconnect from the internet and utilize the entire interface to resize photos, synthesize beeps, or check layouts safely in secure, private offline workspaces.`
+      }
+    );
+  } else if (archetype === 'developer') {
+    faqs.push(
+      {
+        id: 1,
+        question: `What programming schemas, standards, and syntax does the ${cleanTitle} support?`,
+        answer: `The ${cleanTitle} is engineered to fully comply with modern development specifications, including RFC-8259 for JSON formatting, standard JWT cryptographic token headers, regex match captures, and web-safe encoding protocols. It features a high-performance monospaced syntax editor with real-time token validation, indentation tuning, and collapsible key maps.`
+      },
+      {
+        id: 2,
+        question: `Is my sensitive code, database credentials, or secret API keys secure here?`,
+        answer: `Absolutely. Since the ${cleanTitle} executes 100% in your local browser thread, your API secret keys, database credentials, active tokens, and raw configurations are kept completely secure in your physical RAM. No telemetry requests or analytics trackers are used, protecting your parameters from server leaks or network exposures.`
+      },
+      {
+        id: 3,
+        question: `How does the ${cleanTitle} continuous validator detect and flag parsing errors?`,
+        answer: `Our browser-based parser compiles and scans your strings in real-time as you type or paste. If it detects a missing curly bracket, a trailing comma, an unescaped symbol, or an invalid character sequence, it instantly highlights the exact line with visual warnings and outputs a detailed error message.`
+      },
+      {
+        id: 4,
+        question: `How does this local developer utility benefit dev-ops and full-stack engineering?`,
+        answer: `It provides an isolated, secure playground to quickly decode, format, minify, or hash variables without configuring local Python scripts, npm packages, or command-line utilities. It handles complex, multi-nested database structures effortlessly and includes instant clipboard copy and text backups.`
+      },
+      {
+        id: 5,
+        question: `What is a common error developers should avoid when working with ${primaryKw}?`,
+        answer: `A frequent mistake is pasting JSON payloads with trailing commas, which are invalid under standard RFC validation, or testing complex regular expressions that trigger catastrophic backtracking in browsers. For encodings like Base64 or URL percent-escapes, always distinguish between plain layout formatting and actual data encryption.`
+      },
+      {
+        id: 6,
+        question: `Is there any API rate-limiting, daily quota, or commercial license fee?`,
+        answer: `No. Every feature of the ${cleanTitle} is completely free, open-source, and unthrottled. You can generate, format, or convert infinite tokens and configurations anonymously without creating an account or subscribing to any plan. All outputs are in the public domain and ready for deployment.`
+      },
+      {
+        id: 7,
+        question: `Can I use the ${cleanTitle} offline in secure or isolated corporate networks?`,
+        answer: `Yes, easily. The ${cleanTitle} works 100% offline. Once loaded, the browser cached files handle all validation, formatting, and cryptography locally. You can completely disconnect from external networks, giving you a quiet, isolated workspace to inspect proprietary server configs with absolute peace of mind.`
+      }
+    );
   } else {
-    // generator
-    faqs.push({
-      id: 5,
-      question: `How customizable are the generated outputs from the ${toolTitle}?`,
-      answer: `The ${toolTitle} provides flexible control options including volume sliders, style selectors, character set toggles, and formatting presets. You can tailor the generated output to match exact project requirements, whether you need quick design placeholders or structured test data.`
-    });
+    // text archetype
+    faqs.push(
+      {
+        id: 1,
+        question: `How does the ${cleanTitle} analyze, clean, or format text rows?`,
+        answer: `The ${cleanTitle} employs optimized string processing scripts that run directly in your browser. By utilizing regular expression search patterns and Unicode segmenters, the tool splits lines, deletes duplicates, cleans spaces, reformats text casings, or tracks readability counts instantly, ensuring fluid performance even with long documents.`
+      },
+      {
+        id: 2,
+        question: `Is my written article, essay draft, or contact list secure from data scraping?`,
+        answer: `Yes, 100% safe. All parsing, cleaning, and formatting processes are sandboxed inside your local browser memory. None of your drafts, manuscripts, or customer contact listings are ever sent over the network or recorded to server logs, giving you a secure, private text workspace.`
+      },
+      {
+        id: 3,
+        question: `Does the ${cleanTitle} support international characters and Unicode accents?`,
+        answer: `Yes. Our engine fully supports international character sets, accented letters, emojis, and special punctuation symbols. While there is no strict input limit, we recommend pasting texts of under 50,000 words at a time to maintain optimal browser responsiveness and instant calculation speeds.`
+      },
+      {
+        id: 4,
+        question: `How does the ${cleanTitle} assist content writers, editors, and digital marketers?`,
+        answer: `It removes the tedious, manual effort of restructuring or sanitizing messy drafts. In a single tap, you can deduplicate large email lists, strip line breaks from copy-pasted PDF documents, format casing, organize lists alphabetically, or analyze reading time, accelerating your writing and publication process.`
+      },
+      {
+        id: 5,
+        question: `What editing pitfall should I avoid when running a ${primaryKw} check?`,
+        answer: `A frequent error is applying a deep sanitizing filter (like stripping spaces or lines) to code layouts or data arrays that rely on precise tab spacing and alignments, which can break execution. Always keep a copy of your raw text draft before applying extensive formatting or sorting operations.`
+      },
+      {
+        id: 6,
+        question: `How do I export my finished writing, and are there any licensing restrictions?`,
+        answer: `Our clean, high-contrast interface features direct 'Copy to Clipboard' buttons and single-tap text file exports. All formatted drafts, cleaned lists, and structured copy are 100% yours to distribute, publish, or use commercially without any license restrictions, fees, or branding watermarks.`
+      },
+      {
+        id: 7,
+        question: `Can I run the ${cleanTitle} offline in remote areas or flights?`,
+        answer: `Yes, the ${cleanTitle} is completely offline-capable. Once the application page is loaded in your browser cache, you can disconnect from the internet and continue to edit, format, count, and sanitize your content smoothly in any location, with zero cell data consumption.`
+      }
+    );
   }
-
-  // Question 6: Licensing & Commercial Use
-  faqs.push({
-    id: 6,
-    question: `Is the ${toolTitle} completely free for commercial and professional use?`,
-    answer: `Yes. All outputs, formatted copy, converted code schemas, and generated files created with the ${toolTitle} are 100% free for unrestricted personal, commercial, and enterprise use. There are no registration requirements, subscription paywalls, usage quotas, or mandatory attribution requirements.`
-  });
 
   return faqs;
 }
