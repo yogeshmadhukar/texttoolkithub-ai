@@ -97,7 +97,7 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
   };
 
   return (
-    <div className="space-y-16 border-t border-slate-150 dark:border-slate-850 pt-16 mt-16" id="educational-landing-wrapper">
+    <section className="space-y-16 border-t border-slate-150 dark:border-slate-850 pt-16 mt-16" id="educational-landing-wrapper" aria-label="Educational Guide and FAQs">
       
       {/* SECTION 0: Key Takeaways Educational Highlights */}
       <section className="p-6 md:p-8 bg-gradient-to-r from-indigo-50/40 via-purple-50/20 to-slate-50/40 dark:from-indigo-950/20 dark:via-purple-950/10 dark:to-slate-950/20 border border-indigo-100/50 dark:border-indigo-900/30 rounded-3xl space-y-4 shadow-sm" id="educational-key-takeaways">
@@ -421,6 +421,6 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
         </div>
       </section>
 
-    </div>
+    </section>
   );
 }

@@ -405,7 +405,7 @@ Writing blog drafts or corporate press articles can be stressful when characters
   ];
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200" id={`tool-wrapper-${tool.id}`}>
+    <article className="relative min-h-screen bg-white dark:bg-slate-900 transition-colors duration-200" id={`tool-wrapper-${tool.id}`}>
       <SEO 
         title={tool.title}
         description={tool.description}
@@ -1095,6 +1095,6 @@ Writing blog drafts or corporate press articles can be stressful when characters
         </section>
 
       </div>
-    </div>
+    </article>
   );
 }

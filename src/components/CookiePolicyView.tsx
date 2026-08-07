@@ -51,7 +51,7 @@ export default function CookiePolicyView({ onNavigateHome, onNavigateToTool }: C
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200">
+    <article className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200" aria-label="Cookie Policy">
       <SEO 
         title="Cookie Policy | TextToolkitHub"
         description="Cookie Policy for TextToolkitHub detailing cookie usage, local storage mechanisms, and analytics consent preferences."
@@ -439,6 +439,6 @@ export default function CookiePolicyView({ onNavigateHome, onNavigateToTool }: C
         </div>
 
       </div>
-    </div>
+    </article>
   );
 }

@@ -362,7 +362,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
   };
 
   return (
-    <div className="relative select-text bg-[#fafbfe] dark:bg-[#090d16] min-h-screen">
+    <article className="relative select-text bg-[#fafbfe] dark:bg-[#090d16] min-h-screen" aria-label="Educational Guides Library">
       {/* Scroll Progress indicator at the top */}
       {selectedArticleId && (
         <div className="fixed top-0 left-0 right-0 h-1 bg-slate-200 dark:bg-slate-800 z-50">
@@ -739,7 +739,7 @@ export default function GuidesView({ onNavigateToTool, onNavigateHome }: GuidesV
           </div>
         )}
       </div>
-    </div>
+    </article>
   );
 }
 

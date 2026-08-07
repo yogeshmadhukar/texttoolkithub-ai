@@ -207,7 +207,7 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
   ];
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200 selection:bg-indigo-500/20">
+    <article className="relative min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200 selection:bg-indigo-500/20" aria-label="About Us">
       <SEO 
         title="About Us | TextToolkitHub"
         description="Learn about TextToolkitHub - the privacy-shielded web utility workspace offering 63 free online text and PDF utilities with 100% client-side browser execution."
@@ -1055,6 +1055,6 @@ export default function AboutView({ onNavigate }: AboutViewProps = {}) {
         </section>
 
       </div>
-    </div>
+    </article>
   );
 }

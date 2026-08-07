@@ -30,10 +30,10 @@ export default function AuthorBioCard({
   };
 
   return (
-    <div className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-8 shadow-xs my-8 transition-colors duration-200" id="author-bio-card">
+    <aside className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-3xl p-6 sm:p-8 shadow-xs my-8 transition-colors duration-200" id="author-bio-card" aria-label="Author and Technical Editor">
       
       {/* Top Banner: Verification & Technical Audit Stamp */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b border-slate-100 dark:border-slate-850 text-xs">
+      <header className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b border-slate-100 dark:border-slate-850 text-xs">
         <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/30 px-3 py-1.5 rounded-full border border-emerald-200/50 dark:border-emerald-900/50">
           <ShieldCheck className="w-4 h-4 text-emerald-500" />
           <span>Verified &amp; Tested Technical Accuracy</span>
@@ -42,7 +42,7 @@ export default function AuthorBioCard({
           <Calendar className="w-3.5 h-3.5 text-slate-400" />
           <span>Last Verified &amp; Updated: <strong className="text-slate-800 dark:text-slate-200">{lastUpdated}</strong></span>
         </div>
-      </div>
+      </header>
 
       <div className="flex flex-col md:flex-row gap-6 items-start">
         
@@ -130,6 +130,6 @@ export default function AuthorBioCard({
 
       </div>
 
-    </div>
+    </aside>
   );
 }

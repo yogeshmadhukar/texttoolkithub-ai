@@ -385,7 +385,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-slate-50/45 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-hidden pb-24 font-sans">
+    <article className="relative min-h-screen bg-slate-50/45 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300 overflow-hidden pb-24 font-sans" aria-label="Tools Directory">
       <SEO 
         title="All Text & PDF Utilities Directory | TextToolkitHub"
         description="Browse all 63 free online text, developer, generator, and PDF utilities available on TextToolkitHub."
@@ -1181,6 +1181,6 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
         </section>
 
       </div>
-    </div>
+    </article>
   );
 }

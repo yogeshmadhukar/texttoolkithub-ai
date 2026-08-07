@@ -35,7 +35,7 @@ export default function DmcaView({ onNavigateHome, onNavigateToTool }: DmcaViewP
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200">
+    <article className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200" aria-label="DMCA Copyright Policy">
       <SEO 
         title="DMCA Copyright Policy | TextToolkitHub"
         description="DMCA Copyright Policy and takedown notification procedures for TextToolkitHub."
@@ -278,6 +278,6 @@ export default function DmcaView({ onNavigateHome, onNavigateToTool }: DmcaViewP
         </div>
 
       </div>
-    </div>
+    </article>
   );
 }

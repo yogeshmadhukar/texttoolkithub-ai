@@ -243,7 +243,7 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
   }, [faqs, searchQuery, filterCategory]);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200 selection:bg-indigo-500/20 py-12 md:py-20">
+    <article className="relative min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-200 selection:bg-indigo-500/20 py-12 md:py-20" aria-label="Security FAQ">
       <SEO 
         title="Security & Privacy FAQ | TextToolkitHub"
         description="Detailed answers regarding TextToolkitHub zero-knowledge privacy architecture, local browser memory security, and GDPR compliance."
@@ -419,6 +419,6 @@ export default function SecurityFaqView({ onNavigateHome, onNavigateToTool }: Se
         </section>
 
       </div>
-    </div>
+    </article>
   );
 }

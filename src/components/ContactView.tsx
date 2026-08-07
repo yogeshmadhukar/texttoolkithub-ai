@@ -207,7 +207,7 @@ export default function ContactView() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#fafbfe] dark:bg-[#070a13] text-slate-800 dark:text-slate-200 overflow-hidden transition-colors duration-300 pb-20">
+    <article className="relative min-h-screen bg-[#fafbfe] dark:bg-[#070a13] text-slate-800 dark:text-slate-200 overflow-hidden transition-colors duration-300 pb-20" aria-label="Contact Us">
       <SEO 
         title="Contact Us | TextToolkitHub"
         description="Contact the TextToolkitHub team for support, feature requests, bug reports, and feedback regarding our free online text and PDF utilities."
@@ -756,6 +756,6 @@ export default function ContactView() {
         </div>
 
       </div>
-    </div>
+    </article>
   );
 }

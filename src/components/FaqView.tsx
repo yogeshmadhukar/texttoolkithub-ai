@@ -663,7 +663,7 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
   }, [searchQuery, totalResultsCount]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-200">
+    <article className="relative min-h-screen bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-200" aria-label="Frequently Asked Questions">
       <SEO 
         title="Frequently Asked Questions (FAQ) | TextToolkitHub"
         description="Find answers regarding TextToolkitHub text converter tools, word count calculations, browser-native client privacy, offline capabilities, and contact support."
@@ -951,6 +951,6 @@ export default function FaqView({ onNavigate }: FaqViewProps = {}) {
         </motion.div>
 
       </div>
-    </div>
+    </article>
   );
 }

@@ -37,7 +37,7 @@ export default function LegalView({ mode }: LegalViewProps) {
   const seo = getSeoDetails();
 
   return (
-    <div className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200">
+    <article className="relative min-h-screen bg-slate-50/30 dark:bg-slate-900 transition-colors duration-200" aria-label="Legal Documents">
       <SEO title={seo.title} description={seo.description} canonicalUrl={seo.url} />
       
       {/* Decorative Glow elements */}
@@ -401,6 +401,6 @@ export default function LegalView({ mode }: LegalViewProps) {
         </div>
 
       </div>
-    </div>
+    </article>
   );
 }

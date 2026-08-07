@@ -121,7 +121,7 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
   };
 
   return (
-    <div className="relative min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 py-16 px-4 sm:px-6 lg:px-8 font-sans">
+    <article className="relative min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-200 py-16 px-4 sm:px-6 lg:px-8 font-sans" aria-label="Page Not Found">
       
       {/* Decorative ambient background visual nodes */}
       <div className="absolute top-0 inset-0 bg-gradient-to-b from-rose-500/5 via-transparent to-transparent dark:from-rose-500/5 pointer-events-none z-0" />
@@ -454,6 +454,6 @@ export default function NotFoundView({ onNavigateHome, onNavigateToTool }: NotFo
 
       </div>
 
-    </div>
+    </article>
   );
 }

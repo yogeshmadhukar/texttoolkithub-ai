@@ -9,7 +9,7 @@ interface TrustBadgesProps {
 export default function TrustBadges({ variant = 'compact', className = '' }: TrustBadgesProps) {
   if (variant === 'hero') {
     return (
-      <div className={`grid grid-cols-1 sm:grid-cols-3 gap-3 my-4 ${className}`} id="trust-badges-hero">
+      <section className={`grid grid-cols-1 sm:grid-cols-3 gap-3 my-4 ${className}`} id="trust-badges-hero" aria-label="Privacy and Security Guarantees">
         <div className="flex items-center gap-2.5 p-3 rounded-2xl border border-emerald-200/80 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-900 dark:text-emerald-300">
           <Cpu className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
           <div>
@@ -33,13 +33,13 @@ export default function TrustBadges({ variant = 'compact', className = '' }: Tru
             <div className="text-[11px] opacity-80">Memory wiped instantly on tab close</div>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 
   if (variant === 'expanded') {
     return (
-      <div className={`p-4 border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950 rounded-2xl space-y-3 ${className}`} id="trust-badges-expanded">
+      <section className={`p-4 border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950 rounded-2xl space-y-3 ${className}`} id="trust-badges-expanded" aria-label="E-E-A-T Certified Security Guarantees">
         <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
           <ShieldCheck className="w-4 h-4 text-emerald-500" /> E-E-A-T Certified Security Guarantees
         </div>
@@ -57,13 +57,13 @@ export default function TrustBadges({ variant = 'compact', className = '' }: Tru
             <span>GDPR &amp; ISO 27001 Compliant</span>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 
   // Compact variant (default)
   return (
-    <div className={`inline-flex flex-wrap items-center gap-2 ${className}`} id="trust-badges-compact">
+    <aside className={`inline-flex flex-wrap items-center gap-2 ${className}`} id="trust-badges-compact" aria-label="Security Badges">
       <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold rounded-lg border border-emerald-200/60 dark:border-emerald-800/60">
         <Cpu className="w-3.5 h-3.5 text-emerald-500" /> 100% On-Device Processing
       </span>
@@ -73,6 +73,6 @@ export default function TrustBadges({ variant = 'compact', className = '' }: Tru
       <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 text-[11px] font-bold rounded-lg border border-slate-200/60 dark:border-slate-800">
         <Lock className="w-3.5 h-3.5 text-amber-500" /> SSL Encrypted
       </span>
-    </div>
+    </aside>
   );
 }
