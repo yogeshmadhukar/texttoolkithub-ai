@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { TOOLS } from '../data.ts';
+import { getCleanPath } from '../types.ts';
 import { getFaqsForTool } from '../data/toolFaqs.ts';
 import { getEducationalGuideForTool } from '../data/toolEducationalGuides.ts';
+import { 
+  getCustomOverview,
+  getCustomSteps,
+  getCustomFeatures,
+  getCustomWhyChoose,
+  getCustomAccessibility
+} from '../utils/educationalGenerators.ts';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   HelpCircle, 
@@ -38,6 +46,12 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
   // Retrieve rich handcrafted or dynamic educational data
   const profile = getEducationalGuideForTool(tool.id);
   const faqs = getFaqsForTool(tool.id, tool.title, tool.description, tool.category, tool.keywords || []);
+
+  const overview = getCustomOverview(tool.id, tool.title, profile.whatIsThis, tool.description);
+  const steps = getCustomSteps(tool.id, tool.title, tool.category);
+  const features = getCustomFeatures(tool.id, tool.title, tool.category, tool.keywords || []);
+  const whyChooseThis = getCustomWhyChoose(tool.id, tool.title, tool.category);
+  const accessibilitySection = getCustomAccessibility(tool.id, tool.title, tool.category);
 
   // Dynamically inject Google FAQPage JSON-LD into head for real SEO & AdSense compliance
   useEffect(() => {
@@ -362,6 +376,32 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
             Read Free Guide <ArrowRight className="w-4 h-4" />
           </span>
         </div>
+      </section>
+
+      {/* SECTION 9: Why Choose This Tool */}
+      <section className="p-6 md:p-8 bg-gradient-to-r from-indigo-50/10 to-purple-50/10 dark:from-indigo-950/5 dark:to-purple-950/5 border border-indigo-100/20 dark:border-indigo-900/15 rounded-3xl space-y-4" id="why-choose-this-tool">
+        <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold uppercase tracking-wider rounded-full border border-indigo-100/30 dark:border-indigo-900/30">
+          <ShieldCheck className="w-3.5 h-3.5 text-indigo-500" /> Professional Uniqueness
+        </span>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+          Why Choose the {tool.title} on TextToolkitHub?
+        </h3>
+        <p className="text-xs sm:text-sm text-slate-650 dark:text-slate-350 leading-relaxed font-sans">
+          {whyChooseThis}
+        </p>
+      </section>
+
+      {/* SECTION 10: Accessibility Standards */}
+      <section className="p-6 md:p-8 bg-slate-50/30 dark:bg-slate-950/10 border border-slate-150 dark:border-slate-850 rounded-3xl space-y-4" id="accessibility-standards">
+        <span className="inline-flex items-center gap-1.5 py-1 px-3 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold uppercase tracking-wider rounded-full border border-indigo-100/30 dark:border-indigo-900/30">
+          <HelpCircle className="w-3.5 h-3.5 text-indigo-500" /> Inclusive Accessibility
+        </span>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+          Web Accessibility Standards (WCAG 2.1 AA)
+        </h3>
+        <p className="text-xs sm:text-sm text-slate-650 dark:text-slate-350 leading-relaxed font-sans">
+          {accessibilitySection}
+        </p>
       </section>
 
       {/* SECTION 8: Related Tools (Companion Utilities) */}
