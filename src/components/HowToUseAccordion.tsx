@@ -8,7 +8,12 @@ import {
   getCustomSteps,
   getCustomFeatures,
   getCustomWhyChoose,
-  getCustomAccessibility
+  getCustomAccessibility,
+  getCustomUseCases,
+  getCustomBestPractices,
+  getCustomMistakes,
+  getCustomTips,
+  getCustomRelatedTools
 } from '../utils/educationalGenerators.ts';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -52,6 +57,12 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
   const features = getCustomFeatures(tool.id, tool.title, tool.category, tool.keywords || []);
   const whyChooseThis = getCustomWhyChoose(tool.id, tool.title, tool.category);
   const accessibilitySection = getCustomAccessibility(tool.id, tool.title, tool.category);
+
+  const useCases = getCustomUseCases(tool.id, tool.title, tool.category);
+  const bestPractices = getCustomBestPractices(tool.id, tool.title, tool.category);
+  const commonMistakes = getCustomMistakes(tool.id, tool.title, tool.category);
+  const professionalTips = getCustomTips(tool.id, tool.title, tool.category);
+  const relatedTools = getCustomRelatedTools(tool.id, tool.category);
 
   // Dynamically inject Google FAQPage JSON-LD into head for real SEO & AdSense compliance
   useEffect(() => {
@@ -285,7 +296,7 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
             Professional Best Practices
           </h3>
           <ul className="flex flex-col gap-3.5">
-            {profile.bestPractices.map((practice, idx) => (
+            {bestPractices.map((practice, idx) => (
               <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
                 <span className="p-1 rounded bg-emerald-100/50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-450 text-[10px] font-extrabold shrink-0 mt-0.5">
                   ✓
@@ -305,7 +316,7 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
             Common Mistakes &amp; Hazards
           </h3>
           <ul className="flex flex-col gap-3.5">
-            {profile.commonMistakes.map((mistake, idx) => (
+            {commonMistakes.map((mistake, idx) => (
               <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
                 <span className="p-1 rounded bg-amber-100/50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-450 text-[10px] font-extrabold shrink-0 mt-0.5">
                   ✗
@@ -326,7 +337,7 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
           Professional Tips &amp; Optimization Tactics
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-          {profile.professionalTips.map((tip, idx) => (
+          {professionalTips.map((tip, idx) => (
             <div key={idx} className="flex items-start gap-3 p-4 bg-white/70 dark:bg-slate-900/60 border border-slate-150/80 dark:border-slate-800/80 rounded-2xl">
               <Sparkles className="w-4 h-4 text-indigo-550 shrink-0 mt-0.5" />
               <span className="text-xs sm:text-sm text-slate-700 dark:text-slate-355 leading-relaxed font-sans">
@@ -352,7 +363,7 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-          {profile.useCases.map((useCase, idx) => {
+          {useCases.map((useCase, idx) => {
             const [titlePart, descPart] = useCase.split(': ');
             return (
               <div key={idx} className="p-5 bg-slate-50/40 dark:bg-slate-950/20 border border-slate-150 dark:border-slate-850 rounded-2xl flex flex-col gap-2.5">
@@ -469,7 +480,7 @@ export default function HowToUseAccordion({ toolId, onNavigateToTool }: HowToUse
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-1">
-          {profile.relatedTools.map((relId) => {
+          {relatedTools.map((relId) => {
             const relTool = TOOLS.find(t => t.id === relId);
             if (!relTool) return null;
             return (

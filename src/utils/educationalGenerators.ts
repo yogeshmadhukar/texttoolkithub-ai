@@ -27,7 +27,7 @@ export function getCustomOverview(
   } else if (toolId.includes('compressor') || toolId.includes('image') || toolId.includes('image-to-pdf')) {
     expanded += `\n\nDesigned for web developers, social media managers, and digital designers, this local utility ensures your visual assets are perfectly optimized for fast web loading and strict platform standards. Large media attachments frequently slow down websites and trigger file-size blockages on email platforms; compressing or converting them here resolves these friction points instantly.`;
     expanded += `\n\nBy executing visual algorithms strictly on your device's GPU/CPU thread, your high-resolution photographs, personal avatars, or confidential slides remain entirely secure. There is no network transmission payload, meaning you can crop, scale, or optimize hundreds of images with zero data consumption and absolute privacy.`;
-  } else if (toolId.includes('json') || toolId.includes('jwt') || toolId.includes('base64') || toolId.includes('regex') || toolId.includes('hash')) {
+  } else if (toolId.includes('json') || toolId.includes('jwt') || toolId.includes('base64') || toolId.includes('regex') || toolId.includes('hash') || toolId.includes('typedef')) {
     expanded += `\n\nThis developer-grade utility is a vital helper for software engineers, database admins, and cybersecurity analysts. When debugging live API responses, inspecting tokens, or validating custom expression patterns, accuracy is paramount. This environment offers an isolated, sandboxed container where you can format, encode, or hash raw strings without exposing internal tokens or credentials to public logs.`;
     expanded += `\n\nWith intuitive error highlighting, rapid syntax formatting, and instant schema feedback, it substantially cuts down on cycle debugging times. It handles large database dumps and complex nested configurations smoothly, providing clean visual layouts and immediate download actions to speed up manual development workflows.`;
   } else {
@@ -64,7 +64,7 @@ export function getCustomSteps(toolId: string, title: string, category: string):
       `Click the primary 'Compress' action button to perform high-speed GPU canvas resizing entirely in your local browser sandbox.`,
       `Click 'Download Optimized Image' to save the visual file onto your machine instantly.`
     ];
-  } else if (category === 'developer-encoding' || category === 'encoding' || toolId.includes('json') || toolId.includes('base64')) {
+  } else if (category === 'developer-encoding' || category === 'encoding' || toolId.includes('json') || toolId.includes('base64') || toolId.includes('jwt')) {
     return [
       `Paste your raw data, JSON string, JWT token, or plain text block into our high-contrast input workspace.`,
       `For files, you can use the file import button to load raw text files or certificates directly into the text editor.`,
@@ -128,7 +128,7 @@ export function getCustomFeatures(
       { name: "Batch Upload Queue", desc: "Process multiple images in sequence with standardized optimization presets." },
       { name: "Lossless Compression Support", desc: "Retain crisp text overlays and transparency filters in vector-style layouts." }
     );
-  } else if (category === 'developer-encoding' || category === 'encoding' || toolId.includes('json') || toolId.includes('base64')) {
+  } else if (category === 'developer-encoding' || category === 'encoding' || toolId.includes('json') || toolId.includes('base64') || toolId.includes('jwt')) {
     list.push(
       { name: "High-Contrast Code Editor", desc: "Includes monospaced typography, automatic wrapping, and spacing adjustments." },
       { name: "Live JSON Tree Formatting", desc: "Instantly formats dense, minified JSON trees into beautifully indented layouts." },
@@ -156,6 +156,294 @@ export function getCustomFeatures(
   // Combine and slice to guarantee 8 to 12 high-quality unique features
   const uniqueFeatures = [...list, privacyFeature, secureFeature, mobileFeature, exportFeature].slice(0, 10);
   return uniqueFeatures;
+}
+
+/**
+ * 4. Use Case Generator (5 custom use cases: developers, students, writers, marketers, businesses)
+ */
+export function getCustomUseCases(toolId: string, title: string, category: string): string[] {
+  const cleanTitle = title.replace(/\s*\(.*\)/, '');
+  
+  let devCase = "";
+  let studentCase = "";
+  let writerCase = "";
+  let marketerCase = "";
+  let businessCase = "";
+
+  if (toolId.includes('compressor') || toolId.includes('image')) {
+    devCase = `Developers - UI Optimization: Compacting visual asset payloads and icons before deploying production code, keeping page-load speed scores in the perfect green zone.`;
+    studentCase = `Students - Portal Submissions: Compressing high-resolution scanned class assignments or report photos to comply with strict upload limits on digital learning portals.`;
+    writerCase = `Writers - Article Illustrations: Preparing lightweight blog banner visuals and inline screenshots that load instantaneously for readers on slow mobile connections.`;
+    marketerCase = `Marketers - Newsletter Performance: Optimizing email marketing banner graphics to guarantee fast load times, preventing subscribers from bouncing.`;
+    businessCase = `Businesses - Employee Headshots: Compressing massive batch directories of team photos for upload to internal intranet servers and company bio directories.`;
+  } else if (toolId.includes('pdf') || toolId.includes('excel') || toolId.includes('word') || toolId.includes('document-builder') || toolId.includes('markdown-table')) {
+    devCase = `Developers - Database Loading: Converting raw data dumps and invoice exports between PDF tables and structured Excel spreadsheets to quickly seed test databases.`;
+    studentCase = `Students - Project Formatting: Packaging messy research notes, draft outlines, and image tables into a single, perfectly ordered PDF presentation with crisp margins.`;
+    writerCase = `Writers - Draft Compilations: Compiling multiple manuscript chapters and formatted text spreadsheets into a unified, print-ready document for publishing editors.`;
+    marketerCase = `Marketers - Lead Magnet Creation: Designing professional, high-contrast, downloadable whitepapers and checklist sheets from simple text templates.`;
+    businessCase = `Businesses - Financial Reporting: Transforming raw client billing sheets and spreadsheet records into password-safe, corporate-branded PDF reports in seconds.`;
+  } else if (toolId.includes('json') || toolId.includes('jwt') || toolId.includes('typedef') || toolId.includes('yaml') || toolId.includes('regex') || toolId.includes('cron') || toolId.includes('hash')) {
+    devCase = `Developers - Active Debugging: Formatting nested API responses, verifying JWT session claims, validating regex capturing groups, or testing local file hash signatures with absolute accuracy.`;
+    studentCase = `Students - Computer Science Practice: Visualizing complex data structures, learning JWT auth handshakes, practicing regular expressions, and verifying software checksums.`;
+    writerCase = `Writers - Documentation Drafting: Preparing raw code blocks, formatting JSON parameters, and creating structured config blocks for developer-facing manuals.`;
+    marketerCase = `Marketers - Automation Triggering: Configuring visual cron schedules for automated marketing newsletters and tracking background web scraping scripts.`;
+    businessCase = `Businesses - Security Audits: Verifying corporate document hash checksums to ensure file integrity and decoding security tokens without cloud exposure.`;
+  } else if (category === 'cleaner' || toolId.includes('remove') || toolId.includes('cleaner') || toolId.includes('sorter')) {
+    devCase = `Developers - Code Sanitization: Cleaning up nested layout strings, removing trailing whitespaces, sorting database config values alphabetically, and stripping comments from script files.`;
+    studentCase = `Students - Research Synthesis: Sanitizing copy-pasted citations, removing double spacing from paper drafts, and stripping messy line wraps from scanned library books.`;
+    writerCase = `Writers - Draft Polishing: Re-formatting messy manuscripts, collapsing extra blank lines, and stripping unneeded special symbols from web-imported copies.`;
+    marketerCase = `Marketers - Lead List Cleaning: Deduplicating thousands of email contacts, removing messy spacing, and sorting client lists alphabetically in milliseconds.`;
+    businessCase = `Businesses - Data Entry Audits: Cleaning scrambled customer database rows, removing duplicate lines, and standardizing formatting templates across sales teams.`;
+  } else if (category === 'encoding' || toolId.includes('base64') || toolId.includes('url') || toolId.includes('html') || toolId.includes('string-escaper') || toolId.includes('morse')) {
+    devCase = `Developers - Secure Data Passing: Encoding credentials into Base64 headers, escaping HTML code strings to protect layouts, and percent-encoding complex URL queries.`;
+    studentCase = `Students - Security Homework: Understanding the fundamentals of web communications, practicing Base64 encoding, and learning binary/hex representations.`;
+    writerCase = `Writers - HTML Code Snippets: Safely escaping code tags inside website drafts to render raw markup code examples beautifully on blog layouts.`;
+    marketerCase = `Marketers - Tracking Parameters: Encoding tracking campaign metrics and clean links to avoid parameter breakages when shared across messaging platforms.`;
+    businessCase = `Businesses - Secure Transmissions: Converting database variables and plain certificates into standardized encoded blocks for secure file handoffs.`;
+  } else {
+    devCase = `Developers - Fast Wireframing: Generating high-entropy UUID arrays, building responsive QR codes for mobile redirects, and seeding lists with high-quality mockup text.`;
+    studentCase = `Students - Presentation Styling: Generating readable draft paragraphs, styling bios with decorative fonts, and creating QR codes for interactive posters.`;
+    writerCase = `Writers - Content Outlining: Measuring word limits, analyzing keyword frequency to avoid SEO stuffing, and drafting placeholder articles with custom lorem structures.`;
+    marketerCase = `Marketers - Campaign Optimization: Creating custom UTM tags, generating visual QR codes for retail window displays, and optimizing meta descriptions with live previews.`;
+    businessCase = `Businesses - Asset Tagging: Generating bulk GUID arrays for inventory tagging, creating WiFi login QR codes, and tracking article keyword densities for brand audits.`;
+  }
+
+  return [devCase, studentCase, writerCase, marketerCase, businessCase];
+}
+
+/**
+ * 5. Best Practices Generator (3 to 5 custom best practices per tool)
+ */
+export function getCustomBestPractices(toolId: string, title: string, category: string): string[] {
+  if (toolId.includes('compressor') || toolId.includes('image')) {
+    return [
+      `Aim for a compression quality factor between 75% and 85% to achieve maximum file reduction with zero noticeable blur.`,
+      `Always check the 'Original' versus 'Optimized' file size readout to confirm that your selected quality slider actually reduced the footprint.`,
+      `Convert older PNG formats into modern WebP configurations when preparing images for web development—it can save up to 80% more space.`,
+      `Keep your batch uploads to under 20 images at a time to ensure smooth, high-speed on-device canvas resizing without freezing browser memory.`
+    ];
+  } else if (toolId.includes('pdf') || toolId.includes('excel') || toolId.includes('word') || toolId.includes('document-builder') || toolId.includes('markdown-table')) {
+    return [
+      `Double-check your print preview margins and table boundaries before rendering PDFs to make sure columns do not wrap awkwardly.`,
+      `When converting Excel tables, ensure the primary dataset is in the first sheet or specify exactly which sheets to compile.`,
+      `If splitting files in bulk, verify your page selection syntax (e.g., '1-5, 8, 12') to avoid extracting empty pages or corrupting layouts.`,
+      `Use clear, standardized file names before downloading so your processed document fits perfectly into organized desktop folders.`
+    ];
+  } else if (toolId.includes('json') || toolId.includes('jwt') || toolId.includes('typedef') || toolId.includes('yaml') || toolId.includes('regex') || toolId.includes('cron') || toolId.includes('hash')) {
+    return [
+      `Always validate your syntax in the input viewport first—look for red alert markers to spot missing brackets or commas instantly.`,
+      `Use 2-space indentation formatting when preparing configurations for server configurations to keep code compact and readable.`,
+      `For JWT decoding, check the live expiration countdown timer immediately to verify if the token remains active or expired.`,
+      `Verify cryptographic hash files using our checksum match input to guarantee 100% security against corrupted or modified installers.`
+    ];
+  } else if (category === 'cleaner' || toolId.includes('remove') || toolId.includes('cleaner') || toolId.includes('sorter')) {
+    return [
+      `Keep a backup of your original raw text draft before running deep cleaning or deduplication sequences.`,
+      `Enable the 'Trim Whitespace' option to sanitize hidden carriage returns or odd gaps before sorting alphabetically.`,
+      `Use the 'Remove Duplicate Lines' filter first when cleaning massive directories, as duplicate lines skew alphabetical sort orders.`,
+      `Review your selected rules carefully when stripping emojis or symbols so you do not accidentally erase required punctuation.`
+    ];
+  } else if (category === 'encoding' || toolId.includes('base64') || toolId.includes('url') || toolId.includes('html') || toolId.includes('string-escaper') || toolId.includes('morse')) {
+    return [
+      `Always use the URL-safe Base64 encoding mode when generating characters that will be passed through browser search queries.`,
+      `Escape HTML entity brackets ('<' and '>') when pasting code snippets into websites to completely secure your page layouts from XSS.`,
+      `Avoid storing plain sensitive API keys in Base64 strings—encoding is merely a data format, not cryptographic encryption.`,
+      `Confirm your string decode results instantly by copying and decoding again to ensure no Unicode letters were lost during encoding.`
+    ];
+  } else {
+    return [
+      `Vary your generated paragraph length ranges to make your draft placeholder layout appear natural on mobile phone screen mockups.`,
+      `Check your keyword density stats continuously as you write to keep your primary terms between 1.5% and 2.5% for SEO success.`,
+      `When generating custom QR codes, select dark foreground colors with high contrast relative to the background to ensure fast phone scans.`,
+      `Generate bulk UUID identifiers in uppercase format when setting up relational key columns in MySQL database tables.`
+    ];
+  }
+}
+
+/**
+ * 6. Common Mistakes Generator (3 to 5 custom pitfalls per tool)
+ */
+export function getCustomMistakes(toolId: string, title: string, category: string): string[] {
+  if (toolId.includes('compressor') || toolId.includes('image')) {
+    return [
+      `Compressing already highly optimized images a second time, which can trigger severe pixel pixelation and blocky artifacts.`,
+      `Setting the quality slider to 10% for fine-detail diagrams or screenshots, rendering text labels completely illegible.`,
+      `Uploading massive files exceeding 50MB directly into multiple batch slots, which might exceed local browser RAM allocations.`,
+      `Forgetting to check the file extension—saving a transparency-masked PNG as a WebP without checking alpha-channel settings.`
+    ];
+  } else if (toolId.includes('pdf') || toolId.includes('excel') || toolId.includes('word') || toolId.includes('document-builder') || toolId.includes('markdown-table')) {
+    return [
+      `Converting multi-sheet spreadsheet reports in portrait mode, causing wide corporate financial tables to break into multiple pieces.`,
+      `Leaving empty rows or invalid formatting headers in XLSX spreadsheets, causing table columns to merge improperly during extraction.`,
+      `Accidentally overlapping page splits (e.g. entering '1-4, 3-6') which duplicates pages inside your newly compiled document.`,
+      `Using low-resolution image attachments inside document templates, resulting in blurry, unreadable pictures inside PDF drafts.`
+    ];
+  } else if (toolId.includes('json') || toolId.includes('jwt') || toolId.includes('typedef') || toolId.includes('yaml') || toolId.includes('regex') || toolId.includes('cron') || toolId.includes('hash')) {
+    return [
+      `Pasting JSON data with trailing commas, which is invalid syntax under RFC-8259 specifications and triggers parsing red alerts.`,
+      `Over-optimizing regex expressions without checking for catastrophic backtracking risk, which can lock up browser tabs.`,
+      `Ignoring the red highlight alerts when formatting JWTs, which usually signifies a truncated header or an invalid payload block.`,
+      `Assuming MD5 checksum values are 100% secure for user passwords—MD5 should only be utilized for quick local file verification.`
+    ];
+  } else if (category === 'cleaner' || toolId.includes('remove') || toolId.includes('cleaner') || toolId.includes('sorter')) {
+    return [
+      `Running the space sanitizer or line remover on code scripts containing syntactic indentation, causing compiler errors.`,
+      `Deduplicating lists without verifying if repeating entries were intended, leading to lost customer address rows.`,
+      `Ignoring carriage returns ('\\r\\n') when sorting plain text files prepared on Windows platforms in Linux environments.`,
+      `Clearing special symbols on formatted currency files, accidentally stripping dollar signs and decimals.`
+    ];
+  } else if (category === 'encoding' || toolId.includes('base64') || toolId.includes('url') || toolId.includes('html') || toolId.includes('string-escaper') || toolId.includes('morse')) {
+    return [
+      `Using raw spaces in URL parameters instead of percent-encoding them as '%20' or '+', breaking browser routing.`,
+      `Relying on Base64 encodings to conceal API keys or private databases—any standard web user can decode Base64 in milliseconds.`,
+      `Applying HTML entity escaper to raw stylesheets or JavaScript tags, making scripts break on rendering layouts.`,
+      `Confusing Base64 with hex formats during decoding, which generates scrambled, unreadable characters.`
+    ];
+  } else {
+    return [
+      `Drafting websites using uniform lorem ipsum paragraphs, failing to show how real content blocks wrap in responsive views.`,
+      `Stuffing keywords to hit density targets, which triggers search engine penalties and severely lowers readable clarity scores.`,
+      `Creating low-contrast QR codes (e.g. gray on white), rendering them impossible to scan on standard mobile camera lens.`,
+      `Using complex Unicode script fonts in long social bios, which blocks screen readers and visually impairs accessibility.`
+    ];
+  }
+}
+
+/**
+ * 7. Professional Tips Generator (4 custom expert tips per tool page)
+ */
+export function getCustomTips(toolId: string, title: string, category: string): string[] {
+  if (toolId.includes('compressor') || toolId.includes('image')) {
+    return [
+      `To prepare photos for portfolio grids, set compression factor to 82% to compress file sizes by up to 75% with zero quality loss.`,
+      `Use modern WebP format for blog graphics—it loads twice as fast as JPEG, greatly boosting your page-load metrics.`,
+      `Double-check your pixel scaling parameters—keeping width below 1920px is perfect for standard desktop responsive monitors.`,
+      `Since our image optimizer runs offline, your confidential photos remain 100% secure inside your physical hard drive memory.`
+    ];
+  } else if (toolId.includes('pdf') || toolId.includes('excel') || toolId.includes('word') || toolId.includes('document-builder') || toolId.includes('markdown-table')) {
+    return [
+      `When converting wide spreadsheets, always select 'Landscape Layout' to ensure financial tables render comfortably on a single sheet.`,
+      `Use our visual page reorder feature to drag and drop sheets into order before running the compiler to save substantial time.`,
+      `Keep your split page parameters precise—specifying exact ranges like '1-3, 5' prevents downloading bulky unneeded files.`,
+      `Always choose 'Vector-Quality Output' to guarantee that text remains perfectly sharp and fully searchable when zoomed.`
+    ];
+  } else if (toolId.includes('json') || toolId.includes('jwt') || toolId.includes('typedef') || toolId.includes('yaml') || toolId.includes('regex') || toolId.includes('cron') || toolId.includes('hash')) {
+    return [
+      `Use our interactive Tree Inspector to easily browse, expand, and copy nested keys inside complex JSON database blocks.`,
+      `Keep your JWT decoder tab open—the live countdown ticks in real-time, letting you verify authentication expiry times.`,
+      `Verify software installer downloads instantly by copy-pasting their SHA-256 checksum and dragging the file in to match.`,
+      `For regex testing, use our color-coded capture group markers to easily identify nested expression arrays in real time.`
+    ];
+  } else if (category === 'cleaner' || toolId.includes('remove') || toolId.includes('cleaner') || toolId.includes('sorter')) {
+    return [
+      `Quickly sanitize messy copy-pasted text from PDF files by combining line break remover with space cleaners.`,
+      `Use alphabetical sorting to easily spot spelling slips and duplicate rows inside list files in seconds.`,
+      `Enable 'Preserve Paragraphs' when running line-break filters to keep your draft structure readable.`,
+      `Our duplicate line purger sorts files instantly, keeping your list database clean and compact with zero server lags.`
+    ];
+  } else if (category === 'encoding' || toolId.includes('base64') || toolId.includes('url') || toolId.includes('html') || toolId.includes('string-escaper') || toolId.includes('morse')) {
+    return [
+      `Use Base64 url-safe option when encoding tokens for secure REST API endpoints to prevent URL route breakages.`,
+      `Keep our escape-unescape utility handy to safely wrap programming code templates inside database inserts instantly.`,
+      `Percent-decode long marketing tracking URLs to easily review tracking analytics variables and redirect targets.`,
+      `Because this encoding workspace operates strictly locally, you can safely parse credentials and tokens with absolute privacy.`
+    ];
+  } else {
+    return [
+      `Use the 'Keyword Density' analyzer on your blog posts to make sure your search-optimized phrases don't trigger search spam penalties.`,
+      `Choose high-error correction (Level H) when generating custom QR codes if you intend to add branding logos in the middle.`,
+      `Our lorem-ipsum sliders generate the exact word count you need, preventing you from having to manually trim filler content.`,
+      `Use bulk UUID v4 generation to create unique tracking identifiers for database index columns with zero collision risk.`
+    ];
+  }
+}
+
+/**
+ * 8. Related Tools Generator (returns 3 unique companion tool IDs)
+ */
+export function getCustomRelatedTools(toolId: string, category: string): string[] {
+  // Return exactly 3 relevant tools, ensuring NO self-referencing!
+  if (toolId.includes('compressor')) {
+    return ["tools/image-to-pdf", "tools/qr-generator", "tools/meta-generator"];
+  } else if (toolId.includes('excel-to-pdf')) {
+    return ["tools/pdf-to-excel", "tools/pdf-merger", "tools/csv-formatter"];
+  } else if (toolId.includes('pdf-to-excel')) {
+    return ["tools/excel-to-pdf", "tools/pdf-splitter", "tools/csv-formatter"];
+  } else if (toolId.includes('image-to-pdf')) {
+    return ["tools/pdf-merger", "tools/pdf-splitter", "tools/image-compressor"];
+  } else if (toolId.includes('pdf-splitter')) {
+    return ["tools/pdf-merger", "tools/pdf-to-excel", "tools/document-builder"];
+  } else if (toolId.includes('pdf-merger')) {
+    return ["tools/pdf-splitter", "tools/image-to-pdf", "tools/document-builder"];
+  } else if (toolId.includes('readability')) {
+    return ["tools/grammar-checker", "tools/word-counter", "tools/sentence-counter"];
+  } else if (toolId.includes('grammar')) {
+    return ["tools/readability-checker", "tools/word-counter", "tools/character-counter"];
+  } else if (toolId.includes('word-counter')) {
+    return ["tools/sentence-counter", "tools/character-counter", "tools/keyword-density-checker"];
+  } else if (toolId.includes('sentence-counter')) {
+    return ["tools/word-counter", "tools/character-counter", "tools/readability-checker"];
+  } else if (toolId.includes('keyword-density')) {
+    return ["tools/word-counter", "tools/meta-generator", "tools/readability-checker"];
+  } else if (toolId.includes('character-counter')) {
+    return ["tools/word-counter", "tools/sentence-counter", "tools/meta-generator"];
+  } else if (toolId.includes('json-formatter')) {
+    return ["tools/json-minifier", "tools/typedef-converter", "tools/yaml-json-converter"];
+  } else if (toolId.includes('json-minifier')) {
+    return ["tools/json-formatter", "tools/typedef-converter", "tools/yaml-json-converter"];
+  } else if (toolId.includes('jwt-decoder')) {
+    return ["tools/base64-decoder", "tools/hash-generator", "tools/string-escaper"];
+  } else if (toolId.includes('regex')) {
+    return ["tools/typedef-converter", "tools/string-escaper", "tools/hash-generator"];
+  } else if (toolId.includes('yaml-json')) {
+    return ["tools/json-formatter", "tools/typedef-converter", "tools/json-xml-converter"];
+  } else if (toolId.includes('typedef')) {
+    return ["tools/json-formatter", "tools/yaml-json-converter", "tools/regex-tester"];
+  } else if (toolId.includes('qr-generator')) {
+    return ["tools/utm-builder", "tools/meta-generator", "tools/image-compressor"];
+  } else if (toolId.includes('utm-builder')) {
+    return ["tools/qr-generator", "tools/meta-generator", "tools/slug-generator"];
+  } else if (toolId.includes('meta-generator')) {
+    return ["tools/utm-builder", "tools/slug-generator", "tools/keyword-density-checker"];
+  } else if (toolId.includes('remove-line-breaks')) {
+    return ["tools/remove-extra-spaces", "tools/remove-empty-lines", "tools/paragraph-formatter"];
+  } else if (toolId.includes('remove-extra-spaces')) {
+    return ["tools/remove-line-breaks", "tools/remove-empty-lines", "tools/paragraph-formatter"];
+  } else if (toolId.includes('remove-duplicate-lines')) {
+    return ["tools/text-sorter", "tools/remove-empty-lines", "tools/list-randomizer"];
+  } else if (toolId.includes('remove-empty-lines')) {
+    return ["tools/remove-line-breaks", "tools/remove-extra-spaces", "tools/remove-duplicate-lines"];
+  } else if (toolId.includes('paragraph-formatter')) {
+    return ["tools/remove-line-breaks", "tools/remove-extra-spaces", "tools/bullet-point-generator"];
+  } else if (toolId.includes('remove-special-characters')) {
+    return ["tools/remove-emojis", "tools/remove-extra-spaces", "tools/text-sorter"];
+  } else if (toolId.includes('remove-emojis')) {
+    return ["tools/remove-special-characters", "tools/remove-extra-spaces", "tools/text-sorter"];
+  } else if (toolId.includes('text-sorter')) {
+    return ["tools/remove-duplicate-lines", "tools/list-randomizer", "tools/text-reverser"];
+  } else if (toolId.includes('text-reverser')) {
+    return ["tools/text-repeater", "tools/text-sorter", "tools/fancy-text-generator"];
+  } else if (toolId.includes('text-repeater')) {
+    return ["tools/text-reverser", "tools/fancy-text-generator", "tools/lorem-ipsum-generator"];
+  } else if (toolId.includes('fancy-text')) {
+    return ["tools/text-reverser", "tools/text-repeater", "tools/lorem-ipsum-generator"];
+  } else if (toolId.includes('lorem-ipsum')) {
+    return ["tools/random-text-generator", "tools/fancy-text-generator", "tools/document-builder"];
+  } else if (toolId.includes('random-text')) {
+    return ["tools/lorem-ipsum-generator", "tools/fancy-text-generator", "tools/document-builder"];
+  } else if (toolId.includes('case-converter')) {
+    return ["tools/slug-generator", "tools/bullet-point-generator", "tools/text-sorter"];
+  } else if (category === 'cleaner') {
+    return ["tools/remove-extra-spaces", "tools/remove-line-breaks", "tools/remove-duplicate-lines"];
+  } else if (category === 'converter') {
+    return ["tools/case-converter", "tools/slug-generator", "tools/bullet-point-generator"];
+  } else if (category === 'encoding') {
+    return ["tools/base64-encoder", "tools/base64-decoder", "tools/url-encoder"];
+  } else if (category === 'generator') {
+    return ["tools/qr-generator", "tools/uuid-generator", "tools/meta-generator"];
+  } else {
+    return ["tools/word-counter", "tools/case-converter", "tools/remove-extra-spaces"];
+  }
 }
 
 /**
