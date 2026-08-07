@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { safeLocalStorage } from '../utils/storage.ts';
 import { motion, AnimatePresence } from 'motion/react';
 import SEO from './SEO.tsx';
 import { 
@@ -51,7 +52,7 @@ export default function ContactView() {
   // Retrieve on-device ticket logs for security transparency
   const [savedTickets, setSavedTickets] = useState<any[]>(() => {
     try {
-      const stored = localStorage.getItem('texttoolkithub_support_tickets');
+      const stored = safeLocalStorage.getItem('texttoolkithub_support_tickets');
       return stored ? JSON.parse(stored) : [];
     } catch {
       return [];
@@ -95,7 +96,7 @@ export default function ContactView() {
 
     // Cooldown verification to prevent spam and duplicate submissions
     try {
-      const lastSubmission = localStorage.getItem('texttoolkithub_last_submit_time');
+      const lastSubmission = safeLocalStorage.getItem('texttoolkithub_last_submit_time');
       if (lastSubmission) {
         const timeElapsed = Date.now() - parseInt(lastSubmission, 10);
         const cooldownRemaining = Math.ceil((60000 - timeElapsed) / 1000);
@@ -164,7 +165,7 @@ export default function ContactView() {
       const ticketRef = resData.ticketId || `TK-${Math.floor(100000 + Math.random() * 900000)}`;
 
       // Record successful transmission timestamp for cooldown checks
-      localStorage.setItem('texttoolkithub_last_submit_time', Date.now().toString());
+      safeLocalStorage.setItem('texttoolkithub_last_submit_time', Date.now().toString());
 
       // Save ticket in local history logs
       const newTicket = {
@@ -175,7 +176,7 @@ export default function ContactView() {
       };
       const updatedTickets = [newTicket, ...savedTickets].slice(0, 10);
       setSavedTickets(updatedTickets);
-      localStorage.setItem('texttoolkithub_support_tickets', JSON.stringify(updatedTickets));
+      safeLocalStorage.setItem('texttoolkithub_support_tickets', JSON.stringify(updatedTickets));
 
       // Update submit screen state
       setGeneratedTicketId(ticketRef);
@@ -583,7 +584,7 @@ export default function ContactView() {
                       <span className="text-[10px] font-sans font-medium text-slate-500 dark:text-slate-400">Are you sure?</span>
                       <button
                         onClick={() => {
-                          localStorage.removeItem('texttoolkithub_support_tickets');
+                          safeLocalStorage.removeItem('texttoolkithub_support_tickets');
                           setSavedTickets([]);
                           setShowClearConfirm(false);
                         }}

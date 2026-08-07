@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <meta name="monetag" content="1eb114c64282bdd35ad48ff4aa109894">
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     
@@ -106,33 +107,50 @@
     }
     </script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFBEB3NYP"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      (function() {
+        var hostname = window.location.hostname;
+        var isProd = hostname === 'texttoolkithub.com' || hostname === 'www.texttoolkithub.com';
+        
+        if (isProd) {
+          // 1. Google Analytics (gtag.js)
+          var gtagScript = document.createElement('script');
+          gtagScript.async = true;
+          gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-3MFBEB3NYP';
+          document.head.appendChild(gtagScript);
+          
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function(){window.dataLayer.push(arguments);};
+          window.gtag('js', new Date());
+          window.gtag('config', 'G-3MFBEB3NYP');
 
-      gtag('config', 'G-3MFBEB3NYP');
-    </script>
+          // 2. Microsoft Clarity
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          })(window, document, "clarity", "script", "x1lt9sqxr6");
 
-    <!-- Microsoft Clarity Global Tracking Script -->
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "x1lt9sqxr6");
+          // 3. Google AdSense
+          var adsenseScript = document.createElement('script');
+          adsenseScript.async = true;
+          adsenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5005679225743658';
+          adsenseScript.crossOrigin = 'anonymous';
+          document.head.appendChild(adsenseScript);
+
+          // 4. Hostinger Reach Newsletter Embed
+          window.addEventListener('load', function() {
+            var hostingerScript = document.createElement('script');
+            hostingerScript.src = 'https://cdn-reach.hostinger.com/js/embed.js';
+            document.body.appendChild(hostingerScript);
+          });
+        }
+      })();
     </script>
-    <!-- Google AdSense Verification Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5005679225743658"
-     crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Hostinger Reach Newsletter Embed Script -->
-    <script src="https://cdn-reach.hostinger.com/js/embed.js"></script>
   </body>
 </html>
 

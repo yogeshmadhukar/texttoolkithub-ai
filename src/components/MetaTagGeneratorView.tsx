@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { safeLocalStorage } from '../utils/storage.ts';
 import { TOOLS } from '../data.ts';
 import { motion } from 'motion/react';
 import { 
@@ -85,7 +86,7 @@ const INITIAL_FORM: FormState = {
 
 export default function MetaTagGeneratorView({ onNavigateToTool, onNavigateHome }: MetaTagGeneratorViewProps) {
   const [form, setFormState] = useState<FormState>(() => {
-    const cached = localStorage.getItem('tth_meta_tag_form');
+    const cached = safeLocalStorage.getItem('tth_meta_tag_form');
     if (cached) {
       try {
         return JSON.parse(cached);
@@ -116,7 +117,7 @@ export default function MetaTagGeneratorView({ onNavigateToTool, onNavigateHome 
 
   // Sync state to localStorage
   useEffect(() => {
-    localStorage.setItem('tth_meta_tag_form', JSON.stringify(form));
+    safeLocalStorage.setItem('tth_meta_tag_form', JSON.stringify(form));
   }, [form]);
 
   // Handle syncing of OG and Twitter state when parent values update
@@ -147,7 +148,7 @@ export default function MetaTagGeneratorView({ onNavigateToTool, onNavigateHome 
   const handleReset = () => {
     if (window.confirm('Are you sure you want to restore the default values? All your progress will be cleared.')) {
       setFormState(INITIAL_FORM);
-      localStorage.removeItem('tth_meta_tag_form');
+      safeLocalStorage.removeItem('tth_meta_tag_form');
     }
   };
 

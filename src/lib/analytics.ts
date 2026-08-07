@@ -16,6 +16,8 @@ export const GA_MEASUREMENT_ID = (((import.meta as any).env)?.VITE_GA_MEASUREMEN
 
 
 // LocalStorage Consent key
+import { safeLocalStorage } from '../utils/storage.ts';
+
 const ANALYTICS_CONSENT_KEY = 'texttoolkithub-analytics-consent';
 
 export type ConsentStatus = 'granted' | 'denied' | 'pending';
@@ -26,7 +28,7 @@ export type ConsentStatus = 'granted' | 'denied' | 'pending';
  */
 export function getSavedConsentStatus(): ConsentStatus {
   try {
-    const saved = localStorage.getItem(ANALYTICS_CONSENT_KEY);
+    const saved = safeLocalStorage.getItem(ANALYTICS_CONSENT_KEY);
     if (saved === 'granted' || saved === 'denied') {
       return saved;
     }
@@ -41,7 +43,7 @@ export function getSavedConsentStatus(): ConsentStatus {
  */
 export function setAnalyticsConsent(consent: boolean) {
   try {
-    localStorage.setItem(ANALYTICS_CONSENT_KEY, consent ? 'granted' : 'denied');
+    safeLocalStorage.setItem(ANALYTICS_CONSENT_KEY, consent ? 'granted' : 'denied');
   } catch (e) {
     console.warn("[Analytics] Unable to save consent choice to storage:", e);
   }
@@ -62,6 +64,13 @@ export function setAnalyticsConsent(consent: boolean) {
  * Fully compatible with direct script loads inside index.html head.
  */
 export function initializeAnalytics() {
+  const hostname = window.location.hostname;
+  const isProd = hostname === 'texttoolkithub.com' || hostname === 'www.texttoolkithub.com';
+  if (!isProd) {
+    console.log("[Analytics] Skipping Google Analytics initialization in non-production/sandboxed environment.");
+    return;
+  }
+
   if (!GA_MEASUREMENT_ID) {
     console.log("[Analytics] VITE_GA_MEASUREMENT_ID not configured. Skipping GA4 initialization.");
     return;

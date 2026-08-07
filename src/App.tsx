@@ -3,6 +3,7 @@ import Navbar from './components/Navbar.tsx';
 import Footer from './components/Footer.tsx';
 import HomeView from './components/HomeView.tsx';
 import ToolWrapper from './components/ToolWrapper.tsx';
+import { safeLocalStorage, safeSessionStorage } from './utils/storage.ts';
 
 // Resilient dynamic lazy loader to handle stale chunck loads / module script errors in deployment
 const lazyWithRetry = <T extends React.ComponentType<any>>(
@@ -12,7 +13,7 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
     try {
       const module = await factory();
       // On successful import, clear recent reload flag so it has a fresh buffer next time
-      sessionStorage.removeItem('texttoolkithub_lazy_reload_occurred');
+      safeSessionStorage.removeItem('texttoolkithub_lazy_reload_occurred');
       return module;
     } catch (error: any) {
       const errorMsg = String(error?.message || error || '');
@@ -29,11 +30,11 @@ const lazyWithRetry = <T extends React.ComponentType<any>>(
         errorMsg.includes('is not a valid JavaScript');
 
       const hasReloadedKey = 'texttoolkithub_lazy_reload_occurred';
-      const lastReload = sessionStorage.getItem(hasReloadedKey);
+      const lastReload = safeSessionStorage.getItem(hasReloadedKey);
 
       if (!lastReload && isChunkLoadFailed) {
         console.warn("Transient dynamic import error detected (MIME/chunk load). Initiating self-healing cache bypass reload...", errorMsg);
-        sessionStorage.setItem(hasReloadedKey, 'true');
+        safeSessionStorage.setItem(hasReloadedKey, 'true');
         
         // Use cache-busting timestamp on reload to force browser to bypass edge caches
         const searchParams = new URLSearchParams(window.location.search);
@@ -490,7 +491,7 @@ function ViewLoadingSkeleton() {
 export default function App() {
   // Theme state: default checks localStorage, then falls back to Light Mode (false)
   const [darkMode, setDarkMode] = useState<boolean>(() => {
-    const cached = localStorage.getItem('theme-preference');
+    const cached = safeLocalStorage.getItem('theme-preference');
     if (cached) {
       return cached === 'dark';
     }
@@ -546,10 +547,10 @@ export default function App() {
     const root = document.documentElement;
     if (darkMode) {
       root.classList.add('dark');
-      localStorage.setItem('theme-preference', 'dark');
+      safeLocalStorage.setItem('theme-preference', 'dark');
     } else {
       root.classList.remove('dark');
-      localStorage.setItem('theme-preference', 'light');
+      safeLocalStorage.setItem('theme-preference', 'light');
     }
   }, [darkMode]);
 

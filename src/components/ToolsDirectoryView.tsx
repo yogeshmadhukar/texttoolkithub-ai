@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { safeLocalStorage } from '../utils/storage.ts';
 import { TOOLS, CATEGORIES, searchTools, FUNCTIONAL_CATEGORIES, getToolsForFunctionalCategory } from '../data.ts';
 import { Tool, ToolCategory, getCleanPath } from '../types.ts';
 import { motion, AnimatePresence } from 'motion/react';
@@ -199,7 +200,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
   // Load recently used tools from localStorage securely
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('recentlyUsedTools');
+      const stored = safeLocalStorage.getItem('recentlyUsedTools');
       if (stored) {
         setRecentlyUsed(JSON.parse(stored));
       } else {
@@ -239,7 +240,7 @@ export default function ToolsDirectoryView({ onNavigateToTool, onPrefetchTool }:
     try {
       let current = [toolId, ...recentlyUsed.filter(id => id !== toolId)].slice(0, 4);
       setRecentlyUsed(current);
-      localStorage.setItem('recentlyUsedTools', JSON.stringify(current));
+      safeLocalStorage.setItem('recentlyUsedTools', JSON.stringify(current));
     } catch (_) {}
   };
 

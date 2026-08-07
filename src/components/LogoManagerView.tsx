@@ -3,6 +3,7 @@ import { Upload, ArrowLeft, RefreshCw, Trash2, CheckCircle2, AlertCircle, FileIm
 import { logoConfig } from '../logo-config';
 import HubLogo from './HubLogo';
 import { isDevSession } from '../types';
+import { safeLocalStorage } from '../utils/storage.ts';
 
 interface LogoManagerViewProps {
   onNavigateHome: () => void;
@@ -17,14 +18,14 @@ export default function LogoManagerView({ onNavigateHome }: LogoManagerViewProps
   const [currentConfig, setCurrentConfig] = useState(logoConfig);
   const [dragOver, setDragOver] = useState<boolean>(false);
   const [useImgTag, setUseImgTag] = useState<boolean>(() => {
-    return localStorage.getItem('texttoolkithub_use_img_tag') === 'true';
+    return safeLocalStorage.getItem('texttoolkithub_use_img_tag') === 'true';
   });
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleToggleImgTag = (val: boolean) => {
     setUseImgTag(val);
-    localStorage.setItem('texttoolkithub_use_img_tag', val ? 'true' : 'false');
+    safeLocalStorage.setItem('texttoolkithub_use_img_tag', val ? 'true' : 'false');
     window.dispatchEvent(new Event('logo-updated'));
   };
 
@@ -110,7 +111,7 @@ export default function LogoManagerView({ onNavigateHome }: LogoManagerViewProps
 
     try {
       // 1. Store in localStorage first for absolute client-side reliability
-      localStorage.setItem('texttoolkithub_custom_logo', previewUrl);
+      safeLocalStorage.setItem('texttoolkithub_custom_logo', previewUrl);
       window.dispatchEvent(new Event('logo-updated'));
 
       // 2. Try saving to the backend filesystem if the development server is active
@@ -179,7 +180,7 @@ export default function LogoManagerView({ onNavigateHome }: LogoManagerViewProps
 
     try {
       // 1. Revert client-side state
-      localStorage.removeItem('texttoolkithub_custom_logo');
+      safeLocalStorage.removeItem('texttoolkithub_custom_logo');
       window.dispatchEvent(new Event('logo-updated'));
 
       // 2. Revert server state

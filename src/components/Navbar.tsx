@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { safeLocalStorage } from '../utils/storage.ts';
 import { TOOLS, searchTools } from '../data.ts';
 import { ActivePage, Tool, isDevSession, getCleanPath } from '../types.ts';
 import { motion } from 'motion/react';
@@ -226,7 +227,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
   // Load from localStorage on mount
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('texttoolkit_read_notifs');
+      const saved = safeLocalStorage.getItem('texttoolkit_read_notifs');
       if (saved) {
         setReadNotifIds(JSON.parse(saved));
       }
@@ -252,7 +253,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
     const allIds = updates.map(up => up.id);
     setReadNotifIds(allIds);
     try {
-      localStorage.setItem('texttoolkit_read_notifs', JSON.stringify(allIds));
+      safeLocalStorage.setItem('texttoolkit_read_notifs', JSON.stringify(allIds));
     } catch (err) {
       console.warn('LocalStorage save error:', err);
     }
@@ -268,7 +269,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
     }
     setReadNotifIds(updatedRead);
     try {
-      localStorage.setItem('texttoolkit_read_notifs', JSON.stringify(updatedRead));
+      safeLocalStorage.setItem('texttoolkit_read_notifs', JSON.stringify(updatedRead));
     } catch (err) {
       console.warn('LocalStorage save error:', err);
     }
@@ -279,7 +280,7 @@ export default function Navbar({ activePage, onNavigate, darkMode, onToggleDarkM
       const updatedRead = [...readNotifIds, update.id];
       setReadNotifIds(updatedRead);
       try {
-        localStorage.setItem('texttoolkit_read_notifs', JSON.stringify(updatedRead));
+        safeLocalStorage.setItem('texttoolkit_read_notifs', JSON.stringify(updatedRead));
       } catch (err) {
         console.warn('LocalStorage save error:', err);
       }

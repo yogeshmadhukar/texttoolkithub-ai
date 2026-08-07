@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { logoConfig } from '../logo-config';
+import { safeLocalStorage } from '../utils/storage.ts';
 
 interface HubLogoProps {
   className?: string;
@@ -18,7 +19,7 @@ export default function HubLogo({
 }: HubLogoProps) {
   const [customLogo, setCustomLogo] = useState<string>('');
   const [useImgTag, setUseImgTag] = useState<boolean>(() => {
-    return localStorage.getItem('texttoolkithub_use_img_tag') === 'true';
+    return safeLocalStorage.getItem('texttoolkithub_use_img_tag') === 'true';
   });
   
   // Create unique IDs to support multiple SVG instances in the DOM
@@ -32,7 +33,7 @@ export default function HubLogo({
 
   useEffect(() => {
     const checkLogo = () => {
-      const saved = localStorage.getItem('texttoolkithub_custom_logo');
+      const saved = safeLocalStorage.getItem('texttoolkithub_custom_logo');
       if (saved) {
         setCustomLogo(saved);
       } else if (logoConfig.hasCustomLogo && logoConfig.logoType !== 'svg') {
@@ -40,7 +41,7 @@ export default function HubLogo({
       } else {
         setCustomLogo('');
       }
-      setUseImgTag(localStorage.getItem('texttoolkithub_use_img_tag') === 'true');
+      setUseImgTag(safeLocalStorage.getItem('texttoolkithub_use_img_tag') === 'true');
     };
     checkLogo();
 
